@@ -1,83 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+// Fix for default marker icons in Leaflet
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
 
 const Map = () => {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
-  const [apiKey, setApiKey] = useState('');
-  const [isMapLoaded, setIsMapLoaded] = useState(false);
-
-  const initializeMap = (token: string) => {
-    if (!mapContainer.current || !token) return;
-
-    mapboxgl.accessToken = token;
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [-98.5795, 39.8283], // Center of USA
-      zoom: 4,
-    });
-
-    // Add marker for the business location
-    new mapboxgl.Marker({ color: '#A47551' })
-      .setLngLat([-98.5795, 39.8283])
-      .setPopup(new mapboxgl.Popup().setHTML('<h3 class="font-semibold">Organic Bloom</h3><p>123 Organic Way, Nature Valley</p>'))
-      .addTo(map.current);
-
-    // Add navigation controls
-    map.current.addControl(
-      new mapboxgl.NavigationControl(),
-      'top-right'
-    );
-
-    setIsMapLoaded(true);
-  };
-
-  const handleLoadMap = () => {
-    if (apiKey) {
-      initializeMap(apiKey);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      map.current?.remove();
-    };
-  }, []);
+  // Coordinates for Nature Valley (example location)
+  const position: [number, number] = [40.7128, -74.0060];
 
   return (
-    <div className="w-full">
-      {!isMapLoaded && (
-        <div className="mb-4 p-6 bg-card border border-border rounded-lg">
-          <p className="text-sm text-muted-foreground mb-3">
-            Enter your Mapbox public token to view the map. Get yours at{' '}
-            <a href="https://mapbox.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-              mapbox.com
-            </a>
-          </p>
-          <div className="flex gap-2">
-            <Input
-              type="text"
-              placeholder="Enter Mapbox API token"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              className="flex-1"
-            />
-            <Button onClick={handleLoadMap} className="bg-primary hover:bg-primary/90">
-              Load Map
-            </Button>
-          </div>
-        </div>
-      )}
-      <div 
-        ref={mapContainer} 
-        className="w-full h-[400px] rounded-lg shadow-lg"
-        style={{ display: isMapLoaded ? 'block' : 'none' }}
-      />
+    <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-lg">
+      <MapContainer
+        center={position}
+        zoom={13}
+        scrollWheelZoom={false}
+        className="w-full h-full"
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <Marker position={position}>
+          <Popup>
+            <div className="text-center">
+              <h3 className="font-heading font-semibold text-foreground">Organic Bloom</h3>
+              <p className="text-sm text-muted-foreground">123 Organic Way, Nature Valley, NV 12345</p>
+            </div>
+          </Popup>
+        </Marker>
+      </MapContainer>
     </div>
   );
 };
