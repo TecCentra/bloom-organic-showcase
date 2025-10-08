@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Leaf, Shield, Heart, Sparkles, ArrowRight } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -63,6 +64,34 @@ const Index = () => {
       description: "Nurture your digestive wellness with our range of organic products rich in natural probiotics and fiber for optimal gut balance.",
       image: categoryGutHealth,
     },
+  ];
+
+  const testimonials = [
+    {
+      name: "Jennifer Martinez",
+      role: "Wellness Enthusiast",
+      content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+      rating: 5,
+    },
+    {
+      name: "Robert Kim",
+      role: "Nutrition Coach",
+      content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
+      rating: 5,
+    },
+    {
+      name: "Amanda Foster",
+      role: "Busy Mom of Three",
+      content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+      rating: 5,
+    },
+  ];
+
+  const certifications = [
+    { name: "USDA Organic", description: "Certified organic standards" },
+    { name: "Non-GMO", description: "Verified non-GMO products" },
+    { name: "Gluten-Free", description: "Certified gluten-free options" },
+    { name: "Fair Trade", description: "Ethically sourced ingredients" },
   ];
 
   const benefits = [
@@ -191,6 +220,117 @@ const Index = () => {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+              What Our Customers Say
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Real experiences from people who've embraced organic living with us
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-card border border-border rounded-xl p-8 hover-lift animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <Quote className="w-10 h-10 text-primary/30 mb-4" />
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground mb-6 leading-relaxed">
+                  "{testimonial.content}"
+                </p>
+                <div>
+                  <p className="font-heading font-semibold text-foreground">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certifications Section */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
+          <div className="text-center mb-12 animate-fade-in">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+              Certified Excellence
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Our commitment to quality is backed by industry-leading certifications
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {certifications.map((cert, index) => (
+              <div
+                key={index}
+                className="text-center group animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+                  <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-1">
+                  {cert.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">{cert.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="container mx-auto px-4 py-20">
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+          </div>
+          
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+              Join Our Organic Community
+            </h2>
+            <p className="text-lg text-white/90 mb-8">
+              Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
+            </p>
+            
+            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
+                required
+              />
+              <Button 
+                type="submit" 
+                className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+              >
+                Subscribe
+              </Button>
+            </form>
+            
+            <p className="text-sm text-white/70 mt-4">
+              We respect your privacy. Unsubscribe anytime.
+            </p>
+          </div>
         </div>
       </section>
 
