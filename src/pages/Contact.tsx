@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, Facebook, Instagram, Twitter } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Map from "@/components/Map";
 import { toast } from "sonner";
 
 const Contact = () => {
@@ -191,6 +192,16 @@ const Contact = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="container mx-auto px-4 pb-20">
+        <div className="animate-fade-in">
+          <h2 className="text-3xl font-heading font-bold text-foreground mb-6 text-center">
+            Visit Our Location
+          </h2>
+          <Map />
         </div>
       </section>
 
