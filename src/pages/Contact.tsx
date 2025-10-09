@@ -30,7 +30,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Visit Us",
-      content: "123 Organic Way, Nature Valley, NV 12345",
+      content: "Beaver House, Basement B11, Opposite Club Eureka, Tom Mboya Street",
     },
     {
       icon: Phone,
