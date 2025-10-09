@@ -32,8 +32,8 @@ const Map = () => {
         <Marker position={position} icon={icon}>
           <Popup>
             <div className="text-center">
-              <h3 className="font-heading font-semibold text-foreground">Organic Bloom</h3>
-              <p className="text-sm text-muted-foreground">123 Organic Way, Nature Valley, NV 12345</p>
+              <h3 className="font-semibold">Organic Bloom</h3>
+              <p className="text-sm">123 Organic Way, Nature Valley, NV 12345</p>
             </div>
           </Popup>
         </Marker>
