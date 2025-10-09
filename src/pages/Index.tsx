@@ -18,48 +18,56 @@ import categoryGutHealth from "@/assets/category-guthealth.jpg";
 const Index = () => {
   const products = [
     {
+      id: "raw-organic-honey",
       name: "Raw Organic Honey",
       price: "Ksh24.99",
       image: productHoney,
       category: "Sweeteners",
     },
     {
+      id: "premium-green-tea",
       name: "Premium Green Tea",
       price: "Ksh18.99",
       image: productTea,
       category: "Beverages",
     },
     {
+      id: "artisan-granola-mix",
       name: "Artisan Granola Mix",
       price: "Ksh15.99",
       image: productGranola,
       category: "Breakfast",
     },
     {
+      id: "cold-pressed-olive-oil",
       name: "Cold-Pressed Olive Oil",
       price: "Ksh28.99",
       image: productOil,
       category: "Oils",
     },
     {
+      id: "raw-organic-honey",
       name: "Raw Organic Honey",
       price: "Ksh24.99",
       image: productHoney,
       category: "Sweeteners",
     },
     {
+      id: "premium-green-tea",
       name: "Premium Green Tea",
       price: "Ksh18.99",
       image: productTea,
       category: "Beverages",
     },
     {
+      id: "artisan-granola-mix",
       name: "Artisan Granola Mix",
       price: "Ksh15.99",
       image: productGranola,
       category: "Breakfast",
     },
     {
+      id: "cold-pressed-olive-oil",
       name: "Cold-Pressed Olive Oil",
       price: "Ksh28.99",
       image: productOil,

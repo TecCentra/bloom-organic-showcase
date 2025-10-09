@@ -1,15 +1,34 @@
 import { ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+
+
 
 interface ProductCardProps {
   name: string;
   price: string;
   image: string;
   category: string;
+  id: string;
 }
 
-const ProductCard = ({ name, price, image, category }: ProductCardProps) => {
+
+const ProductCard = ({ name, price, image, category, id }: ProductCardProps) => {
+  const navigate = useNavigate();
+
+  // Convert product name to URL-friendly slug
+  const getProductSlug = (name: string) => {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  };
+
+  const handleClick = () => {
+    navigate(`/product/${getProductSlug(name)}`);
+  };
   return (
-    <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer">
+    <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer"
+     onClick={handleClick} 
+    >
       <div className="relative overflow-hidden aspect-square">
         <img
           src={image}
