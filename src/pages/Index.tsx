@@ -19,25 +19,49 @@ const Index = () => {
   const products = [
     {
       name: "Raw Organic Honey",
-      price: "$24.99",
+      price: "Ksh24.99",
       image: productHoney,
       category: "Sweeteners",
     },
     {
       name: "Premium Green Tea",
-      price: "$18.99",
+      price: "Ksh18.99",
       image: productTea,
       category: "Beverages",
     },
     {
       name: "Artisan Granola Mix",
-      price: "$15.99",
+      price: "Ksh15.99",
       image: productGranola,
       category: "Breakfast",
     },
     {
       name: "Cold-Pressed Olive Oil",
-      price: "$28.99",
+      price: "Ksh28.99",
+      image: productOil,
+      category: "Oils",
+    },
+    {
+      name: "Raw Organic Honey",
+      price: "Ksh24.99",
+      image: productHoney,
+      category: "Sweeteners",
+    },
+    {
+      name: "Premium Green Tea",
+      price: "Ksh18.99",
+      image: productTea,
+      category: "Beverages",
+    },
+    {
+      name: "Artisan Granola Mix",
+      price: "Ksh15.99",
+      image: productGranola,
+      category: "Breakfast",
+    },
+    {
+      name: "Cold-Pressed Olive Oil",
+      price: "Ksh28.99",
       image: productOil,
       category: "Oils",
     },
@@ -122,7 +146,7 @@ const Index = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative h-[600px] md:h-[700px] overflow-hidden">
+      <section className="relative h-[800px] md:h-[920px] overflow-hidden">
         <div className="absolute inset-0">
           <img
             src={heroImage}
