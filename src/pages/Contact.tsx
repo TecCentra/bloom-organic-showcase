@@ -35,12 +35,12 @@ const Contact = () => {
     {
       icon: Phone,
       title: "Call Us",
-      content: "+254 115 523500",
+      content: "+254704086080",
     },
     {
       icon: Mail,
       title: "Email Us",
-      content: "hello@organicbloom.com",
+      content: "purebloomhavenke@gmail.com",
     },
   ];
 
