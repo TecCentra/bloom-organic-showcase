@@ -149,6 +149,13 @@ const Index = () => {
     },
   ];
 
+  // Utility to chunk an array into rows
+  const chunk = <T,>(arr: T[], size: number): T[][] => {
+    const rows: T[][] = [];
+    for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+    return rows;
+  };
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -161,11 +168,20 @@ const Index = () => {
             alt="Organic products in natural setting"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-foreground/70 to-foreground/30"></div>
+          {/* Soft overlay across hero */}
+          <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
+          {/* Directional light overlay similar to provided design */}
+          <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
+          {/* Subtle vignette to focus center */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
+          {/* Bottom shadowy fade (retain intensity) */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
+          {/* Hairline cover to remove any visible bottom frame */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
         </div>
         
         <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl text-white animate-fade-in">
+          <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
               Nurture Life, Naturally
             </h1>
@@ -194,10 +210,59 @@ const Index = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-          {products.map((product, index) => (
-            <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-              <ProductCard {...product} />
+        {/* Mobile: 2 per row with left-aligned header/description per row */}
+        <div className="md:hidden space-y-8">
+          {chunk(products, 2).map((row, rIdx) => (
+            <div key={`m-${rIdx}`} className="space-y-3">
+              <div className="text-left">
+                <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
+                <p className="text-sm text-muted-foreground">Curated picks crafted for wholesome living.</p>
+              </div>
+              <div className="grid grid-cols-2 gap-6">
+                {row.map((p, i) => (
+                  <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
+                    <ProductCard {...p} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tablet: 3 per row */}
+        <div className="hidden md:block lg:hidden space-y-10">
+          {chunk(products, 3).map((row, rIdx) => (
+            <div key={`t-${rIdx}`} className="space-y-4">
+              <div className="text-left">
+                <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
+                <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
+              </div>
+              <div className="grid grid-cols-3 gap-8">
+                {row.map((p, i) => (
+                  <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
+                    <ProductCard {...p} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: 4 per row */}
+        <div className="hidden lg:block space-y-12">
+          {chunk(products, 4).map((row, rIdx) => (
+            <div key={`d-${rIdx}`} className="space-y-5">
+              <div className="text-left">
+                <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
+                <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
+              </div>
+              <div className="grid grid-cols-4 gap-9">
+                {row.map((p, i) => (
+                  <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
+                    <ProductCard {...p} />
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>

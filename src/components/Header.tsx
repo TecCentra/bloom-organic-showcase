@@ -27,21 +27,32 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`relative font-body font-medium transition-colors duration-300 ${
-                  isActive(link.path)
-                    ? "text-primary"
-                    : "text-foreground hover:text-primary"
-                } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                  isActive(link.path) ? "after:scale-x-100" : ""
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isContact = link.name === "Contact Us";
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={
+                    isContact
+                      ? `px-4 py-2 rounded-xl border ${
+                          isActive(link.path)
+                            ? "border-primary text-primary"
+                            : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
+                        } transition-colors font-body font-medium`
+                      : `relative font-body font-medium transition-colors duration-300 ${
+                          isActive(link.path)
+                            ? "text-primary"
+                            : "text-foreground hover:text-primary"
+                        } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                          isActive(link.path) ? "after:scale-x-100" : ""
+                        }`
+                  }
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Mobile Menu Button */}
@@ -57,20 +68,31 @@ const Header = () => {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 py-4 border-t border-border animate-fade-in">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block py-2 font-body font-medium transition-colors duration-300 ${
-                  isActive(link.path)
-                    ? "text-primary"
-                    : "text-foreground hover:text-primary"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isContact = link.name === "Contact Us";
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={
+                    isContact
+                      ? `block w-full text-center mt-2 px-4 py-2 rounded-xl border ${
+                          isActive(link.path)
+                            ? "border-primary text-primary"
+                            : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
+                        } transition-colors font-body font-medium`
+                      : `block py-2 font-body font-medium transition-colors duration-300 ${
+                          isActive(link.path)
+                            ? "text-primary"
+                            : "text-foreground hover:text-primary"
+                        }`
+                  }
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </div>
         )}
       </nav>
