@@ -51,6 +51,8 @@ const ProductCard = ({ name, price, image, category, id }: ProductCardProps) => 
         </h3>
         <p className="text-xl font-semibold text-primary">{price}</p>
       </div>
+      {/* Animated underline on hover - spans full bottom inside rounded corners */}
+      <div className="absolute left-0 right-0 bottom-0 h-[4px] bg-gradient-to-r from-primary via-amber-400 to-primary scale-x-0 origin-left transition-transform duration-500 ease-in-out group-hover:scale-x-100 will-change-transform"></div>
     </div>
   );
 };
