@@ -8,7 +8,6 @@ const Header = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Our Team", path: "/team" },
     { name: "Contact Us", path: "/contact" },
   ];
 

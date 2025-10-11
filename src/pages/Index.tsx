@@ -6,21 +6,21 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
 import heroImage from "@/assets/hero-organic.jpg";
-import productHoney from "@/assets/product-honey.jpg";
+import productHoney from "@/assets/org.jpg";
 import productTea from "@/assets/product-tea.jpg";
-import productGranola from "@/assets/product-granola.jpg";
+import productGranola from "@/assets/organic.jpg";
 import productOil from "@/assets/product-oil.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
-import categoryWeightLoss from "@/assets/category-weightloss.jpg";
+import categoryWeightLoss from "@/assets/organic.jpg";
 import categoryCleansers from "@/assets/category-cleansers.jpg";
-import categoryGutHealth from "@/assets/category-guthealth.jpg";
+import categoryGutHealth from "@/assets/org.jpg";
 
 const Index = () => {
   const products = [
     {
       id: "raw-organic-honey",
       name: "Raw Organic Honey",
-      price: "Ksh24.99",
+      price: "Ksh 3500",
       image: productHoney,
       category: "Sweeteners",
     },
@@ -34,7 +34,7 @@ const Index = () => {
     {
       id: "artisan-granola-mix",
       name: "Artisan Granola Mix",
-      price: "Ksh15.99",
+      price: "Ksh 2700",
       image: productGranola,
       category: "Breakfast",
     },
