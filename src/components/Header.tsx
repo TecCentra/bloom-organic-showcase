@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ShoppingBag } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Logo from "@/assets/logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,8 +18,12 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
-            <ShoppingBag className="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <img 
+              src={Logo} 
+              alt="Organic Bloom Logo" 
+              className="w-10 h-10 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+            />
             <span className="text-2xl font-heading font-semibold text-foreground">
               Organic Bloom
             </span>
