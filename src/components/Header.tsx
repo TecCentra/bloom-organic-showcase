@@ -23,10 +23,10 @@ const Header = () => {
             <img 
               src={Logo} 
               alt="Organic Bloom Logo" 
-              className="w-10 h-10 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+              className="w-20 h-20 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
             <span className="text-2xl font-heading font-semibold text-foreground">
-              Organic Bloom
+              Organic<br/>Bloom
             </span>
           </Link>
 
