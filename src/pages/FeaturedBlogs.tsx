@@ -1,9 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import organicImage from "@/assets/organic.jpg";
 
 const FeaturedBlogs = () => {
+  const navigate = useNavigate();
+  
   const blogs = [
     {
       id: "organic-gardening-tips",
@@ -68,8 +72,14 @@ const FeaturedBlogs = () => {
       {/* Hero Section */}
       <section className="relative h-[600px] overflow-hidden">
         <div className="absolute inset-0">
-          {/* Organic gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/30 to-primary/10"></div>
+          {/* Background image */}
+          <img
+            src={organicImage}
+            alt="Organic products and fresh vegetables"
+            className="w-full h-full object-cover"
+          />
+          {/* Organic gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-secondary/30 to-primary/20"></div>
           {/* Subtle pattern overlay */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-20 left-20 w-32 h-32 rounded-full bg-primary/30 blur-3xl"></div>
@@ -78,11 +88,11 @@ const FeaturedBlogs = () => {
         </div>
         
         <div className="relative container mx-auto px-4 h-full flex items-center justify-center">
-          <div className="text-center text-foreground">
-            <h1 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight">
+          <div className="text-center text-white">
+            <h1 className="text-6xl md:text-7xl font-heading font-bold mb-6 tracking-tight drop-shadow-lg">
               FEATURED BLOGS
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-white/90 max-w-2xl mx-auto drop-shadow-md">
               Insights, trends, and expert knowledge from the world of organic living and wellness
             </p>
           </div>
@@ -159,6 +169,7 @@ const FeaturedBlogs = () => {
                   {/* Read More Button */}
                   <Button
                     variant="outline"
+                    onClick={() => navigate(`/blog/${blog.id}`)}
                     className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 group/btn"
                   >
                     <span className="relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 group-hover/btn:after:scale-x-100 group-hover/btn:after:origin-bottom-left">
