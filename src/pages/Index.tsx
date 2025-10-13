@@ -77,23 +77,33 @@ const Index = () => {
 
   const categories = [
     {
-      title: "Herbs",
-      description: "Discover our curated selection of organic herbs, grown naturally to enhance your wellness journey with pure botanical goodness.",
+      title: "Weight Management Products",
+      description: "Flat tummy, upper body fat, full weight loss packages.",
       image: categoryHerbs,
     },
+    // {
+    //   title: "Weight Loss",
+    //   description: "Support your health goals with our carefully selected organic products designed to naturally complement your balanced lifestyle.",
+    //   image: categoryWeightLoss,
+    // },
     {
-      title: "Weight Loss",
-      description: "Support your health goals with our carefully selected organic products designed to naturally complement your balanced lifestyle.",
-      image: categoryWeightLoss,
-    },
-    {
-      title: "Cleansers",
-      description: "Purify naturally with our organic cleansing products, formulated with gentle botanicals for radiant, healthy skin.",
+      title: "Yoni & Female Fertility Care",
+      description: "Steam herbs, washes, tightening pearls & more.",
       image: categoryCleansers,
     },
     {
-      title: "Gut Health",
-      description: "Nurture your digestive wellness with our range of organic products rich in natural probiotics and fiber for optimal gut balance.",
+      title: "Men's Boosters & Fertility Support",
+      description: "Stamina, libido, and reproductive health.",
+      image: categoryGutHealth,
+    },
+    {
+      title: "Natural Skin Care",
+      description: "Healing soaps, oils, scrubs, and glow enhancers.",
+      image: categoryGutHealth,
+    },
+    {
+      title: "Nutritional Supplements",
+      description: "Essential micro & macro nutrients.",
       image: categoryGutHealth,
     },
   ];
@@ -252,10 +262,10 @@ const Index = () => {
         <div className="hidden lg:block space-y-12">
           {chunk(products, 4).map((row, rIdx) => (
             <div key={`d-${rIdx}`} className="space-y-5">
-              <div className="text-left">
+              {/* <div className="text-left">
                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
-              </div>
+              </div> */}
               <div className="grid grid-cols-4 gap-9">
                 {row.map((p, i) => (
                   <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
