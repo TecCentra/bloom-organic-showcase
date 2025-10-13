@@ -96,9 +96,19 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-
         <div className="pt-8 border-t border-border text-center text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Organic Bloom. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Organic Bloom. All rights reserved. |{' '}
+            Powered By{' '}
+            <a
+              href="https://www.tecsentra.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline font-medium"
+            >
+              TECSENTRA
+            </a>
+          </p>
         </div>
       </div>
     </footer>
