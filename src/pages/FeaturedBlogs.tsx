@@ -108,7 +108,7 @@ const FeaturedBlogs = () => {
                 OUR MISSION
               </h2>
               <p className="text-2xl md:text-3xl font-heading font-medium text-foreground italic leading-relaxed">
-                "Bridging the gap between consumers and organic living."
+                "Inspire natural wellness and sustainable living through pure, organic products that nurture balance, enhance vitality, and celebrate the beauty of a healthy lifestyle."
               </p>
             </div>
           </div>
