@@ -427,8 +427,8 @@
 // };
 
 // export default ProductDetail;
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useMemo } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
@@ -438,11 +438,12 @@ import productHoney from "@/assets/product-honey.jpg";
 import productTea from "@/assets/product-tea.jpg";
 import productGranola from "@/assets/product-granola.jpg";
 import productOil from "@/assets/product-oil.jpg";
+import { productsData } from "@/lib/products";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/components/ui/use-toast";
 
 // Product database
-const productsData = {
+const productsDataLocal = {
   "raw-organic-honey": {
     name: "Raw Organic Honey",
     price: 2499,
@@ -559,13 +560,26 @@ const productsData = {
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
   const { addItem } = useCart();
   const { toast } = useToast();
 
-  const product = productsData[id];
+  const product = (productsData as any)[id] || (productsDataLocal as any)[id];
+  const initialImageFromState = (location.state as any)?.image as string | undefined;
+
+  const displayImages = useMemo(() => {
+    if (!product) return [] as string[];
+    const base = (product.images || []).filter(Boolean);
+    // If navigated from homepage with a chosen image, replicate that image across up to 4 slots
+    if (initialImageFromState) {
+      return Array(4).fill(initialImageFromState) as string[];
+    }
+    // Otherwise, show up to first 4 available product images
+    return base.slice(0, 4);
+  }, [product, initialImageFromState]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -595,7 +609,8 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     if (!id || !product) return;
-    addItem({ id, name: product.name, price: product.price, image: product.images?.[0] }, quantity);
+    const imageForCart = displayImages[selectedImage] || product.images?.[0];
+    addItem({ id, name: product.name, price: product.price, image: imageForCart }, quantity);
     toast({ title: "Added to cart", description: `${product.name} x${quantity} added.` });
   };
 
@@ -631,7 +646,7 @@ const ProductDetail = () => {
           <div className="space-y-4">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-secondary/30 border border-border">
               <img
-                src={product.images[selectedImage]}
+                src={displayImages[selectedImage]}
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
@@ -643,7 +658,7 @@ const ProductDetail = () => {
             </div>
             
             <div className="grid grid-cols-4 gap-3">
-              {product.images.map((image, index) => (
+              {displayImages.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
