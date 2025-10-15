@@ -9,8 +9,15 @@ import CategoryCard from "@/components/CategoryCard";
 import heroImage from "@/assets/hero-organic.jpg";
 import productHoney from "@/assets/org.jpg";
 import productTea from "@/assets/product-tea.jpg";
+import productWeightGain from "@/assets/weight gain .jpg";
 import productGranola from "@/assets/organic.jpg";
 import productOil from "@/assets/product-oil.jpg";
+import arguajePowder from "@/assets/arguaje-powder.jpg";
+import buttImg from "@/assets/butt.jpg";
+import butTeaImg from "@/assets/buttea.jpg";
+import extremeCurveImg from "@/assets/extreme curve.jpg";
+import fenugreekImg from "@/assets/fenugreek.jpg";
+import macaImg from "@/assets/maca.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
 import categoryWeightLoss from "@/assets/organic.jpg";
 import categoryCleansers from "@/assets/category-cleansers.jpg";
@@ -21,14 +28,14 @@ const Index = () => {
   const featuredPairs: { id: keyof typeof productsData; image: string }[] = [
     // Row 1
     { id: "raw-organic-honey", image: productHoney }, // org.jpg
-    { id: "premium-green-tea", image: productTea },
+    { id: "creatine-monohydrate-gummies", image: productWeightGain },
     { id: "artisan-granola-mix", image: productGranola }, // organic.jpg
-    { id: "cold-pressed-olive-oil", image: productOil },
+    { id: "arguaje-powder", image: arguajePowder },
     // Row 2 (same as previous design)
-    { id: "raw-organic-honey", image: productHoney },
-    { id: "premium-green-tea", image: productTea },
-    { id: "artisan-granola-mix", image: productGranola },
-    { id: "cold-pressed-olive-oil", image: productOil },
+    { id: "natural-hip-up", image: buttImg },
+    { id: "big-but-tea", image: butTeaImg },
+    { id: "extreme-curve", image: extremeCurveImg },
+    { id: "fenugreek-powder", image: fenugreekImg },
   ];
 
   const featuredProducts = featuredPairs.map((fp) => {

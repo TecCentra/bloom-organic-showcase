@@ -2,6 +2,13 @@ import productHoney from "@/assets/product-honey.jpg";
 import productTea from "@/assets/product-tea.jpg";
 import productGranola from "@/assets/product-granola.jpg";
 import productOil from "@/assets/product-oil.jpg";
+import weightGainImg from "@/assets/weight gain .jpg";
+import arguajePowderImg from "@/assets/arguaje-powder.jpg";
+import buttImg from "@/assets/butt.jpg";
+import butTeaImg from "@/assets/buttea.jpg";
+import extremeCurveImg from "@/assets/extreme curve.jpg";
+import fenugreekImg from "@/assets/fenugreek.jpg";
+import macaImg from "@/assets/maca.jpg";
 
 export type ProductRecord = {
   id: string; // slug id
@@ -62,6 +69,24 @@ export const productsData: Record<string, ProductRecord> = {
     certifications: [],
     usage: []
   },
+  "creatine-monohydrate-gummies": {
+    id: "creatine-monohydrate-gummies",
+    name: "Creatine Monohydrate Gummies",
+    price: 189700, // Ksh 1897.00
+    originalPrice: 219900,
+    rating: 4.7,
+    reviews: 64,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [weightGainImg, weightGainImg, weightGainImg, weightGainImg],
+    shortDescription: "Support healthy weight gain with the power of nature.",
+    description: "Grow Strong, the Natural Way — Pure Weight Gainer. Pure Weight Gainer combines wholesome proteins, slow-release carbohydrates, and essential nutrients from natural sources — no artificial additives, no shortcuts. Fuel your body for steady, balanced growth, increased energy, and real strength — just the way nature intended. Pure Ingredients. Real Results. Natural Power.",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
   "artisan-granola-mix": {
     id: "artisan-granola-mix",
     name: "Artisan Granola Mix",
@@ -92,6 +117,114 @@ export const productsData: Record<string, ProductRecord> = {
     images: [productOil, productOil, productOil, productOil],
     shortDescription: "Extra virgin olive oil from organic Mediterranean olives, cold-pressed for maximum flavor and nutrients.",
     description: "Our Cold-Pressed Olive Oil is extracted from hand-harvested organic olives.",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
+  "arguaje-powder": {
+    id: "arguaje-powder",
+    name: "Arguaje Powder",
+    price: 189900,
+    originalPrice: 219900,
+    rating: 4.6,
+    reviews: 41,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [arguajePowderImg, arguajePowderImg, arguajePowderImg, arguajePowderImg],
+    shortDescription: "Get the Curves You Desire! ✨",
+    description: "Boost your confidence with our Hips & Butt Enhancement Supplements—specially formulated to help you achieve fuller, rounder, and more sculpted curves naturally! Enhances & Lifts Naturally. Supports Firmness & Growth. Packed with Nutrients for Maximum Results. Your dream body is just a supplement away! 💖 Try it now and feel the difference! #CurvesThatTurnHeads #NaturalEnhancement #GlowWithConfidence",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
+  "natural-hip-up": {
+    id: "natural-hip-up",
+    name: "Natural HIp Up",
+    price: 189900,
+    originalPrice: 219900,
+    rating: 4.6,
+    reviews: 35,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [buttImg, buttImg, buttImg, buttImg],
+    shortDescription: "Get the Curves You Desire! ✨",
+    description: "Boost your confidence with our Hips & Butt Enhancement Supplements—specially formulated to help you achieve fuller, rounder, and more sculpted curves naturally! Enhances & Lifts Naturally. Supports Firmness & Growth. Packed with Nutrients for Maximum Results. Your dream body is just a supplement away! 💖 Try it now and feel the difference! #CurvesThatTurnHeads #NaturalEnhancement #GlowWithConfidence",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
+  "big-but-tea": {
+    id: "big-but-tea",
+    name: "Big But Tea",
+    price: 189900,
+    originalPrice: 219900,
+    rating: 4.5,
+    reviews: 29,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [butTeaImg, butTeaImg, butTeaImg, butTeaImg],
+    shortDescription: "Get the Curves You Desire! ✨",
+    description: "Boost your confidence with our Hips & Butt Enhancement Supplements—specially formulated to help you achieve fuller, rounder, and more sculpted curves naturally! Enhances & Lifts Naturally. Supports Firmness & Growth. Packed with Nutrients for Maximum Results. Your dream body is just a supplement away! 💖 Try it now and feel the difference! #CurvesThatTurnHeads #NaturalEnhancement #GlowWithConfidence",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
+  "extreme-curve": {
+    id: "extreme-curve",
+    name: "Extreme curve",
+    price: 189900,
+    originalPrice: 219900,
+    rating: 4.5,
+    reviews: 32,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [extremeCurveImg, extremeCurveImg, extremeCurveImg, extremeCurveImg],
+    shortDescription: "Get the Curves You Desire! ✨",
+    description: "Boost your confidence with our Hips & Butt Enhancement Supplements—specially formulated to help you achieve fuller, rounder, and more sculpted curves naturally! Enhances & Lifts Naturally. Supports Firmness & Growth. Packed with Nutrients for Maximum Results. Your dream body is just a supplement away! 💖 Try it now and feel the difference! #CurvesThatTurnHeads #NaturalEnhancement #GlowWithConfidence",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
+  "fenugreek-powder": {
+    id: "fenugreek-powder",
+    name: "Fenugreek powder",
+    price: 189900,
+    originalPrice: 219900,
+    rating: 4.5,
+    reviews: 27,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [fenugreekImg, fenugreekImg, fenugreekImg, fenugreekImg],
+    shortDescription: "Get the Curves You Desire! ✨",
+    description: "Boost your confidence with our Hips & Butt Enhancement Supplements—specially formulated to help you achieve fuller, rounder, and more sculpted curves naturally! Enhances & Lifts Naturally. Supports Firmness & Growth. Packed with Nutrients for Maximum Results. Your dream body is just a supplement away! 💖 Try it now and feel the difference! #CurvesThatTurnHeads #NaturalEnhancement #GlowWithConfidence",
+    advantages: [],
+    benefits: [],
+    nutritionInfo: [],
+    certifications: [],
+    usage: []
+  },
+  "curve-maca": {
+    id: "curve-maca",
+    name: "curve maca",
+    price: 189900,
+    originalPrice: 219900,
+    rating: 4.5,
+    reviews: 22,
+    category: "Weight Gain Products",
+    inStock: true,
+    images: [macaImg, macaImg, macaImg, macaImg],
+    shortDescription: "Get the Curves You Desire! ✨",
+    description: "Boost your confidence with our Hips & Butt Enhancement Supplements—specially formulated to help you achieve fuller, rounder, and more sculpted curves naturally! Enhances & Lifts Naturally. Supports Firmness & Growth. Packed with Nutrients for Maximum Results. Your dream body is just a supplement away! 💖 Try it now and feel the difference! #CurvesThatTurnHeads #NaturalEnhancement #GlowWithConfidence",
     advantages: [],
     benefits: [],
     nutritionInfo: [],

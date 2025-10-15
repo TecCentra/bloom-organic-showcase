@@ -186,19 +186,21 @@ const Header = () => {
                     onMouseEnter={() => setIsProductsOpen(true)}
                     onMouseLeave={() => setIsProductsOpen(false)}
                   >
-                    <Link
-                      to={link.path}
+                    <button
+                      type="button"
                       className={`relative font-body font-medium transition-colors duration-300 flex items-center gap-1 ${
-                        isActive(link.path) || location.pathname.startsWith("/products")
+                        location.pathname.startsWith("/products")
                           ? "text-primary"
                           : "text-foreground hover:text-primary"
                       } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                        isActive(link.path) || location.pathname.startsWith("/products") ? "after:scale-x-100" : ""
+                        location.pathname.startsWith("/products") ? "after:scale-x-100" : ""
                       }`}
+                      aria-haspopup="menu"
+                      onClick={() => setIsProductsOpen((v) => !v)}
                     >
                       {link.name}
                       <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
-                    </Link>
+                    </button>
                     
                     {isProductsOpen && (
                       <div className="absolute top-full left-0 mt-2 w-80 bg-background border border-border rounded-xl shadow-lg overflow-hidden animate-fade-in">
@@ -206,6 +208,7 @@ const Header = () => {
                           <Link
                             key={category.path}
                             to={category.path}
+                            onClick={(e) => { e.stopPropagation(); setIsProductsOpen(false); }}
                             className="block px-6 py-4 hover:bg-primary/5 transition-colors border-b border-border last:border-b-0"
                           >
                             <div className="font-body font-semibold text-foreground mb-1">
