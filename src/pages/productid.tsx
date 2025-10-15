@@ -445,7 +445,7 @@ import { useToast } from "@/components/ui/use-toast";
 // Product database
 const productsDataLocal = {
   "raw-organic-honey": {
-    name: "Raw Organic Honey",
+    name: "Himalayan Weight Loss package",
     price: 2499,
     originalPrice: 3299,
     rating: 4.8,
@@ -501,7 +501,7 @@ const productsDataLocal = {
     usage: ["Steep in 175°F water for 2-3 minutes", "Enjoy hot or iced", "Add honey or lemon for flavor", "Perfect morning or afternoon beverage", "Use cooled tea for facial toner"]
   },
   "artisan-granola-mix": {
-    name: "Artisan Granola Mix",
+    name: "Himalayn weight loss package",
     price: 1599,
     originalPrice: 1999,
     rating: 4.9,
