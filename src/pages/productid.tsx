@@ -438,6 +438,8 @@ import productHoney from "@/assets/product-honey.jpg";
 import productTea from "@/assets/product-tea.jpg";
 import productGranola from "@/assets/product-granola.jpg";
 import productOil from "@/assets/product-oil.jpg";
+import { useCart } from "@/context/CartContext";
+import { useToast } from "@/components/ui/use-toast";
 
 // Product database
 const productsData = {
@@ -560,6 +562,8 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const { addItem } = useCart();
+  const { toast } = useToast();
 
   const product = productsData[id];
 
@@ -590,9 +594,9 @@ const ProductDetail = () => {
   };
 
   const handleAddToCart = () => {
-    // TODO: Implement actual cart logic (e.g., using Context, Redux, or localStorage)
-    // For now, just navigate to cart
-    navigate('/cart');
+    if (!id || !product) return;
+    addItem({ id, name: product.name, price: product.price, image: product.images?.[0] }, quantity);
+    toast({ title: "Added to cart", description: `${product.name} x${quantity} added.` });
   };
 
   return (
@@ -721,6 +725,7 @@ const ProductDetail = () => {
                   onClick={() => handleQuantityChange("decrease")}
                   className="p-3 hover:bg-secondary transition-colors"
                   disabled={quantity <= 1}
+                  aria-label="Decrease quantity"
                 >
                   <Minus className="w-4 h-4" />
                 </button>
@@ -728,6 +733,7 @@ const ProductDetail = () => {
                 <button
                   onClick={() => handleQuantityChange("increase")}
                   className="p-3 hover:bg-secondary transition-colors"
+                  aria-label="Increase quantity"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
