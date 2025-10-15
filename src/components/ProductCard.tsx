@@ -17,13 +17,8 @@ interface ProductCardProps {
 const ProductCard = ({ name, price, image, category, id }: ProductCardProps) => {
   const navigate = useNavigate();
 
-  // Convert product name to URL-friendly slug
-  const getProductSlug = (name: string) => {
-    return name.toLowerCase().replace(/\s+/g, '-');
-  };
-
   const handleClick = () => {
-    navigate(`/product/${getProductSlug(name)}`);
+    navigate(`/product/${id}`, { state: { image } });
   };
   return (
     <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer"
