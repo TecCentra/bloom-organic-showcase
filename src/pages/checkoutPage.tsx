@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -22,24 +22,10 @@ import {
 import Header from "@/components/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
+import { useCart } from "@/context/CartContext";
 
 const CheckoutPage = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: "Raw Organic Honey",
-      price: 2499,
-      quantity: 2,
-      image: "/api/placeholder/100/100"
-    },
-    {
-      id: 2,
-      name: "Premium Green Tea",
-      price: 1899,
-      quantity: 1,
-      image: "/api/placeholder/100/100"
-    }
-  ]);
+  const { items: cartItems, updateQuantity, removeItem } = useCart();
 
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [mpesaNumber, setMpesaNumber] = useState("");
@@ -55,27 +41,19 @@ const CheckoutPage = () => {
     county: ""
   });
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = useMemo(() => cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0), [cartItems]);
   const shipping = subtotal > 5000 ? 0 : 350;
   const total = subtotal + shipping;
   const navigate = useNavigate();
 
   const handleQuantityChange = (id, action) => {
-    setCartItems(prev => prev.map(item => {
-      if (item.id === id) {
-        if (action === "increase") {
-          return { ...item, quantity: item.quantity + 1 };
-        } else if (action === "decrease" && item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-      }
-      return item;
-    }));
+    const target = cartItems.find(i => i.id === id);
+    if (!target) return;
+    if (action === "increase") updateQuantity(id, target.quantity + 1);
+    if (action === "decrease" && target.quantity > 1) updateQuantity(id, target.quantity - 1);
   };
 
-  const handleRemoveItem = (id) => {
-    setCartItems(prev => prev.filter(item => item.id !== id));
-  };
+  const handleRemoveItem = (id) => removeItem(id);
 
   const handleInputChange = (e) => {
     setShippingInfo({
@@ -384,6 +362,7 @@ const CheckoutPage = () => {
                         <button
                           onClick={() => handleQuantityChange(item.id, "decrease")}
                           className="w-6 h-6 rounded border border-border flex items-center justify-center hover:bg-secondary"
+                          aria-label={`Decrease quantity of ${item.name}`}
                         >
                           <Minus className="w-3 h-3" />
                         </button>
@@ -393,12 +372,14 @@ const CheckoutPage = () => {
                         <button
                           onClick={() => handleQuantityChange(item.id, "increase")}
                           className="w-6 h-6 rounded border border-border flex items-center justify-center hover:bg-secondary"
+                          aria-label={`Increase quantity of ${item.name}`}
                         >
                           <Plus className="w-3 h-3" />
                         </button>
                         <button
                           onClick={() => handleRemoveItem(item.id)}
                           className="ml-auto text-red-500 hover:text-red-600"
+                          aria-label={`Remove ${item.name} from cart`}
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
