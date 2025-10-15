@@ -109,13 +109,15 @@
 // export default Header;
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ShoppingCart } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 import Logo from "@/assets/logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const location = useLocation();
+  const { itemCount } = useCart();
 
   const productCategories = [
     {
@@ -244,16 +246,36 @@ const Header = () => {
                 </Link>
               );
             })}
+            {/* Cart Icon (Desktop) */}
+            <Link to="/cart" className="relative group" aria-label="Cart">
+              <ShoppingCart className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
+              {itemCount > 0 && (
+                <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-white text-xs flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <button
+          <div className="md:hidden flex items-center gap-4">
+            {/* Cart Icon (Mobile) */}
+            <Link to="/cart" className="relative" aria-label="Cart">
+              <ShoppingCart className="w-6 h-6 text-foreground" />
+              {itemCount > 0 && (
+                <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-white text-xs flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </Link>
+            <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="md:hidden text-foreground hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
