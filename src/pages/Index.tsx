@@ -4,50 +4,76 @@ import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-r
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import { formatKsh, productsData } from "@/lib/products";
 import CategoryCard from "@/components/CategoryCard";
 import heroImage from "@/assets/hero-organic.jpg";
 import productHoney from "@/assets/org.jpg";
 import productTea from "@/assets/product-tea.jpg";
-import productWeightGain from "@/assets/weight gain .jpg";
 import productGranola from "@/assets/organic.jpg";
 import productOil from "@/assets/product-oil.jpg";
-import arguajePowder from "@/assets/arguaje-powder.jpg";
-import buttImg from "@/assets/butt.jpg";
-import butTeaImg from "@/assets/buttea.jpg";
-import extremeCurveImg from "@/assets/extreme curve.jpg";
-import fenugreekImg from "@/assets/fenugreek.jpg";
-import macaImg from "@/assets/maca.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
 import categoryWeightLoss from "@/assets/organic.jpg";
 import categoryCleansers from "@/assets/category-cleansers.jpg";
 import categoryGutHealth from "@/assets/org.jpg";
 
 const Index = () => {
-  // Curated Featured Products (restores original images and two rows)
-  const featuredPairs: { id: keyof typeof productsData; image: string }[] = [
-    // Row 1
-    { id: "raw-organic-honey", image: productHoney }, // org.jpg
-    { id: "creatine-monohydrate-gummies", image: productWeightGain },
-    { id: "artisan-granola-mix", image: productGranola }, // organic.jpg
-    { id: "arguaje-powder", image: arguajePowder },
-    // Row 2 (same as previous design)
-    { id: "natural-hip-up", image: buttImg },
-    { id: "big-but-tea", image: butTeaImg },
-    { id: "extreme-curve", image: extremeCurveImg },
-    { id: "fenugreek-powder", image: fenugreekImg },
+  const products = [
+    {
+      id: "raw-organic-honey",
+      name: "Raw Organic Honey",
+      price: "Ksh 3500",
+      image: productHoney,
+      category: "Sweeteners",
+    },
+    {
+      id: "premium-green-tea",
+      name: "Premium Green Tea",
+      price: "Ksh18.99",
+      image: productTea,
+      category: "Beverages",
+    },
+    {
+      id: "artisan-granola-mix",
+      name: "Artisan Granola Mix",
+      price: "Ksh 2700",
+      image: productGranola,
+      category: "Breakfast",
+    },
+    {
+      id: "cold-pressed-olive-oil",
+      name: "Cold-Pressed Olive Oil",
+      price: "Ksh28.99",
+      image: productOil,
+      category: "Oils",
+    },
+    {
+      id: "raw-organic-honey",
+      name: "Raw Organic Honey",
+      price: "Ksh24.99",
+      image: productHoney,
+      category: "Sweeteners",
+    },
+    {
+      id: "premium-green-tea",
+      name: "Premium Green Tea",
+      price: "Ksh18.99",
+      image: productTea,
+      category: "Beverages",
+    },
+    {
+      id: "artisan-granola-mix",
+      name: "Artisan Granola Mix",
+      price: "Ksh15.99",
+      image: productGranola,
+      category: "Breakfast",
+    },
+    {
+      id: "cold-pressed-olive-oil",
+      name: "Cold-Pressed Olive Oil",
+      price: "Ksh28.99",
+      image: productOil,
+      category: "Oils",
+    },
   ];
-
-  const featuredProducts = featuredPairs.map((fp) => {
-    const p = productsData[fp.id];
-    return {
-      id: p.id,
-      name: p.name,
-      price: formatKsh(p.price),
-      category: p.category,
-      image: fp.image,
-    };
-  });
 
   const categories = [
     {
@@ -196,7 +222,7 @@ const Index = () => {
 
         {/* Mobile: 2 per row with left-aligned header/description per row */}
         <div className="md:hidden space-y-8">
-          {chunk(featuredProducts, 2).map((row, rIdx) => (
+          {chunk(products, 2).map((row, rIdx) => (
             <div key={`m-${rIdx}`} className="space-y-3">
               <div className="text-left">
                 <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
@@ -215,7 +241,7 @@ const Index = () => {
 
         {/* Tablet: 3 per row */}
         <div className="hidden md:block lg:hidden space-y-10">
-          {chunk(featuredProducts, 3).map((row, rIdx) => (
+          {chunk(products, 3).map((row, rIdx) => (
             <div key={`t-${rIdx}`} className="space-y-4">
               <div className="text-left">
                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
@@ -234,7 +260,7 @@ const Index = () => {
 
         {/* Desktop: 4 per row */}
         <div className="hidden lg:block space-y-12">
-          {chunk(featuredProducts, 4).map((row, rIdx) => (
+          {chunk(products, 4).map((row, rIdx) => (
             <div key={`d-${rIdx}`} className="space-y-5">
               {/* <div className="text-left">
                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
