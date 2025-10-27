@@ -1094,10 +1094,18 @@ import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
+import { buildApiUrl, getApiUrl } from "@/lib/config";
+
+interface ShippingZone {
+  zone: string;
+  name: string;
+  price: number;
+  areas: string[];
+}
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
-  const { items: cartItems, updateQuantity, removeItem } = useCart();
+  const { items: cartItems, updateQuantity, removeItem, clear } = useCart();
 
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [mpesaNumber, setMpesaNumber] = useState("");
@@ -1116,17 +1124,68 @@ const CheckoutPage = () => {
     address: "",
     apartment: "",
     city: "",
-    county: ""
+    county: "",
+    zone: "",
+    area: ""
   });
 
   const [pickupLocation, setPickupLocation] = useState("");
   const [isLoadingUser, setIsLoadingUser] = useState(true);
   const [userFetchError, setUserFetchError] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
+  const [orderError, setOrderError] = useState<string | null>(null);
+  
+  // Shipping zones state
+  const [shippingZones, setShippingZones] = useState<ShippingZone[]>([]);
+  const [selectedZone, setSelectedZone] = useState<ShippingZone | null>(null);
+  const [isLoadingZones, setIsLoadingZones] = useState(false);
+  const [selectedArea, setSelectedArea] = useState("");
 
   const subtotal = useMemo(() => cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0), [cartItems]);
-  const shippingCost = deliveryMethod === "pickup" ? 0 : (subtotal > 5000 ? 0 : 350);
+  
+  // Calculate shipping cost based on selected zone
+  // Convert API price (in Ksh) to cents to match cart format
+  const shippingCost = useMemo(() => {
+    if (deliveryMethod === "pickup") return 0;
+    if (selectedZone) return selectedZone.price * 100; // Convert Ksh to cents
+    // Fallback to free shipping for orders over 5000
+    return subtotal > 5000 ? 0 : 350;
+  }, [deliveryMethod, selectedZone, subtotal]);
+  
   const total = subtotal + shippingCost;
+
+  // Reset shipping info when delivery method changes
+  useEffect(() => {
+    if (deliveryMethod === "pickup") {
+      setSelectedZone(null);
+      setSelectedArea("");
+      setShippingInfo(prev => ({ ...prev, zone: "", area: "" }));
+    }
+  }, [deliveryMethod]);
+
+  // Fetch shipping zones on mount
+  useEffect(() => {
+    const fetchShippingZones = async () => {
+      try {
+        setIsLoadingZones(true);
+        const url = getApiUrl('SHIPPING', 'ZONES');
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (response.ok && data.success && data.data?.zones) {
+          setShippingZones(data.data.zones);
+        }
+      } catch (error) {
+        console.error('Error fetching shipping zones:', error);
+      } finally {
+        setIsLoadingZones(false);
+      }
+    };
+
+    if (deliveryMethod === "ship") {
+      fetchShippingZones();
+    }
+  }, [deliveryMethod]);
 
   // Fetch user details on mount if token exists
   useEffect(() => {
@@ -1205,17 +1264,41 @@ const CheckoutPage = () => {
   const handleRemoveItem = (id) => removeItem(id);
 
   const handleCustomerChange = (e) => {
-    if (isFetched) return; // Prevent editing if fetched
+    // Allow phone number to always be editable
+    if (isFetched && e.target.name !== 'phone') return; // Prevent editing if fetched, except phone
     setCustomerInfo({
       ...customerInfo,
       [e.target.name]: e.target.value
     });
+    // Sync phone number with M-Pesa number
+    if (e.target.name === 'phone') {
+      setMpesaNumber(e.target.value);
+    }
   };
 
   const handleShippingChange = (e) => {
     setShippingInfo({
       ...shippingInfo,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const handleZoneChange = (zoneValue: string) => {
+    const zone = shippingZones.find(z => z.zone === zoneValue);
+    setSelectedZone(zone || null);
+    setSelectedArea(""); // Reset area when zone changes
+    setShippingInfo({
+      ...shippingInfo,
+      zone: zoneValue,
+      area: ""
+    });
+  };
+
+  const handleAreaChange = (areaValue: string) => {
+    setSelectedArea(areaValue);
+    setShippingInfo({
+      ...shippingInfo,
+      area: areaValue
     });
   };
 
@@ -1226,13 +1309,115 @@ const CheckoutPage = () => {
       navigate('/cart');
       return;
     }
-    setIsProcessing(true);
 
-    // Simulate M-Pesa STK push
-    setTimeout(() => {
+    // Validate form
+    if (!customerInfo.firstName || !customerInfo.lastName || !customerInfo.email || !customerInfo.phone) {
+      alert('Please fill in all customer details');
+      return;
+    }
+
+    if (deliveryMethod === "ship" && (!shippingInfo.address || !shippingInfo.zone || !selectedArea)) {
+      alert('Please fill in all shipping details including zone and area');
+      return;
+    }
+
+    if (deliveryMethod === "pickup" && !pickupLocation) {
+      alert('Please select a pickup location');
+      return;
+    }
+
+    if (paymentMethod === "mpesa" && !mpesaNumber) {
+      alert('Please enter your M-Pesa phone number');
+      return;
+    }
+
+    setIsProcessing(true);
+    setOrderError(null);
+
+    try {
+      // Prepare order payload
+      const items = cartItems.map(item => ({
+        product_id: item.id,
+        quantity: item.quantity
+      }));
+
+      // Build shipping address string - only for delivery
+      let shippingAddress = '';
+      if (deliveryMethod === "ship") {
+        const addressParts = [
+          shippingInfo.address,
+          shippingInfo.apartment,
+          selectedArea,
+          shippingInfo.zone,
+          shippingInfo.city,
+          shippingInfo.county
+        ].filter(Boolean);
+        shippingAddress = addressParts.join(', ');
+      }
+
+      // Format phone number (remove leading 0 if present, add 254)
+      let formattedPhone = mpesaNumber.replace(/^0/, '');
+      if (!formattedPhone.startsWith('254')) {
+        formattedPhone = formattedPhone;
+      }
+
+      // Build payload - conditionally include shipping_address
+      const payload: any = {
+        items,
+        payment_method: paymentMethod,
+        phone_number: formattedPhone,
+        shipping_method: deliveryMethod === "pickup" ? "pickup" : "delivery",
+        phone: mpesaNumber // Keep original format
+      };
+
+      // Only include shipping_address for delivery, not for pickup
+      if (deliveryMethod === "ship" && shippingAddress) {
+        payload.shipping_address = shippingAddress;
+      }
+
+      console.log('Checkout payload:', payload);
+
+      // Get auth token
+      const token = localStorage.getItem('token');
+      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/orders/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { 'Authorization': `Bearer ${token}` })
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+      console.log('Checkout response:', response.status, data);
+
+      if (response.ok && data.success) {
+        // Clear cart after successful order
+        clear();
+        setIsProcessing(false);
+        setOrderSuccess(true);
+      } else {
+        // Extract exact error message from response
+        let errorMessage = data.message || 'Failed to place order';
+        if (data.errors) {
+          // Handle validation errors - show all errors
+          const errorMessages = Object.entries(data.errors)
+            .map(([field, message]) => {
+              // Clean up field name (remove "body." prefix)
+              const cleanField = field.replace(/^body\./, '');
+              return `${cleanField}: ${message}`;
+            });
+          if (errorMessages.length > 0) {
+            errorMessage = errorMessages.join('\n');
+          }
+        }
+        throw new Error(errorMessage);
+      }
+    } catch (error: any) {
+      console.error('Checkout error:', error);
+      setOrderError(error.message || 'Failed to place order. Please try again.');
       setIsProcessing(false);
-      setOrderSuccess(true);
-    }, 3000);
+    }
   };
 
   if (isLoadingUser) {
@@ -1451,15 +1636,11 @@ const CheckoutPage = () => {
                     <Input
                       id="phone"
                       name="phone"
-                      placeholder="0712345***"
-                      
+                      placeholder="0712345678"
                       value={customerInfo.phone}
                       onChange={handleCustomerChange}
                       required
-                      readOnly={isFetched}
-                      className={`pl-10 ${
-                        isFetched ? "bg-muted cursor-not-allowed pl-14" : "bg-background"
-                      }`}
+                      className="pl-10"
                     />
                   </div>
                 </div>
@@ -1474,6 +1655,47 @@ const CheckoutPage = () => {
                   Shipping Address
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="md:col-span-2">
+                    <Label htmlFor="zone">Shipping Zone *</Label>
+                    <Select 
+                      value={shippingInfo.zone} 
+                      onValueChange={handleZoneChange}
+                      disabled={isLoadingZones}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={isLoadingZones ? "Loading zones..." : "Select a zone"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {shippingZones.map((zone) => (
+                          <SelectItem key={zone.zone} value={zone.zone}>
+                            {zone.name} - Ksh {zone.price}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  {selectedZone && (
+                    <div className="md:col-span-2">
+                      <Label htmlFor="area">Area/Neighborhood *</Label>
+                      <Select 
+                        value={selectedArea} 
+                        onValueChange={handleAreaChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select an area" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {selectedZone.areas.map((area, index) => (
+                            <SelectItem key={index} value={area}>
+                              {area}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+
                   <div className="md:col-span-2">
                     <Label htmlFor="address">Physical Address *</Label>
                     <div className="relative">
@@ -1742,9 +1964,9 @@ const CheckoutPage = () => {
                     )}
                   </span>
                 </div>
-                {deliveryMethod === "ship" && subtotal < 5000 && (
+                {deliveryMethod === "ship" && selectedZone && (
                   <p className="text-xs text-muted-foreground">
-                    Add Ksh {((5000 - subtotal) / 100).toFixed(2)} more for free shipping
+                    {selectedZone.name}
                   </p>
                 )}
                 <div className="flex justify-between text-lg font-bold pt-3 border-t border-border">
@@ -1777,6 +1999,14 @@ const CheckoutPage = () => {
                   </p>
                   <p className="text-xs text-green-700 text-center mt-1">
                     Enter your M-Pesa PIN to complete payment
+                  </p>
+                </div>
+              )}
+
+              {orderError && (
+                <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-sm text-red-900 font-medium whitespace-pre-line">
+                    {orderError}
                   </p>
                 </div>
               )}

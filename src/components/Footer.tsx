@@ -101,12 +101,12 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Organic Bloom. All rights reserved. |{' '}
             Powered By{' '}
             <a
-              href="https://www.tecsentra.com"
+              href="https://www.mabcaslabs.com/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline font-medium"
             >
-              TECSENTRA
+              MABCASLABS
             </a>
           </p>
         </div>
