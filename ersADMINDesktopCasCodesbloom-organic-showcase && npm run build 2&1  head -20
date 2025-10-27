@@ -1,0 +1,164 @@
+[1mdiff --git a/src/components/ProductCard.tsx b/src/components/ProductCard.tsx[m
+[1mindex 7e9e73f..bd1d01f 100644[m
+[1m--- a/src/components/ProductCard.tsx[m
+[1m+++ b/src/components/ProductCard.tsx[m
+[36m@@ -1,58 +1,74 @@[m
+[31m-// // import { ShoppingCart } from "lucide-react";[m
+[31m-// // import { useNavigate } from "react-router-dom";[m
+[31m-// // import { Button } from "@/components/ui/button";[m
+[31m-// // import { Badge } from "@/components/ui/badge";[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-// // interface ProductCardProps {[m
+[31m-// //   name: string;[m
+[31m-// //   price: string;[m
+[31m-// //   image: string;[m
+[31m-// //   category: string;[m
+[31m-// //   id: string;[m
+[31m-// // }[m
+[31m-[m
+[31m-[m
+[31m-// // const ProductCard = ({ name, price, image, category, id }: ProductCardProps) => {[m
+[31m-// //   const navigate = useNavigate();[m
+[31m-[m
+[31m-// //   const handleClick = () => {[m
+[31m-// //     navigate(`/product/${id}`, { state: { image } });[m
+[31m-// //   };[m
+[31m-// //   return ([m
+[31m-// //     <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer"[m
+[31m-// //      onClick={handleClick} [m
+[31m-// //     >[m
+[31m-// //       <div className="relative overflow-hidden aspect-square">[m
+[31m-// //         <img[m
+[31m-// //           src={image}[m
+[31m-// //           alt={name}[m
+[31m-// //           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"[m
+[31m-// //         />[m
+[31m-// //         <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">[m
+[31m-// //           <button className="bg-background text-foreground px-6 py-2 rounded-full font-medium flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">[m
+[31m-// //             <ShoppingCart className="w-4 h-4" />[m
+[31m-// //             Add to Cart[m
+[31m-// //           </button>[m
+[31m-// //         </div>[m
+[31m-// //       </div>[m
+[31m-// //       <div className="p-5">[m
+[31m-// //         <p className="text-xs font-medium text-primary uppercase tracking-wider mb-2">[m
+[31m-// //           {category}[m
+[31m-// //         </p>[m
+[31m-// //         <h3 className="text-lg font-heading font-semibold text-foreground mb-2">[m
+[31m-// //           {name}[m
+[31m-// //         </h3>[m
+[31m-// //         <p className="text-xl font-semibold text-primary">{price}</p>[m
+[31m-// //       </div>[m
+[31m-// //       {/* Animated underline on hover - spans full bottom inside rounded corners */}[m
+[31m-// //       <div className="absolute left-0 right-0 bottom-0 h-[4px] bg-gradient-to-r from-primary via-amber-400 to-primary scale-x-0 origin-left transition-transform duration-500 ease-in-out group-hover:scale-x-100 will-change-transform"></div>[m
+[31m-// //     </div>[m
+[31m-// //   );[m
+[31m-// // };[m
+[31m-[m
+[31m-// // export default ProductCard;[m
+[32m+[m[32mimport { ShoppingCart } from "lucide-react";[m
+[32m+[m[32mimport { useNavigate } from "react-router-dom";[m
+[32m+[m[32mimport { Button } from "@/components/ui/button";[m
+[32m+[m[32mimport { Badge } from "@/components/ui/badge";[m
+[32m+[m[32mimport { useCart } from "@/context/CartContext";[m
+[32m+[m
+[32m+[m[32minterface ProductCardProps {[m
+[32m+[m[32m  name: string;[m
+[32m+[m[32m  price: string;[m
+[32m+[m[32m  image: string;[m
+[32m+[m[32m  category: string;[m
+[32m+[m[32m  id: string;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst ProductCard = ({ name, price, image, category, id }: ProductCardProps) => {[m
+[32m+[m[32m  const navigate = useNavigate();[m
+[32m+[m[32m  const { addToCart } = useCart();[m
+[32m+[m
+[32m+[m[32m  // Parse price to cents (e.g., "Ksh 12.34" -> 1234)[m
+[32m+[m[32m  const numericPrice = parseFloat(price.replace("Ksh ", "").replace(",", "")) * 100;[m
+[32m+[m
+[32m+[m[32m  const handleClick = () => {[m
+[32m+[m[32m    navigate(`/product/${id}`, { state: { image } });[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const handleAddToCart = (e: React.MouseEvent) => {[m
+[32m+[m[32m    e.stopPropagation(); // Prevent triggering the card click navigation[m
+[32m+[m[32m    addToCart({[m
+[32m+[m[32m      id,[m
+[32m+[m[32m      name,[m
+[32m+[m[32m      price: numericPrice,[m
+[32m+[m[32m      image,[m
+[32m+[m[32m    }, 1);[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer relative"[m
+[32m+[m[32m     onClick={handleClick}[m[41m [m
+[32m+[m[32m    >[m
+[32m+[m[32m      <div className="relative overflow-hidden aspect-square">[m
+[32m+[m[32m        <img[m
+[32m+[m[32m          src={image}[m
+[32m+[m[32m          alt={name}[m
+[32m+[m[32m          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"[m
+[32m+[m[32m        />[m
+[32m+[m[32m        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">[m
+[32m+[m[32m          <button[m[41m [m
+[32m+[m[32m            onClick={handleAddToCart}[m
+[32m+[m[32m            className="bg-background text-foreground px-6 py-2 rounded-full font-medium flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300"[m
+[32m+[m[32m          >[m
+[32m+[m[32m            <ShoppingCart className="w-4 h-4" />[m
+[32m+[m[32m            Add to Cart[m
+[32m+[m[32m          </button>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m      </div>[m
+[32m+[m[32m      <div className="p-5">[m
+[32m+[m[32m        <p className="text-xs font-medium text-primary uppercase tracking-wider mb-2">[m
+[32m+[m[32m          {category}[m
+[32m+[m[32m        </p>[m
+[32m+[m[32m        <h3 className="text-lg font-heading font-semibold text-foreground mb-2">[m
+[32m+[m[32m          {name}[m
+[32m+[m[32m        </h3>[m
+[32m+[m[32m        <p className="text-xl font-semibold text-primary">{price}</p>[m
+[32m+[m[32m      </div>[m
+[32m+[m[32m      {/* Animated underline on hover - spans full bottom inside rounded corners */}[m
+[32m+[m[32m      <div className="absolute left-0 right-0 bottom-0 h-[4px] bg-gradient-to-r from-primary via-amber-400 to-primary scale-x-0 origin-left transition-transform duration-500 ease-in-out group-hover:scale-x-100 will-change-transform"></div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m  );[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m[32mexport default ProductCard;[m
+ // // ProductCard.tsx[m
+ // import React from 'react';[m
+ [m
+[36m@@ -85,68 +101,68 @@[m
+ // };[m
+ [m
+ // export default ProductCard;[m
+[31m-import { useCart } from "@/context/CartContext";[m
+[31m-import { Button } from "@/components/ui/button";[m
+[31m-import { Badge } from "@/components/ui/badge";[m
+[31m-import { ShoppingCart } from "lucide-react";[m
+[32m+[m[32m// import { useCart } from "@/context/CartContext";[m
+[32m+[m[32m// import { Button } from "@/components/ui/button";[m
+[32m+[m[32m// import { Badge } from "@/components/ui/badge";[m
+[32m+[m[32m// import { ShoppingCart } from "lucide-react";[m
+ [m
+[31m-interface ProductCardProps {[m
+[31m-  id: string;[m
+[31m-  name: string;[m
+[31m-  price: string; // e.g., "Ksh 12.34"[m
+[31m-  image: string;[m
+[31m-  category: string;[m
+[31m-}[m
+[32m+[m[32m// interface ProductCardProps {[m
+[32m+[m[32m//   id: string;[m
+[32m+[m[32m//   name: string;[m
+[32m+[m[32m//   price: string; // e.g., "Ksh 12.34"[m
+[32m+[m[32m//   image: string;[m
+[32m+[m[32m//   category: string;[m
+[32m+[m[32m// }[m
+ [m
+[31m-const ProductCard = ({ id, name, price, image, category }: ProductCardProps) => {[m
+

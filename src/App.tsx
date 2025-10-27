@@ -15,6 +15,8 @@ import ProductDetail from "./pages/productid";
 import CheckoutPage from "./pages/checkoutPage";
 import CartPage from "./pages/cartPage";
 import RegisterForm from "./pages/signup";
+import AdminPanel from "./pages/admin";
+import { AdminAuthProvider } from "./context/AdminAuthContext";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -35,6 +37,11 @@ const App = () => (
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/signup" element={<RegisterForm />} />
+          <Route path="/admin/*" element={
+            <AdminAuthProvider>
+              <AdminPanel />
+            </AdminAuthProvider>
+          } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           
