@@ -1599,6 +1599,8 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
         const accessToken = data.data?.accessToken;
         if (accessToken) {
           localStorage.setItem('token', accessToken);
+          // Dispatch custom event to update header
+          window.dispatchEvent(new Event('authChange'));
         } else {
           console.warn('No accessToken in response');
         }
@@ -1785,6 +1787,8 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
         }
         if (accessToken) {
           localStorage.setItem('token', accessToken);
+          // Dispatch custom event to update header
+          window.dispatchEvent(new Event('authChange'));
         } else {
           console.warn('No accessToken obtained');
         }
@@ -2022,7 +2026,17 @@ const CartPage = () => {
 
   const handleProceedToCheckout = () => {
     if (cartItems.length > 0) {
-      setShowAuthModal(true);
+      // Check if user is already logged in
+      const token = localStorage.getItem('token');
+      if (token) {
+        // User is already logged in, go directly to checkout
+        console.log('User already logged in, navigating to checkout');
+        navigate("/checkout");
+      } else {
+        // User not logged in, show auth modal
+        console.log('User not logged in, showing auth modal');
+        setShowAuthModal(true);
+      }
     }
   };
 

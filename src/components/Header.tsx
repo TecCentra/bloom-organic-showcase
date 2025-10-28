@@ -107,17 +107,40 @@
 // };
 
 // export default Header;
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ShoppingCart } from "lucide-react";
+import { Menu, X, ChevronDown, ShoppingCart, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/assets/logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const { itemCount } = useCart();
+
+  // Check if user is logged in
+  useEffect(() => {
+    const checkAuth = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+
+    // Check on mount
+    checkAuth();
+
+    // Listen for storage changes (e.g., login/logout in another tab)
+    window.addEventListener('storage', checkAuth);
+
+    // Custom event for same-tab login/logout
+    window.addEventListener('authChange', checkAuth);
+
+    return () => {
+      window.removeEventListener('storage', checkAuth);
+      window.removeEventListener('authChange', checkAuth);
+    };
+  }, []);
 
   const productCategories = [
     {
@@ -249,6 +272,12 @@ const Header = () => {
                 </Link>
               );
             })}
+            {/* Profile Icon (Desktop) - Only show when logged in */}
+            {isLoggedIn && (
+              <Link to="/profile" className="relative group" aria-label="Profile">
+                <User className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
+              </Link>
+            )}
             {/* Cart Icon (Desktop) */}
             <Link to="/cart" className="relative group" aria-label="Cart">
               <ShoppingCart className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" />
@@ -262,6 +291,12 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-4">
+            {/* Profile Icon (Mobile) - Only show when logged in */}
+            {isLoggedIn && (
+              <Link to="/profile" className="relative" aria-label="Profile">
+                <User className="w-6 h-6 text-foreground" />
+              </Link>
+            )}
             {/* Cart Icon (Mobile) */}
             <Link to="/cart" className="relative" aria-label="Cart">
               <ShoppingCart className="w-6 h-6 text-foreground" />
