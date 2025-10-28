@@ -1,14 +1,16 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface CategoryCardProps {
   title: string;
   description: string;
   image: string;
+  to?: string;
 }
 
-const CategoryCard = ({ title, description, image }: CategoryCardProps) => {
+const CategoryCard = ({ title, description, image, to }: CategoryCardProps) => {
   return (
-    <div className="group relative bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer h-[400px]">
+    <Link to={to || '#'} className="group block relative bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer h-[400px] focus:outline-none focus:ring-2 focus:ring-primary">
       <div className="absolute inset-0">
         <img
           src={image}
@@ -32,7 +34,7 @@ const CategoryCard = ({ title, description, image }: CategoryCardProps) => {
           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 

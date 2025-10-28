@@ -9,6 +9,8 @@ export const API_CONFIG = {
       LOGIN: '/auth/login',
       REGISTER: '/auth/register',
       ME: '/auth/me',
+      REFRESH: '/auth/refresh-token',
+      FORGOT_PASSWORD: '/auth/forgot-password',
     },
     ADMIN: {
       USERS: '/admin/users',

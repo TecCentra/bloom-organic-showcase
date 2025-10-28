@@ -16,6 +16,7 @@ interface AdminAuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   hasPermission: (permission: string) => boolean;
+  refreshToken: () => Promise<boolean>;
 }
 
 const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefined);
@@ -124,6 +125,33 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
     localStorage.removeItem('admin_user');
   };
 
+  const refreshToken = async (): Promise<boolean> => {
+    try {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://bloom-backend-hqu8.onrender.com/api/v1';
+      const response = await fetch(`${baseUrl}/auth/refresh-token`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!response.ok) {
+        // If refresh fails, log out to clear invalid state
+        logout();
+        return false;
+      }
+      const data = await response.json();
+      const newToken = data.data?.accessToken || data.accessToken || data.token || data.access_token;
+      if (!newToken) return false;
+      setAdminToken(newToken);
+      localStorage.setItem('admin_token', newToken);
+      return true;
+    } catch (e) {
+      console.error('Refresh token error:', e);
+      return false;
+    }
+  };
+
   const hasPermission = (permission: string): boolean => {
     if (!adminUser) return false;
     return adminUser.permissions.includes(permission) || adminUser.role === 'super_admin';
@@ -137,6 +165,7 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
     login,
     logout,
     hasPermission,
+    refreshToken,
   };
 
   return (

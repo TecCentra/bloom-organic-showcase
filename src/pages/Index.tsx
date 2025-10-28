@@ -490,17 +490,16 @@ const Index = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/products');
+        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
         const data: ApiResponse = await response.json();
         if (data.success && data.data.products) {
-          // Filter active products, sort by created_at (newest first), and take first 8
+          // API already returns page/limit; filter active and sort by created_at (newest first)
           const latestProducts = data.data.products
             .filter(product => product.is_active)
-            .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-            .slice(0, 8);
+            .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
           setProducts(latestProducts);
         }
       } catch (err) {
@@ -515,11 +514,11 @@ const Index = () => {
 
   // Category mapping
   const categoryMap: Record<string, string> = {
-    '7dcef199-51b2-4372-9a91-a3c5cf596feb': 'Gym',
-    '0adde0a3-a56c-43f0-9796-746e74952699': 'Electronics',
-    '050f797b-0bc1-4045-9a96-cc8deb9ff8fa': 'Electronics',
-    '0b693034-4d76-40ba-accf-2633e498a5a5': 'Clothing',
-    '83bfe611-13a5-4ee7-8820-e3956a85e8ab': 'Books',
+    'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
+    '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
+    '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
+    'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
+    'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
   };
 
   // Placeholder image generator
@@ -542,26 +541,31 @@ const Index = () => {
       title: "Weight Management Products",
       description: "Flat tummy, upper body fat, full weight loss packages.",
       image: categoryHerbs,
+      to: "/products/weight-management",
     },
     {
       title: "Yoni & Female Fertility Care",
       description: "Steam herbs, washes, tightening pearls & more.",
       image: categoryCleansers,
+      to: "/products/female-care",
     },
     {
       title: "Men's Boosters & Fertility Support",
       description: "Stamina, libido, and reproductive health.",
       image: categoryGutHealth,
+      to: "/products/mens-health",
     },
     {
       title: "Natural Skin Care",
       description: "Healing soaps, oils, scrubs, and glow enhancers.",
       image: categoryGutHealth,
+      to: "/products/skin-care",
     },
     {
       title: "Nutritional Supplements",
       description: "Essential micro & macro nutrients.",
       image: categoryGutHealth,
+      to: "/products/supplements",
     },
   ];
 
@@ -686,10 +690,7 @@ const Index = () => {
             <div className="md:hidden space-y-8">
               {chunk(transformedProducts, 2).map((row, rIdx) => (
                 <div key={`m-${rIdx}`} className="space-y-3">
-                  <div className="text-left">
-                    <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
-                    <p className="text-sm text-muted-foreground">Curated picks crafted for wholesome living.</p>
-                  </div>
+                  
                   <div className="grid grid-cols-2 gap-6">
                     {row.map((p, i) => (
                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
@@ -705,10 +706,7 @@ const Index = () => {
             <div className="hidden md:block lg:hidden space-y-10">
               {chunk(transformedProducts, 3).map((row, rIdx) => (
                 <div key={`t-${rIdx}`} className="space-y-4">
-                  <div className="text-left">
-                    <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
-                    <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
-                  </div>
+                
                   <div className="grid grid-cols-3 gap-8">
                     {row.map((p, i) => (
                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
