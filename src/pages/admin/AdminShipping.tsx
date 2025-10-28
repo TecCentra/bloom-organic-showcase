@@ -33,7 +33,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useAdminAuth } from '@/context/AdminAuthContext';
-import { getApiUrl } from '@/lib/config';
+import { buildApiUrl, API_CONFIG } from '@/lib/config';
 
 // Define interfaces for TypeScript
 interface Order {
@@ -95,7 +95,7 @@ const AdminShipping: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(getApiUrl('ADMIN', 'ORDERS'), {
+      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.ORDERS}?page=1&limit=10&status=&start_date=&end_date=`), {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${adminToken}`,
@@ -217,8 +217,22 @@ const filteredOrders = searchTerm.trim()
     if (!selectedOrder || !newStatus || !adminToken) return;
 
     try {
-      // Simulate API call to update order status
-      console.log('Updating order status:', selectedOrder.order_id, 'to', newStatus);
+      const response = await fetch(
+        buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.ORDERS}/${selectedOrder.order_id}/status`),
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ status: newStatus }),
+        },
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to update order status');
+      }
 
       // Update local state
       setOrders((prevOrders) =>

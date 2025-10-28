@@ -296,6 +296,8 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
 import { useAdminAuth } from '@/context/AdminAuthContext';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
 
 const AdminCategories: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -307,6 +309,8 @@ const AdminCategories: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const { adminToken } = useAdminAuth();
+  const { confirm } = useMaterialConfirm();
+  const { toast } = useMaterialToast();
 
   // Form states
   const [formData, setFormData] = useState({
@@ -326,7 +330,7 @@ const AdminCategories: React.FC = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES), {
+      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}?includeProducts=false`), {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -405,8 +409,18 @@ const AdminCategories: React.FC = () => {
       await fetchCategories();
       setIsCreateModalOpen(false);
       setFormData({ name: '', slug: '', description: '', parent_id: '' });
+      toast({
+        title: 'Success',
+        description: 'Category created successfully',
+        variant: 'success',
+      });
     } catch (err: any) {
       setError(err.message);
+      toast({
+        title: 'Error',
+        description: err.message,
+        variant: 'destructive',
+      });
       console.error('Error creating category:', err);
     } finally {
       setSubmitting(false);
@@ -419,16 +433,14 @@ const AdminCategories: React.FC = () => {
     try {
       setSubmitting(true);
       const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}/${selectedCategory.category_id || selectedCategory.id}`), {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           ...(adminToken && { 'Authorization': `Bearer ${adminToken}` }),
         },
         body: JSON.stringify({
           name: formData.name,
-          slug: formData.slug,
           description: formData.description,
-          parent_id: formData.parent_id || undefined,
         }),
       });
 
@@ -441,8 +453,18 @@ const AdminCategories: React.FC = () => {
       setIsEditModalOpen(false);
       setSelectedCategory(null);
       setFormData({ name: '', slug: '', description: '', parent_id: '' });
+      toast({
+        title: 'Success',
+        description: 'Category updated successfully',
+        variant: 'success',
+      });
     } catch (err: any) {
       setError(err.message);
+      toast({
+        title: 'Error',
+        description: err.message,
+        variant: 'destructive',
+      });
       console.error('Error updating category:', err);
     } finally {
       setSubmitting(false);
@@ -450,7 +472,15 @@ const AdminCategories: React.FC = () => {
   };
 
   const handleDelete = async (categoryId: string) => {
-    if (!confirm('Are you sure you want to delete this category?')) return;
+    const confirmed = await confirm({
+      title: 'Delete Category',
+      message: 'Are you sure you want to delete this category? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+    });
+    
+    if (!confirmed) return;
     
     try {
       const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}/${categoryId}`), {
@@ -466,8 +496,18 @@ const AdminCategories: React.FC = () => {
       }
       
       await fetchCategories();
+      toast({
+        title: 'Success',
+        description: 'Category deleted successfully',
+        variant: 'success',
+      });
     } catch (err: any) {
       setError(err.message);
+      toast({
+        title: 'Error',
+        description: err.message,
+        variant: 'destructive',
+      });
       console.error('Error deleting category:', err);
     }
   };
@@ -700,7 +740,7 @@ const AdminCategories: React.FC = () => {
               />
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700">Slug *</label>
+              <label className="text-sm font-medium text-gray-700">Slug</label>
               <Input 
                 placeholder="category-slug" 
                 value={formData.slug}
@@ -736,7 +776,7 @@ const AdminCategories: React.FC = () => {
               </Button>
               <Button 
                 onClick={handleUpdateCategory}
-                disabled={submitting || !formData.name || !formData.slug}
+                disabled={submitting || !formData.name}
               >
                 {submitting ? (
                   <>

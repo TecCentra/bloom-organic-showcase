@@ -28,6 +28,8 @@ import {
   Loader2,
   RefreshCw
 } from 'lucide-react';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
 
 const AdminProducts: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,6 +44,8 @@ const AdminProducts: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<any>(null);
   const { adminToken } = useAdminAuth();
+  const { confirm } = useMaterialConfirm();
+  const { toast } = useMaterialToast();
 
   // Form state for creating products
   const [formData, setFormData] = useState({
@@ -53,6 +57,15 @@ const AdminProducts: React.FC = () => {
     sku: '',
     category_id: '',
     is_active: true
+  });
+
+  // Form state for editing products
+  const [editFormData, setEditFormData] = useState({
+    name: '',
+    description: '',
+    price: '',
+    stock_quantity: '',
+    category_id: '',
   });
 
   // Image upload state
@@ -85,7 +98,7 @@ const AdminProducts: React.FC = () => {
         }
 
         // Fetch categories for dropdown
-        const categoriesResponse = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES), {
+        const categoriesResponse = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}?includeProducts=false`), {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${adminToken}`,
@@ -309,7 +322,103 @@ const AdminProducts: React.FC = () => {
 
   const handleEdit = (product: any) => {
     setSelectedProduct(product);
+    // Populate edit form with product data
+    setEditFormData({
+      name: product.name || '',
+      description: product.description || '',
+      price: product.price || '',
+      stock_quantity: product.stock_quantity || '',
+      category_id: product.category_id || '',
+    });
     setIsEditModalOpen(true);
+  };
+
+  const handleUpdateProduct = async () => {
+    if (!selectedProduct) return;
+
+    try {
+      setIsSubmitting(true);
+
+      // Prepare payload with only the fields that can be updated
+      const payload: any = {};
+      
+      if (editFormData.name && editFormData.name !== selectedProduct.name) {
+        payload.name = editFormData.name;
+      }
+      if (editFormData.price && editFormData.price !== selectedProduct.price) {
+        payload.price = parseFloat(editFormData.price as string);
+      }
+      if (editFormData.stock_quantity && editFormData.stock_quantity !== selectedProduct.stock_quantity) {
+        payload.stock_quantity = parseInt(editFormData.stock_quantity as string);
+      }
+      if (editFormData.description && editFormData.description !== selectedProduct.description) {
+        payload.description = editFormData.description;
+      }
+      if (editFormData.category_id && editFormData.category_id !== selectedProduct.category_id) {
+        payload.category_id = editFormData.category_id;
+      }
+
+      // Check if there are any changes
+      if (Object.keys(payload).length === 0) {
+        toast({
+          title: 'No Changes',
+          description: 'No changes were made to the product',
+          variant: 'default',
+        });
+        setIsEditModalOpen(false);
+        return;
+      }
+
+      const response = await fetch(
+        buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}/${selectedProduct.product_id}`),
+        {
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${adminToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to update product');
+      }
+
+      const updatedProduct = await response.json();
+
+      // Update product in local state
+      setProducts(prevProducts =>
+        prevProducts.map(p =>
+          p.product_id === selectedProduct.product_id
+            ? { ...p, ...payload, updated_at: new Date().toISOString() }
+            : p
+        )
+      );
+
+      toast({
+        title: 'Product Updated',
+        description: `${editFormData.name} has been successfully updated`,
+        variant: 'success',
+      });
+
+      setIsEditModalOpen(false);
+      setSelectedProduct(null);
+    } catch (err: any) {
+      console.error('Error updating product:', err);
+      toast({
+        title: 'Update Failed',
+        description: err.message || 'Failed to update product. Please try again.',
+        variant: 'destructive',
+        action: {
+          label: 'Retry',
+          onClick: () => handleUpdateProduct(),
+        },
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleViewProduct = (product: any) => {
@@ -317,9 +426,54 @@ const AdminProducts: React.FC = () => {
     setIsViewModalOpen(true);
   };
 
-  const handleDelete = (productId: number) => {
-    // Implement delete logic
-    console.log('Delete product:', productId);
+  const handleDelete = async (productId: number) => {
+    const product = products.find(p => p.product_id === productId);
+    const productName = product?.name || 'this product';
+    
+    const confirmed = await confirm({
+      title: 'Delete Product',
+      message: `Are you sure you want to delete "${productName}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+    });
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}/${productId}`), {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete product');
+      }
+
+      // Remove product from local state
+      setProducts(prevProducts => prevProducts.filter(p => p.product_id !== productId));
+
+      toast({
+        title: 'Product Deleted',
+        description: `${productName} has been successfully deleted`,
+        variant: 'success',
+      });
+    } catch (err: any) {
+      console.error('Error deleting product:', err);
+      toast({
+        title: 'Delete Failed',
+        description: err.message || 'Failed to delete product. Please try again.',
+        variant: 'destructive',
+        action: {
+          label: 'Retry',
+          onClick: () => handleDelete(productId),
+        },
+      });
+    }
   };
 
   return (
@@ -686,36 +840,53 @@ const AdminProducts: React.FC = () => {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700">Product Name</label>
+                <label className="text-sm font-medium text-gray-700">Product Name *</label>
                 <Input 
                   placeholder="Enter product name" 
-                  defaultValue={selectedProduct?.name || ''}
+                  value={editFormData.name}
+                  onChange={(e) => setEditFormData({ ...editFormData, name: e.target.value })}
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
                 <label className="text-sm font-medium text-gray-700">Category</label>
-                <Input 
-                  placeholder="Select category" 
-                  defaultValue={selectedProduct?.category || ''}
-                />
+                <select 
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                  value={editFormData.category_id}
+                  onChange={(e) => setEditFormData({ ...editFormData, category_id: e.target.value })}
+                  disabled={isSubmitting}
+                >
+                  <option value="">Select category</option>
+                  {categories.map((category) => (
+                    <option key={category.category_id || category.id} value={category.category_id || category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700">Price</label>
+                <label className="text-sm font-medium text-gray-700">Price (KSH) *</label>
                 <Input 
                   placeholder="0.00" 
                   type="number" 
                   step="0.01"
-                  defaultValue={selectedProduct?.price || ''}
+                  min="0"
+                  value={editFormData.price}
+                  onChange={(e) => setEditFormData({ ...editFormData, price: e.target.value })}
+                  disabled={isSubmitting}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700">Stock Quantity</label>
+                <label className="text-sm font-medium text-gray-700">Stock Quantity *</label>
                 <Input 
                   placeholder="0" 
                   type="number"
-                  defaultValue={selectedProduct?.stock || ''}
+                  min="0"
+                  value={editFormData.stock_quantity}
+                  onChange={(e) => setEditFormData({ ...editFormData, stock_quantity: e.target.value })}
+                  disabled={isSubmitting}
                 />
               </div>
             </div>
@@ -725,14 +896,31 @@ const AdminProducts: React.FC = () => {
                 className="w-full p-3 border border-gray-300 rounded-md"
                 rows={3}
                 placeholder="Enter product description"
+                value={editFormData.description}
+                onChange={(e) => setEditFormData({ ...editFormData, description: e.target.value })}
+                disabled={isSubmitting}
               />
             </div>
             <div className="flex justify-end space-x-2">
-              <Button variant="outline" onClick={() => setIsEditModalOpen(false)}>
+              <Button 
+                variant="outline" 
+                onClick={() => setIsEditModalOpen(false)}
+                disabled={isSubmitting}
+              >
                 Cancel
               </Button>
-              <Button onClick={() => setIsEditModalOpen(false)}>
-                Update Product
+              <Button 
+                onClick={handleUpdateProduct}
+                disabled={isSubmitting || !editFormData.name || !editFormData.price || !editFormData.stock_quantity}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Updating...
+                  </>
+                ) : (
+                  'Update Product'
+                )}
               </Button>
             </div>
           </div>
