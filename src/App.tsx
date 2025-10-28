@@ -23,6 +23,7 @@ import { AdminAuthProvider } from "./context/AdminAuthContext";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryProducts from "./pages/CategoryProducts";
 import ForgotPassword from "./pages/ForgotPassword";
+import UserProfile from "./pages/UserProfile";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -49,6 +50,7 @@ const App = () => (
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/signup" element={<RegisterForm />} />
+                <Route path="/profile" element={<UserProfile />} />
                 <Route path="/admin/*" element={
                   <AdminAuthProvider>
                     <AdminPanel />

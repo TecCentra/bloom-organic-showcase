@@ -1110,7 +1110,6 @@ const CheckoutPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [mpesaNumber, setMpesaNumber] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [orderSuccess, setOrderSuccess] = useState(false);
   const [deliveryMethod, setDeliveryMethod] = useState("ship");
   
   const [customerInfo, setCustomerInfo] = useState({
@@ -1395,7 +1394,11 @@ const CheckoutPage = () => {
         // Clear cart after successful order
         clear();
         setIsProcessing(false);
-        setOrderSuccess(true);
+        
+        // Redirect to profile page after successful payment
+        setTimeout(() => {
+          navigate('/profile');
+        }, 1500);
       } else {
         // Extract exact error message from response
         let errorMessage = data.message || 'Failed to place order';
@@ -1446,36 +1449,7 @@ const CheckoutPage = () => {
     );
   }
 
-  if (orderSuccess) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <div className="container mx-auto px-4 py-20">
-          <div className="max-w-md mx-auto text-center">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-12 h-12 text-green-600" />
-            </div>
-            <h1 className="text-3xl font-bold mb-4">Order Successful!</h1>
-            <p className="text-muted-foreground mb-2">
-              Thank you for your order. We've sent a confirmation to your email.
-            </p>
-            <p className="text-sm text-muted-foreground mb-8">
-              Order ID: #ORD-{Math.random().toString(36).substr(2, 9).toUpperCase()}
-            </p>
-            <div className="space-y-3">
-              <Button className="w-full" size="lg">
-                Track Your Order
-              </Button>
-              <Button variant="outline" className="w-full" size="lg" onClick={() => navigate("/")}>
-                Continue Shopping
-              </Button>
-            </div>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+  // Removed orderSuccess screen - redirecting directly to profile
 
   return (
     <div className="min-h-screen bg-background">
