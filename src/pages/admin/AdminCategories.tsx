@@ -346,19 +346,29 @@ const AdminCategories: React.FC = () => {
       console.log('Categories API response:', data); // Debug log
       
       // Handle different response structures
+      let categoriesList = [];
       if (data.data && data.data.categories) {
         console.log('Setting categories from data.data.categories:', data.data.categories);
-        setCategories(data.data.categories);
+        categoriesList = data.data.categories;
       } else if (data.data && Array.isArray(data.data)) {
         console.log('Setting categories from data.data:', data.data);
-        setCategories(data.data);
+        categoriesList = data.data;
       } else if (Array.isArray(data)) {
         console.log('Setting categories from data:', data);
-        setCategories(data);
+        categoriesList = data;
       } else {
         console.log('No categories found, setting empty array');
-        setCategories([]);
+        categoriesList = [];
       }
+      
+      // Sort by created_at descending (newest first)
+      const sortedCategories = [...categoriesList].sort((a, b) => {
+        const dateA = new Date(a.created_at || 0).getTime();
+        const dateB = new Date(b.created_at || 0).getTime();
+        return dateB - dateA; // Descending order
+      });
+      
+      setCategories(sortedCategories);
     } catch (err: any) {
       setError(err.message);
       console.error('Error fetching categories:', err);

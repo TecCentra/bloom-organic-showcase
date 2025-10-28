@@ -556,7 +556,16 @@ const AdminOrders: React.FC = () => {
 
       if (response.ok) {
         const data: OrdersResponse = await response.json();
-        setOrders(data.data.orders);
+        const ordersList = data.data.orders || [];
+        
+        // Sort by order_date or created_at descending (newest first)
+        const sortedOrders = [...ordersList].sort((a, b) => {
+          const dateA = new Date(a.order_date || a.created_at || 0).getTime();
+          const dateB = new Date(b.order_date || b.created_at || 0).getTime();
+          return dateB - dateA; // Descending order
+        });
+        
+        setOrders(sortedOrders);
         setPagination(data.data.pagination);
       } else {
         const errorData = await response.json().catch(() => ({}));

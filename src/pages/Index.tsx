@@ -460,6 +460,13 @@ import categoryHerbs from "@/assets/category-herbs.jpg";
 import categoryCleansers from "@/assets/category-cleansers.jpg";
 import categoryGutHealth from "@/assets/org.jpg";
 
+interface ProductImage {
+  image_id: string;
+  image_url: string;
+  alt_text: string;
+  is_primary: boolean;
+}
+
 interface Product {
   product_id: string;
   name: string;
@@ -471,6 +478,7 @@ interface Product {
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  images?: ProductImage[];
 }
 
 interface ApiResponse {
@@ -528,13 +536,22 @@ const Index = () => {
   };
 
   // Transform API products to match ProductCard props
-  const transformedProducts = products.map(product => ({
-    id: product.product_id,
-    name: product.name,
-    price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
-    image: getPlaceholderImage(product.name),
-    category: categoryMap[product.category_id] || 'Uncategorized',
-  }));
+  const transformedProducts = products.map(product => {
+    // Use actual product image if available, otherwise fallback to placeholder
+    let imageUrl = getPlaceholderImage(product.name);
+    if (product.images && product.images.length > 0) {
+      const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+      imageUrl = primaryImage.image_url;
+    }
+    
+    return {
+      id: product.product_id,
+      name: product.name,
+      price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+      image: imageUrl,
+      category: categoryMap[product.category_id] || 'Uncategorized',
+    };
+  });
 
   const categories = [
     {
