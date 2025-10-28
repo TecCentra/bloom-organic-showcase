@@ -91,7 +91,16 @@ const AdminProducts: React.FC = () => {
 
         if (productsResponse.ok) {
           const productsData = await productsResponse.json();
-          setProducts(productsData.data?.products || productsData.data || []);
+          const productsList = productsData.data?.products || productsData.data || [];
+          
+          // Sort by created_at descending (newest first)
+          const sortedProducts = [...productsList].sort((a, b) => {
+            const dateA = new Date(a.created_at || 0).getTime();
+            const dateB = new Date(b.created_at || 0).getTime();
+            return dateB - dateA; // Descending order
+          });
+          
+          setProducts(sortedProducts);
           setPagination(productsData.data?.pagination);
         } else {
           throw new Error('Failed to fetch products');
@@ -181,17 +190,31 @@ const AdminProducts: React.FC = () => {
   };
 
   const uploadImages = async (productId: string) => {
-    if (selectedImages.length === 0) return;
+    if (selectedImages.length === 0) {
+      console.log('No images to upload');
+      return;
+    }
 
     try {
+      console.log('📸 Starting image upload for product:', productId);
+      console.log('Number of images to upload:', selectedImages.length);
+      
       const formData = new FormData();
       
       // Add each image to the form data
       selectedImages.forEach((image, index) => {
+        console.log(`Adding image ${index + 1}:`, {
+          name: image.name,
+          type: image.type,
+          size: image.size
+        });
         formData.append('image', image);
       });
 
-      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}/${productId}/images`), {
+      const url = buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}/${productId}/images`);
+      console.log('Upload URL:', url);
+
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -199,16 +222,19 @@ const AdminProducts: React.FC = () => {
         body: formData,
       });
 
+      console.log('Image upload response status:', response.status);
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
+        console.error('Image upload failed:', errorData);
         throw new Error(errorData.message || 'Failed to upload images');
       }
 
       const data = await response.json();
-      console.log('Images uploaded successfully:', data);
+      console.log('✅ Images uploaded successfully:', data);
       return data;
     } catch (error) {
-      console.error('Error uploading images:', error);
+      console.error('❌ Error uploading images:', error);
       throw error;
     }
   };
@@ -217,6 +243,10 @@ const AdminProducts: React.FC = () => {
     try {
       setIsSubmitting(true);
       setError(null);
+
+      console.log('🚀 Starting product creation...');
+      console.log('Form data:', formData);
+      console.log('Selected images count:', selectedImages.length);
 
       const slug = formData.slug || generateSlug(formData.name);
       
@@ -231,6 +261,8 @@ const AdminProducts: React.FC = () => {
         is_active: formData.is_active
       };
 
+      console.log('Product payload:', payload);
+
       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS), {
         method: 'POST',
         headers: {
@@ -240,23 +272,81 @@ const AdminProducts: React.FC = () => {
         body: JSON.stringify(payload),
       });
 
+      console.log('Product creation response status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
-        console.log('Product created successfully:', data);
+        console.log('✅ Product created successfully:', data);
+        console.log('Full response structure:', JSON.stringify(data, null, 2));
         
-        // Get the product ID from the response
-        const productId = data.data?.product_id || data.data?.id || data.product_id || data.id;
+        // Get the product ID from the response - try multiple possible locations
+        const productId = data.data?.product_id || 
+                         data.data?.product?.product_id || 
+                         data.data?.id || 
+                         data.product_id || 
+                         data.id;
         
-        if (productId && selectedImages.length > 0) {
-          try {
-            await uploadImages(productId);
-            console.log('Images uploaded successfully');
-          } catch (imageError) {
-            console.warn('Product created but images failed to upload:', imageError);
-            // Don't throw here - product was created successfully
-          }
+        console.log('Extracted product ID:', productId);
+        console.log('Response data.data:', data.data);
+        
+        if (!productId) {
+          console.error('❌ No product ID found in response');
+          console.error('Response data structure:', data);
+          toast({
+            title: 'Warning',
+            description: 'Product created but could not upload images (no product ID)',
+            variant: 'default',
+          });
+          
+          // Still close modal and refresh
+          setIsCreateModalOpen(false);
+          setFormData({
+            name: '',
+            slug: '',
+            description: '',
+            price: '',
+            stock_quantity: '',
+            sku: '',
+            category_id: '',
+            is_active: true
+          });
+          setSelectedImages([]);
+          setImagePreview([]);
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+          return; // Exit early
         }
         
+        // Only proceed with images if we have a product ID
+        if (selectedImages.length > 0) {
+          console.log('📤 Proceeding to upload images...');
+          try {
+            await uploadImages(productId);
+            console.log('✅ All images uploaded successfully!');
+            toast({
+              title: 'Success',
+              description: `Product created with ${selectedImages.length} image(s)`,
+              variant: 'success',
+            });
+          } catch (imageError) {
+            console.warn('⚠️ Product created but images failed to upload:', imageError);
+            toast({
+              title: 'Partial Success',
+              description: 'Product created but some images failed to upload',
+              variant: 'default',
+            });
+          }
+        } else {
+          toast({
+            title: 'Success',
+            description: 'Product created successfully',
+            variant: 'success',
+          });
+        }
+        
+        // Close modal and clear form
         setIsCreateModalOpen(false);
         setFormData({
           name: '',
@@ -273,15 +363,25 @@ const AdminProducts: React.FC = () => {
         setSelectedImages([]);
         setImagePreview([]);
         
-        // Refresh products list
-        window.location.reload();
+        // Wait a bit longer before refresh to ensure images are uploaded
+        console.log('⏳ Waiting before refresh...');
+        setTimeout(() => {
+          console.log('🔄 Refreshing page...');
+          window.location.reload();
+        }, 1500);
       } else {
         const errorData = await response.json().catch(() => ({}));
+        console.error('❌ Product creation failed:', errorData);
         throw new Error(errorData.message || 'Failed to create product');
       }
     } catch (error) {
-      console.error('Error creating product:', error);
+      console.error('❌ Error creating product:', error);
       setError(error instanceof Error ? error.message : 'Failed to create product');
+      toast({
+        title: 'Error',
+        description: error instanceof Error ? error.message : 'Failed to create product',
+        variant: 'destructive',
+      });
     } finally {
       setIsSubmitting(false);
     }

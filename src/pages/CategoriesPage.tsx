@@ -95,6 +95,15 @@ const CategoriesPage = () => {
             }
             grouped[catId].push(product);
           });
+          
+          // Sort products within each category by created_at (newest first)
+          Object.keys(grouped).forEach(catId => {
+            grouped[catId].sort((a, b) => {
+              const dateA = new Date(a.created_at || 0).getTime();
+              const dateB = new Date(b.created_at || 0).getTime();
+              return dateB - dateA; // Descending order
+            });
+          });
 
           // Transform to CategoryGroup array - use the map we just built
           const categoryGroups: CategoryGroup[] = Object.entries(grouped).map(([id, products]) => ({

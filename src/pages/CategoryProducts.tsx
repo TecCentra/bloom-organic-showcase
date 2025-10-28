@@ -71,7 +71,15 @@ const CategoryProducts = () => {
         const clientFiltered = targetCategory
           ? active.filter(p => p.category_id === targetCategory.id)
           : active;
-        setProducts(clientFiltered);
+        
+        // Sort by created_at descending (newest first)
+        const sortedProducts = [...clientFiltered].sort((a, b) => {
+          const dateA = new Date(a.created_at || 0).getTime();
+          const dateB = new Date(b.created_at || 0).getTime();
+          return dateB - dateA; // Descending order
+        });
+        
+        setProducts(sortedProducts);
       } catch (e) {
         console.error(e);
         setProducts([]);

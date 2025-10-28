@@ -298,7 +298,16 @@ const AdminUsers: React.FC = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setUsers(data.data.users);
+          const usersList = data.data.users || [];
+          
+          // Sort by created_at descending (newest first)
+          const sortedUsers = [...usersList].sort((a, b) => {
+            const dateA = new Date(a.created_at || 0).getTime();
+            const dateB = new Date(b.created_at || 0).getTime();
+            return dateB - dateA; // Descending order
+          });
+          
+          setUsers(sortedUsers);
           setPagination(data.data.pagination);
         } else {
           console.error('Failed to fetch users');
