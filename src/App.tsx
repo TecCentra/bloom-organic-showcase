@@ -17,6 +17,9 @@ import CartPage from "./pages/cartPage";
 import RegisterForm from "./pages/signup";
 import AdminPanel from "./pages/admin";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
+import CategoriesPage from "./pages/CategoriesPage";
+import CategoryProducts from "./pages/CategoryProducts";
+import ForgotPassword from "./pages/ForgotPassword";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -33,6 +36,9 @@ const App = () => (
           <Route path="/blogs" element={<FeaturedBlogs />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route path="/products" element={<CategoriesPage />} />
+          <Route path="/products/:slug" element={<CategoryProducts />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />

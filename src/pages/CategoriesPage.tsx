@@ -77,7 +77,7 @@ const CategoriesPage = () => {
         }
 
         // Then fetch products
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/products');
+        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/products?page=1&limit=200&search=&category=');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }
@@ -219,7 +219,7 @@ const CategoriesPage = () => {
                     </p>
                   </div>
                   {category.products.length > 4 && (
-                    <Button variant="outline" onClick={() => navigate(`/category/${category.id}`)}>
+                    <Button variant="outline" onClick={() => navigate(`/products/${encodeURIComponent((categoryMap[category.id] || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''))}`)}>
                       View All
                     </Button>
                   )}
@@ -231,7 +231,7 @@ const CategoriesPage = () => {
                 </div>
                 {category.products.length > 8 && (
                   <div className="text-center mt-8">
-                    <Button onClick={() => navigate(`/category/${category.id}`)}>
+                    <Button onClick={() => navigate(`/products/${encodeURIComponent((categoryMap[category.id] || '').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,''))}`)}>
                       View More in {category.name}
                     </Button>
                   </div>
