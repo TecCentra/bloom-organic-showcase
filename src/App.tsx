@@ -4,6 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/context/CartContext";
+import { MaterialUIProvider } from "@/components/MaterialUIProvider";
+import { ToastProvider } from "@/hooks/useMaterialToast";
+import { ConfirmProvider } from "@/hooks/useMaterialConfirm";
 import ScrollToTop from "./components/ScrollToTop";
 import Index from "./pages/Index";
 import Contact from "./pages/Contact";
@@ -24,37 +27,43 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <CartProvider>
-          <ScrollToTop />
-          <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blogs" element={<FeaturedBlogs />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
-          <Route path="/faqs" element={<FAQs />} />
-          <Route path="/products" element={<CategoriesPage />} />
-          <Route path="/products/:slug" element={<CategoryProducts />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/signup" element={<RegisterForm />} />
-          <Route path="/admin/*" element={
-            <AdminAuthProvider>
-              <AdminPanel />
-            </AdminAuthProvider>
-          } />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-          
-          </Routes>
-        </CartProvider>
-      </BrowserRouter>
-    </TooltipProvider>
+    <MaterialUIProvider>
+      <ToastProvider>
+        <ConfirmProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <CartProvider>
+                <ScrollToTop />
+                <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/blogs" element={<FeaturedBlogs />} />
+                <Route path="/blog/:id" element={<BlogDetail />} />
+                <Route path="/faqs" element={<FAQs />} />
+                <Route path="/products" element={<CategoriesPage />} />
+                <Route path="/products/:slug" element={<CategoryProducts />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/signup" element={<RegisterForm />} />
+                <Route path="/admin/*" element={
+                  <AdminAuthProvider>
+                    <AdminPanel />
+                  </AdminAuthProvider>
+                } />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+                
+                </Routes>
+              </CartProvider>
+            </BrowserRouter>
+          </TooltipProvider>
+        </ConfirmProvider>
+      </ToastProvider>
+    </MaterialUIProvider>
   </QueryClientProvider>
 );
 

@@ -26,6 +26,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import { Label } from '@/components/ui/label';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
 
 interface CreateUserFormProps {
   onClose: () => void;
@@ -280,6 +282,8 @@ const AdminUsers: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState<any>(null);
   const { adminToken } = useAdminAuth();
+  const { confirm } = useMaterialConfirm();
+  const { toast } = useMaterialToast();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -359,9 +363,54 @@ const AdminUsers: React.FC = () => {
     setIsUserModalOpen(true);
   };
 
-  const handleDeleteUser = (userId: number) => {
-    // Implement delete logic
-    console.log('Delete user:', userId);
+  const handleDeleteUser = async (userId: number) => {
+    const user = users.find(u => u.user_id === userId);
+    const userName = user ? `${user.first_name} ${user.last_name}`.trim() || user.email : 'this user';
+    
+    const confirmed = await confirm({
+      title: 'Delete User',
+      message: `Are you sure you want to delete "${userName}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+    });
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.USERS}/${userId}`), {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete user');
+      }
+
+      // Remove user from local state
+      setUsers(prevUsers => prevUsers.filter(u => u.user_id !== userId));
+
+      toast({
+        title: 'User Deleted',
+        description: `${userName} has been successfully deleted`,
+        variant: 'success',
+      });
+    } catch (err: any) {
+      console.error('Error deleting user:', err);
+      toast({
+        title: 'Delete Failed',
+        description: err.message || 'Failed to delete user. Please try again.',
+        variant: 'destructive',
+        action: {
+          label: 'Retry',
+          onClick: () => handleDeleteUser(userId),
+        },
+      });
+    }
   };
 
   const userStats = {

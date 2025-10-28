@@ -4,12 +4,12 @@ import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { API_CONFIG } from "@/lib/config";
-import { useToast } from "@/components/ui/use-toast";
+import { useMaterialToast } from "@/hooks/useMaterialToast";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
+  const { toast } = useMaterialToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,5 +67,6 @@ const ForgotPassword = () => {
 };
 
 export default ForgotPassword;
+
 
 

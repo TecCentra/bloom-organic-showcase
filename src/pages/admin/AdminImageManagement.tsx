@@ -23,6 +23,8 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
 
 const AdminImageManagement: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,6 +32,8 @@ const AdminImageManagement: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const { confirm } = useMaterialConfirm();
+  const { toast } = useMaterialToast();
 
   // Mock data - replace with actual API calls
   const images = [
@@ -141,9 +145,50 @@ const AdminImageManagement: React.FC = () => {
     setIsUploadModalOpen(false);
   };
 
-  const handleDeleteImage = (imageId: number) => {
-    // Implement delete logic
-    console.log('Delete image:', imageId);
+  const handleDeleteImage = async (imageId: number) => {
+    const image = images.find(img => img.id === imageId);
+    const imageName = image?.filename || image?.originalName || 'this image';
+    
+    const confirmed = await confirm({
+      title: 'Delete Image',
+      message: `Are you sure you want to delete "${imageName}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+    });
+
+    if (!confirmed) return;
+
+    try {
+      // Simulate API call - replace with actual API endpoint
+      // const response = await fetch(`/api/images/${imageId}`, {
+      //   method: 'DELETE',
+      //   headers: {
+      //     'Authorization': `Bearer ${adminToken}`,
+      //   },
+      // });
+      
+      // For now, just show success toast
+      // Note: Add actual API call when backend endpoint is ready
+      toast({
+        title: 'Image Deleted',
+        description: `${imageName} has been successfully deleted`,
+        variant: 'success',
+      });
+      
+      console.log('Delete image:', imageId);
+    } catch (err: any) {
+      console.error('Error deleting image:', err);
+      toast({
+        title: 'Delete Failed',
+        description: err.message || 'Failed to delete image. Please try again.',
+        variant: 'destructive',
+        action: {
+          label: 'Retry',
+          onClick: () => handleDeleteImage(imageId),
+        },
+      });
+    }
   };
 
   const handleDownloadImage = (image: any) => {

@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { API_CONFIG } from "@/lib/config";
-import { useToast } from "@/components/ui/use-toast";
+import { useMaterialToast } from "@/hooks/useMaterialToast";
 
 type ForgotPasswordModalProps = {
   trigger?: React.ReactNode;
@@ -14,7 +14,7 @@ type ForgotPasswordModalProps = {
 const ForgotPasswordModal = ({ trigger, open, onOpenChange }: ForgotPasswordModalProps) => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
+  const { toast } = useMaterialToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,5 +76,6 @@ const ForgotPasswordModal = ({ trigger, open, onOpenChange }: ForgotPasswordModa
 };
 
 export default ForgotPasswordModal;
+
 
 

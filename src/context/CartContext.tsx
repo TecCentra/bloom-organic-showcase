@@ -188,7 +188,7 @@
 //   return ctx;
 // }
 import { createContext, useContext, useEffect, useMemo, useState, ReactNode } from "react";
-import { useToast as useToaster } from "@/hooks/use-toast";
+import { useMaterialToast } from "@/hooks/useMaterialToast";
 
 export type CartItem = {
   id: string;
@@ -220,7 +220,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return [];
     }
   });
-  const { toast } = useToaster();
+  const { toast } = useMaterialToast();
 
   useEffect(() => {
     try {
@@ -257,12 +257,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeItem: CartContextValue["removeItem"] = (id) => {
     const itemToRemove = items.find(i => i.id === id);
     setItems((prev) => prev.filter((i) => i.id !== id));
-    // Show success toast when item is removed
+    // Show success toast with undo action when item is removed
     if (itemToRemove) {
       toast({
         title: "Removed from cart",
         description: `${itemToRemove.name} removed from your cart`,
         variant: "default",
+        action: {
+          label: "Undo",
+          onClick: () => {
+            setItems((prev) => [...prev, itemToRemove]);
+            toast({
+              title: "Item restored",
+              description: `${itemToRemove.name} added back to cart`,
+              variant: "success",
+              duration: 3000,
+            });
+          },
+        },
       });
     }
   };
