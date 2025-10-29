@@ -2012,7 +2012,7 @@ const CartPage = () => {
   }, [cartItems]);
 
   const subtotal = useMemo(() => cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0), [cartItems]);
-  const shipping = subtotal > 5000 ? 0 : 350;
+  const shipping = 0; // Shipping cost calculated at checkout based on selected zone
   const total = subtotal + shipping;
 
   const handleQuantityChange = (id, action) => {

@@ -1683,8 +1683,8 @@ const ProductDetail = () => {
             <div className="grid grid-cols-3 gap-3 pt-6 border-t border-border">
               <div className="flex flex-col items-center text-center p-3">
                 <Truck className="w-6 h-6 text-primary mb-2" />
-                <span className="text-xs font-medium">Free Shipping</span>
-                <span className="text-xs text-muted-foreground">Orders over Ksh50</span>
+                <span className="text-xs font-medium">Zone-based Shipping</span>
+                <span className="text-xs text-muted-foreground">Calculated at checkout</span>
               </div>
               <div className="flex flex-col items-center text-center p-3">
                 <RotateCcw className="w-6 h-6 text-primary mb-2" />

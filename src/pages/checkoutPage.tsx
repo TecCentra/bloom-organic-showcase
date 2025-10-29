@@ -1147,9 +1147,8 @@ const CheckoutPage = () => {
   const shippingCost = useMemo(() => {
     if (deliveryMethod === "pickup") return 0;
     if (selectedZone) return selectedZone.price * 100; // Convert Ksh to cents
-    // Fallback to free shipping for orders over 5000
-    return subtotal > 5000 ? 0 : 350;
-  }, [deliveryMethod, selectedZone, subtotal]);
+    return 0; // No shipping cost if no zone selected
+  }, [deliveryMethod, selectedZone]);
   
   const total = subtotal + shippingCost;
 
