@@ -10,6 +10,7 @@ import {
   Activity
 } from 'lucide-react';
 import { useAdminAuth } from '@/context/AdminAuthContext';
+import { API_CONFIG } from '@/lib/config';
 
 const AdminDashboard: React.FC = () => {
   const [dashboardData, setDashboardData] = useState<any>(null);
@@ -19,7 +20,7 @@ const AdminDashboard: React.FC = () => {
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/admin/dashboard', {
+        const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.ADMIN.DASHBOARD}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${adminToken}`,
@@ -72,48 +73,48 @@ const AdminDashboard: React.FC = () => {
     {
       title: 'Total Products',
       value: dashboardData?.totalProducts?.toString() || '0',
-      change: '+12%',
-      trend: 'up',
+      change: dashboardData?.productChange || null,
+      trend: dashboardData?.productTrend || 'up',
       icon: Package,
       color: 'text-blue-600'
     },
     {
       title: 'Total Orders',
       value: dashboardData?.totalOrders?.toString() || '0',
-      change: '+8%',
-      trend: 'up',
+      change: dashboardData?.orderChange || null,
+      trend: dashboardData?.orderTrend || 'up',
       icon: ShoppingCart,
       color: 'text-green-600'
     },
     {
       title: 'Total Users',
       value: dashboardData?.totalUsers?.toString() || '0',
-      change: '+15%',
-      trend: 'up',
+      change: dashboardData?.userChange || null,
+      trend: dashboardData?.userTrend || 'up',
       icon: Users,
       color: 'text-purple-600'
     },
     {
       title: 'Revenue',
       value: `Ksh${dashboardData?.totalRevenue || '0'}`,
-      change: '+23%',
-      trend: 'up',
+      change: dashboardData?.revenueChange || null,
+      trend: dashboardData?.revenueTrend || 'up',
       icon: DollarSign,
       color: 'text-emerald-600'
     },
     {
       title: 'Pending Orders',
       value: dashboardData?.pendingOrders?.toString() || '0',
-      change: '+5%',
-      trend: 'up',
+      change: dashboardData?.pendingOrdersChange || null,
+      trend: dashboardData?.pendingOrdersTrend || 'up',
       icon: ShoppingCart,
       color: 'text-yellow-600'
     },
     {
       title: 'Completed Orders',
       value: dashboardData?.completedOrders?.toString() || '0',
-      change: '+18%',
-      trend: 'up',
+      change: dashboardData?.completedOrdersChange || null,
+      trend: dashboardData?.completedOrdersTrend || 'up',
       icon: ShoppingCart,
       color: 'text-green-600'
     }
@@ -131,12 +132,11 @@ const AdminDashboard: React.FC = () => {
     shippingMethod: order.shipping_method
   })) || [];
 
-  const topProducts = [
-    { name: 'Organic Honey', sales: 156, revenue: '$2,340' },
-    { name: 'Herbal Tea Blend', sales: 134, revenue: '$1,608' },
-    { name: 'Organic Granola', sales: 98, revenue: '$1,176' },
-    { name: 'Coconut Oil', sales: 87, revenue: '$1,044' },
-  ];
+  const topProducts = dashboardData?.topProducts?.map((product: any) => ({
+    name: product.product_name,
+    sales: product.total_sales,
+    revenue: `Ksh${product.total_revenue}`
+  })) || [];
 
   return (
     <div className="space-y-4">
@@ -161,11 +161,13 @@ const AdminDashboard: React.FC = () => {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                <div className="flex items-center text-xs text-gray-600 mt-1">
-                  <TrendIcon className="h-3 w-3 mr-1 text-green-600" />
-                  <span className="text-green-600">{stat.change}</span>
-                  <span className="ml-1">from last month</span>
-                </div>
+                {stat.change && (
+                  <div className="flex items-center text-xs text-gray-600 mt-1">
+                    <TrendIcon className={`h-3 w-3 mr-1 ${stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}`} />
+                    <span className={stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}>{stat.change}</span>
+                    <span className="ml-1">from last month</span>
+                  </div>
+                )}
               </CardContent>
             </Card>
           );
@@ -179,34 +181,38 @@ const AdminDashboard: React.FC = () => {
             <CardTitle>Recent Orders</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {recentOrders.slice(0, 5).map((order) => (
-                <div key={order.id} className="p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <p className="font-medium text-gray-900 text-sm">{order.id}</p>
-                      <p className="text-sm text-gray-600">{order.customer}</p>
+            {recentOrders.length > 0 ? (
+              <div className="space-y-4">
+                {recentOrders.slice(0, 5).map((order) => (
+                  <div key={order.id} className="p-3 bg-gray-50 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <div>
+                        <p className="font-medium text-gray-900 text-sm">{order.id}</p>
+                        <p className="text-sm text-gray-600">{order.customer}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium text-gray-900">{order.amount}</p>
+                        <p className={`text-xs ${
+                          order.status === 'completed' ? 'text-green-600' :
+                          order.status === 'processing' ? 'text-blue-600' :
+                          order.status === 'shipped' ? 'text-purple-600' :
+                          order.status === 'pending' ? 'text-yellow-600' :
+                          'text-gray-600'
+                        }`}>
+                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-medium text-gray-900">{order.amount}</p>
-                      <p className={`text-xs ${
-                        order.status === 'completed' ? 'text-green-600' :
-                        order.status === 'processing' ? 'text-blue-600' :
-                        order.status === 'shipped' ? 'text-purple-600' :
-                        order.status === 'pending' ? 'text-yellow-600' :
-                        'text-gray-600'
-                      }`}>
-                        {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                      </p>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>Payment: {order.paymentMethod}</span>
+                      <span>Tracking: {order.trackingNumber}</span>
                     </div>
                   </div>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>Payment: {order.paymentMethod}</span>
-                    <span>Tracking: {order.trackingNumber}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">No recent orders available.</p>
+            )}
           </CardContent>
         </Card>
 
@@ -216,19 +222,23 @@ const AdminDashboard: React.FC = () => {
             <CardTitle>Top Products</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {topProducts.map((product, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900">{product.name}</p>
-                    <p className="text-sm text-gray-600">{product.sales} sales</p>
+            {topProducts.length > 0 ? (
+              <div className="space-y-4">
+                {topProducts.map((product, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div>
+                      <p className="font-medium text-gray-900">{product.name}</p>
+                      <p className="text-sm text-gray-600">{product.sales} sales</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-medium text-gray-900">{product.revenue}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-medium text-gray-900">{product.revenue}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-gray-500">No product sales data available yet.</p>
+            )}
           </CardContent>
         </Card>
       </div>

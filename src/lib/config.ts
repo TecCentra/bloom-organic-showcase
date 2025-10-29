@@ -13,6 +13,7 @@ export const API_CONFIG = {
       FORGOT_PASSWORD: '/auth/forgot-password',
     },
     ADMIN: {
+      DASHBOARD: '/admin/dashboard',
       USERS: '/admin/users',
       PRODUCTS: '/admin/products',
       CATEGORIES: '/admin/categories',

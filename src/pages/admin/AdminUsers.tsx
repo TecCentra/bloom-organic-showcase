@@ -28,6 +28,14 @@ import { Label } from '@/components/ui/label';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
 import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 import { useMaterialToast } from '@/hooks/useMaterialToast';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 interface CreateUserFormProps {
   onClose: () => void;
@@ -281,6 +289,7 @@ const AdminUsers: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { adminToken } = useAdminAuth();
   const { confirm } = useMaterialConfirm();
   const { toast } = useMaterialToast();
@@ -288,7 +297,7 @@ const AdminUsers: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.ADMIN.USERS), {
+        const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.USERS}?page=${currentPage}&limit=10`), {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${adminToken}`,
@@ -322,7 +331,7 @@ const AdminUsers: React.FC = () => {
     if (adminToken) {
       fetchUsers();
     }
-  }, [adminToken]);
+  }, [adminToken, currentPage]);
 
   const getRoleBadge = (role: string) => {
     switch (role) {
@@ -573,6 +582,56 @@ const AdminUsers: React.FC = () => {
               ))}
             </TableBody>
           </Table>
+          
+          {/* Pagination Controls */}
+          {pagination && pagination.pages > 1 && (
+            <div className="mt-4 flex justify-end">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                  
+                  {[...Array(pagination.pages)].map((_, idx) => {
+                    const pageNum = idx + 1;
+                    if (
+                      pageNum === 1 ||
+                      pageNum === pagination.pages ||
+                      (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
+                    ) {
+                      return (
+                        <PaginationItem key={pageNum}>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(pageNum)}
+                            isActive={currentPage === pageNum}
+                            className="cursor-pointer"
+                          >
+                            {pageNum}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (
+                      pageNum === currentPage - 2 ||
+                      pageNum === currentPage + 2
+                    ) {
+                      return <PaginationItem key={pageNum}>...</PaginationItem>;
+                    }
+                    return null;
+                  })}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => setCurrentPage(prev => Math.min(pagination.pages, prev + 1))}
+                      className={currentPage === pagination.pages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </CardContent>
       </Card>
 
