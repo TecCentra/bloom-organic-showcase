@@ -448,6 +448,7 @@
 
 // export default Index;
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
@@ -492,6 +493,7 @@ interface ApiResponse {
 }
 
 const Index = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -675,6 +677,7 @@ const Index = () => {
             <Button 
               size="lg" 
               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
+              onClick={() => navigate('/shop')}
             >
               Shop Now
               <ArrowRight className="ml-2 w-5 h-5" />

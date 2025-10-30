@@ -8,6 +8,7 @@ import { MaterialUIProvider } from "@/components/MaterialUIProvider";
 import { ToastProvider } from "@/hooks/useMaterialToast";
 import { ConfirmProvider } from "@/hooks/useMaterialConfirm";
 import ScrollToTop from "./components/ScrollToTop";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 import Index from "./pages/Index";
 import Contact from "./pages/Contact";
 import FeaturedBlogs from "./pages/FeaturedBlogs";
@@ -20,6 +21,7 @@ import CartPage from "./pages/cartPage";
 import RegisterForm from "./pages/signup";
 import AdminPanel from "./pages/admin";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
+import AllProducts from "./pages/AllProducts";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryProducts from "./pages/CategoryProducts";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -37,12 +39,14 @@ const App = () => (
             <BrowserRouter>
               <CartProvider>
                 <ScrollToTop />
+                <FloatingWhatsApp />
                 <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/blogs" element={<FeaturedBlogs />} />
                 <Route path="/blog/:id" element={<BlogDetail />} />
                 <Route path="/faqs" element={<FAQs />} />
+                <Route path="/shop" element={<AllProducts />} />
                 <Route path="/products" element={<CategoriesPage />} />
                 <Route path="/products/:slug" element={<CategoryProducts />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
