@@ -18,6 +18,7 @@ export const API_CONFIG = {
       PRODUCTS: '/admin/products',
       CATEGORIES: '/admin/categories',
       ORDERS: '/admin/orders',
+      CANCELLATION_REQUESTS: '/admin/orders/cancellation-requests',
       REPORTS: {
         SALES: '/admin/reports/sales',
       },

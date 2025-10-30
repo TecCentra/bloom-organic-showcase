@@ -2,7 +2,7 @@
 // // // import { useParams, useNavigate } from "react-router-dom";
 // // // import { Button } from "@/components/ui/button";
 // // // import { Badge } from "@/components/ui/badge";
-// // // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+// // // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 // // // import Header from "@/components/Header";
 // // // import Footer from "@/components/Footer";
 // // // import productHoney from "@/assets/product-honey.jpg";
@@ -431,7 +431,7 @@
 // // import { useParams, useNavigate, useLocation } from "react-router-dom";
 // // import { Button } from "@/components/ui/button";
 // // import { Badge } from "@/components/ui/badge";
-// // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+// // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 // // import Header from "@/components/Header";
 // // import Footer from "@/components/Footer";
 // // import productHoney from "@/assets/product-honey.jpg";
@@ -995,7 +995,7 @@
 // import { useParams, useNavigate, useLocation } from "react-router-dom";
 // import { Button } from "@/components/ui/button";
 // import { Badge } from "@/components/ui/badge";
-// import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+// import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 // import Header from "@/components/Header";
 // import Footer from "@/components/Footer";
 // import { useCart } from "@/context/CartContext";
@@ -1395,7 +1395,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { productsData } from "@/lib/products";
@@ -1476,6 +1476,7 @@ const ProductDetail = () => {
         price: parseFloat(product.price) * 100,
         originalPrice: parseFloat(product.price) * 100 * 1.2,
         inStock: product.stock_quantity > 0,
+        stockQuantity: product.stock_quantity,
         category: 'Category',
         rating: 4.5,
         reviews: 0,
@@ -1604,10 +1605,15 @@ const ProductDetail = () => {
               <Badge className="bg-primary/10 text-primary hover:bg-primary/20">
                 {transformedProduct.category}
               </Badge>
-              {transformedProduct.inStock && (
+              {transformedProduct.inStock ? (
                 <Badge variant="outline" className="border-green-500 text-green-600">
                   <Check className="w-3 h-3 mr-1" />
                   In Stock
+                </Badge>
+              ) : (
+                <Badge variant="outline" className="border-red-500 text-red-600 bg-red-50">
+                  <XCircle className="w-3 h-3 mr-1" />
+                  Out of Stock
                 </Badge>
               )}
             </div>
@@ -1655,8 +1661,8 @@ const ProductDetail = () => {
               <div className="flex items-center border border-border rounded-lg">
                 <button
                   onClick={() => handleQuantityChange("decrease")}
-                  className="p-3 hover:bg-secondary transition-colors"
-                  disabled={quantity <= 1}
+                  className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={quantity <= 1 || !transformedProduct.inStock}
                   aria-label="Decrease quantity"
                 >
                   <Minus className="w-4 h-4" />
@@ -1664,7 +1670,8 @@ const ProductDetail = () => {
                 <span className="px-6 py-3 font-semibold">{quantity}</span>
                 <button
                   onClick={() => handleQuantityChange("increase")}
-                  className="p-3 hover:bg-secondary transition-colors"
+                  className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!transformedProduct.inStock}
                   aria-label="Increase quantity"
                 >
                   <Plus className="w-4 h-4" />
@@ -1676,8 +1683,17 @@ const ProductDetail = () => {
                 disabled={!transformedProduct.inStock}
                 onClick={handleAddToCart}
               >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Add to Cart
+                {transformedProduct.inStock ? (
+                  <>
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Add to Cart
+                  </>
+                ) : (
+                  <>
+                    <XCircle className="w-5 h-5 mr-2" />
+                    Out of Stock
+                  </>
+                )}
               </Button>
             </div>
             <div className="grid grid-cols-3 gap-3 pt-6 border-t border-border">
@@ -1708,76 +1724,8 @@ const ProductDetail = () => {
               {transformedProduct.description}
             </p>
           </section>
-          <section className="bg-gradient-to-b from-secondary/20 to-transparent rounded-2xl p-8 md:p-12">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-8 text-center">
-              Key Advantages
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {transformedProduct.advantages.map((advantage, index) => (
-                <div key={index} className="flex gap-4 p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <advantage.icon className="w-6 h-6 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-foreground mb-2">
-                      {advantage.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">
-                      {advantage.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-              Health Benefits
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {transformedProduct.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 rounded-lg hover:bg-secondary/30 transition-colors">
-                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="bg-card border border-border rounded-2xl p-8 md:p-12">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-              How to Use
-            </h2>
-            <ul className="space-y-3">
-              {transformedProduct.usage.map((use, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex items-center justify-center mt-0.5">
-                    {index + 1}
-                  </span>
-                  <span className="text-muted-foreground">{use}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-          <section>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-              Nutrition Information
-            </h2>
-            <div className="bg-card border border-border rounded-xl overflow-hidden max-w-md">
-              {transformedProduct.nutritionInfo.map((info, index) => (
-                <div
-                  key={index}
-                  className={`flex justify-between items-center p-4 ${
-                    index !== transformedProduct.nutritionInfo.length - 1 ? "border-b border-border" : ""
-                  }`}
-                >
-                  <span className="font-medium text-foreground">{info.label}</span>
-                  <span className="text-muted-foreground">{info.value}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          
+          
         </div>
       </div>
       <Footer />

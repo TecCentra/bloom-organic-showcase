@@ -550,6 +550,7 @@ const Index = () => {
       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
       image: imageUrl,
       category: categoryMap[product.category_id] || 'Uncategorized',
+      stockQuantity: product.stock_quantity,
     };
   });
 
