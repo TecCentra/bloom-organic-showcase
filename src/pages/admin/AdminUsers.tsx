@@ -412,17 +412,13 @@ const AdminUsers: React.FC = () => {
       // Remove user from local state
       setUsers(prevUsers => prevUsers.filter(u => u.user_id !== userId));
 
-      toast({
-        title: 'User Deleted',
-        description: `${userName} has been successfully deleted`,
-        variant: 'success',
-      });
+      toast({ description: `${userName} has been successfully deleted`, variant: 'success', duration: 3000 });
     } catch (err: any) {
       console.error('Error deleting user:', err);
       toast({
-        title: 'Delete Failed',
         description: err.message || 'Failed to delete user. Please try again.',
         variant: 'destructive',
+        duration: 3000,
         action: {
           label: 'Retry',
           onClick: () => handleDeleteUser(userId),

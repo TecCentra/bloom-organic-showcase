@@ -32,8 +32,20 @@ export const API_CONFIG = {
       CATEGORIES: '/categories',
       PRODUCTS: '/products',
     },
+    REVIEWS: {
+      CREATE: '/reviews',
+      BY_PRODUCT: '/reviews/products',
+    },
+    BLOGS: {
+      UPLOAD_PDF: '/blogs/upload-pdf',
+      LIST: '/blogs',
+      DETAIL: '/blogs',
+    },
     SHIPPING: {
       ZONES: '/shipping/zones',
+    },
+    MPESA: {
+      CALLBACK: '/mpesa/callback',
     }
   }
 };

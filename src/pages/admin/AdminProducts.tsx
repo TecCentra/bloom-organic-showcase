@@ -334,25 +334,13 @@ const AdminProducts: React.FC = () => {
           try {
             await uploadImages(productId);
             console.log('✅ All images uploaded successfully!');
-            toast({
-              title: 'Success',
-              description: `Product created with ${selectedImages.length} image(s)`,
-              variant: 'success',
-            });
+            toast({ description: `Product created with ${selectedImages.length} image(s)`, variant: 'success', duration: 3000 });
           } catch (imageError) {
             console.warn('⚠️ Product created but images failed to upload:', imageError);
-            toast({
-              title: 'Partial Success',
-              description: 'Product created but some images failed to upload',
-              variant: 'default',
-            });
+            toast({ description: 'Product created but some images failed to upload', variant: 'default', duration: 3000 });
           }
         } else {
-          toast({
-            title: 'Success',
-            description: 'Product created successfully',
-            variant: 'success',
-          });
+          toast({ description: 'Product created successfully', variant: 'success', duration: 3000 });
         }
         
         // Close modal and clear form

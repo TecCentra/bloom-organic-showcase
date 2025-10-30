@@ -1,69 +1,35 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import organicImage from "@/assets/organic.jpg";
+import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 const FeaturedBlogs = () => {
   const navigate = useNavigate();
-  
-  const blogs = [
-    {
-      id: "organic-gardening-tips",
-      title: "Organic Gardening Tips",
-      category: "GARDENING",
-      description: "Learn essential techniques for growing your own organic vegetables and herbs at home.",
-      date: "March 15, 2024",
-      readTime: "5 min read",
-      image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&h=300&fit=crop&crop=center",
-    },
-    {
-      id: "superfood-nutrition",
-      title: "Superfood Nutrition Guide",
-      category: "NUTRITION",
-      description: "Discover the power of superfoods and how to incorporate them into your daily diet.",
-      date: "March 12, 2024",
-      readTime: "7 min read",
-      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=500&h=300&fit=crop&crop=center",
-    },
-    {
-      id: "sustainable-farming",
-      title: "Sustainable Farming Practices",
-      category: "SUSTAINABILITY",
-      description: "Explore eco-friendly farming methods that protect our planet while producing quality food.",
-      date: "March 10, 2024",
-      readTime: "6 min read",
-      image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&h=300&fit=crop&crop=center",
-    },
-    {
-      id: "organic-cooking-basics",
-      title: "Organic Cooking Basics",
-      category: "COOKING",
-      description: "Master the fundamentals of cooking with organic ingredients for maximum flavor and nutrition.",
-      date: "March 8, 2024",
-      readTime: "8 min read",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=300&fit=crop&crop=center",
-    },
-    {
-      id: "wellness-trends",
-      title: "Organic Wellness Trends",
-      category: "WELLNESS",
-      description: "Exploring the latest trends in organic living and sustainable wellness practices.",
-      date: "March 5, 2024",
-      readTime: "4 min read",
-      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=500&h=300&fit=crop&crop=center",
-    },
-    {
-      id: "sustainable-living-guide",
-      title: "Sustainable Living Guide",
-      category: "LIFESTYLE",
-      description: "A comprehensive guide to adopting sustainable practices in your daily life.",
-      date: "March 3, 2024",
-      readTime: "9 min read",
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500&h=300&fit=crop&crop=center",
-    },
-  ];
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await fetch(`${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.LIST)}?page=1&limit=9&status=published`);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.success) {
+          setBlogs(data.data?.posts || []);
+        } else {
+          setBlogs([]);
+        }
+      } catch {
+        setBlogs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -119,7 +85,11 @@ const FeaturedBlogs = () => {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogs.map((blog, index) => (
+            {loading ? (
+              <div className="col-span-full text-center text-muted-foreground">Loading blogs…</div>
+            ) : blogs.length === 0 ? (
+              <div className="col-span-full text-center text-muted-foreground">No blog posts found.</div>
+            ) : blogs.map((blog: any, index: number) => (
               <article
                 key={blog.id}
                 className="group bg-card rounded-xl overflow-hidden border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10"
@@ -128,7 +98,7 @@ const FeaturedBlogs = () => {
                 {/* Blog Image */}
                 <div className="relative overflow-hidden aspect-video">
                   <img
-                    src={blog.image}
+                    src={blog.featured_image || organicImage}
                     alt={blog.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
@@ -140,7 +110,7 @@ const FeaturedBlogs = () => {
                   {/* Category Tag */}
                   <div className="mb-4">
                     <span className="inline-block px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider rounded-full">
-                      {blog.category}
+                      {blog.status?.toUpperCase() || 'PUBLISHED'}
                     </span>
                   </div>
 
@@ -151,18 +121,14 @@ const FeaturedBlogs = () => {
 
                   {/* Description */}
                   <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                    {blog.description}
+                    {blog.excerpt}
                   </p>
 
                   {/* Meta Info */}
                   <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      <span>{blog.date}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{blog.readTime}</span>
+                      <span>{blog.published_at ? new Date(blog.published_at).toLocaleDateString() : '-'}</span>
                     </div>
                   </div>
 

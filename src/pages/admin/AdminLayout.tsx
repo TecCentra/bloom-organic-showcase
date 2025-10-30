@@ -35,6 +35,7 @@ const AdminLayout: React.FC = () => {
     { id: 'cancelled-orders', label: 'Cancelled Orders', icon: XCircle, path: '/admin/cancelled-orders' },
     { id: 'shipping', label: 'Shipping', icon: Truck, path: '/admin/shipping' },
     { id: 'images', label: 'Images', icon: Image, path: '/admin/images' },
+    { id: 'blogs', label: 'Blogs', icon: FileText, path: '/admin/blogs' },
     { id: 'users', label: 'Users', icon: Users, path: '/admin/users' },
     { id: 'reports', label: 'Reports & Sales', icon: BarChart3, path: '/admin/reports' },
     { id: 'audit', label: 'Audit Log', icon: FileText, path: '/admin/audit' },

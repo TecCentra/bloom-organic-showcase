@@ -25,7 +25,7 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
-import { useToast } from '@/hooks/use-toast';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
 
 interface CancelledOrder {
   order_id: string;
@@ -74,7 +74,7 @@ const AdminCancelledOrders: React.FC = () => {
   const [adminNotes, setAdminNotes] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const { adminToken } = useAdminAuth();
-  const { toast } = useToast();
+  const { toast } = useMaterialToast();
 
   useEffect(() => {
     if (adminToken) {
@@ -126,28 +126,17 @@ const AdminCancelledOrders: React.FC = () => {
       );
 
       if (response.ok) {
-        toast({
-          title: 'Success',
-          description: 'Cancellation request approved successfully',
-        });
+        toast({ description: 'Cancellation request approved successfully', duration: 3000 });
         fetchCancellationRequests();
         setIsOrderModalOpen(false);
         setAdminNotes('');
       } else {
         const errorData = await response.json().catch(() => ({}));
-        toast({
-          title: 'Error',
-          description: errorData.message || 'Failed to approve cancellation request',
-          variant: 'destructive',
-        });
+        toast({ description: errorData.message || 'Failed to approve cancellation request', variant: 'destructive', duration: 3000 });
       }
     } catch (error) {
       console.error('Error approving cancellation:', error);
-      toast({
-        title: 'Error',
-        description: 'An error occurred while approving the cancellation',
-        variant: 'destructive',
-      });
+      toast({ description: 'An error occurred while approving the cancellation', variant: 'destructive', duration: 3000 });
     } finally {
       setIsProcessing(false);
     }
@@ -169,28 +158,17 @@ const AdminCancelledOrders: React.FC = () => {
       );
 
       if (response.ok) {
-        toast({
-          title: 'Success',
-          description: 'Cancellation request rejected successfully',
-        });
+        toast({ description: 'Cancellation request rejected successfully', duration: 3000 });
         fetchCancellationRequests();
         setIsOrderModalOpen(false);
         setAdminNotes('');
       } else {
         const errorData = await response.json().catch(() => ({}));
-        toast({
-          title: 'Error',
-          description: errorData.message || 'Failed to reject cancellation request',
-          variant: 'destructive',
-        });
+        toast({ description: errorData.message || 'Failed to reject cancellation request', variant: 'destructive', duration: 3000 });
       }
     } catch (error) {
       console.error('Error rejecting cancellation:', error);
-      toast({
-        title: 'Error',
-        description: 'An error occurred while rejecting the cancellation',
-        variant: 'destructive',
-      });
+      toast({ description: 'An error occurred while rejecting the cancellation', variant: 'destructive', duration: 3000 });
     } finally {
       setIsProcessing(false);
     }
