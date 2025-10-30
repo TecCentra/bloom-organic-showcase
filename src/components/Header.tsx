@@ -182,15 +182,15 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <nav className="container mx-auto px-4 py-4">
+      <nav className="container mx-auto px-3 py-1 md:px-4 md:py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
             <img 
               src={Logo} 
               alt="Organic Bloom Logo" 
-              className="w-20 h-20 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+              className="w-10 h-10 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="text-2xl font-heading font-semibold text-foreground">
+            <span className="text-sm md:text-lg lg:text-xl font-heading font-semibold text-foreground leading-tight">
               Organic<br/>Bloom
             </span>
           </Link>
@@ -290,18 +290,18 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-4">
+          <div className="md:hidden flex items-center gap-2">
             {/* Profile Icon (Mobile) - Only show when logged in */}
             {isLoggedIn && (
               <Link to="/profile" className="relative" aria-label="Profile">
-                <User className="w-6 h-6 text-foreground" />
+                <User className="w-4 h-4 text-foreground" />
               </Link>
             )}
             {/* Cart Icon (Mobile) */}
             <Link to="/cart" className="relative" aria-label="Cart">
-              <ShoppingCart className="w-6 h-6 text-foreground" />
+              <ShoppingCart className="w-4 h-4 text-foreground" />
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-white text-xs flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 min-w-[16px] h-[16px] px-1 rounded-full bg-primary text-white text-[10px] flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
@@ -311,45 +311,45 @@ const Header = () => {
             className="md:hidden text-foreground hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 border-t border-border animate-fade-in">
+          <div className="md:hidden mt-1 py-1 border-t border-border animate-fade-in">
             {navLinks.map((link) => {
               const isContact = link.name === "Contact Us";
               const isProducts = link.hasDropdown;
               
               if (isProducts) {
                 return (
-                  <div key={link.path} className="mb-2">
+                  <div key={link.path} className="mb-1">
                     <button
                       onClick={() => setIsProductsOpen(!isProductsOpen)}
-                      className={`block w-full text-left py-2 font-body font-medium transition-colors duration-300 flex items-center gap-2 ${
+                      className={`block w-full text-left py-1 font-body font-medium transition-colors duration-300 flex items-center gap-1.5 ${
                         isActive(link.path) || location.pathname.startsWith("/products")
                           ? "text-primary"
                           : "text-foreground hover:text-primary"
                       }`}
                     >
                       {link.name}
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
                     </button>
                     {isProductsOpen && (
-                      <div className="ml-4 mt-2 space-y-2 animate-fade-in">
+                      <div className="ml-3 mt-1 space-y-1 animate-fade-in">
                         {productCategories.map((category) => (
                           <Link
                             key={category.path}
                             to={category.path}
                             onClick={() => setIsMenuOpen(false)}
-                            className="block py-2 px-3 rounded-lg hover:bg-primary/5 transition-colors"
+                            className="block py-1 px-2 rounded-lg hover:bg-primary/5 transition-colors text-xs"
                           >
-                            <div className="font-body font-medium text-sm text-foreground">
+                            <div className="font-body font-medium text-xs text-foreground">
                               {category.name}
                             </div>
-                            <div className="text-xs text-foreground/60 mt-0.5">
+                            <div className="text-[11px] text-foreground/60 mt-0.5">
                               {category.description}
                             </div>
                           </Link>
@@ -367,12 +367,12 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className={
                     isContact
-                      ? `block w-full text-center mt-2 px-4 py-2 rounded-xl border ${
+                      ? `block w-full text-center mt-1 px-2.5 py-1.5 rounded-xl border text-xs ${
                           isActive(link.path)
                             ? "border-primary text-primary"
                             : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
                         } transition-colors font-body font-medium`
-                      : `block py-2 font-body font-medium transition-colors duration-300 ${
+                      : `block py-1.5 text-xs font-body font-medium transition-colors duration-300 ${
                           isActive(link.path)
                             ? "text-primary"
                             : "text-foreground hover:text-primary"

@@ -13,10 +13,12 @@ export const API_CONFIG = {
       FORGOT_PASSWORD: '/auth/forgot-password',
     },
     ADMIN: {
+      DASHBOARD: '/admin/dashboard',
       USERS: '/admin/users',
       PRODUCTS: '/admin/products',
       CATEGORIES: '/admin/categories',
       ORDERS: '/admin/orders',
+      CANCELLATION_REQUESTS: '/admin/orders/cancellation-requests',
       REPORTS: {
         SALES: '/admin/reports/sales',
       },
@@ -30,8 +32,20 @@ export const API_CONFIG = {
       CATEGORIES: '/categories',
       PRODUCTS: '/products',
     },
+    REVIEWS: {
+      CREATE: '/reviews',
+      BY_PRODUCT: '/reviews/products',
+    },
+    BLOGS: {
+      UPLOAD_PDF: '/blogs/upload-pdf',
+      LIST: '/blogs',
+      DETAIL: '/blogs',
+    },
     SHIPPING: {
       ZONES: '/shipping/zones',
+    },
+    MPESA: {
+      CALLBACK: '/mpesa/callback',
     }
   }
 };

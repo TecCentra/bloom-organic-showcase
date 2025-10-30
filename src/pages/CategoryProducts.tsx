@@ -106,7 +106,8 @@ const CategoryProducts = () => {
       name: product.name,
       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
       image: imageUrl,
-      category: targetCategory?.name || 'Category'
+      category: targetCategory?.name || 'Category',
+      stockQuantity: product.stock_quantity,
     };
   });
 

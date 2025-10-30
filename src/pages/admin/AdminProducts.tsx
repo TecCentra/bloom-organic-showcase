@@ -30,6 +30,14 @@ import {
 } from 'lucide-react';
 import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 import { useMaterialToast } from '@/hooks/useMaterialToast';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 const AdminProducts: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,6 +51,7 @@ const AdminProducts: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { adminToken } = useAdminAuth();
   const { confirm } = useMaterialConfirm();
   const { toast } = useMaterialToast();
@@ -80,8 +89,8 @@ const AdminProducts: React.FC = () => {
         setIsLoading(true);
         setError(null);
 
-        // Fetch products
-        const productsResponse = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS), {
+        // Fetch products with pagination
+        const productsResponse = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}?page=${currentPage}&limit=10`), {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${adminToken}`,
@@ -137,7 +146,7 @@ const AdminProducts: React.FC = () => {
     };
 
     fetchData();
-  }, [adminToken]);
+  }, [adminToken, currentPage]);
 
   // Helper function to get category name from category_id
   const getCategoryName = (categoryId: string | number | null | undefined) => {
@@ -325,25 +334,13 @@ const AdminProducts: React.FC = () => {
           try {
             await uploadImages(productId);
             console.log('✅ All images uploaded successfully!');
-            toast({
-              title: 'Success',
-              description: `Product created with ${selectedImages.length} image(s)`,
-              variant: 'success',
-            });
+            toast({ description: `Product created with ${selectedImages.length} image(s)`, variant: 'success', duration: 3000 });
           } catch (imageError) {
             console.warn('⚠️ Product created but images failed to upload:', imageError);
-            toast({
-              title: 'Partial Success',
-              description: 'Product created but some images failed to upload',
-              variant: 'default',
-            });
+            toast({ description: 'Product created but some images failed to upload', variant: 'default', duration: 3000 });
           }
         } else {
-          toast({
-            title: 'Success',
-            description: 'Product created successfully',
-            variant: 'success',
-          });
+          toast({ description: 'Product created successfully', variant: 'success', duration: 3000 });
         }
         
         // Close modal and clear form
@@ -721,6 +718,57 @@ const AdminProducts: React.FC = () => {
               })}
             </TableBody>
           </Table>
+          
+          {/* Pagination Controls */}
+          {pagination && pagination.pages > 1 && (
+            <div className="mt-4 flex justify-end">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                  
+                  {[...Array(pagination.pages)].map((_, idx) => {
+                    const pageNum = idx + 1;
+                    // Show first page, last page, current page, and pages around current
+                    if (
+                      pageNum === 1 ||
+                      pageNum === pagination.pages ||
+                      (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
+                    ) {
+                      return (
+                        <PaginationItem key={pageNum}>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(pageNum)}
+                            isActive={currentPage === pageNum}
+                            className="cursor-pointer"
+                          >
+                            {pageNum}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (
+                      pageNum === currentPage - 2 ||
+                      pageNum === currentPage + 2
+                    ) {
+                      return <PaginationItem key={pageNum}>...</PaginationItem>;
+                    }
+                    return null;
+                  })}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => setCurrentPage(prev => Math.min(pagination.pages, prev + 1))}
+                      className={currentPage === pagination.pages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </CardContent>
       </Card>
       )}

@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Calendar, Clock, User, Share2, Heart } from "lucide-react";
+import { ArrowLeft, Calendar, Share2, Heart } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 const BlogDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [apiBlog, setApiBlog] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
 
   // Mock blog data - in a real app, this would come from an API
   const blogData = {
@@ -158,7 +162,40 @@ const BlogDetail = () => {
     }
   };
 
-  const blog = blogData[id as keyof typeof blogData];
+  useEffect(() => {
+    const fetchBlog = async () => {
+      if (!id) return setLoading(false);
+      try {
+        const res = await fetch(`${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.DETAIL)}/${id}`);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data?.success) {
+          setApiBlog(data.data);
+        } else {
+          setApiBlog(null);
+        }
+      } catch {
+        setApiBlog(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlog();
+  }, [id]);
+
+  const blogFromMock = blogData[id as keyof typeof blogData];
+  const blog = apiBlog || blogFromMock;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-20 text-center">
+          <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Loading…</h1>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!blog) {
     return (
@@ -185,7 +222,7 @@ const BlogDetail = () => {
       <section className="relative h-[500px] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={blog.image}
+            src={(blog as any)?.featured_image || (blog as any)?.image || "https://via.placeholder.com/1200x600"}
             alt={blog.title}
             className="w-full h-full object-cover"
           />
@@ -194,29 +231,13 @@ const BlogDetail = () => {
         
         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
           <div className="max-w-4xl">
-            <div className="mb-4">
-              <span className="inline-block px-3 py-1 bg-primary text-primary-foreground text-xs font-semibold uppercase tracking-wider rounded-full">
-                {blog.category}
-              </span>
-            </div>
             <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4 drop-shadow-lg">
               {blog.title}
             </h1>
-            <p className="text-lg text-muted-foreground mb-6 drop-shadow-md">
-              {blog.description}
-            </p>
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
-                <User className="w-4 h-4" />
-                <span>{blog.author}</span>
-              </div>
-              <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                <span>{blog.date}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
-                <span>{blog.readTime}</span>
+                <span>{(blog as any)?.published_at ? new Date((blog as any).published_at).toLocaleDateString() : '-'}</span>
               </div>
             </div>
           </div>
@@ -228,23 +249,25 @@ const BlogDetail = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+              <div dangerouslySetInnerHTML={{ __html: (blog as any)?.content || (blog as any)?.structured_content?.content || '' }} />
             </div>
 
             {/* Tags */}
-            <div className="mt-12 pt-8 border-t border-border">
-              <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {blog.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full"
-                  >
-                    #{tag}
-                  </span>
-                ))}
+            {(Array.isArray((blog as any)?.tags) && (blog as any).tags.length > 0) && (
+              <div className="mt-12 pt-8 border-t border-border">
+                <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
+                <div className="flex flex-wrap gap-2">
+                  {(blog as any).tags.map((tag: string) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Action Buttons */}
             <div className="mt-12 flex flex-col sm:flex-row gap-4">

@@ -157,6 +157,7 @@ const CategoriesPage = () => {
         price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
         image: imageUrl,
         category: categoryName || categoryMap[product.category_id] || 'Uncategorized',
+        stockQuantity: product.stock_quantity,
         categoryId: product.category_id,
       };
     });

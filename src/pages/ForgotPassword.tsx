@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
-      toast({ title: "Email required", description: "Please enter your email address.", variant: "destructive" });
+      toast({ description: "Please enter your email address.", variant: "destructive", duration: 3000 });
       return;
     }
     setLoading(true);
@@ -26,12 +26,12 @@ const ForgotPassword = () => {
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
-        toast({ title: "Success", description: "Password reset token sent to email!" });
+        toast({ description: "Password reset token sent to email!", duration: 3000 });
       } else {
-        toast({ title: "Request failed", description: data.message || "Unable to send reset email.", variant: "destructive" });
+        toast({ description: data.message || "Unable to send reset email.", variant: "destructive", duration: 3000 });
       }
     } catch (err) {
-      toast({ title: "Network error", description: "Please try again.", variant: "destructive" });
+      toast({ description: "Please try again.", variant: "destructive", duration: 3000 });
     } finally {
       setLoading(false);
     }

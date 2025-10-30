@@ -1094,7 +1094,7 @@ import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
-import { buildApiUrl, getApiUrl } from "@/lib/config";
+import { buildApiUrl, getApiUrl, API_CONFIG } from "@/lib/config";
 
 interface ShippingZone {
   zone: string;
@@ -1133,6 +1133,9 @@ const CheckoutPage = () => {
   const [userFetchError, setUserFetchError] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
   const [orderError, setOrderError] = useState<string | null>(null);
+  const [waitingForWebhook, setWaitingForWebhook] = useState(false);
+  const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
+  const [webhookTimeout, setWebhookTimeout] = useState(false);
   
   // Shipping zones state
   const [shippingZones, setShippingZones] = useState<ShippingZone[]>([]);
@@ -1147,9 +1150,8 @@ const CheckoutPage = () => {
   const shippingCost = useMemo(() => {
     if (deliveryMethod === "pickup") return 0;
     if (selectedZone) return selectedZone.price * 100; // Convert Ksh to cents
-    // Fallback to free shipping for orders over 5000
-    return subtotal > 5000 ? 0 : 350;
-  }, [deliveryMethod, selectedZone, subtotal]);
+    return 0; // No shipping cost if no zone selected
+  }, [deliveryMethod, selectedZone]);
   
   const total = subtotal + shippingCost;
 
@@ -1243,14 +1245,7 @@ const CheckoutPage = () => {
       }
     }
 
-    // Fallback: If error, redirect back after 3s (remove in prod)
-    if (userFetchError) {
-      const timer = setTimeout(() => {
-        console.log('Fallback: Redirecting to cart due to auth error');
-        navigate('/cart');
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
+    // Removed auto-redirect on auth error; show inline message instead
   }, [navigate, cartItems.length, userFetchError]);
 
   const handleQuantityChange = (id, action) => {
@@ -1378,7 +1373,7 @@ const CheckoutPage = () => {
 
       // Get auth token
       const token = localStorage.getItem('token');
-      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/orders/checkout', {
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.ORDERS.CHECKOUT), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1391,14 +1386,51 @@ const CheckoutPage = () => {
       console.log('Checkout response:', response.status, data);
 
       if (response.ok && data.success) {
-        // Clear cart after successful order
-        clear();
+        // Order accepted, now wait for M-Pesa webhook to confirm payment
+        const newOrderId = data.data?.order_id || data.data?.id || data.order_id || data.id || null;
+        setPlacedOrderId(newOrderId);
+        setWaitingForWebhook(true);
         setIsProcessing(false);
-        
-        // Redirect to profile page after successful payment
-        setTimeout(() => {
-          navigate('/profile');
-        }, 1500);
+
+        // Poll order status every 4s up to 2 minutes
+        let elapsed = 0;
+        const interval = 4000;
+        const timeoutMs = 120000;
+        const poll = async () => {
+          if (!newOrderId) {
+            setWaitingForWebhook(false);
+            setWebhookTimeout(true);
+            return;
+          }
+          try {
+            const res = await fetch(`${buildApiUrl(API_CONFIG.ENDPOINTS.ORDERS.ALL)}/${newOrderId}`);
+            const d = await res.json().catch(() => ({}));
+            if (res.ok && d?.success && d?.data) {
+              const paymentStatus = d.data.payment_status || d.data.status;
+              if (paymentStatus === 'completed' || paymentStatus === 'paid' || paymentStatus === 'success') {
+                clear();
+                setWaitingForWebhook(false);
+                navigate('/profile');
+                return;
+              }
+              if (paymentStatus === 'failed' || paymentStatus === 'cancelled') {
+                setWaitingForWebhook(false);
+                setOrderError('Payment failed or was cancelled.');
+                return;
+              }
+            }
+          } catch (e) {
+            // ignore transient errors
+          }
+          elapsed += interval;
+          if (elapsed < timeoutMs) {
+            setTimeout(poll, interval);
+          } else {
+            setWaitingForWebhook(false);
+            setWebhookTimeout(true);
+          }
+        };
+        setTimeout(poll, interval);
       } else {
         // Extract exact error message from response
         let errorMessage = data.message || 'Failed to place order';
@@ -1966,7 +1998,7 @@ const CheckoutPage = () => {
                 )}
               </Button>
 
-              {isProcessing && paymentMethod === "mpesa" && (
+              {(isProcessing && paymentMethod === "mpesa") && (
                 <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <p className="text-sm text-green-900 font-medium text-center">
                     Check your phone for M-Pesa prompt
@@ -1974,6 +2006,36 @@ const CheckoutPage = () => {
                   <p className="text-xs text-green-700 text-center mt-1">
                     Enter your M-Pesa PIN to complete payment
                   </p>
+                </div>
+              )}
+
+              {waitingForWebhook && (
+                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-blue-900 font-medium text-center">
+                    Waiting for payment confirmation...
+                  </p>
+                  <p className="text-xs text-blue-700 text-center mt-1">
+                    This may take up to 2 minutes. Do not close this page.
+                  </p>
+                  {placedOrderId && (
+                    <p className="text-xs text-blue-700 text-center mt-1">
+                      Order: {placedOrderId}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {webhookTimeout && (
+                <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-900 font-medium text-center">
+                    Still waiting for M-Pesa confirmation.
+                  </p>
+                  <p className="text-xs text-yellow-800 text-center mt-1">
+                    You can stay on this page, check your M-Pesa app, or view order status in your profile.
+                  </p>
+                  <div className="flex gap-2 justify-center mt-2">
+                    <Button size="sm" variant="outline" onClick={() => navigate('/profile')}>Go to Profile</Button>
+                  </div>
                 </div>
               )}
 

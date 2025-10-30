@@ -33,7 +33,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { useMaterialToast } from "@/hooks/useMaterialToast";
 
 interface UserData {
   user_id: string;
@@ -75,7 +75,7 @@ interface Order {
 
 const UserProfile = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const { toast } = useMaterialToast();
   const [user, setUser] = useState<UserData | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -233,21 +233,13 @@ const UserProfile = () => {
   // Submit cancellation request
   const handleCancelOrder = async () => {
     if (!selectedOrderId || !cancelReason.trim()) {
-      toast({
-        title: "Error",
-        description: "Please provide a reason for cancellation",
-        variant: "destructive",
-      });
+      toast({ description: "Please provide a reason for cancellation", variant: "destructive", duration: 3000 });
       return;
     }
 
     const token = localStorage.getItem('token');
     if (!token) {
-      toast({
-        title: "Error",
-        description: "You must be logged in to cancel orders",
-        variant: "destructive",
-      });
+      toast({ description: "You must be logged in to cancel orders", variant: "destructive", duration: 3000 });
       return;
     }
 
@@ -270,10 +262,7 @@ const UserProfile = () => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        toast({
-          title: "Success",
-          description: "Order cancellation request submitted successfully",
-        });
+        toast({ description: "Order cancellation request submitted successfully", duration: 3000 });
 
         // Update the order status in the local state
         setOrders(prevOrders =>
@@ -289,19 +278,11 @@ const UserProfile = () => {
         setSelectedOrderId(null);
         setCancelReason("");
       } else {
-        toast({
-          title: "Error",
-          description: data.message || "Failed to cancel order",
-          variant: "destructive",
-        });
+        toast({ description: data.message || "Failed to cancel order", variant: "destructive", duration: 3000 });
       }
     } catch (error: any) {
       console.error('Error cancelling order:', error);
-      toast({
-        title: "Error",
-        description: "An error occurred while cancelling the order",
-        variant: "destructive",
-      });
+      toast({ description: "An error occurred while cancelling the order", variant: "destructive", duration: 3000 });
     } finally {
       setIsCancelling(false);
     }

@@ -25,6 +25,14 @@ import {
 } from 'lucide-react';
 import { getApiUrl } from '@/lib/config';
 import { useAdminAuth } from '@/context/AdminAuthContext';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 // API Response interfaces
 interface AuditLog {
@@ -49,6 +57,8 @@ interface AuditLogResponse {
     pagination: {
       page: number;
       limit: number;
+      total: number;
+      pages: number;
     };
   };
   timestamp: string;
@@ -61,6 +71,8 @@ const AdminAuditLog: React.FC = () => {
   const [auditLogs, setAuditLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [pagination, setPagination] = useState<any>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const { adminToken } = useAdminAuth();
 
   // API fetch function
@@ -74,7 +86,7 @@ const AdminAuditLog: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(getApiUrl('ADMIN', 'AUDIT_LOG'), {
+      const response = await fetch(`${getApiUrl('ADMIN', 'AUDIT_LOG')}?page=${currentPage}&limit=10`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -93,6 +105,7 @@ const AdminAuditLog: React.FC = () => {
       
       if (data.success) {
         setAuditLogs(data.data.auditLogs);
+        setPagination(data.data.pagination);
       } else {
         throw new Error(data.message || 'Failed to fetch audit logs');
       }
@@ -107,7 +120,7 @@ const AdminAuditLog: React.FC = () => {
   // Load audit logs on component mount
   useEffect(() => {
     fetchAuditLogs();
-  }, [adminToken]);
+  }, [adminToken, currentPage]);
 
   const getActionBadge = (action: string) => {
     switch (action) {
@@ -334,6 +347,56 @@ const AdminAuditLog: React.FC = () => {
               </TableBody>
             </Table>
           </div>
+          
+          {/* Pagination Controls */}
+          {pagination && pagination.pages > 1 && (
+            <div className="mt-4 flex justify-end px-4 pb-4">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                  
+                  {[...Array(pagination.pages)].map((_, idx) => {
+                    const pageNum = idx + 1;
+                    if (
+                      pageNum === 1 ||
+                      pageNum === pagination.pages ||
+                      (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)
+                    ) {
+                      return (
+                        <PaginationItem key={pageNum}>
+                          <PaginationLink
+                            onClick={() => setCurrentPage(pageNum)}
+                            isActive={currentPage === pageNum}
+                            className="cursor-pointer"
+                          >
+                            {pageNum}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (
+                      pageNum === currentPage - 2 ||
+                      pageNum === currentPage + 2
+                    ) {
+                      return <PaginationItem key={pageNum}>...</PaginationItem>;
+                    }
+                    return null;
+                  })}
+                  
+                  <PaginationItem>
+                    <PaginationNext 
+                      onClick={() => setCurrentPage(prev => Math.min(pagination.pages, prev + 1))}
+                      className={currentPage === pagination.pages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </CardContent>
       </Card>
 

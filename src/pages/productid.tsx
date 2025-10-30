@@ -2,7 +2,7 @@
 // // // import { useParams, useNavigate } from "react-router-dom";
 // // // import { Button } from "@/components/ui/button";
 // // // import { Badge } from "@/components/ui/badge";
-// // // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+// // // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 // // // import Header from "@/components/Header";
 // // // import Footer from "@/components/Footer";
 // // // import productHoney from "@/assets/product-honey.jpg";
@@ -431,7 +431,7 @@
 // // import { useParams, useNavigate, useLocation } from "react-router-dom";
 // // import { Button } from "@/components/ui/button";
 // // import { Badge } from "@/components/ui/badge";
-// // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+// // import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 // // import Header from "@/components/Header";
 // // import Footer from "@/components/Footer";
 // // import productHoney from "@/assets/product-honey.jpg";
@@ -995,7 +995,7 @@
 // import { useParams, useNavigate, useLocation } from "react-router-dom";
 // import { Button } from "@/components/ui/button";
 // import { Badge } from "@/components/ui/badge";
-// import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+// import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 // import Header from "@/components/Header";
 // import Footer from "@/components/Footer";
 // import { useCart } from "@/context/CartContext";
@@ -1395,11 +1395,13 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft } from "lucide-react";
+import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { productsData } from "@/lib/products";
+import { buildApiUrl, API_CONFIG } from "@/lib/config";
 import { useCart } from "@/context/CartContext";
+import { useMaterialToast } from "@/hooks/useMaterialToast";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -1407,10 +1409,16 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [reviewRating, setReviewRating] = useState<number>(0);
+  const [isSubmittingReview, setIsSubmittingReview] = useState<boolean>(false);
+  const [averageRating, setAverageRating] = useState<number>(0);
+  const [totalReviews, setTotalReviews] = useState<number>(0);
+  const [hasReviewed, setHasReviewed] = useState<boolean>(false);
   const [apiProduct, setApiProduct] = useState(null);
   const [apiImages, setApiImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
+  const { toast } = useMaterialToast();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -1465,6 +1473,46 @@ const ProductDetail = () => {
     }
   }, [displayImages, selectedImage]);
 
+  // Fetch reviews stats for this product (must be before any early returns to keep hook order stable)
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (!id) return;
+      try {
+        const res = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.REVIEWS.BY_PRODUCT}/${id}`));
+        if (!res.ok) return;
+        const data = await res.json().catch(() => ({}));
+        if (data?.success && data?.data?.stats) {
+          setAverageRating(Number(data.data.stats.average_rating) || 0);
+          setTotalReviews(Number(data.data.stats.total_reviews) || 0);
+        }
+
+        // Determine if current user has already reviewed
+        if (typeof window !== 'undefined') {
+          const tokenLocal = localStorage.getItem('token');
+          if (tokenLocal && data?.data?.reviews?.length) {
+            try {
+              const meRes = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.AUTH.ME), {
+                headers: { 'Authorization': `Bearer ${tokenLocal}` },
+              });
+              const meData = await meRes.json().catch(() => ({}));
+              const currentEmail = meData?.data?.email || meData?.email;
+              const currentUserId = meData?.data?.user_id || meData?.user_id || meData?.id;
+              const reviewed = data.data.reviews.some((r: any) =>
+                (currentUserId && r.user_id === currentUserId) || (currentEmail && r.email === currentEmail)
+              );
+              setHasReviewed(!!reviewed);
+            } catch {}
+          } else {
+            setHasReviewed(false);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to fetch reviews', e);
+      }
+    };
+    fetchReviews();
+  }, [id]);
+
   const transformedProduct = useMemo(() => {
     if (!product) return null;
 
@@ -1476,6 +1524,7 @@ const ProductDetail = () => {
         price: parseFloat(product.price) * 100,
         originalPrice: parseFloat(product.price) * 100 * 1.2,
         inStock: product.stock_quantity > 0,
+        stockQuantity: product.stock_quantity,
         category: 'Category',
         rating: 4.5,
         reviews: 0,
@@ -1534,6 +1583,53 @@ const ProductDetail = () => {
     addToCart({ id, name: transformedProduct.name, price: transformedProduct.price, image: imageForCart }, quantity);
   };
 
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
+
+  const submitReview = async () => {
+    if (!token) {
+      navigate('/signup');
+      return;
+    }
+    if (!id || !reviewRating) return;
+    try {
+      setIsSubmittingReview(true);
+      const res = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.REVIEWS.CREATE), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          product_id: id,
+          rating: reviewRating,
+          // comment omitted for star-only reviews
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(data.message || 'Failed to submit review');
+      }
+      setReviewRating(0);
+      // Refresh reviews to update average
+      try {
+        const refresh = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.REVIEWS.BY_PRODUCT}/${id}`));
+        const refreshData = await refresh.json().catch(() => ({}));
+        if (refreshData?.success && refreshData?.data?.stats) {
+          setAverageRating(Number(refreshData.data.stats.average_rating) || 0);
+          setTotalReviews(Number(refreshData.data.stats.total_reviews) || 0);
+        }
+        setHasReviewed(true);
+      } catch {}
+      toast({ description: 'Review submitted successfully', variant: 'success', duration: 3000 });
+    } catch (e: any) {
+      console.error(e);
+      toast({ description: e?.message || 'Failed to submit review', variant: 'destructive', duration: 3000 });
+    } finally {
+      setIsSubmittingReview(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -1552,7 +1648,7 @@ const ProductDetail = () => {
           <span className="text-foreground">{transformedProduct.name}</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
-          <div className="space-y-4">
+          <div className="space-y-4 order-2 lg:order-1">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-secondary/30 border border-border">
               {displayImages.length > 0 && displayImages[selectedImage] ? (
                 <img
@@ -1599,53 +1695,61 @@ const ProductDetail = () => {
               </div>
             )}
           </div>
-          <div>
+          <div className="order-1 lg:order-2">
             <div className="flex items-start justify-between mb-3">
               <Badge className="bg-primary/10 text-primary hover:bg-primary/20">
                 {transformedProduct.category}
               </Badge>
-              {transformedProduct.inStock && (
+              {transformedProduct.inStock ? (
                 <Badge variant="outline" className="border-green-500 text-green-600">
                   <Check className="w-3 h-3 mr-1" />
                   In Stock
                 </Badge>
+              ) : (
+                <Badge variant="outline" className="border-red-500 text-red-600 bg-red-50">
+                  <XCircle className="w-3 h-3 mr-1" />
+                  Out of Stock
+                </Badge>
               )}
             </div>
-            <h1 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-3">
+            <h1 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-2">
               {transformedProduct.name}
             </h1>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-2 mb-3">
               <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`w-5 h-5 ${
-                      i < Math.floor(transformedProduct.rating) ? "fill-primary text-primary" : "text-gray-300"
-                    }`}
-                  />
-                ))}
+                {[...Array(5)].map((_, i) => {
+                  const fillPercent = Math.max(0, Math.min(100, (averageRating - i) * 100));
+                  return (
+                    <div key={i} className="relative w-5 h-5">
+                      <Star className="w-5 h-5 text-gray-300" />
+                      <div className="absolute inset-0 overflow-hidden" style={{ width: `${fillPercent}%` }}>
+                        <Star className="w-5 h-5 fill-primary text-primary" />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <span className="text-sm text-muted-foreground">
-                {transformedProduct.rating} ({transformedProduct.reviews} reviews)
+              <span className="text-xs text-muted-foreground">
+                {averageRating.toFixed(1)} ({totalReviews} reviews)
               </span>
             </div>
-            <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+            <p className="text-sm md:text-base text-muted-foreground mb-4 leading-relaxed">
               {transformedProduct.shortDescription}
             </p>
-            <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-4xl font-bold text-foreground">
+            <div className="flex items-baseline gap-2 mb-5">
+              <span className="text-3xl md:text-4xl font-bold text-foreground">
                 Ksh {(transformedProduct.price / 100).toFixed(2)}
               </span>
-              <span className="text-2xl text-muted-foreground line-through">
+              <span className="text-lg md:text-xl text-muted-foreground line-through">
                 Ksh {(transformedProduct.originalPrice / 100).toFixed(2)}
               </span>
               <Badge variant="destructive" className="ml-2">
                 Save {Math.round(((transformedProduct.originalPrice - transformedProduct.price) / transformedProduct.originalPrice) * 100)}%
               </Badge>
             </div>
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-5">
               {transformedProduct.certifications.map((cert, index) => (
-                <Badge key={index} variant="outline" className="border-primary/30 text-primary">
+                <Badge key={index} variant="outline" className="border-primary/30 text-primary text-xs md:text-sm py-1">
                   <Leaf className="w-3 h-3 mr-1" />
                   {cert}
                 </Badge>
@@ -1655,8 +1759,8 @@ const ProductDetail = () => {
               <div className="flex items-center border border-border rounded-lg">
                 <button
                   onClick={() => handleQuantityChange("decrease")}
-                  className="p-3 hover:bg-secondary transition-colors"
-                  disabled={quantity <= 1}
+                  className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={quantity <= 1 || !transformedProduct.inStock}
                   aria-label="Decrease quantity"
                 >
                   <Minus className="w-4 h-4" />
@@ -1664,7 +1768,8 @@ const ProductDetail = () => {
                 <span className="px-6 py-3 font-semibold">{quantity}</span>
                 <button
                   onClick={() => handleQuantityChange("increase")}
-                  className="p-3 hover:bg-secondary transition-colors"
+                  className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={!transformedProduct.inStock}
                   aria-label="Increase quantity"
                 >
                   <Plus className="w-4 h-4" />
@@ -1676,15 +1781,61 @@ const ProductDetail = () => {
                 disabled={!transformedProduct.inStock}
                 onClick={handleAddToCart}
               >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                Add to Cart
+                {transformedProduct.inStock ? (
+                  <>
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Add to Cart
+                  </>
+                ) : (
+                  <>
+                    <XCircle className="w-5 h-5 mr-2" />
+                    Out of Stock
+                  </>
+                )}
               </Button>
             </div>
+            {/* Write a Review (only for logged-in users and not yet reviewed) */}
+            {!hasReviewed && (
+            <div className="mt-4 border-t border-border pt-4">
+              <h3 className="text-sm font-semibold text-foreground mb-2">Write a review</h3>
+              {token ? (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground">Your rating:</span>
+                    <div className="flex items-center gap-1">
+                      {[1,2,3,4,5].map(r => (
+                        <button
+                          key={r}
+                          onClick={() => setReviewRating(r)}
+                          aria-label={`Rate ${r} star${r>1?'s':''}`}
+                          className="p-1"
+                        >
+                          <Star className={`w-6 h-6 ${r <= reviewRating ? 'fill-primary text-primary' : 'text-gray-300'}`} />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    disabled={isSubmittingReview || reviewRating === 0}
+                    onClick={submitReview}
+                  >
+                    {isSubmittingReview ? 'Submitting...' : 'Submit Rating'}
+                  </Button>
+                </div>
+              ) : (
+                <div className="text-xs text-muted-foreground">
+                  Please <button className="text-primary underline" onClick={() => navigate('/signup')}>log in</button> to write a review.
+                </div>
+              )}
+            </div>
+            )}
+
             <div className="grid grid-cols-3 gap-3 pt-6 border-t border-border">
               <div className="flex flex-col items-center text-center p-3">
                 <Truck className="w-6 h-6 text-primary mb-2" />
-                <span className="text-xs font-medium">Free Shipping</span>
-                <span className="text-xs text-muted-foreground">Orders over Ksh50</span>
+                <span className="text-xs font-medium">Zone-based Shipping</span>
+                <span className="text-xs text-muted-foreground">Calculated at checkout</span>
               </div>
               <div className="flex flex-col items-center text-center p-3">
                 <RotateCcw className="w-6 h-6 text-primary mb-2" />
@@ -1708,76 +1859,8 @@ const ProductDetail = () => {
               {transformedProduct.description}
             </p>
           </section>
-          <section className="bg-gradient-to-b from-secondary/20 to-transparent rounded-2xl p-8 md:p-12">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-8 text-center">
-              Key Advantages
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {transformedProduct.advantages.map((advantage, index) => (
-                <div key={index} className="flex gap-4 p-6 bg-card border border-border rounded-xl hover:shadow-lg transition-shadow">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <advantage.icon className="w-6 h-6 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-foreground mb-2">
-                      {advantage.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm">
-                      {advantage.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-              Health Benefits
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {transformedProduct.benefits.map((benefit, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 rounded-lg hover:bg-secondary/30 transition-colors">
-                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span className="text-muted-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-          <section className="bg-card border border-border rounded-2xl p-8 md:p-12">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-              How to Use
-            </h2>
-            <ul className="space-y-3">
-              {transformedProduct.usage.map((use, index) => (
-                <li key={index} className="flex items-start gap-3">
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary text-sm font-semibold flex items-center justify-center mt-0.5">
-                    {index + 1}
-                  </span>
-                  <span className="text-muted-foreground">{use}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-          <section>
-            <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
-              Nutrition Information
-            </h2>
-            <div className="bg-card border border-border rounded-xl overflow-hidden max-w-md">
-              {transformedProduct.nutritionInfo.map((info, index) => (
-                <div
-                  key={index}
-                  className={`flex justify-between items-center p-4 ${
-                    index !== transformedProduct.nutritionInfo.length - 1 ? "border-b border-border" : ""
-                  }`}
-                >
-                  <span className="font-medium text-foreground">{info.label}</span>
-                  <span className="text-muted-foreground">{info.value}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          
+          
         </div>
       </div>
       <Footer />
