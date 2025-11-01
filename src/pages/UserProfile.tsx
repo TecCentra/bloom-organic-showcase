@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
+import { useUserAuth } from "@/context/UserAuthContext";
 
 interface UserData {
   user_id: string;
@@ -76,6 +77,7 @@ interface Order {
 const UserProfile = () => {
   const navigate = useNavigate();
   const { toast } = useMaterialToast();
+  const { removeToken } = useUserAuth();
   const [user, setUser] = useState<UserData | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -168,9 +170,7 @@ const UserProfile = () => {
   }, [user]);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    // Dispatch custom event to update header
-    window.dispatchEvent(new Event('authChange'));
+    removeToken();
     navigate('/');
   };
 

@@ -1541,6 +1541,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
+import { useUserAuth } from "@/context/UserAuthContext";
 
 interface LoginFormData {
   email: string;
@@ -1557,6 +1558,7 @@ interface RegisterFormData {
 }
 
 const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onSwitchToSignup: () => void }) => {
+  const { setToken } = useUserAuth();
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -1598,9 +1600,7 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
       if (response.ok && data.success) {
         const accessToken = data.data?.accessToken;
         if (accessToken) {
-          localStorage.setItem('token', accessToken);
-          // Dispatch custom event to update header
-          window.dispatchEvent(new Event('authChange'));
+          setToken(accessToken);
         } else {
           console.warn('No accessToken in response');
         }
@@ -1714,6 +1714,7 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
 };
 
 const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onSwitchToLogin: () => void }) => {
+  const { setToken } = useUserAuth();
   const [formData, setFormData] = useState<RegisterFormData>({
     firstName: '',
     lastName: '',
@@ -1786,9 +1787,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
           }
         }
         if (accessToken) {
-          localStorage.setItem('token', accessToken);
-          // Dispatch custom event to update header
-          window.dispatchEvent(new Event('authChange'));
+          setToken(accessToken);
         } else {
           console.warn('No accessToken obtained');
         }
