@@ -21,6 +21,7 @@ import CartPage from "./pages/cartPage";
 import RegisterForm from "./pages/signup";
 import AdminPanel from "./pages/admin";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
+import { UserAuthProvider } from "./context/UserAuthContext";
 import AllProducts from "./pages/AllProducts";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryProducts from "./pages/CategoryProducts";
@@ -37,10 +38,11 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <CartProvider>
-                <ScrollToTop />
-                <FloatingWhatsApp />
-                <Routes>
+              <UserAuthProvider>
+                <CartProvider>
+                  <ScrollToTop />
+                  <FloatingWhatsApp />
+                  <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/blogs" element={<FeaturedBlogs />} />
@@ -64,7 +66,8 @@ const App = () => (
                 <Route path="*" element={<NotFound />} />
                 
                 </Routes>
-              </CartProvider>
+                </CartProvider>
+              </UserAuthProvider>
             </BrowserRouter>
           </TooltipProvider>
         </ConfirmProvider>

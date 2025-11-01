@@ -1395,13 +1395,465 @@ import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import ForgotPasswordModal from "@/components/ForgotPasswordModal";
+import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle, User, Eye, EyeOff, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { productsData } from "@/lib/products";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 import { useCart } from "@/context/CartContext";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
+import { useUserAuth } from "@/context/UserAuthContext";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+interface RegisterFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+}
+
+const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onSwitchToSignup: () => void }) => {
+  const { setToken } = useUserAuth();
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: '',
+    password: '',
+  });
+  const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const togglePasswordVisibility = () => setShowPassword(!showPassword);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formData.password.length < 6) {
+      setMessage({ text: 'Password must be at least 6 characters long.', type: 'error' });
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const accessToken = data.data?.accessToken;
+        if (accessToken) {
+          setToken(accessToken);
+        }
+        setMessage({ text: 'Login successful!', type: 'success' });
+        setTimeout(() => {
+          onSuccess();
+        }, 1500);
+      } else {
+        setMessage({ text: data.message || 'Login failed. Please check your credentials.', type: 'error' });
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      setMessage({ text: 'Network error. Please check your connection.', type: 'error' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <div>
+          <Label htmlFor="email" className="text-sm font-medium text-foreground">
+            Email <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            className="mt-1 bg-background border-border focus:ring-primary focus:border-primary"
+            placeholder="Enter your email address"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="password" className="text-sm font-medium text-foreground">
+            Password <span className="text-destructive">*</span>
+          </Label>
+          <div className="relative">
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              required
+              minLength={6}
+              value={formData.password}
+              onChange={handleChange}
+              className="mt-1 bg-background border-border focus:ring-primary focus:border-primary pr-10"
+              placeholder="Enter your password"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="absolute right-0 top-0 h-full px-3 py-1 hover:bg-transparent"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </Button>
+          </div>
+          <p className="mt-1 text-xs text-muted-foreground">Forgot password? <Button type="button" variant="link" size="sm" className="h-auto p-0 text-primary hover:text-primary/80" onClick={() => setShowForgot(true)}>Reset</Button></p>
+        </div>
+
+        {message && (
+          <div
+            className={`p-3 rounded-md text-sm text-center ${
+              message.type === 'success'
+                ? 'bg-green-50 border border-green-200 text-green-800'
+                : 'bg-destructive/10 border border-destructive/30 text-destructive'
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Signing In...
+            </>
+          ) : (
+            'Sign In'
+          )}
+        </Button>
+      </form>
+
+      <div className="text-center pt-6">
+        <Separator className="my-4" />
+        <p className="text-sm text-muted-foreground mb-4">Don't have an account?</p>
+        <Button
+          variant="outline"
+          onClick={onSwitchToSignup}
+          className="px-8"
+        >
+          Sign Up
+        </Button>
+      </div>
+      <ForgotPasswordModal open={showForgot} onOpenChange={setShowForgot} />
+    </>
+  );
+};
+
+const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onSwitchToLogin: () => void }) => {
+  const { setToken } = useUserAuth();
+  const [formData, setFormData] = useState<RegisterFormData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+  });
+  const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const togglePasswordVisibility = (field: 'password' | 'confirmPassword') => {
+    if (field === 'password') setShowPassword(!showPassword);
+    else setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formData.password !== formData.confirmPassword) {
+      setMessage({ text: 'Passwords do not match!', type: 'error' });
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setMessage({ text: 'Password must be at least 6 characters long.', type: 'error' });
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          password: formData.password,
+          phone: formData.phone,
+          confirmPassword: formData.confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        let accessToken = data.data?.accessToken;
+        if (!accessToken) {
+          const loginRes = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: formData.email, password: formData.password }),
+          });
+          const loginData = await loginRes.json();
+          if (loginRes.ok && loginData.success) {
+            accessToken = loginData.data.accessToken;
+          }
+        }
+        if (accessToken) {
+          setToken(accessToken);
+        }
+        setMessage({ text: 'Registration successful!', type: 'success' });
+        setTimeout(() => {
+          onSuccess();
+        }, 1500);
+      } else {
+        setMessage({ text: data.message || 'Registration failed. Please try again.', type: 'error' });
+      }
+    } catch (error) {
+      console.error('Register error:', error);
+      setMessage({ text: 'Network error. Please check your connection.', type: 'error' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <form className="space-y-6" onSubmit={handleSubmit}>
+        <div>
+          <Label htmlFor="firstName" className="text-sm font-medium text-foreground">
+            First Name <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="firstName"
+            name="firstName"
+            type="text"
+            required
+            value={formData.firstName}
+            onChange={handleChange}
+            className="mt-1 bg-background border-border focus:ring-primary focus:border-primary"
+            placeholder="Enter your first name"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="lastName" className="text-sm font-medium text-foreground">
+            Last Name <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="lastName"
+            name="lastName"
+            type="text"
+            required
+            value={formData.lastName}
+            onChange={handleChange}
+            className="mt-1 bg-background border-border focus:ring-primary focus:border-primary"
+            placeholder="Enter your last name"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="email" className="text-sm font-medium text-foreground">
+            Email <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            className="mt-1 bg-background border-border focus:ring-primary focus:border-primary"
+            placeholder="Enter your email address"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="phone" className="text-sm font-medium text-foreground">
+            Phone <span className="text-destructive">*</span>
+          </Label>
+          <Input
+            id="phone"
+            name="phone"
+            type="tel"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+            className="mt-1 bg-background border-border focus:ring-primary focus:border-primary"
+            placeholder="e.g., 254114096574"
+          />
+          <p className="mt-1 text-xs text-muted-foreground">Enter your phone number without spaces</p>
+        </div>
+
+        <div>
+          <Label htmlFor="password" className="text-sm font-medium text-foreground">
+            Password <span className="text-destructive">*</span>
+          </Label>
+          <div className="relative">
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? "text" : "password"}
+              required
+              minLength={6}
+              value={formData.password}
+              onChange={handleChange}
+              className="mt-1 bg-background border-border focus:ring-primary focus:border-primary pr-10"
+              placeholder="Enter your password"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="absolute right-0 top-0 h-full px-3 py-1 hover:bg-transparent"
+              onClick={() => togglePasswordVisibility('password')}
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </Button>
+          </div>
+          <p className="mt-1 text-xs text-muted-foreground">Must be at least 6 characters</p>
+        </div>
+
+        <div>
+          <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground">
+            Confirm Password <span className="text-destructive">*</span>
+          </Label>
+          <div className="relative">
+            <Input
+              id="confirmPassword"
+              name="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              required
+              minLength={6}
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              className="mt-1 bg-background border-border focus:ring-primary focus:border-primary pr-10"
+              placeholder="Confirm your password"
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="absolute right-0 top-0 h-full px-3 py-1 hover:bg-transparent"
+              onClick={() => togglePasswordVisibility('confirmPassword')}
+            >
+              {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </Button>
+          </div>
+        </div>
+
+        {message && (
+          <div
+            className={`p-3 rounded-md text-sm text-center ${
+              message.type === 'success'
+                ? 'bg-green-50 border border-green-200 text-green-800'
+                : 'bg-destructive/10 border border-destructive/30 text-destructive'
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
+
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className="w-full h-12 text-base font-semibold"
+          size="lg"
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Registering...
+            </>
+          ) : (
+            'Register'
+          )}
+        </Button>
+
+        <p className="text-xs text-muted-foreground text-center">
+          By registering, you agree to our Terms of Service and Privacy Policy.
+        </p>
+      </form>
+
+      <div className="text-center pt-6">
+        <Separator className="my-4" />
+        <p className="text-sm text-muted-foreground mb-4">Already have an account?</p>
+        <Button
+          variant="outline"
+          onClick={onSwitchToLogin}
+          className="px-8"
+        >
+          Sign In
+        </Button>
+      </div>
+    </>
+  );
+};
+
+const AuthModalContent = ({ onSuccess }: { onSuccess: () => void }) => {
+  const [isLogin, setIsLogin] = useState(true);
+
+  return (
+    <div className="p-6">
+      <DialogHeader className="mb-6">
+        <DialogTitle className="text-2xl font-bold text-foreground flex items-center justify-center gap-2">
+          <User className="w-6 h-6 text-primary" />
+          {isLogin ? 'Sign In' : 'Sign Up'} to Write a Review
+        </DialogTitle>
+      </DialogHeader>
+      {isLogin ? (
+        <LoginForm onSuccess={onSuccess} onSwitchToSignup={() => setIsLogin(false)} />
+      ) : (
+        <SignupForm onSuccess={onSuccess} onSwitchToLogin={() => setIsLogin(true)} />
+      )}
+    </div>
+  );
+};
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -1417,6 +1869,7 @@ const ProductDetail = () => {
   const [apiProduct, setApiProduct] = useState(null);
   const [apiImages, setApiImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const { addToCart } = useCart();
   const { toast } = useMaterialToast();
 
@@ -1586,9 +2039,14 @@ const ProductDetail = () => {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 
+  const handleAuthSuccess = () => {
+    setShowAuthModal(false);
+    // User is now logged in, can continue with review
+  };
+
   const submitReview = async () => {
     if (!token) {
-      navigate('/signup');
+      setShowAuthModal(true);
       return;
     }
     if (!id || !reviewRating) return;
@@ -1825,11 +2283,17 @@ const ProductDetail = () => {
                 </div>
               ) : (
                 <div className="text-xs text-muted-foreground">
-                  Please <button className="text-primary underline" onClick={() => navigate('/signup')}>log in</button> to write a review.
+                  Please <button className="text-primary underline" onClick={() => setShowAuthModal(true)}>log in</button> to write a review.
                 </div>
               )}
             </div>
             )}
+
+            <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
+              <DialogContent className="sm:max-w-md bg-card border-border rounded-xl p-0 max-h-[90vh] overflow-y-auto">
+                <AuthModalContent onSuccess={handleAuthSuccess} />
+              </DialogContent>
+            </Dialog>
 
             <div className="grid grid-cols-3 gap-3 pt-6 border-t border-border">
               <div className="flex flex-col items-center text-center p-3">
@@ -1850,7 +2314,7 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-        <div className="space-y-12">
+        {/* <div className="space-y-12">
           <section>
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-6">
               Product Description
@@ -1861,7 +2325,7 @@ const ProductDetail = () => {
           </section>
           
           
-        </div>
+        </div> */}
       </div>
       <Footer />
     </div>

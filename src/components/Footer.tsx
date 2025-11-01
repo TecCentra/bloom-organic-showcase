@@ -106,7 +106,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               className="text-primary hover:underline font-medium"
             >
-              MABCASLABS
+              mabcaslabs
             </a>
           </p>
         </div>

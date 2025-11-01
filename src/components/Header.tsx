@@ -115,7 +115,8 @@ import Logo from "@/assets/logo.jpeg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [isDesktopProductsOpen, setIsDesktopProductsOpen] = useState(false);
+  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const { itemCount } = useCart();
@@ -206,8 +207,8 @@ const Header = () => {
                   <div
                     key={link.path}
                     className="relative"
-                    onMouseEnter={() => setIsProductsOpen(true)}
-                    onMouseLeave={() => setIsProductsOpen(false)}
+                    onMouseEnter={() => setIsDesktopProductsOpen(true)}
+                    onMouseLeave={() => setIsDesktopProductsOpen(false)}
                   >
                     <button
                       type="button"
@@ -219,19 +220,19 @@ const Header = () => {
                         location.pathname.startsWith("/products") ? "after:scale-x-100" : ""
                       }`}
                       aria-haspopup="menu"
-                      onClick={() => setIsProductsOpen((v) => !v)}
+                      onClick={() => setIsDesktopProductsOpen((v) => !v)}
                     >
                       {link.name}
-                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isDesktopProductsOpen ? 'rotate-180' : ''}`} />
                     </button>
                     
-                    {isProductsOpen && (
+                    {isDesktopProductsOpen && (
                       <div className="absolute top-full left-0 mt-2 w-80 bg-background border border-border rounded-xl shadow-lg overflow-hidden animate-fade-in">
                         {productCategories.map((category) => (
                           <Link
                             key={category.path}
                             to={category.path}
-                            onClick={(e) => { e.stopPropagation(); setIsProductsOpen(false); }}
+                            onClick={(e) => { e.stopPropagation(); setIsDesktopProductsOpen(false); }}
                             className="block px-6 py-4 hover:bg-primary/5 transition-colors border-b border-border last:border-b-0"
                           >
                             <div className="font-body font-semibold text-foreground mb-1">
@@ -327,7 +328,7 @@ const Header = () => {
                 return (
                   <div key={link.path} className="mb-1">
                     <button
-                      onClick={() => setIsProductsOpen(!isProductsOpen)}
+                      onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
                       className={`block w-full text-left py-1 font-body font-medium transition-colors duration-300 flex items-center gap-1.5 ${
                         isActive(link.path) || location.pathname.startsWith("/products")
                           ? "text-primary"
@@ -335,15 +336,15 @@ const Header = () => {
                       }`}
                     >
                       {link.name}
-                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isProductsOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
                     </button>
-                    {isProductsOpen && (
+                    {isMobileProductsOpen && (
                       <div className="ml-3 mt-1 space-y-1 animate-fade-in">
                         {productCategories.map((category) => (
                           <Link
                             key={category.path}
                             to={category.path}
-                            onClick={() => setIsMenuOpen(false)}
+                            onClick={() => {setIsMobileProductsOpen(false); setIsMenuOpen(false);}}
                             className="block py-1 px-2 rounded-lg hover:bg-primary/5 transition-colors text-xs"
                           >
                             <div className="font-body font-medium text-xs text-foreground">
