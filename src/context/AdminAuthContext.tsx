@@ -6,6 +6,7 @@ interface AdminUser {
   name: string;
   role: 'admin' | 'super_admin';
   permissions: string[];
+  is_admin?: boolean;
 }
 
 interface AdminAuthContextType {
@@ -75,11 +76,22 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
         const userData = data.data?.user || data.user || data.data || {};
         
         if (token) {
+          // Check if user is admin based on role or is_admin flag
+          const userRole = userData.role || userData.userType;
+          const isAdmin = userData.is_admin === true || userRole === 'admin' || userRole === 'super_admin';
+          
+          if (!isAdmin) {
+            console.error('User is not an admin');
+            setIsLoading(false);
+            return false;
+          }
+          
           const user: AdminUser = {
             id: userData.user_id || userData.id || userData._id || 'admin-001',
             email: userData.email || email,
             name: `${userData.first_name || ''} ${userData.last_name || ''}`.trim() || userData.name || userData.username || 'Admin User',
-            role: userData.role || userData.userType || 'admin',
+            role: userRole || 'admin',
+            is_admin: userData.is_admin || isAdmin,
             permissions: [
               'dashboard.view',
               'products.manage',

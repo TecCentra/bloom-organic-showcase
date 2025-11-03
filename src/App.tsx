@@ -27,6 +27,7 @@ import CategoriesPage from "./pages/CategoriesPage";
 import CategoryProducts from "./pages/CategoryProducts";
 import ForgotPassword from "./pages/ForgotPassword";
 import UserProfile from "./pages/UserProfile";
+import GuestRoute from "./components/GuestRoute";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -51,11 +52,19 @@ const App = () => (
                 <Route path="/shop" element={<AllProducts />} />
                 <Route path="/products" element={<CategoriesPage />} />
                 <Route path="/products/:slug" element={<CategoryProducts />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/forgot-password" element={
+                  <GuestRoute>
+                    <ForgotPassword />
+                  </GuestRoute>
+                } />
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/signup" element={<RegisterForm />} />
+                <Route path="/signup" element={
+                  <GuestRoute>
+                    <RegisterForm />
+                  </GuestRoute>
+                } />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/admin/*" element={
                   <AdminAuthProvider>

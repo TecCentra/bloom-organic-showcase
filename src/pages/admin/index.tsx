@@ -8,7 +8,6 @@ import AdminCategories from './AdminCategories';
 import AdminOrders from './AdminOrders';
 import AdminCancelledOrders from './AdminCancelledOrders';
 import AdminShipping from './AdminShipping';
-import AdminImageManagement from './AdminImageManagement';
 import AdminUsers from './AdminUsers';
 import AdminReports from './AdminReports';
 import AdminAuditLog from './AdminAuditLog';
@@ -49,11 +48,6 @@ const AdminPanel: React.FC = () => {
         <Route path="shipping" element={
           <AdminProtectedRoute requiredPermission="orders.manage">
             <AdminShipping />
-          </AdminProtectedRoute>
-        } />
-        <Route path="images" element={
-          <AdminProtectedRoute requiredPermission="products.manage">
-            <AdminImageManagement />
           </AdminProtectedRoute>
         } />
         <Route path="users" element={

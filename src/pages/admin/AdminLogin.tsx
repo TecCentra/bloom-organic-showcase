@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Card,
@@ -20,8 +20,38 @@ const AdminLogin: React.FC = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const { login } = useAdminAuth();
+  const { login, isAuthenticated, isLoading: authLoading } = useAdminAuth();
   const navigate = useNavigate();
+  const [initialCheckDone, setInitialCheckDone] = React.useState(false);
+
+  // Only check authentication once on initial mount, not during login attempts
+  useEffect(() => {
+    // Mark initial check as done once loading completes
+    if (!authLoading && !initialCheckDone) {
+      setInitialCheckDone(true);
+    }
+  }, [authLoading, initialCheckDone]);
+
+  // Redirect if already authenticated (only after initial check is done)
+  useEffect(() => {
+    if (initialCheckDone && isAuthenticated) {
+      navigate('/admin', { replace: true });
+    }
+  }, [initialCheckDone, isAuthenticated, navigate]);
+
+  // Show loading state only during initial auth check (checking localStorage), not during login
+  if (!initialCheckDone && authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="w-64">
+          <CardContent className="p-6 text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-sm text-gray-600">Checking authentication...</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Map from "@/components/Map";
 import { toast } from "sonner";
+import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,11 +16,41 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you! We'll get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.CONTACT), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(data.message || "Thank you! We'll get back to you soon.");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      } else {
+        toast.error(data.message || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast.error("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,9 +76,9 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook", color: "hover:bg-blue-600" },
-    { icon: Instagram, href: "#", label: "Instagram", color: "hover:bg-pink-600" },
-    { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-sky-500" },
+    { icon: Facebook, href: "https://www.facebook.com/share/1CR19eGtNV/", label: "Facebook", color: "hover:bg-blue-600" },
+    { icon: Instagram, href: "https://www.instagram.com/organicpurebloomke?igsh=MWdsdHp3bHFxODMybw==", label: "Instagram", color: "hover:bg-pink-600" },
+    // { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-sky-500" },
   ];
 
   return (
@@ -142,9 +173,10 @@ const Contact = () => {
                 type="submit"
                 size="lg"
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold hover-scale"
+                disabled={isSubmitting}
               >
                 <Send className="w-5 h-5 mr-2" />
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>

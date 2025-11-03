@@ -460,6 +460,7 @@ import heroImage from "@/assets/hero-organic.jpg";
 import categoryHerbs from "@/assets/category-herbs.jpg";
 import categoryCleansers from "@/assets/category-cleansers.jpg";
 import categoryGutHealth from "@/assets/org.jpg";
+import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 interface ProductImage {
   image_id: string;
@@ -496,6 +497,11 @@ const Index = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Newsletter state
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterLoading, setNewsletterLoading] = useState(false);
+  const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -521,6 +527,85 @@ const Index = () => {
 
     fetchProducts();
   }, []);
+
+  // Newsletter subscribe handler
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (!newsletterEmail || !newsletterEmail.includes('@')) {
+      setNewsletterMessage({ 
+        text: 'Please enter a valid email address', 
+        type: 'error' 
+      });
+      return;
+    }
+
+    setNewsletterLoading(true);
+    setNewsletterMessage(null);
+
+    try {
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setNewsletterMessage({ 
+          text: 'Successfully subscribed to our newsletter!', 
+          type: 'success' 
+        });
+        setNewsletterEmail('');
+      } else {
+        setNewsletterMessage({ 
+          text: data.message || 'Failed to subscribe. Please try again.', 
+          type: 'error' 
+        });
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      setNewsletterMessage({ 
+        text: 'Network error. Please check your connection and try again.', 
+        type: 'error' 
+      });
+    } finally {
+      setNewsletterLoading(false);
+    }
+  };
+
+  // Newsletter unsubscribe handler
+  const handleUnsubscribe = async () => {
+    const email = prompt('Please enter your email address to unsubscribe:');
+    
+    if (!email || !email.includes('@')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Successfully unsubscribed from our newsletter.');
+      } else {
+        alert(data.message || 'Failed to unsubscribe. Please try again.');
+      }
+    } catch (error) {
+      console.error('Newsletter unsubscribe error:', error);
+      alert('Network error. Please check your connection and try again.');
+    }
+  };
 
   // Category mapping
   const categoryMap: Record<string, string> = {
@@ -898,23 +983,49 @@ const Index = () => {
               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
             </p>
             
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <form 
+              onSubmit={handleNewsletterSubmit}
+              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            >
               <Input
                 type="email"
                 placeholder="Enter your email"
+                value={newsletterEmail}
+                onChange={(e) => {
+                  setNewsletterEmail(e.target.value);
+                  setNewsletterMessage(null);
+                }}
                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
                 required
+                disabled={newsletterLoading}
               />
               <Button 
                 type="submit" 
                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+                disabled={newsletterLoading}
               >
-                Subscribe
+                {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
               </Button>
             </form>
             
+            {newsletterMessage && (
+              <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
+                newsletterMessage.type === 'success' 
+                  ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
+                  : 'bg-red-500/20 text-red-100 border border-red-400/30'
+              }`}>
+                <p className="text-sm">{newsletterMessage.text}</p>
+              </div>
+            )}
+            
             <p className="text-sm text-white/70 mt-4">
-              We respect your privacy. Unsubscribe anytime.
+              We respect your privacy. <button 
+                type="button"
+                onClick={handleUnsubscribe}
+                className="underline hover:text-white transition-colors"
+              >
+                Unsubscribe anytime
+              </button>
             </p>
           </div>
         </div>
