@@ -35,6 +35,25 @@ import {
 } from '@/components/ui/pagination';
 
 // API Response interfaces
+interface AuditLogApiItem {
+  log_id: string;
+  user_id: string | null;
+  action: string;
+  entity_type: string;
+  entity_id: string | null;
+  details: {
+    status?: number;
+    message?: string;
+    [key: string]: any;
+  };
+  ip_address: string;
+  user_agent: string | null;
+  created_at: string;
+  email: string | null;
+  first_name: string | null;
+  last_name: string | null;
+}
+
 interface AuditLog {
   id: string;
   timestamp: string;
@@ -53,12 +72,12 @@ interface AuditLogResponse {
   statusCode: number;
   message: string;
   data: {
-    auditLogs: AuditLog[];
+    auditLogs: AuditLogApiItem[];
     pagination: {
       page: number;
       limit: number;
-      total: number;
-      pages: number;
+      total?: number;
+      pages?: number;
     };
   };
   timestamp: string;
@@ -102,10 +121,90 @@ const AdminAuditLog: React.FC = () => {
       }
 
       const data: AuditLogResponse = await response.json();
+      console.log('Audit log API response:', data);
       
       if (data.success) {
-        setAuditLogs(data.data.auditLogs);
-        setPagination(data.data.pagination);
+        // Check if auditLogs array exists
+        if (!data.data || !data.data.auditLogs || !Array.isArray(data.data.auditLogs)) {
+          console.error('Invalid data structure:', data.data);
+          throw new Error('Invalid audit log data structure');
+        }
+        
+        console.log('Processing audit logs:', data.data.auditLogs.length);
+        
+        // Transform API response to match component interface
+        const transformedLogs: AuditLog[] = data.data.auditLogs.map((log: AuditLogApiItem) => {
+          // Build user string from available fields
+          let user = 'Unknown User';
+          if (log.email) {
+            const nameParts = [];
+            if (log.first_name) nameParts.push(log.first_name);
+            if (log.last_name) nameParts.push(log.last_name);
+            user = nameParts.length > 0 
+              ? `${nameParts.join(' ')} (${log.email})`
+              : log.email;
+          } else if (log.user_id) {
+            user = `User ID: ${log.user_id}`;
+          }
+
+          // Extract status from details or determine from action
+          let status = 'info';
+          if (log.details?.status) {
+            status = log.details.status >= 200 && log.details.status < 300 ? 'success' : 'failed';
+          } else if (log.action) {
+            const actionLower = log.action.toLowerCase();
+            if (log.action === 'login-fail' || actionLower.includes('fail')) {
+              status = 'failed';
+            } else if (log.action === 'login' || actionLower.includes('success')) {
+              status = 'success';
+            }
+          }
+
+          // Format details as string
+          let detailsStr = '';
+          if (typeof log.details === 'object' && log.details !== null) {
+            detailsStr = log.details.message || JSON.stringify(log.details);
+          } else {
+            detailsStr = String(log.details || '');
+          }
+
+          // Ensure created_at is valid before parsing
+          let timestamp = 'N/A';
+          try {
+            if (log.created_at) {
+              timestamp = new Date(log.created_at).toLocaleString();
+            }
+          } catch (e) {
+            console.error('Error parsing date:', log.created_at);
+          }
+
+          return {
+            id: log.log_id || 'unknown',
+            timestamp: timestamp,
+            user: user,
+            action: log.action ? log.action.toUpperCase() : 'UNKNOWN',
+            resource: log.entity_type || 'N/A',
+            resourceId: log.entity_id || 'N/A',
+            details: detailsStr,
+            ipAddress: log.ip_address || 'N/A',
+            userAgent: log.user_agent || 'N/A',
+            status: status
+          };
+        });
+
+        console.log('Transformed logs:', transformedLogs);
+        setAuditLogs(transformedLogs);
+        
+        // Calculate pages if not provided
+        const paginationData = data.data.pagination;
+        if (!paginationData.pages && paginationData.total) {
+          paginationData.pages = Math.ceil(paginationData.total / paginationData.limit);
+        } else if (!paginationData.pages) {
+          // If no total is provided, set pages to 1
+          paginationData.pages = 1;
+        }
+        console.log('Pagination data:', paginationData);
+        setPagination(paginationData);
       } else {
         throw new Error(data.message || 'Failed to fetch audit logs');
       }
@@ -119,11 +218,14 @@ const AdminAuditLog: React.FC = () => {
 
   // Load audit logs on component mount
   useEffect(() => {
+    console.log('Fetching audit logs, adminToken:', adminToken ? 'exists' : 'missing', 'page:', currentPage);
     fetchAuditLogs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [adminToken, currentPage]);
 
   const getActionBadge = (action: string) => {
-    switch (action) {
+    const actionUpper = action.toUpperCase();
+    switch (actionUpper) {
       case 'CREATE':
         return <Badge className="bg-green-100 text-green-800">CREATE</Badge>;
       case 'UPDATE':
@@ -137,6 +239,7 @@ const AdminAuditLog: React.FC = () => {
       case 'PURCHASE':
         return <Badge className="bg-emerald-100 text-emerald-800">PURCHASE</Badge>;
       case 'FAILED_LOGIN':
+      case 'LOGIN-FAIL':
         return <Badge className="bg-orange-100 text-orange-800">FAILED LOGIN</Badge>;
       default:
         return <Badge className="bg-gray-100 text-gray-800">{action}</Badge>;
@@ -156,21 +259,29 @@ const AdminAuditLog: React.FC = () => {
     }
   };
 
-  const filteredLogs = auditLogs.filter(log => {
-    const matchesSearch = 
-      log.user.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      log.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      log.resource.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      log.details.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesAction = selectedAction === 'all' || log.action === selectedAction;
-    const matchesUser = selectedUser === 'all' || log.user === selectedUser;
-    
-    return matchesSearch && matchesAction && matchesUser;
-  });
+  const filteredLogs = React.useMemo(() => {
+    return auditLogs.filter(log => {
+      // If no search term, match all (or if search term matches)
+      const searchLower = searchTerm.toLowerCase();
+      const matchesSearch = !searchTerm || 
+        (log.user?.toLowerCase() || '').includes(searchLower) ||
+        (log.action?.toLowerCase() || '').includes(searchLower) ||
+        (log.resource?.toLowerCase() || '').includes(searchLower) ||
+        (log.details?.toLowerCase() || '').includes(searchLower);
+      
+      // Action filter - compare uppercased values
+      const matchesAction = selectedAction === 'all' || 
+        (log.action?.toUpperCase() || '') === (selectedAction?.toUpperCase() || '');
+      
+      // User filter
+      const matchesUser = selectedUser === 'all' || log.user === selectedUser;
+      
+      return matchesSearch && matchesAction && matchesUser;
+    });
+  }, [auditLogs, searchTerm, selectedAction, selectedUser]);
 
-  const uniqueActions = [...new Set(auditLogs.map(log => log.action))];
-  const uniqueUsers = [...new Set(auditLogs.map(log => log.user))];
+  const uniqueActions = [...new Set(auditLogs.map(log => log.action).filter(Boolean))];
+  const uniqueUsers = [...new Set(auditLogs.map(log => log.user).filter(Boolean))];
 
   const handleExportLogs = () => {
     if (auditLogs.length === 0) {
@@ -205,6 +316,9 @@ const AdminAuditLog: React.FC = () => {
     link.click();
     document.body.removeChild(link);
   };
+
+  // Debug logging
+  console.log('Render state:', { loading, error, auditLogsCount: auditLogs.length, filteredCount: filteredLogs.length });
 
   return (
     <div className="space-y-6">
@@ -246,8 +360,8 @@ const AdminAuditLog: React.FC = () => {
         </Card>
       )}
 
-      {/* Search and Filters */}
-      {!loading && !error && (
+      {/* Search and Filters and Table - Show when not loading */}
+      {!loading && !error && auditLogs.length >= 0 && (
         <>
         <Card>
         <CardContent className="pt-6">
@@ -308,48 +422,56 @@ const AdminAuditLog: React.FC = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredLogs.map((log) => (
-                  <TableRow key={log.id}>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <Calendar className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm">{log.timestamp}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        <User className="h-4 w-4 text-gray-400" />
-                        <span className="text-sm">{log.user}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>{getActionBadge(log.action)}</TableCell>
-                    <TableCell>
-                      <div>
-                        <div className="font-medium">{log.resource}</div>
-                        <div className="text-sm text-gray-600">ID: {log.resourceId}</div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="max-w-xs truncate">{log.details}</TableCell>
-                    <TableCell className="text-sm text-gray-600">{log.ipAddress}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        {getStatusIcon(log.status)}
-                        <span className="text-sm capitalize">{log.status}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-4 w-4" />
-                      </Button>
+                {filteredLogs.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={8} className="text-center py-8">
+                      <p className="text-gray-500">No audit logs found</p>
                     </TableCell>
                   </TableRow>
-                ))}
+                ) : (
+                  filteredLogs.map((log) => (
+                    <TableRow key={log.id}>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <Calendar className="h-4 w-4 text-gray-400" />
+                          <span className="text-sm">{log.timestamp}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          <User className="h-4 w-4 text-gray-400" />
+                          <span className="text-sm">{log.user}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>{getActionBadge(log.action)}</TableCell>
+                      <TableCell>
+                        <div>
+                          <div className="font-medium">{log.resource}</div>
+                          <div className="text-sm text-gray-600">ID: {log.resourceId}</div>
+                        </div>
+                      </TableCell>
+                      <TableCell className="max-w-xs truncate">{log.details}</TableCell>
+                      <TableCell className="text-sm text-gray-600">{log.ipAddress}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          {getStatusIcon(log.status)}
+                          <span className="text-sm capitalize">{log.status}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
               </TableBody>
             </Table>
           </div>
-          
+
           {/* Pagination Controls */}
-          {pagination && pagination.pages > 1 && (
+          {pagination && pagination.pages && pagination.pages > 1 && (
             <div className="mt-4 flex justify-end px-4 pb-4">
               <Pagination>
                 <PaginationContent>

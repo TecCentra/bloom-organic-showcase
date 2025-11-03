@@ -15,130 +15,125 @@ import {
   RefreshCw,
   Cpu,
   HardDrive,
-  Wifi
+  Wifi,
+  Mail,
+  CreditCard,
+  Folder
 } from 'lucide-react';
+import { buildApiUrl } from '@/lib/config';
+import { useAdminAuth } from '@/context/AdminAuthContext';
+
+interface HealthResponse {
+  status: string;
+  api: string;
+  db: string;
+  redis: string;
+  email: string;
+  fileStorage: string;
+  payment: string;
+  memory: {
+    heapUsed: string;
+    heapTotal: string;
+    rss: string;
+    external: string;
+    status: string;
+  };
+  uptime: string;
+  timestamp: string;
+  environment: string;
+  version: string | null;
+  cached: boolean;
+}
 
 const AdminHealth: React.FC = () => {
+  const [healthData, setHealthData] = useState<HealthResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [lastChecked, setLastChecked] = useState(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const { adminToken } = useAdminAuth();
 
-  // Mock data - replace with actual API calls
-  const systemHealth = {
-    overall: 'healthy',
-    uptime: '99.9%',
-    lastIncident: '2024-01-10 14:30:00',
-    responseTime: '120ms'
-  };
+  // Fetch health data from API
+  const fetchHealthData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      // Note: Health endpoint is at /api/health, not /api/v1/health
+      const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace('/v1', '') || 'https://bloom-backend-hqu8.onrender.com/api';
+      const response = await fetch(`${baseUrl}/health`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(adminToken && { 'Authorization': `Bearer ${adminToken}` }),
+        },
+      });
 
-  const services = [
-    {
-      name: 'API Server',
-      status: 'healthy',
-      uptime: '99.9%',
-      responseTime: '120ms',
-      lastCheck: '2024-01-15 14:30:00',
-      version: 'v1.2.3',
-      port: 3000
-    },
-    {
-      name: 'Database',
-      status: 'healthy',
-      uptime: '99.8%',
-      responseTime: '45ms',
-      lastCheck: '2024-01-15 14:30:00',
-      version: 'PostgreSQL 14.5',
-      port: 5432
-    },
-    {
-      name: 'Redis Cache',
-      status: 'healthy',
-      uptime: '99.9%',
-      responseTime: '2ms',
-      lastCheck: '2024-01-15 14:30:00',
-      version: 'Redis 6.2',
-      port: 6379
-    },
-    {
-      name: 'Payment Gateway',
-      status: 'degraded',
-      uptime: '98.5%',
-      responseTime: '850ms',
-      lastCheck: '2024-01-15 14:30:00',
-      version: 'Stripe API v2020-08-27',
-      port: 443
-    },
-    {
-      name: 'Email Service',
-      status: 'healthy',
-      uptime: '99.7%',
-      responseTime: '320ms',
-      lastCheck: '2024-01-15 14:30:00',
-      version: 'SendGrid v7.0',
-      port: 587
-    },
-    {
-      name: 'File Storage',
-      status: 'healthy',
-      uptime: '99.9%',
-      responseTime: '180ms',
-      lastCheck: '2024-01-15 14:30:00',
-      version: 'AWS S3',
-      port: 443
-    }
-  ];
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-  const systemMetrics = {
-    cpu: {
-      usage: 45,
-      cores: 4,
-      load: [0.8, 0.9, 0.7]
-    },
-    memory: {
-      used: 6.2,
-      total: 16,
-      percentage: 38.75
-    },
-    disk: {
-      used: 120,
-      total: 500,
-      percentage: 24
-    },
-    network: {
-      incoming: 2.4,
-      outgoing: 1.8,
-      connections: 156
+      const data: HealthResponse = await response.json();
+      setHealthData(data);
+      setLastChecked(new Date());
+    } catch (err) {
+      console.error('Error fetching health data:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch health data');
+    } finally {
+      setLoading(false);
+      setIsRefreshing(false);
     }
   };
 
-  const recentIncidents = [
-    {
-      id: 1,
-      service: 'Payment Gateway',
-      severity: 'warning',
-      message: 'High response time detected',
-      timestamp: '2024-01-15 14:25:00',
-      duration: '5 minutes',
-      resolved: true
-    },
-    {
-      id: 2,
-      service: 'Database',
-      severity: 'critical',
-      message: 'Connection pool exhausted',
-      timestamp: '2024-01-10 14:30:00',
-      duration: '2 hours',
-      resolved: true
-    },
-    {
-      id: 3,
-      service: 'API Server',
-      severity: 'info',
-      message: 'Scheduled maintenance completed',
-      timestamp: '2024-01-08 02:00:00',
-      duration: '30 minutes',
-      resolved: true
+  // Map API status to component status
+  const mapStatus = (status: string): string => {
+    const statusLower = status.toLowerCase();
+    if (statusLower === 'running' || statusLower === 'connected' || statusLower === 'reachable' || statusLower === 'ok') {
+      return 'healthy';
     }
-  ];
+    if (statusLower === 'fail' || statusLower === 'failed' || statusLower === 'unhealthy') {
+      return 'unhealthy';
+    }
+    if (statusLower === 'not_configured' || statusLower === 'degraded') {
+      return 'degraded';
+    }
+    return 'unknown';
+  };
+
+  // Parse memory values from string to number
+  const parseMemory = (memoryStr: string): number => {
+    const match = memoryStr.match(/([\d.]+)\s*(MB|GB|KB)/i);
+    if (match) {
+      const value = parseFloat(match[1]);
+      const unit = match[2].toUpperCase();
+      if (unit === 'GB') return value * 1024;
+      if (unit === 'KB') return value / 1024;
+      return value;
+    }
+    return 0;
+  };
+
+  // Get service icon
+  const getServiceIcon = (serviceName: string) => {
+    switch (serviceName.toLowerCase()) {
+      case 'api':
+        return <Server className="h-5 w-5" />;
+      case 'database':
+      case 'db':
+        return <Database className="h-5 w-5" />;
+      case 'redis':
+        return <HardDrive className="h-5 w-5" />;
+      case 'email':
+        return <Mail className="h-5 w-5" />;
+      case 'payment':
+        return <CreditCard className="h-5 w-5" />;
+      case 'filestorage':
+      case 'file storage':
+        return <Folder className="h-5 w-5" />;
+      default:
+        return <Activity className="h-5 w-5" />;
+    }
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -181,19 +176,84 @@ const AdminHealth: React.FC = () => {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setLastChecked(new Date());
-    setIsRefreshing(false);
+    await fetchHealthData();
   };
 
   useEffect(() => {
+    fetchHealthData();
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setLastChecked(new Date());
-    }, 30000); // Update every 30 seconds
+      fetchHealthData();
+    }, 60000); // Auto-refresh every 60 seconds
 
     return () => clearInterval(interval);
   }, []);
+
+  if (loading && !healthData) {
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">System Health</h1>
+            <p className="text-gray-600 mt-2">Monitor system performance and service status</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="mt-4 text-gray-600">Loading health data...</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (error && !healthData) {
+    return (
+      <div className="space-y-6">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">System Health</h1>
+            <p className="text-gray-600 mt-2">Monitor system performance and service status</p>
+          </div>
+          <Button onClick={handleRefresh} disabled={isRefreshing} variant="outline">
+            <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+            Retry
+          </Button>
+        </div>
+        <Card>
+          <CardContent className="pt-6">
+            <div className="text-center text-red-600">
+              <p className="text-lg font-medium">Error loading health data</p>
+              <p className="text-sm">{error}</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!healthData) return null;
+
+  // Build services array from health data
+  const services = [
+    { name: 'API Server', status: mapStatus(healthData.api), value: healthData.api },
+    { name: 'Database', status: mapStatus(healthData.db), value: healthData.db },
+    { name: 'Redis Cache', status: mapStatus(healthData.redis), value: healthData.redis },
+    { name: 'Email Service', status: mapStatus(healthData.email), value: healthData.email },
+    { name: 'File Storage', status: mapStatus(healthData.fileStorage), value: healthData.fileStorage },
+    { name: 'Payment Gateway', status: mapStatus(healthData.payment), value: healthData.payment },
+  ];
+
+  // Parse memory values
+  const heapUsed = parseMemory(healthData.memory.heapUsed);
+  const heapTotal = parseMemory(healthData.memory.heapTotal);
+  const rss = parseMemory(healthData.memory.rss);
+  const memoryPercentage = heapTotal > 0 ? (heapUsed / heapTotal) * 100 : 0;
 
   return (
     <div className="space-y-6">
@@ -208,7 +268,7 @@ const AdminHealth: React.FC = () => {
           </div>
           <Button 
             onClick={handleRefresh} 
-            disabled={isRefreshing}
+            disabled={isRefreshing || loading}
             variant="outline"
           >
             <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
@@ -229,31 +289,31 @@ const AdminHealth: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-center mb-2">
-                {getStatusIcon(systemHealth.overall)}
+                {getStatusIcon(healthData.status)}
               </div>
               <p className="text-sm font-medium text-gray-600">Overall Status</p>
-              <p className="text-lg font-bold text-gray-900 capitalize">{systemHealth.overall}</p>
+              <p className="text-lg font-bold text-gray-900 capitalize">{healthData.status}</p>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-center mb-2">
                 <Clock className="h-5 w-5 text-blue-600" />
               </div>
               <p className="text-sm font-medium text-gray-600">Uptime</p>
-              <p className="text-lg font-bold text-gray-900">{systemHealth.uptime}</p>
+              <p className="text-lg font-bold text-gray-900">{healthData.uptime}</p>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-center mb-2">
                 <Globe className="h-5 w-5 text-green-600" />
               </div>
-              <p className="text-sm font-medium text-gray-600">Response Time</p>
-              <p className="text-lg font-bold text-gray-900">{systemHealth.responseTime}</p>
+              <p className="text-sm font-medium text-gray-600">Environment</p>
+              <p className="text-lg font-bold text-gray-900 capitalize">{healthData.environment}</p>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="flex items-center justify-center mb-2">
                 <AlertCircle className="h-5 w-5 text-orange-600" />
               </div>
-              <p className="text-sm font-medium text-gray-600">Last Incident</p>
-              <p className="text-sm font-bold text-gray-900">{systemHealth.lastIncident}</p>
+              <p className="text-sm font-medium text-gray-600">Version</p>
+              <p className="text-sm font-bold text-gray-900">{healthData.version || 'N/A'}</p>
             </div>
           </div>
         </CardContent>
@@ -270,21 +330,17 @@ const AdminHealth: React.FC = () => {
               <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center space-x-2">
+                    <div className="text-gray-600">
+                      {getServiceIcon(service.name)}
+                    </div>
                     {getStatusIcon(service.status)}
                     <span className="font-medium text-gray-900">{service.name}</span>
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    v{service.version} • Port {service.port}
                   </div>
                 </div>
                 <div className="flex items-center space-x-6">
                   <div className="text-right">
-                    <div className="text-sm font-medium text-gray-900">{service.uptime}</div>
-                    <div className="text-xs text-gray-600">Uptime</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-sm font-medium text-gray-900">{service.responseTime}</div>
-                    <div className="text-xs text-gray-600">Response</div>
+                    <div className="text-sm font-medium text-gray-900 capitalize">{service.value}</div>
+                    <div className="text-xs text-gray-600">Status</div>
                   </div>
                   <div>
                     {getStatusBadge(service.status)}
@@ -297,103 +353,118 @@ const AdminHealth: React.FC = () => {
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* System Metrics */}
+        {/* Memory Metrics */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
               <Cpu className="h-5 w-5 mr-2" />
-              System Metrics
+              Memory Usage
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>CPU Usage</span>
-                  <span>{systemMetrics.cpu.usage}%</span>
+                  <span>Heap Used</span>
+                  <span>{memoryPercentage.toFixed(1)}%</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
-                    className="bg-blue-600 h-2 rounded-full" 
-                    style={{ width: `${systemMetrics.cpu.usage}%` }}
+                    className={`h-2 rounded-full ${
+                      memoryPercentage > 80 ? 'bg-red-600' : 
+                      memoryPercentage > 60 ? 'bg-yellow-600' : 
+                      'bg-green-600'
+                    }`}
+                    style={{ width: `${Math.min(memoryPercentage, 100)}%` }}
                   ></div>
                 </div>
                 <div className="text-xs text-gray-600 mt-1">
-                  {systemMetrics.cpu.cores} cores • Load: {systemMetrics.cpu.load.join(', ')}
+                  {healthData.memory.heapUsed} / {healthData.memory.heapTotal}
                 </div>
               </div>
 
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>Memory Usage</span>
-                  <span>{systemMetrics.memory.percentage.toFixed(1)}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-green-600 h-2 rounded-full" 
-                    style={{ width: `${systemMetrics.memory.percentage}%` }}
-                  ></div>
+                  <span>RSS (Resident Set Size)</span>
+                  <span>{healthData.memory.rss}</span>
                 </div>
                 <div className="text-xs text-gray-600 mt-1">
-                  {systemMetrics.memory.used}GB / {systemMetrics.memory.total}GB
+                  Total memory allocated to the process
                 </div>
               </div>
 
               <div>
                 <div className="flex justify-between text-sm mb-1">
-                  <span>Disk Usage</span>
-                  <span>{systemMetrics.disk.percentage}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-yellow-600 h-2 rounded-full" 
-                    style={{ width: `${systemMetrics.disk.percentage}%` }}
-                  ></div>
+                  <span>External Memory</span>
+                  <span>{healthData.memory.external}</span>
                 </div>
                 <div className="text-xs text-gray-600 mt-1">
-                  {systemMetrics.disk.used}GB / {systemMetrics.disk.total}GB
+                  Memory used by C++ objects bound to JavaScript objects
                 </div>
               </div>
 
               <div className="pt-2 border-t">
                 <div className="flex justify-between text-sm">
                   <span className="flex items-center">
-                    <Wifi className="h-4 w-4 mr-1" />
-                    Network
+                    <Activity className="h-4 w-4 mr-1" />
+                    Memory Status
                   </span>
-                  <span>{systemMetrics.network.connections} connections</span>
+                  <span className="capitalize">{healthData.memory.status}</span>
                 </div>
-                <div className="text-xs text-gray-600 mt-1">
-                  In: {systemMetrics.network.incoming}MB/s • Out: {systemMetrics.network.outgoing}MB/s
-                </div>
+                {healthData.memory.status === 'ok' && (
+                  <Badge className="mt-2 bg-green-100 text-green-800">Healthy</Badge>
+                )}
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Recent Incidents */}
+        {/* System Information */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center">
               <AlertCircle className="h-5 w-5 mr-2" />
-              Recent Incidents
+              System Information
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {recentIncidents.map((incident) => (
-                <div key={incident.id} className="p-3 bg-gray-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-gray-900">{incident.service}</span>
-                    {getSeverityBadge(incident.severity)}
-                  </div>
-                  <p className="text-sm text-gray-600 mb-1">{incident.message}</p>
-                  <div className="flex justify-between text-xs text-gray-500">
-                    <span>{incident.timestamp}</span>
-                    <span>Duration: {incident.duration}</span>
-                  </div>
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-900">Last Updated</span>
+                  <span className="text-xs text-gray-500">
+                    {new Date(healthData.timestamp).toLocaleString()}
+                  </span>
                 </div>
-              ))}
+              </div>
+              
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-900">Environment</span>
+                  <Badge className="bg-blue-100 text-blue-800 capitalize">
+                    {healthData.environment}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-900">Cache Status</span>
+                  <Badge className={healthData.cached ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-800"}>
+                    {healthData.cached ? 'Cached' : 'Live'}
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-900">Uptime</span>
+                  <span className="text-sm text-gray-900">{healthData.uptime}</span>
+                </div>
+                <div className="text-xs text-gray-600 mt-1">
+                  System has been running since last restart
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

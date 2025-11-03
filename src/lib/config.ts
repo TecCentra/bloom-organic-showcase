@@ -24,6 +24,7 @@ export const API_CONFIG = {
       },
       AUDIT_LOG: '/admin/audit-log',
     },
+    HEALTH: '/health',
     ORDERS: {
       ALL: '/orders',
       CHECKOUT: '/orders/checkout',
@@ -46,7 +47,12 @@ export const API_CONFIG = {
     },
     MPESA: {
       CALLBACK: '/mpesa/callback',
-    }
+    },
+    NEWSLETTER: {
+      SUBSCRIBE: '/newsletter/subscribe',
+      UNSUBSCRIBE: '/newsletter/unsubscribe',
+    },
+    CONTACT: '/contact'
   }
 };
 

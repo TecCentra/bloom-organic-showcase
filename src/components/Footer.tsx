@@ -3,9 +3,9 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react"
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Facebook, href: "https://www.facebook.com/share/1CR19eGtNV/", label: "Facebook" },
+    { icon: Instagram, href: "https://www.instagram.com/organicpurebloomke?igsh=MWdsdHp3bHFxODMybw==", label: "Instagram" },
+    // { icon: Twitter, href: "#", label: "Twitter" },
   ];
 
   return (
@@ -23,6 +23,7 @@ const Footer = () => {
             <div className="flex gap-4">
               {socialLinks.map((social) => (
                 <a
+                  target="blankcu"
                   key={social.label}
                   href={social.href}
                   aria-label={social.label}
