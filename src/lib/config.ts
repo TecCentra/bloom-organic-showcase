@@ -11,6 +11,7 @@ export const API_CONFIG = {
       ME: '/auth/me',
       REFRESH: '/auth/refresh-token',
       FORGOT_PASSWORD: '/auth/forgot-password',
+      UPDATE_PASSWORD: '/auth/update-password',
     },
     ADMIN: {
       DASHBOARD: '/admin/dashboard',
@@ -41,6 +42,8 @@ export const API_CONFIG = {
       UPLOAD_PDF: '/blogs/upload-pdf',
       LIST: '/blogs',
       DETAIL: '/blogs',
+      CREATE: '/blogs',
+      UPLOAD_IMAGE: '/blogs/:id/image',
     },
     SHIPPING: {
       ZONES: '/shipping/zones',

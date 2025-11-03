@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { buildApiUrl, API_CONFIG } from '@/lib/config';
 
 interface AdminUser {
   id: string;
@@ -35,16 +36,19 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
   useEffect(() => {
     const token = localStorage.getItem('admin_token');
     const userData = localStorage.getItem('admin_user');
+    const refreshToken = localStorage.getItem('admin_refresh_token');
     
     if (token && userData) {
       try {
         const user = JSON.parse(userData);
         setAdminToken(token);
         setAdminUser(user);
+        // Refresh token is stored but not set in state (we'll get it from localStorage when needed)
       } catch (error) {
         console.error('Error parsing admin user data:', error);
         localStorage.removeItem('admin_token');
         localStorage.removeItem('admin_user');
+        localStorage.removeItem('admin_refresh_token');
       }
     }
     setIsLoading(false);
@@ -54,7 +58,7 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
     setIsLoading(true);
     
     try {
-      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.AUTH.LOGIN), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,6 +75,11 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
                      data.token || 
                      data.accessToken || 
                      data.access_token;
+        
+        // Try to extract refresh token from various possible locations
+        const refreshToken = data.data?.refreshToken || 
+                           data.refreshToken || 
+                           data.refresh_token;
         
         // Try to extract user data from various possible locations
         const userData = data.data?.user || data.user || data.data || {};
@@ -110,6 +119,11 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
           localStorage.setItem('admin_token', token);
           localStorage.setItem('admin_user', JSON.stringify(user));
           
+          // Store refresh token if available
+          if (refreshToken) {
+            localStorage.setItem('admin_refresh_token', refreshToken);
+          }
+          
           setIsLoading(false);
           return true;
         } else {
@@ -135,31 +149,58 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
     setAdminToken(null);
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
+    localStorage.removeItem('admin_refresh_token');
   };
 
   const refreshToken = async (): Promise<boolean> => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'https://bloom-backend-hqu8.onrender.com/api/v1';
-      const response = await fetch(`${baseUrl}/auth/refresh-token`, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!response.ok) {
-        // If refresh fails, log out to clear invalid state
+      const refreshToken = localStorage.getItem('admin_refresh_token');
+      
+      if (!refreshToken) {
+        console.error('No refresh token found');
         logout();
         return false;
       }
+
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.AUTH.REFRESH), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          refreshToken: refreshToken
+        })
+      });
+
+      if (!response.ok) {
+        // If refresh fails, log out to clear invalid state
+        console.error('Refresh token failed:', response.status);
+        logout();
+        return false;
+      }
+
       const data = await response.json();
       const newToken = data.data?.accessToken || data.accessToken || data.token || data.access_token;
-      if (!newToken) return false;
+      const newRefreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+      
+      if (!newToken) {
+        console.error('No new token received');
+        logout();
+        return false;
+      }
+
       setAdminToken(newToken);
       localStorage.setItem('admin_token', newToken);
+      
+      // Update refresh token if a new one is provided
+      if (newRefreshToken) {
+        localStorage.setItem('admin_refresh_token', newRefreshToken);
+      }
+      
       return true;
     } catch (e) {
       console.error('Refresh token error:', e);
+      logout();
       return false;
     }
   };
