@@ -1599,8 +1599,9 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
 
       if (response.ok && data.success) {
         const accessToken = data.data?.accessToken;
+        const refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
         if (accessToken) {
-          setToken(accessToken);
+          setToken(accessToken, refreshToken);
         } else {
           console.warn('No accessToken in response');
         }
@@ -1774,6 +1775,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
 
       if (response.ok && data.success) {
         let accessToken = data.data?.accessToken;
+        let refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
         if (!accessToken) {
           console.log('No token from register, auto-logging in...');
           const loginRes = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
@@ -1784,10 +1786,11 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
           const loginData = await loginRes.json();
           if (loginRes.ok && loginData.success) {
             accessToken = loginData.data.accessToken;
+            refreshToken = loginData.data.refreshToken || loginData.refreshToken || loginData.refresh_token;
           }
         }
         if (accessToken) {
-          setToken(accessToken);
+          setToken(accessToken, refreshToken);
         } else {
           console.warn('No accessToken obtained');
         }

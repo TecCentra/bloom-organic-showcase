@@ -22,7 +22,10 @@ import {
   XCircle,
   Clock,
   CreditCard,
-  Ban
+  Ban,
+  Lock,
+  Eye,
+  EyeOff
 } from "lucide-react";
 import {
   Dialog,
@@ -33,8 +36,11 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { useUserAuth } from "@/context/UserAuthContext";
+import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 interface UserData {
   user_id: string;
@@ -89,6 +95,20 @@ const UserProfile = () => {
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   const [cancelReason, setCancelReason] = useState("");
   const [isCancelling, setIsCancelling] = useState(false);
+  
+  // Password update states
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    newPasswordConfirm: ''
+  });
+  const [showPasswords, setShowPasswords] = useState({
+    current: false,
+    new: false,
+    confirm: false
+  });
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -172,6 +192,61 @@ const UserProfile = () => {
   const handleLogout = () => {
     removeToken();
     navigate('/');
+  };
+
+  // Handle password update
+  const handlePasswordUpdate = async () => {
+    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.newPasswordConfirm) {
+      toast({ description: "Please fill in all password fields", variant: "destructive", duration: 3000 });
+      return;
+    }
+
+    if (passwordData.newPassword !== passwordData.newPasswordConfirm) {
+      toast({ description: "New passwords do not match", variant: "destructive", duration: 3000 });
+      return;
+    }
+
+    if (passwordData.newPassword.length < 6) {
+      toast({ description: "New password must be at least 6 characters long", variant: "destructive", duration: 3000 });
+      return;
+    }
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast({ description: "You must be logged in to update your password", variant: "destructive", duration: 3000 });
+      return;
+    }
+
+    try {
+      setIsUpdatingPassword(true);
+      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.AUTH.UPDATE_PASSWORD), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
+          newPasswordConfirm: passwordData.newPasswordConfirm
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        toast({ description: "Password updated successfully", duration: 3000 });
+        setPasswordModalOpen(false);
+        setPasswordData({ currentPassword: '', newPassword: '', newPasswordConfirm: '' });
+      } else {
+        toast({ description: data.message || "Failed to update password", variant: "destructive", duration: 3000 });
+      }
+    } catch (error: any) {
+      console.error('Error updating password:', error);
+      toast({ description: "An error occurred while updating your password", variant: "destructive", duration: 3000 });
+    } finally {
+      setIsUpdatingPassword(false);
+    }
   };
 
   const getRoleBadge = (role: string) => {
@@ -474,6 +549,14 @@ const UserProfile = () => {
                   <Button 
                     className="w-full justify-start" 
                     variant="outline"
+                    onClick={() => setPasswordModalOpen(true)}
+                  >
+                    <Lock className="w-4 h-4 mr-2" />
+                    Change Password
+                  </Button>
+                  <Button 
+                    className="w-full justify-start" 
+                    variant="outline"
                     onClick={() => navigate('/cart')}
                   >
                     <ShoppingBag className="w-4 h-4 mr-2" />
@@ -646,6 +729,116 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+
+      {/* Change Password Modal */}
+      <Dialog open={passwordModalOpen} onOpenChange={setPasswordModalOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Change Password</DialogTitle>
+            <DialogDescription>
+              Update your password to keep your account secure.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="current-password">Current Password *</Label>
+              <div className="relative">
+                <Input
+                  id="current-password"
+                  type={showPasswords.current ? "text" : "password"}
+                  placeholder="Enter your current password"
+                  value={passwordData.currentPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3"
+                  onClick={() => setShowPasswords({ ...showPasswords, current: !showPasswords.current })}
+                >
+                  {showPasswords.current ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </Button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="new-password">New Password *</Label>
+              <div className="relative">
+                <Input
+                  id="new-password"
+                  type={showPasswords.new ? "text" : "password"}
+                  placeholder="Enter your new password"
+                  value={passwordData.newPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3"
+                  onClick={() => setShowPasswords({ ...showPasswords, new: !showPasswords.new })}
+                >
+                  {showPasswords.new ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Password must be at least 6 characters long
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirm-password">Confirm New Password *</Label>
+              <div className="relative">
+                <Input
+                  id="confirm-password"
+                  type={showPasswords.confirm ? "text" : "password"}
+                  placeholder="Confirm your new password"
+                  value={passwordData.newPasswordConfirm}
+                  onChange={(e) => setPasswordData({ ...passwordData, newPasswordConfirm: e.target.value })}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="absolute right-0 top-0 h-full px-3"
+                  onClick={() => setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })}
+                >
+                  {showPasswords.confirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setPasswordModalOpen(false);
+                setPasswordData({ currentPassword: '', newPassword: '', newPasswordConfirm: '' });
+                setShowPasswords({ current: false, new: false, confirm: false });
+              }}
+              disabled={isUpdatingPassword}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handlePasswordUpdate}
+              disabled={isUpdatingPassword || !passwordData.currentPassword || !passwordData.newPassword || !passwordData.newPasswordConfirm}
+            >
+              {isUpdatingPassword ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Updating...
+                </>
+              ) : (
+                'Update Password'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Cancel Order Modal */}
       <Dialog open={cancelModalOpen} onOpenChange={setCancelModalOpen}>
