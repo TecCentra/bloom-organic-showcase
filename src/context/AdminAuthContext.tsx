@@ -32,26 +32,77 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
   const [adminToken, setAdminToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Check if token is expired
+  const isTokenExpired = (expiresAt: string | null): boolean => {
+    if (!expiresAt) return true;
+    return new Date(expiresAt) <= new Date();
+  };
+
   // Check for existing token on mount
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    const userData = localStorage.getItem('admin_user');
-    const refreshToken = localStorage.getItem('admin_refresh_token');
-    
-    if (token && userData) {
-      try {
-        const user = JSON.parse(userData);
-        setAdminToken(token);
-        setAdminUser(user);
-        // Refresh token is stored but not set in state (we'll get it from localStorage when needed)
-      } catch (error) {
-        console.error('Error parsing admin user data:', error);
-        localStorage.removeItem('admin_token');
-        localStorage.removeItem('admin_user');
-        localStorage.removeItem('admin_refresh_token');
+    const checkInitialToken = async () => {
+      const token = localStorage.getItem('admin_token');
+      const userData = localStorage.getItem('admin_user');
+      const accessTokenExpires = localStorage.getItem('admin_token_expires');
+      
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData);
+          
+          // Check if token is expired
+          if (isTokenExpired(accessTokenExpires)) {
+            // Try to refresh token
+            const storedRefreshToken = localStorage.getItem('admin_refresh_token');
+            const refreshTokenExpires = localStorage.getItem('admin_refresh_token_expires');
+            
+            if (storedRefreshToken && !isTokenExpired(refreshTokenExpires)) {
+              // Token expired but refresh token is still valid, refresh it inline
+              try {
+                const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.AUTH.REFRESH), {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ refreshToken: storedRefreshToken })
+                });
+
+                if (response.ok) {
+                  const data = await response.json();
+                  const newToken = data.data?.accessToken || data.accessToken || data.token || data.access_token;
+                  const newRefreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+                  const newAccessTokenExpires = data.data?.accessTokenExpires || data.accessTokenExpires;
+                  const newRefreshTokenExpires = data.data?.refreshTokenExpires || data.refreshTokenExpires;
+
+                  if (newToken) {
+                    setAdminToken(newToken);
+                    setAdminUser(user);
+                    localStorage.setItem('admin_token', newToken);
+                    if (newAccessTokenExpires) localStorage.setItem('admin_token_expires', newAccessTokenExpires);
+                    if (newRefreshToken) localStorage.setItem('admin_refresh_token', newRefreshToken);
+                    if (newRefreshTokenExpires) localStorage.setItem('admin_refresh_token_expires', newRefreshTokenExpires);
+                    setIsLoading(false);
+                    return;
+                  }
+                }
+              } catch (e) {
+                console.error('Initial token refresh failed:', e);
+              }
+            }
+            // Both tokens expired or refresh failed, log out
+            logout();
+            setIsLoading(false);
+            return;
+          }
+          
+          setAdminToken(token);
+          setAdminUser(user);
+        } catch (error) {
+          console.error('Error parsing admin user data:', error);
+          logout();
+        }
       }
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    };
+
+    checkInitialToken();
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
@@ -85,15 +136,12 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
         const userData = data.data?.user || data.user || data.data || {};
         
         if (token) {
-          // Check if user is admin based on role or is_admin flag
           const userRole = userData.role || userData.userType;
           const isAdmin = userData.is_admin === true || userRole === 'admin' || userRole === 'super_admin';
           
-          if (!isAdmin) {
-            console.error('User is not an admin');
-            setIsLoading(false);
-            return false;
-          }
+          // Extract expiration times
+          const accessTokenExpires = data.data?.accessTokenExpires || data.accessTokenExpires;
+          const refreshTokenExpires = data.data?.refreshTokenExpires || data.refreshTokenExpires;
           
           const user: AdminUser = {
             id: userData.user_id || userData.id || userData._id || 'admin-001',
@@ -119,9 +167,18 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
           localStorage.setItem('admin_token', token);
           localStorage.setItem('admin_user', JSON.stringify(user));
           
+          // Store expiration times
+          if (accessTokenExpires) {
+            localStorage.setItem('admin_token_expires', accessTokenExpires);
+          }
+          
           // Store refresh token if available
           if (refreshToken) {
             localStorage.setItem('admin_refresh_token', refreshToken);
+          }
+          
+          if (refreshTokenExpires) {
+            localStorage.setItem('admin_refresh_token_expires', refreshTokenExpires);
           }
           
           setIsLoading(false);
@@ -150,9 +207,18 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
     localStorage.removeItem('admin_refresh_token');
+    localStorage.removeItem('admin_token_expires');
+    localStorage.removeItem('admin_refresh_token_expires');
   };
 
   const refreshToken = async (): Promise<boolean> => {
+    // Check if refresh token is expired before attempting refresh
+    const refreshTokenExpires = localStorage.getItem('admin_refresh_token_expires');
+    if (isTokenExpired(refreshTokenExpires)) {
+      console.error('Refresh token has expired');
+      logout();
+      return false;
+    }
     try {
       const refreshToken = localStorage.getItem('admin_refresh_token');
       
@@ -182,6 +248,8 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
       const data = await response.json();
       const newToken = data.data?.accessToken || data.accessToken || data.token || data.access_token;
       const newRefreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+      const accessTokenExpires = data.data?.accessTokenExpires || data.accessTokenExpires;
+      const refreshTokenExpires = data.data?.refreshTokenExpires || data.refreshTokenExpires;
       
       if (!newToken) {
         console.error('No new token received');
@@ -192,9 +260,18 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
       setAdminToken(newToken);
       localStorage.setItem('admin_token', newToken);
       
+      // Store expiration times
+      if (accessTokenExpires) {
+        localStorage.setItem('admin_token_expires', accessTokenExpires);
+      }
+      
       // Update refresh token if a new one is provided
       if (newRefreshToken) {
         localStorage.setItem('admin_refresh_token', newRefreshToken);
+      }
+      
+      if (refreshTokenExpires) {
+        localStorage.setItem('admin_refresh_token_expires', refreshTokenExpires);
       }
       
       return true;
@@ -209,6 +286,28 @@ export const AdminAuthProvider: React.FC<AdminAuthProviderProps> = ({ children }
     if (!adminUser) return false;
     return adminUser.permissions.includes(permission) || adminUser.role === 'super_admin';
   };
+
+  // Check token expiration periodically and refresh if needed
+  useEffect(() => {
+    if (!adminToken) return;
+
+    const checkAndRefreshToken = async () => {
+      const accessTokenExpires = localStorage.getItem('admin_token_expires');
+      
+      if (isTokenExpired(accessTokenExpires)) {
+        // Token expired, try to refresh
+        await refreshToken();
+      }
+    };
+
+    // Check every minute
+    const interval = setInterval(checkAndRefreshToken, 60 * 1000);
+    
+    // Also check immediately
+    checkAndRefreshToken();
+
+    return () => clearInterval(interval);
+  }, [adminToken]);
 
   const value: AdminAuthContextType = {
     adminUser,

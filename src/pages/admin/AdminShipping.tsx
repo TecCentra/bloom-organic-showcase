@@ -25,6 +25,8 @@ import {
   Truck,
   CheckCircle,
   XCircle,
+  ShoppingBag,
+  UserCheck,
 } from 'lucide-react';
 import {
   Dialog,
@@ -34,6 +36,8 @@ import {
 } from '@/components/ui/dialog';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 
 // Define interfaces for TypeScript
 interface Order {
@@ -72,6 +76,21 @@ interface OrdersResponse {
   timestamp: string;
 }
 
+// Valid order statuses according to API enum
+const allowedStatuses = [
+  'pending',
+  'processing',
+  'ready_for_pickup',
+  'picked_up_by_courier',
+  'out_for_delivery',
+  'shipped',
+  'delivered',
+  'cancelled',
+  'refunded'
+] as const;
+
+type OrderStatus = typeof allowedStatuses[number];
+
 const AdminShipping: React.FC = () => {
   // State management
   const [searchTerm, setSearchTerm] = useState('');
@@ -82,6 +101,8 @@ const AdminShipping: React.FC = () => {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [newStatus, setNewStatus] = useState('');
   const { adminToken } = useAdminAuth();
+  const { toast } = useMaterialToast();
+  const { confirm } = useMaterialConfirm();
 
   // Fetch orders from API
   const fetchOrders = async () => {
@@ -175,15 +196,20 @@ const filteredOrders = searchTerm.trim()
 
   // Helper functions for UI
   const getStatusBadge = (status: string) => {
-    const statusClasses = {
+    const statusClasses: Record<string, string> = {
+      pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
       processing: 'bg-blue-100 text-blue-800 border-blue-200',
+      ready_for_pickup: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+      picked_up_by_courier: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+      out_for_delivery: 'bg-orange-100 text-orange-800 border-orange-200',
       shipped: 'bg-purple-100 text-purple-800 border-purple-200',
       delivered: 'bg-green-100 text-green-800 border-green-200',
       cancelled: 'bg-red-100 text-red-800 border-red-200',
-      pending: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+      refunded: 'bg-gray-100 text-gray-800 border-gray-200',
     };
-    const className = statusClasses[status as keyof typeof statusClasses] || 'bg-gray-100 text-gray-800 border-gray-200';
-    return <Badge className={className}>{status}</Badge>;
+    const className = statusClasses[status] || 'bg-gray-100 text-gray-800 border-gray-200';
+    const displayName = status.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    return <Badge className={className}>{displayName}</Badge>;
   };
 
   const getPaymentStatusBadge = (status: string) => {
@@ -209,12 +235,47 @@ const filteredOrders = searchTerm.trim()
   // Event handlers
   const handleUpdateStatus = (order: Order) => {
     setSelectedOrder(order);
-    setNewStatus(order.status);
+    // Ensure we use a valid status, default to 'pending' if order has invalid status
+    const validStatus = allowedStatuses.includes(order.status as OrderStatus) ? order.status : 'pending';
+    setNewStatus(validStatus);
     setIsUpdateStatusModalOpen(true);
   };
 
   const handleStatusUpdate = async () => {
-    if (!selectedOrder || !newStatus || !adminToken) return;
+    if (!selectedOrder || !newStatus) {
+      toast({
+        title: 'Error',
+        description: 'Missing required information',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Basic enum validation - backend will handle all other validations
+    if (!allowedStatuses.includes(newStatus as OrderStatus)) {
+      const errorMsg = `Invalid enum value. Expected one of: ${allowedStatuses.join(' | ')}, received '${newStatus}'`;
+      setError(errorMsg);
+      toast({
+        title: 'Invalid Status',
+        description: errorMsg,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Show confirmation dialog
+    const statusDisplayName = newStatus.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    const confirmed = await confirm({
+      title: 'Confirm Status Update',
+      message: `Are you sure you want to change the order status from "${selectedOrder.status}" to "${statusDisplayName}"?`,
+      confirmText: 'Update Status',
+      cancelText: 'Cancel',
+      confirmColor: 'primary',
+    });
+
+    if (!confirmed) {
+      return;
+    }
 
     try {
       const response = await fetch(
@@ -231,7 +292,8 @@ const filteredOrders = searchTerm.trim()
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Failed to update order status');
+        const errorMessage = errorData.message || errorData.errors?.body?.status || 'Failed to update order status';
+        throw new Error(errorMessage);
       }
 
       // Update local state
@@ -246,8 +308,25 @@ const filteredOrders = searchTerm.trim()
       setIsUpdateStatusModalOpen(false);
       setSelectedOrder(null);
       setNewStatus('');
+      setError(null);
+
+      // Show success toast
+      toast({
+        title: 'Status Updated',
+        description: `Order status has been successfully updated to "${statusDisplayName}"`,
+        variant: 'success',
+      });
     } catch (err) {
       console.error('Error updating order status:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update order status';
+      setError(errorMessage);
+      
+      // Show error toast
+      toast({
+        title: 'Update Failed',
+        description: errorMessage,
+        variant: 'destructive',
+      });
     }
   };
 
@@ -542,13 +621,18 @@ const filteredOrders = searchTerm.trim()
                     onChange={(e) => setNewStatus(e.target.value)}
                     className="w-full p-2 border border-gray-300 rounded-md"
                   >
-                    <option value="pending">Pending</option>
-                    <option value="processing">Processing</option>
-                    <option value="shipped">Shipped</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="cancelled">Cancelled</option>
+                    {allowedStatuses.map(status => (
+                      <option key={status} value={status}>
+                        {status.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                      </option>
+                    ))}
                   </select>
                 </div>
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-600 px-3 py-2 rounded-md text-sm">
+                    {error}
+                  </div>
+                )}
               </div>
             )}
             <div className="flex justify-end space-x-2">
