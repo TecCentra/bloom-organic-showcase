@@ -3,7 +3,7 @@ import { buildApiUrl, API_CONFIG } from '@/lib/config';
 
 interface UserAuthContextType {
   isAuthenticated: boolean;
-  setToken: (token: string, refreshToken?: string) => void;
+  setToken: (token: string, refreshToken?: string, accessTokenExpires?: string, refreshTokenExpires?: string) => void;
   removeToken: () => void;
   refreshToken: () => Promise<boolean>;
 }
@@ -14,51 +14,99 @@ interface UserAuthProviderProps {
   children: ReactNode;
 }
 
-const INACTIVITY_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
-
 export const UserAuthProvider: React.FC<UserAuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [lastActivityTime, setLastActivityTime] = useState<number | null>(null);
+
+  // Check if token is expired
+  const isTokenExpired = (expiresAt: string | null): boolean => {
+    if (!expiresAt) return true;
+    return new Date(expiresAt) <= new Date();
+  };
 
   // Check for existing token on mount
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const refreshToken = localStorage.getItem('refresh_token');
-    if (token) {
-      setIsAuthenticated(true);
-      setLastActivityTime(Date.now());
-      // Refresh token is stored but not set in state (we'll get it from localStorage when needed)
-    }
-  }, []);
+    const checkInitialToken = async () => {
+      const token = localStorage.getItem('token');
+      const accessTokenExpires = localStorage.getItem('token_expires');
+      
+      if (token) {
+        // Check if token is expired
+        if (isTokenExpired(accessTokenExpires)) {
+          // Try to refresh token
+          const storedRefreshToken = localStorage.getItem('refresh_token');
+          const refreshTokenExpires = localStorage.getItem('refresh_token_expires');
+          
+          if (storedRefreshToken && !isTokenExpired(refreshTokenExpires)) {
+            // Token expired but refresh token is still valid, refresh it inline
+            try {
+              const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.AUTH.REFRESH), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ refreshToken: storedRefreshToken })
+              });
 
-  // Monitor user activity
-  useEffect(() => {
-    const updateActivity = () => {
-      if (isAuthenticated) {
-        setLastActivityTime(Date.now());
+              if (response.ok) {
+                const data = await response.json();
+                const newToken = data.data?.accessToken || data.accessToken || data.token || data.access_token;
+                const newRefreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+                const newAccessTokenExpires = data.data?.accessTokenExpires || data.accessTokenExpires;
+                const newRefreshTokenExpires = data.data?.refreshTokenExpires || data.refreshTokenExpires;
+
+                if (newToken) {
+                  localStorage.setItem('token', newToken);
+                  if (newAccessTokenExpires) localStorage.setItem('token_expires', newAccessTokenExpires);
+                  if (newRefreshToken) localStorage.setItem('refresh_token', newRefreshToken);
+                  if (newRefreshTokenExpires) localStorage.setItem('refresh_token_expires', newRefreshTokenExpires);
+                  setIsAuthenticated(true);
+                  window.dispatchEvent(new Event('authChange'));
+                  return;
+                }
+              }
+            } catch (e) {
+              console.error('Initial token refresh failed:', e);
+            }
+          }
+          // Both tokens expired or refresh failed, clear tokens
+          localStorage.removeItem('token');
+          localStorage.removeItem('refresh_token');
+          localStorage.removeItem('token_expires');
+          localStorage.removeItem('refresh_token_expires');
+          setIsAuthenticated(false);
+          window.dispatchEvent(new Event('authChange'));
+          return;
+        }
+        
+        setIsAuthenticated(true);
       }
     };
 
-    // Listen to various user activity events
-    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
-    
-    events.forEach(event => {
-      window.addEventListener(event, updateActivity);
-    });
+    checkInitialToken();
+  }, []);
 
-    return () => {
-      events.forEach(event => {
-        window.removeEventListener(event, updateActivity);
-      });
-    };
-  }, [isAuthenticated]);
+  const removeToken = useCallback(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('token_expires');
+    localStorage.removeItem('refresh_token_expires');
+    setIsAuthenticated(false);
+    window.dispatchEvent(new Event('authChange'));
+  }, []);
 
   const refreshUserToken = useCallback(async (): Promise<boolean> => {
+    // Check if refresh token is expired before attempting refresh
+    const refreshTokenExpires = localStorage.getItem('refresh_token_expires');
+    if (isTokenExpired(refreshTokenExpires)) {
+      console.error('Refresh token has expired');
+      removeToken();
+      return false;
+    }
+
     try {
       const refreshToken = localStorage.getItem('refresh_token');
       
       if (!refreshToken) {
         console.error('No refresh token found');
+        removeToken();
         return false;
       }
 
@@ -74,98 +122,85 @@ export const UserAuthProvider: React.FC<UserAuthProviderProps> = ({ children }) 
 
       if (!response.ok) {
         console.error('Refresh token failed:', response.status);
+        removeToken();
         return false;
       }
 
       const data = await response.json();
       const newToken = data.data?.accessToken || data.accessToken || data.token || data.access_token;
       const newRefreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+      const accessTokenExpires = data.data?.accessTokenExpires || data.accessTokenExpires;
+      const refreshTokenExpires = data.data?.refreshTokenExpires || data.refreshTokenExpires;
       
       if (!newToken) {
         console.error('No new token received');
+        removeToken();
         return false;
       }
 
       localStorage.setItem('token', newToken);
+      
+      // Store expiration times
+      if (accessTokenExpires) {
+        localStorage.setItem('token_expires', accessTokenExpires);
+      }
       
       // Update refresh token if a new one is provided
       if (newRefreshToken) {
         localStorage.setItem('refresh_token', newRefreshToken);
       }
       
+      if (refreshTokenExpires) {
+        localStorage.setItem('refresh_token_expires', refreshTokenExpires);
+      }
+      
       setIsAuthenticated(true);
-      setLastActivityTime(Date.now());
       window.dispatchEvent(new Event('authChange'));
       
       return true;
     } catch (e) {
       console.error('Refresh token error:', e);
+      removeToken();
       return false;
     }
-  }, []);
+  }, [removeToken]);
 
-  // Check for token expiration
-  useEffect(() => {
-    if (!isAuthenticated || !lastActivityTime) return;
-
-    const checkExpiration = () => {
-      const now = Date.now();
-      const timeSinceLastActivity = now - lastActivityTime;
-      
-      if (timeSinceLastActivity >= INACTIVITY_TIMEOUT) {
-        // Token expired due to inactivity
-        // Try to refresh token before logging out
-        const refreshToken = localStorage.getItem('refresh_token');
-        if (refreshToken) {
-          // Try to refresh token silently
-          refreshUserToken().then((success) => {
-            if (!success) {
-              // If refresh fails, log out
-              localStorage.removeItem('token');
-              localStorage.removeItem('refresh_token');
-              setIsAuthenticated(false);
-              setLastActivityTime(null);
-              window.dispatchEvent(new Event('authChange'));
-              console.log('Session expired due to inactivity');
-            } else {
-              // If refresh succeeds, update activity time
-              setLastActivityTime(Date.now());
-            }
-          });
-        } else {
-          localStorage.removeItem('token');
-          localStorage.removeItem('refresh_token');
-          setIsAuthenticated(false);
-          setLastActivityTime(null);
-          window.dispatchEvent(new Event('authChange'));
-          console.log('Session expired due to inactivity');
-        }
-      }
-    };
-
-    // Check expiration every 10 seconds for more precise timing
-    const interval = setInterval(checkExpiration, 10 * 1000);
-
-    return () => clearInterval(interval);
-  }, [isAuthenticated, lastActivityTime, refreshUserToken]);
-
-  const setToken = useCallback((token: string, refreshToken?: string) => {
+  const setToken = useCallback((token: string, refreshToken?: string, accessTokenExpires?: string, refreshTokenExpires?: string) => {
     localStorage.setItem('token', token);
     if (refreshToken) {
       localStorage.setItem('refresh_token', refreshToken);
     }
+    if (accessTokenExpires) {
+      localStorage.setItem('token_expires', accessTokenExpires);
+    }
+    if (refreshTokenExpires) {
+      localStorage.setItem('refresh_token_expires', refreshTokenExpires);
+    }
     setIsAuthenticated(true);
-    setLastActivityTime(Date.now());
     window.dispatchEvent(new Event('authChange'));
   }, []);
 
-  const removeToken = useCallback(() => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh_token');
-    setIsAuthenticated(false);
-    setLastActivityTime(null);
-    window.dispatchEvent(new Event('authChange'));
-  }, []);
+  // Check token expiration periodically and refresh if needed
+  useEffect(() => {
+    if (!isAuthenticated) return;
+
+    const checkAndRefreshToken = async () => {
+      const accessTokenExpires = localStorage.getItem('token_expires');
+      
+      if (isTokenExpired(accessTokenExpires)) {
+        // Token expired, try to refresh
+        await refreshUserToken();
+      }
+    };
+
+    // Check every minute
+    const interval = setInterval(checkAndRefreshToken, 60 * 1000);
+    
+    // Also check immediately
+    checkAndRefreshToken();
+
+    return () => clearInterval(interval);
+  }, [isAuthenticated, refreshUserToken]);
 
   const value: UserAuthContextType = {
     isAuthenticated,

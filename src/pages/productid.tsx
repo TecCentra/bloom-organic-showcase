@@ -1463,8 +1463,11 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
 
       if (response.ok && data.success) {
         const accessToken = data.data?.accessToken;
+        const refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+        const accessTokenExpires = data.data?.accessTokenExpires;
+        const refreshTokenExpires = data.data?.refreshTokenExpires;
         if (accessToken) {
-          setToken(accessToken);
+          setToken(accessToken, refreshToken, accessTokenExpires, refreshTokenExpires);
         }
         setMessage({ text: 'Login successful!', type: 'success' });
         setTimeout(() => {
@@ -1633,6 +1636,10 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
 
       if (response.ok && data.success) {
         let accessToken = data.data?.accessToken;
+        let refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+        let accessTokenExpires = data.data?.accessTokenExpires;
+        let refreshTokenExpires = data.data?.refreshTokenExpires;
+        
         if (!accessToken) {
           const loginRes = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
             method: 'POST',
@@ -1642,10 +1649,13 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
           const loginData = await loginRes.json();
           if (loginRes.ok && loginData.success) {
             accessToken = loginData.data.accessToken;
+            refreshToken = loginData.data.refreshToken || loginData.refreshToken || loginData.refresh_token;
+            accessTokenExpires = loginData.data?.accessTokenExpires;
+            refreshTokenExpires = loginData.data?.refreshTokenExpires;
           }
         }
         if (accessToken) {
-          setToken(accessToken);
+          setToken(accessToken, refreshToken, accessTokenExpires, refreshTokenExpires);
         }
         setMessage({ text: 'Registration successful!', type: 'success' });
         setTimeout(() => {
@@ -2106,7 +2116,7 @@ const ProductDetail = () => {
           <span className="text-foreground">{transformedProduct.name}</span>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
-          <div className="space-y-4 order-2 lg:order-1">
+          <div className="space-y-4 order-1">
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-secondary/30 border border-border">
               {displayImages.length > 0 && displayImages[selectedImage] ? (
                 <img
@@ -2153,7 +2163,7 @@ const ProductDetail = () => {
               </div>
             )}
           </div>
-          <div className="order-1 lg:order-2">
+          <div className="order-2">
             <div className="flex items-start justify-between mb-3">
               <Badge className="bg-primary/10 text-primary hover:bg-primary/20">
                 {transformedProduct.category}

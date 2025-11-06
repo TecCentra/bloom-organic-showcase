@@ -1600,8 +1600,10 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
       if (response.ok && data.success) {
         const accessToken = data.data?.accessToken;
         const refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
+        const accessTokenExpires = data.data?.accessTokenExpires;
+        const refreshTokenExpires = data.data?.refreshTokenExpires;
         if (accessToken) {
-          setToken(accessToken, refreshToken);
+          setToken(accessToken, refreshToken, accessTokenExpires, refreshTokenExpires);
         } else {
           console.warn('No accessToken in response');
         }
@@ -1790,7 +1792,9 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
           }
         }
         if (accessToken) {
-          setToken(accessToken, refreshToken);
+          const accessTokenExpires = loginData?.data?.accessTokenExpires;
+          const refreshTokenExpires = loginData?.data?.refreshTokenExpires;
+          setToken(accessToken, refreshToken, accessTokenExpires, refreshTokenExpires);
         } else {
           console.warn('No accessToken obtained');
         }

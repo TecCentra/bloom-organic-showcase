@@ -480,11 +480,15 @@ import {
   Clock,
   XCircle,
   Loader2,
-  RefreshCw
+  RefreshCw,
+  ShoppingBag,
+  UserCheck
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
+import { useMaterialToast } from '@/hooks/useMaterialToast';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 import {
   Pagination,
   PaginationContent,
@@ -530,7 +534,20 @@ interface OrdersResponse {
   timestamp: string;
 }
 
-const allowedStatuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'paid', 'failed', 'refunded'];
+// Valid order statuses according to API enum
+const allowedStatuses = [
+  'pending',
+  'processing',
+  'ready_for_pickup',
+  'picked_up_by_courier',
+  'out_for_delivery',
+  'shipped',
+  'delivered',
+  'cancelled',
+  'refunded'
+] as const;
+
+type OrderStatus = typeof allowedStatuses[number];
 
 const AdminOrders: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -542,7 +559,10 @@ const AdminOrders: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pendingUpdates, setPendingUpdates] = useState<Record<string, string>>({});
   const { adminToken } = useAdminAuth();
+  const { toast } = useMaterialToast();
+  const { confirm } = useMaterialConfirm();
 
   useEffect(() => {
     if (adminToken) {
@@ -590,20 +610,22 @@ const AdminOrders: React.FC = () => {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'delivered':
-        return <Badge className="bg-green-100 text-green-800">Delivered</Badge>;
-      case 'processing':
-        return <Badge className="bg-blue-100 text-blue-800">Processing</Badge>;
-      case 'shipped':
-        return <Badge className="bg-purple-100 text-purple-800">Shipped</Badge>;
       case 'pending':
         return <Badge className="bg-yellow-100 text-yellow-800">Pending</Badge>;
+      case 'processing':
+        return <Badge className="bg-blue-100 text-blue-800">Processing</Badge>;
+      case 'ready_for_pickup':
+        return <Badge className="bg-indigo-100 text-indigo-800">Ready for Pickup</Badge>;
+      case 'picked_up_by_courier':
+        return <Badge className="bg-cyan-100 text-cyan-800">Picked Up by Courier</Badge>;
+      case 'out_for_delivery':
+        return <Badge className="bg-orange-100 text-orange-800">Out for Delivery</Badge>;
+      case 'shipped':
+        return <Badge className="bg-purple-100 text-purple-800">Shipped</Badge>;
+      case 'delivered':
+        return <Badge className="bg-green-100 text-green-800">Delivered</Badge>;
       case 'cancelled':
         return <Badge className="bg-red-100 text-red-800">Cancelled</Badge>;
-      case 'paid':
-        return <Badge className="bg-emerald-100 text-emerald-800">Paid</Badge>;
-      case 'failed':
-        return <Badge className="bg-orange-100 text-orange-800">Failed</Badge>;
       case 'refunded':
         return <Badge className="bg-gray-100 text-gray-800">Refunded</Badge>;
       default:
@@ -613,20 +635,22 @@ const AdminOrders: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'delivered':
-        return <CheckCircle className="h-4 w-4 text-green-600" />;
-      case 'processing':
-        return <Package className="h-4 w-4 text-blue-600" />;
-      case 'shipped':
-        return <Truck className="h-4 w-4 text-purple-600" />;
       case 'pending':
         return <Clock className="h-4 w-4 text-yellow-600" />;
+      case 'processing':
+        return <Package className="h-4 w-4 text-blue-600" />;
+      case 'ready_for_pickup':
+        return <ShoppingBag className="h-4 w-4 text-indigo-600" />;
+      case 'picked_up_by_courier':
+        return <UserCheck className="h-4 w-4 text-cyan-600" />;
+      case 'out_for_delivery':
+        return <Truck className="h-4 w-4 text-orange-600" />;
+      case 'shipped':
+        return <Truck className="h-4 w-4 text-purple-600" />;
+      case 'delivered':
+        return <CheckCircle className="h-4 w-4 text-green-600" />;
       case 'cancelled':
         return <XCircle className="h-4 w-4 text-red-600" />;
-      case 'paid':
-        return <CheckCircle className="h-4 w-4 text-emerald-600" />;
-      case 'failed':
-        return <XCircle className="h-4 w-4 text-orange-600" />;
       case 'refunded':
         return <RefreshCw className="h-4 w-4 text-gray-600" />;
       default:
@@ -651,14 +675,55 @@ const AdminOrders: React.FC = () => {
     setIsOrderModalOpen(true);
   };
 
-  const handleStatusUpdate = async (orderId: string, newStatus: string) => {
-    if (!allowedStatuses.includes(newStatus)) {
-      setError(`Invalid status: ${newStatus}`);
+  const handleStatusUpdateWithConfirmation = async (orderId: string, newStatus: string, currentStatus: string) => {
+    // Find the order
+    const order = orders.find(o => o.order_id === orderId);
+    if (!order) {
+      toast({
+        title: 'Error',
+        description: 'Order not found',
+        variant: 'destructive',
+      });
       return;
     }
 
+    // Basic enum validation - backend will handle all other validations
+    if (!allowedStatuses.includes(newStatus as OrderStatus)) {
+      const errorMsg = `Invalid enum value. Expected one of: ${allowedStatuses.join(' | ')}, received '${newStatus}'`;
+      toast({
+        title: 'Invalid Status',
+        description: errorMsg,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // Show confirmation dialog
+    const statusDisplayName = newStatus.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    const confirmed = await confirm({
+      title: 'Confirm Status Update',
+      message: `Are you sure you want to change the order status from "${order.status}" to "${statusDisplayName}"?`,
+      confirmText: 'Update Status',
+      cancelText: 'Cancel',
+      confirmColor: 'primary',
+    });
+
+    if (!confirmed) {
+      // Clear pending update to revert dropdown
+      setPendingUpdates(prev => {
+        const updated = { ...prev };
+        delete updated[orderId];
+        return updated;
+      });
+      return;
+    }
+
+    // Proceed with status update
+    await handleStatusUpdate(orderId, newStatus);
+  };
+
+  const handleStatusUpdate = async (orderId: string, newStatus: string) => {
     try {
-      if (!adminToken) return;
       const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.ORDERS}/${orderId}/status`), {
         method: 'PATCH',
         headers: {
@@ -670,13 +735,47 @@ const AdminOrders: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Failed to update order status');
+        const errorMessage = errorData.message || errorData.errors?.body?.status || 'Failed to update order status';
+        throw new Error(errorMessage);
       }
 
+      const statusDisplayName = newStatus.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      
+      // Update local state
       setOrders(prev => prev.map(o => o.order_id === orderId ? { ...o, status: newStatus } : o));
+      setError(null);
+      
+      // Clear pending update after successful update
+      setPendingUpdates(prev => {
+        const updated = { ...prev };
+        delete updated[orderId];
+        return updated;
+      });
+
+      // Show success toast
+      toast({
+        title: 'Status Updated',
+        description: `Order status has been successfully updated to "${statusDisplayName}"`,
+        variant: 'success',
+      });
     } catch (err) {
       console.error('Error updating order status:', err);
-      setError(err instanceof Error ? err.message : 'Failed to update order status');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update order status';
+      setError(errorMessage);
+      
+      // Clear pending update on error to revert dropdown
+      setPendingUpdates(prev => {
+        const updated = { ...prev };
+        delete updated[orderId];
+        return updated;
+      });
+      
+      // Show error toast
+      toast({
+        title: 'Update Failed',
+        description: errorMessage,
+        variant: 'destructive',
+      });
     }
   };
 
@@ -768,7 +867,9 @@ const AdminOrders: React.FC = () => {
             >
               <option value="all">All Status</option>
               {allowedStatuses.map(status => (
-                <option key={status} value={status}>{status.charAt(0).toUpperCase() + status.slice(1)}</option>
+                <option key={status} value={status}>
+                  {status.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                </option>
               ))}
             </select>
           </div>
@@ -859,12 +960,24 @@ const AdminOrders: React.FC = () => {
                           <Eye className="h-4 w-4" />
                         </Button>
                         <select
-                          value={order.status}
-                          onChange={(e) => handleStatusUpdate(order.order_id, e.target.value)}
+                          value={
+                            pendingUpdates[order.order_id] 
+                              ? pendingUpdates[order.order_id]
+                              : (allowedStatuses.includes(order.status as OrderStatus) ? order.status : 'pending')
+                          }
+                          onChange={async (e) => {
+                            const newStatus = e.target.value;
+                            // Store the pending update to show in dropdown
+                            setPendingUpdates(prev => ({ ...prev, [order.order_id]: newStatus }));
+                            // Show confirmation dialog - it will handle clearing pendingUpdates on cancel
+                            await handleStatusUpdateWithConfirmation(order.order_id, newStatus, order.status);
+                          }}
                           className="text-sm border border-gray-300 rounded px-2 py-1"
                         >
                           {allowedStatuses.map(status => (
-                            <option key={status} value={status}>{status.charAt(0).toUpperCase() + status.slice(1)}</option>
+                            <option key={status} value={status}>
+                              {status.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                            </option>
                           ))}
                         </select>
                       </div>

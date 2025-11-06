@@ -2520,7 +2520,7 @@ const CheckoutPage = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Forms */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
             {/* Delivery Method */}
             <div className="bg-card border border-border rounded-xl p-6">
               <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -2915,7 +2915,7 @@ const CheckoutPage = () => {
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 order-1 lg:order-2">
             <div className="bg-card border border-border rounded-xl p-6 sticky top-4">
               <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
                 <ShoppingCart className="w-5 h-5 text-primary" />
