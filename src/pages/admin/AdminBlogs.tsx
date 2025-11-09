@@ -7,10 +7,13 @@ import { Label } from '@/components/ui/label';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 import { buildApiUrl, API_CONFIG } from '@/lib/config';
 import { useMaterialToast } from '@/hooks/useMaterialToast';
+import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
+import { Trash2 } from 'lucide-react';
 
 const AdminBlogs: React.FC = () => {
   const { adminToken } = useAdminAuth();
   const { toast } = useMaterialToast();
+  const { confirm } = useMaterialConfirm();
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [posts, setPosts] = useState<any[]>([]);
@@ -230,6 +233,59 @@ const AdminBlogs: React.FC = () => {
     }
   };
 
+  const handleDelete = async (blogId: string | number) => {
+    const blog = posts.find(p => p.id === blogId);
+    const blogTitle = blog?.title || 'this blog post';
+    
+    const confirmed = await confirm({
+      title: 'Delete Blog Post',
+      message: `Are you sure you want to delete "${blogTitle}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+    });
+
+    if (!confirmed) return;
+
+    try {
+      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.BLOGS.DELETE}/${blogId}`), {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete blog post');
+      }
+
+      // Remove blog from local state
+      setPosts(prevPosts => prevPosts.filter(p => p.id !== blogId));
+      
+      // Update total count
+      setTotal(prevTotal => Math.max(0, prevTotal - 1));
+
+      toast({
+        title: 'Blog Post Deleted',
+        description: `${blogTitle} has been successfully deleted`,
+        variant: 'success',
+      });
+    } catch (err: any) {
+      console.error('Error deleting blog post:', err);
+      toast({
+        title: 'Delete Failed',
+        description: err.message || 'Failed to delete blog post. Please try again.',
+        variant: 'destructive',
+        action: {
+          label: 'Retry',
+          onClick: () => handleDelete(blogId),
+        },
+      });
+    }
+  };
+
   useEffect(() => {
     fetchPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -372,12 +428,13 @@ const AdminBlogs: React.FC = () => {
           </div>
 
           <div className="border rounded">
-            <div className="grid grid-cols-5 gap-2 px-3 py-2 border-b text-xs font-medium text-gray-600">
+            <div className="grid grid-cols-6 gap-2 px-3 py-2 border-b text-xs font-medium text-gray-600">
               <div>Title</div>
               <div>Status</div>
               <div>Slug</div>
               <div>Published</div>
               <div>Created</div>
+              <div>Actions</div>
             </div>
             {isLoading ? (
               <div className="px-3 py-6 text-sm text-gray-600">Loading posts…</div>
@@ -385,12 +442,22 @@ const AdminBlogs: React.FC = () => {
               <div className="px-3 py-6 text-sm text-gray-500">No posts found.</div>
             ) : (
               posts.map((p) => (
-                <div key={p.id} className="grid grid-cols-5 gap-2 px-3 py-2 border-b text-sm">
+                <div key={p.id} className="grid grid-cols-6 gap-2 px-3 py-2 border-b text-sm items-center">
                   <div className="truncate" title={p.title}>{p.title}</div>
                   <div className="capitalize">{p.status}</div>
                   <div className="truncate" title={p.slug}>{p.slug}</div>
                   <div>{p.published_at ? new Date(p.published_at).toLocaleString() : '-'}</div>
                   <div>{p.created_at ? new Date(p.created_at).toLocaleString() : '-'}</div>
+                  <div className="flex items-center justify-start">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleDelete(p.id)}
+                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               ))
             )}

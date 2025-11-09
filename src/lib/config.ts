@@ -44,6 +44,7 @@ export const API_CONFIG = {
       DETAIL: '/blogs',
       CREATE: '/blogs',
       UPLOAD_IMAGE: '/blogs/:id/image',
+      DELETE: '/blogs',
     },
     SHIPPING: {
       ZONES: '/shipping/zones',
