@@ -16,7 +16,8 @@ import {
   Menu,
   X,
   Truck,
-  XCircle
+  XCircle,
+  CreditCard
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -36,6 +37,7 @@ const AdminLayout: React.FC = () => {
     { id: 'blogs', label: 'Blogs', icon: FileText, path: '/admin/blogs' },
     { id: 'users', label: 'Users', icon: Users, path: '/admin/users' },
     { id: 'reports', label: 'Reports & Sales', icon: BarChart3, path: '/admin/reports' },
+    { id: 'payments', label: 'Payments', icon: CreditCard, path: '/admin/payments' },
     { id: 'audit', label: 'Audit Log', icon: FileText, path: '/admin/audit' },
     { id: 'health', label: 'System Health', icon: Activity, path: '/admin/health' },
   ];

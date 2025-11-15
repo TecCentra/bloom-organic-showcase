@@ -18,7 +18,8 @@ import {
   Trash2, 
   Eye,
   Upload,
-  Image as ImageIcon
+  Image as ImageIcon,
+  AlertCircle
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useAdminAuth } from '@/context/AdminAuthContext';
@@ -52,6 +53,9 @@ const AdminProducts: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [pagination, setPagination] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showLowStock, setShowLowStock] = useState(false);
+  const [lowStockProducts, setLowStockProducts] = useState<any[]>([]);
+  const [lowStockThreshold, setLowStockThreshold] = useState(10);
   const { adminToken } = useAdminAuth();
   const { confirm } = useMaterialConfirm();
   const { toast } = useMaterialToast();
@@ -523,6 +527,44 @@ const AdminProducts: React.FC = () => {
     setIsViewModalOpen(true);
   };
 
+  const fetchLowStockProducts = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.PRODUCTS_LOW_STOCK}?threshold=${lowStockThreshold}`),
+        {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${adminToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setLowStockProducts(data.data?.products || data.data || []);
+        setShowLowStock(true);
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        toast({
+          title: 'Error',
+          description: errorData.message || 'Failed to fetch low stock products',
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching low stock products:', error);
+      toast({
+        title: 'Error',
+        description: 'An error occurred while fetching low stock products',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleDelete = async (productId: number) => {
     const product = products.find(p => p.product_id === productId);
     const productName = product?.name || 'this product';
@@ -590,6 +632,15 @@ const AdminProducts: React.FC = () => {
             <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
             Refresh
           </Button>
+          <Button 
+            onClick={fetchLowStockProducts}
+            variant="outline"
+            size="sm"
+            disabled={isLoading}
+          >
+            <AlertCircle className="h-4 w-4 mr-2" />
+            Low Stock
+          </Button>
           <Button onClick={handleOpenCreateModal}>
             <Plus className="h-4 w-4 mr-2" />
             Add Product
@@ -626,18 +677,119 @@ const AdminProducts: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Products Table */}
-      {isLoading ? (
+      {/* Low Stock Products View */}
+      {showLowStock && (
         <Card>
-          <CardContent className="p-4">
-            <div className="flex items-center justify-center py-8">
-              <Loader2 className="h-6 w-6 animate-spin mr-2" />
-              <span>Loading products...</span>
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle>Low Stock Products (Threshold: {lowStockThreshold})</CardTitle>
+              <div className="flex space-x-2">
+                <Input
+                  type="number"
+                  placeholder="Threshold"
+                  value={lowStockThreshold}
+                  onChange={(e) => setLowStockThreshold(parseInt(e.target.value) || 10)}
+                  className="w-24"
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowLowStock(false)}
+                >
+                  Show All Products
+                </Button>
+              </div>
             </div>
+          </CardHeader>
+          <CardContent>
+            {lowStockProducts.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                No low stock products found
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Image</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Category</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead>Stock</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {lowStockProducts.map((product) => {
+                    const primaryImage = getPrimaryImage(product.images);
+                    return (
+                      <TableRow key={product.product_id}>
+                        <TableCell>
+                          <div className="w-12 h-12 rounded-lg overflow-hidden border border-gray-200">
+                            {primaryImage ? (
+                              <img
+                                src={primaryImage.image_url}
+                                alt={product.name}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                                <ImageIcon className="h-6 w-6 text-gray-400" />
+                              </div>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell className="font-medium">{product.name}</TableCell>
+                        <TableCell>{product.category_name || getCategoryName(product.category_id)}</TableCell>
+                        <TableCell>KSH {parseFloat(product.price).toFixed(2)}</TableCell>
+                        <TableCell>
+                          <span className={product.stock_quantity < lowStockThreshold ? 'text-red-600 font-bold' : ''}>
+                            {product.stock_quantity}
+                          </span>
+                        </TableCell>
+                        <TableCell>{getStatusBadge(product)}</TableCell>
+                        <TableCell>
+                          <div className="flex space-x-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleEdit(product)}
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleViewProduct(product)}
+                            >
+                              <Eye className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
         </Card>
-      ) : (
-        <Card>
+      )}
+
+      {/* Products Table */}
+      {!showLowStock && (
+        <>
+          {isLoading ? (
+            <Card>
+              <CardContent className="p-4">
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-6 w-6 animate-spin mr-2" />
+                  <span>Loading products...</span>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
           <CardHeader className="pb-3">
             <CardTitle className="text-lg">All Products ({filteredProducts.length})</CardTitle>
           </CardHeader>
@@ -771,6 +923,8 @@ const AdminProducts: React.FC = () => {
           )}
         </CardContent>
       </Card>
+          )}
+        </>
       )}
 
       {/* Create Product Modal */}

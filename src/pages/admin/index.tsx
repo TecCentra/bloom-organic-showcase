@@ -13,6 +13,7 @@ import AdminReports from './AdminReports';
 import AdminAuditLog from './AdminAuditLog';
 import AdminHealth from './AdminHealth';
 import AdminBlogs from './AdminBlogs';
+import AdminPayments from './AdminPayments';
 import AdminProtectedRoute from '@/components/AdminProtectedRoute';
 
 const AdminPanel: React.FC = () => {
@@ -73,6 +74,11 @@ const AdminPanel: React.FC = () => {
         <Route path="health" element={
           <AdminProtectedRoute requiredPermission="health.view">
             <AdminHealth />
+          </AdminProtectedRoute>
+        } />
+        <Route path="payments" element={
+          <AdminProtectedRoute requiredPermission="orders.manage">
+            <AdminPayments />
           </AdminProtectedRoute>
         } />
       </Route>
