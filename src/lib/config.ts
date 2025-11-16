@@ -102,11 +102,24 @@ export const API_CONFIG = {
       DASHBOARD: '/admin/dashboard',
       USERS: '/admin/users',
       PRODUCTS: '/admin/products',
+      PRODUCTS_LOW_STOCK: '/admin/products/low-stock',
       CATEGORIES: '/admin/categories',
       ORDERS: '/admin/orders',
+      ORDER_PACK: '/admin/orders/:orderId/pack',
+      ORDER_ASSIGN_COURIER: '/admin/orders/:orderId/assign-courier',
+      ORDER_PICKUP: '/admin/orders/:orderId/pickup',
+      ORDER_OUT_FOR_DELIVERY: '/admin/orders/:orderId/out-for-delivery',
+      ORDER_DELIVER: '/admin/orders/:orderId/deliver',
+      ORDER_STATUS: '/admin/orders/:orderId/status',
       CANCELLATION_REQUESTS: '/admin/orders/cancellation-requests',
+      APPROVE_CANCELLATION: '/admin/orders/:orderId/approve-cancellation',
+      REJECT_CANCELLATION: '/admin/orders/:orderId/reject-cancellation',
+      PAYMENTS: '/admin/payments',
       REPORTS: {
         SALES: '/admin/reports/sales',
+        CUSTOMERS: '/admin/reports/customers',
+        PRODUCTS: '/admin/reports/products',
+        ORDERS: '/admin/reports/orders',
       },
       AUDIT_LOG: '/admin/audit-log',
     },
@@ -151,6 +164,15 @@ export const buildApiUrl = (endpoint: string): string => {
     return endpoint;
   }
   return `${API_CONFIG.BASE_URL}${endpoint}`;
+};
+
+// Helper function to replace URL parameters (e.g., :orderId -> actual ID)
+export const replaceUrlParams = (url: string, params: Record<string, string | number>): string => {
+  let result = url;
+  Object.entries(params).forEach(([key, value]) => {
+    result = result.replace(`:${key}`, String(value));
+  });
+  return result;
 };
 
 // Helper to get endpoint URL dynamically

@@ -2826,7 +2826,7 @@ const CheckoutPage = () => {
                 </div>
 
                 {/* Card Option */}
-                <div
+                {/* <div
                   onClick={() => setPaymentMethod("card")}
                   className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
                     paymentMethod === "card"
@@ -2852,7 +2852,7 @@ const CheckoutPage = () => {
                       </div>
                     )}
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* M-Pesa Number Input */}

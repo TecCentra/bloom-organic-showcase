@@ -486,7 +486,7 @@ import {
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useAdminAuth } from '@/context/AdminAuthContext';
-import { buildApiUrl, API_CONFIG } from '@/lib/config';
+import { buildApiUrl, API_CONFIG, replaceUrlParams } from '@/lib/config';
 import { useMaterialToast } from '@/hooks/useMaterialToast';
 import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 import {
@@ -724,7 +724,8 @@ const AdminOrders: React.FC = () => {
 
   const handleStatusUpdate = async (orderId: string, newStatus: string) => {
     try {
-      const response = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.ADMIN.ORDERS}/${orderId}/status`), {
+      const url = replaceUrlParams(API_CONFIG.ENDPOINTS.ADMIN.ORDER_STATUS, { orderId });
+      const response = await fetch(buildApiUrl(url), {
         method: 'PATCH',
         headers: {
           'Authorization': `Bearer ${adminToken}`,
@@ -743,6 +744,9 @@ const AdminOrders: React.FC = () => {
       
       // Update local state
       setOrders(prev => prev.map(o => o.order_id === orderId ? { ...o, status: newStatus } : o));
+      if (selectedOrder?.order_id === orderId) {
+        setSelectedOrder(prev => prev ? { ...prev, status: newStatus } : null);
+      }
       setError(null);
       
       // Clear pending update after successful update
@@ -774,6 +778,121 @@ const AdminOrders: React.FC = () => {
       toast({
         title: 'Update Failed',
         description: errorMessage,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleOrderAction = async (orderId: string, action: 'pack' | 'pickup' | 'out-for-delivery' | 'deliver', actionName: string) => {
+    const confirmed = await confirm({
+      title: `Confirm ${actionName}`,
+      message: `Are you sure you want to ${actionName.toLowerCase()} this order?`,
+      confirmText: actionName,
+      cancelText: 'Cancel',
+      confirmColor: 'primary',
+    });
+
+    if (!confirmed) return;
+
+    try {
+      let endpoint = '';
+      switch (action) {
+        case 'pack':
+          endpoint = replaceUrlParams(API_CONFIG.ENDPOINTS.ADMIN.ORDER_PACK, { orderId });
+          break;
+        case 'pickup':
+          endpoint = replaceUrlParams(API_CONFIG.ENDPOINTS.ADMIN.ORDER_PICKUP, { orderId });
+          break;
+        case 'out-for-delivery':
+          endpoint = replaceUrlParams(API_CONFIG.ENDPOINTS.ADMIN.ORDER_OUT_FOR_DELIVERY, { orderId });
+          break;
+        case 'deliver':
+          endpoint = replaceUrlParams(API_CONFIG.ENDPOINTS.ADMIN.ORDER_DELIVER, { orderId });
+          break;
+      }
+
+      const response = await fetch(buildApiUrl(endpoint), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || `Failed to ${actionName.toLowerCase()} order`);
+      }
+
+      const data = await response.json();
+      const newStatus = data.data?.order?.status || data.data?.status;
+      
+      // Update local state
+      if (newStatus) {
+        setOrders(prev => prev.map(o => o.order_id === orderId ? { ...o, status: newStatus } : o));
+        if (selectedOrder?.order_id === orderId) {
+          setSelectedOrder(prev => prev ? { ...prev, status: newStatus } : null);
+        }
+      }
+
+      toast({
+        title: 'Success',
+        description: `Order has been ${actionName.toLowerCase()}ed successfully`,
+        variant: 'success',
+      });
+
+      // Refresh orders to get latest data
+      fetchOrders();
+    } catch (err) {
+      console.error(`Error ${actionName.toLowerCase()}ing order:`, err);
+      toast({
+        title: 'Error',
+        description: err instanceof Error ? err.message : `Failed to ${actionName.toLowerCase()} order`,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleAssignCourier = async (orderId: string, courierData: { courier_name: string; courier_tracking_number: string; delivery_notes?: string }) => {
+    const confirmed = await confirm({
+      title: 'Assign Courier',
+      message: `Assign ${courierData.courier_name} to this order?`,
+      confirmText: 'Assign',
+      cancelText: 'Cancel',
+      confirmColor: 'primary',
+    });
+
+    if (!confirmed) return;
+
+    try {
+      const endpoint = replaceUrlParams(API_CONFIG.ENDPOINTS.ADMIN.ORDER_ASSIGN_COURIER, { orderId });
+      const response = await fetch(buildApiUrl(endpoint), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(courierData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to assign courier');
+      }
+
+      toast({
+        title: 'Success',
+        description: 'Courier assigned successfully',
+        variant: 'success',
+      });
+
+      // Refresh orders to get latest data
+      fetchOrders();
+    } catch (err) {
+      console.error('Error assigning courier:', err);
+      toast({
+        title: 'Error',
+        description: err instanceof Error ? err.message : 'Failed to assign courier',
         variant: 'destructive',
       });
     }
@@ -1096,12 +1215,77 @@ const AdminOrders: React.FC = () => {
                 </div>
               </div>
 
+              {/* Order Management Actions */}
+              <div>
+                <h3 className="font-medium text-gray-900 mb-3">Order Actions</h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  {selectedOrder.status === 'processing' && (
+                    <Button
+                      variant="outline"
+                      onClick={() => handleOrderAction(selectedOrder.order_id, 'pack', 'Pack Order')}
+                      className="text-sm"
+                    >
+                      <Package className="h-4 w-4 mr-2" />
+                      Pack Order
+                    </Button>
+                  )}
+                  {selectedOrder.status === 'ready_for_pickup' && (
+                    <>
+                      <Button
+                        variant="outline"
+                        onClick={() => handleOrderAction(selectedOrder.order_id, 'pickup', 'Mark Picked Up')}
+                        className="text-sm"
+                      >
+                        <Truck className="h-4 w-4 mr-2" />
+                        Mark Picked Up
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => {
+                          const courierName = prompt('Enter courier name:');
+                          const trackingNumber = prompt('Enter tracking number:');
+                          const deliveryNotes = prompt('Enter delivery notes (optional):');
+                          if (courierName && trackingNumber) {
+                            handleAssignCourier(selectedOrder.order_id, {
+                              courier_name: courierName,
+                              courier_tracking_number: trackingNumber,
+                              delivery_notes: deliveryNotes || undefined,
+                            });
+                          }
+                        }}
+                        className="text-sm"
+                      >
+                        <Truck className="h-4 w-4 mr-2" />
+                        Assign Courier
+                      </Button>
+                    </>
+                  )}
+                  {selectedOrder.status === 'picked_up_by_courier' && (
+                    <Button
+                      variant="outline"
+                      onClick={() => handleOrderAction(selectedOrder.order_id, 'out-for-delivery', 'Out for Delivery')}
+                      className="text-sm"
+                    >
+                      <Truck className="h-4 w-4 mr-2" />
+                      Out for Delivery
+                    </Button>
+                  )}
+                  {selectedOrder.status === 'out_for_delivery' && (
+                    <Button
+                      variant="outline"
+                      onClick={() => handleOrderAction(selectedOrder.order_id, 'deliver', 'Mark Delivered')}
+                      className="text-sm"
+                    >
+                      <CheckCircle className="h-4 w-4 mr-2" />
+                      Mark Delivered
+                    </Button>
+                  )}
+                </div>
+              </div>
+
               <div className="flex justify-end space-x-2">
                 <Button variant="outline" onClick={() => setIsOrderModalOpen(false)}>
                   Close
-                </Button>
-                <Button onClick={() => setIsOrderModalOpen(false)}>
-                  Update Order
                 </Button>
               </div>
             </div>

@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   BarChart3, 
   DollarSign, 
   Calendar,
-  Download
+  Download,
+  Users,
+  Package,
+  ShoppingCart
 } from 'lucide-react';
-import { getApiUrl } from '@/lib/config';
+import { getApiUrl, buildApiUrl, API_CONFIG } from '@/lib/config';
 import { useAdminAuth } from '@/context/AdminAuthContext';
 
 // API Response interfaces
@@ -41,8 +45,12 @@ const AdminReports: React.FC = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [salesData, setSalesData] = useState<SalesReportResponse['data'] | null>(null);
+  const [customerData, setCustomerData] = useState<any>(null);
+  const [productData, setProductData] = useState<any>(null);
+  const [orderData, setOrderData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('sales');
   const { adminToken } = useAdminAuth();
 
   // Convert period selection to API format
@@ -110,10 +118,105 @@ const AdminReports: React.FC = () => {
     }
   };
 
-  // Load sales report on component mount and when filters change
+  // Fetch customer analytics
+  const fetchCustomerAnalytics = async () => {
+    if (!adminToken) return;
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        format: 'json',
+        ...(startDate && { startDate }),
+        ...(endDate && { endDate }),
+      });
+      const url = `${getApiUrl('ADMIN', 'REPORTS.CUSTOMERS')}?${params.toString()}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setCustomerData(data.data || data);
+      }
+    } catch (err) {
+      console.error('Error fetching customer analytics:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch product analytics
+  const fetchProductAnalytics = async () => {
+    if (!adminToken) return;
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        format: 'json',
+        ...(startDate && { startDate }),
+        ...(endDate && { endDate }),
+      });
+      const url = `${getApiUrl('ADMIN', 'REPORTS.PRODUCTS')}?${params.toString()}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setProductData(data.data || data);
+      }
+    } catch (err) {
+      console.error('Error fetching product analytics:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch order analytics
+  const fetchOrderAnalytics = async () => {
+    if (!adminToken) return;
+    try {
+      setLoading(true);
+      const params = new URLSearchParams({
+        format: 'json',
+        ...(startDate && { startDate }),
+        ...(endDate && { endDate }),
+      });
+      const url = `${getApiUrl('ADMIN', 'REPORTS.ORDERS')}?${params.toString()}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setOrderData(data.data || data);
+      }
+    } catch (err) {
+      console.error('Error fetching order analytics:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load reports on component mount and when filters change
   useEffect(() => {
-    fetchSalesReport();
-  }, [adminToken, selectedPeriod, startDate, endDate]);
+    if (activeTab === 'sales') {
+      fetchSalesReport();
+    } else if (activeTab === 'customers') {
+      fetchCustomerAnalytics();
+    } else if (activeTab === 'products') {
+      fetchProductAnalytics();
+    } else if (activeTab === 'orders') {
+      fetchOrderAnalytics();
+    }
+  }, [adminToken, selectedPeriod, startDate, endDate, activeTab]);
 
   // Calculate metrics from API data
   const totalRevenue = salesData?.totalRevenue || 0;
@@ -182,8 +285,8 @@ const AdminReports: React.FC = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Sales Report</h1>
-          <p className="text-gray-600 mt-2">View sales performance and revenue analytics</p>
+          <h1 className="text-3xl font-bold text-gray-900">Reports & Analytics</h1>
+          <p className="text-gray-600 mt-2">View comprehensive analytics and reports</p>
         </div>
         <div className="flex space-x-2 flex-wrap gap-2">
           <select
@@ -222,7 +325,30 @@ const AdminReports: React.FC = () => {
         </div>
       </div>
 
-      {/* Loading State */}
+      {/* Tabs for different reports */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="sales">
+            <DollarSign className="h-4 w-4 mr-2" />
+            Sales
+          </TabsTrigger>
+          <TabsTrigger value="customers">
+            <Users className="h-4 w-4 mr-2" />
+            Customers
+          </TabsTrigger>
+          <TabsTrigger value="products">
+            <Package className="h-4 w-4 mr-2" />
+            Products
+          </TabsTrigger>
+          <TabsTrigger value="orders">
+            <ShoppingCart className="h-4 w-4 mr-2" />
+            Orders
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Sales Report Tab */}
+        <TabsContent value="sales" className="space-y-6">
+          {/* Loading State */}
       {loading && (
         <Card>
           <CardContent className="pt-6">
@@ -365,6 +491,107 @@ const AdminReports: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+        </TabsContent>
+
+        {/* Customer Analytics Tab */}
+        <TabsContent value="customers" className="space-y-6">
+          {loading ? (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="mt-4 text-gray-600">Loading customer analytics...</p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : customerData ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>Customer Analytics</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <pre className="bg-gray-50 p-4 rounded-lg overflow-auto text-sm">
+                  {JSON.stringify(customerData, null, 2)}
+                </pre>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center text-gray-600">
+                  <p>No customer analytics data available</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* Product Analytics Tab */}
+        <TabsContent value="products" className="space-y-6">
+          {loading ? (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="mt-4 text-gray-600">Loading product analytics...</p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : productData ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>Product Analytics</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <pre className="bg-gray-50 p-4 rounded-lg overflow-auto text-sm">
+                  {JSON.stringify(productData, null, 2)}
+                </pre>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center text-gray-600">
+                  <p>No product analytics data available</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* Order Analytics Tab */}
+        <TabsContent value="orders" className="space-y-6">
+          {loading ? (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                  <p className="mt-4 text-gray-600">Loading order analytics...</p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : orderData ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>Order Analytics</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <pre className="bg-gray-50 p-4 rounded-lg overflow-auto text-sm">
+                  {JSON.stringify(orderData, null, 2)}
+                </pre>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardContent className="pt-6">
+                <div className="text-center text-gray-600">
+                  <p>No order analytics data available</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
