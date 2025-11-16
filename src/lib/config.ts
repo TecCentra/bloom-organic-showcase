@@ -126,7 +126,7 @@ export const API_CONFIG = {
     HEALTH: '/health',
     ORDERS: {
       ALL: '/orders',
-      CHECKOUT: 'api/v1/orders/checkout',
+      CHECKOUT: '/orders/checkout',
     },
     PUBLIC: {
       CATEGORIES: '/categories',
