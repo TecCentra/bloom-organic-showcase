@@ -1519,7 +1519,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import ForgotPasswordModal from "@/components/ForgotPasswordModal";
 import { 
   ShoppingCart, 
   Trash2, 
@@ -1559,6 +1558,7 @@ interface RegisterFormData {
 
 const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onSwitchToSignup: () => void }) => {
   const { setToken } = useUserAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -1566,7 +1566,6 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showForgot, setShowForgot] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -1668,7 +1667,18 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </Button>
           </div>
-          <p className="mt-1 text-xs text-muted-foreground">Forgot password? <Button type="button" variant="link" size="sm" className="h-auto p-0 text-primary hover:text-primary/80" onClick={() => setShowForgot(true)}>Reset</Button></p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Forgot password?{' '}
+            <Button 
+              type="button" 
+              variant="link" 
+              size="sm" 
+              className="h-auto p-0 text-primary hover:text-primary/80" 
+              onClick={() => navigate('/forgot-password')}
+            >
+              Reset
+            </Button>
+          </p>
         </div>
 
         {message && (
@@ -1711,7 +1721,6 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
           Sign Up
         </Button>
       </div>
-      <ForgotPasswordModal open={showForgot} onOpenChange={setShowForgot} />
     </>
   );
 };

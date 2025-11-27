@@ -26,9 +26,17 @@ const ForgotPassword = () => {
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.success) {
-        toast({ description: "Password reset token sent to email!", duration: 3000 });
+        toast({ 
+          description: "Password reset link sent to your email! Please check your inbox and click the link to reset your password.", 
+          duration: 5000 
+        });
+        setEmail(""); // Clear email after successful submission
       } else {
-        toast({ description: data.message || "Unable to send reset email.", variant: "destructive", duration: 3000 });
+        toast({ 
+          description: data.message || "Unable to send reset email. Please check your email address and try again.", 
+          variant: "destructive", 
+          duration: 4000 
+        });
       }
     } catch (err) {
       toast({ description: "Please try again.", variant: "destructive", duration: 3000 });
