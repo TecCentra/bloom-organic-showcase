@@ -42,10 +42,10 @@ const ProductCard = ({ name, price, image, category, id, stockQuantity = 1 }: Pr
   };
 
   return (
-    <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer relative"
+    <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer relative h-full flex flex-col"
      onClick={handleClick} 
     >
-      <div className="relative overflow-hidden aspect-square">
+      <div className="relative overflow-hidden aspect-square flex-shrink-0">
         <img
           src={image}
           alt={name}
@@ -85,14 +85,14 @@ const ProductCard = ({ name, price, image, category, id, stockQuantity = 1 }: Pr
           </button>
         </div>
       </div>
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-grow">
         <p className="text-xs font-medium text-primary uppercase tracking-wider mb-2">
           {category}
         </p>
-        <h3 className="text-lg font-heading font-semibold text-foreground mb-2">
+        <h3 className="text-lg font-heading font-semibold text-foreground mb-2 line-clamp-2 min-h-[3.5rem]">
           {name}
         </h3>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mt-auto">
           <p className="text-xl font-semibold text-primary">{price}</p>
           {isOutOfStock && (
             <span className="text-xs text-red-500 font-medium">Unavailable</span>

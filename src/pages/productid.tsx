@@ -2231,8 +2231,8 @@ const ProductDetail = () => {
                 </Badge>
               ))}
             </div>
-            <div className="flex items-center gap-4 mb-6">
-              <div className="flex items-center border border-border rounded-lg">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-6">
+              <div className="flex items-center border border-border rounded-lg flex-shrink-0">
                 <button
                   onClick={() => handleQuantityChange("decrease")}
                   className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -2251,10 +2251,10 @@ const ProductDetail = () => {
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
-              <div className="flex gap-3 flex-1">
+              <div className="flex flex-col sm:flex-row gap-3 flex-1 min-w-0">
                 <Button
                   size="lg"
-                  className="flex-1 text-lg py-6 rounded-lg"
+                  className="text-lg py-6 rounded-lg w-full sm:flex-1 sm:w-auto"
                   disabled={!transformedProduct.inStock}
                   onClick={handleAddToCart}
                 >
@@ -2273,7 +2273,7 @@ const ProductDetail = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-lg py-6 rounded-lg"
+                  className="text-lg py-6 rounded-lg w-full sm:w-auto whitespace-nowrap"
                   onClick={() => navigate("/cart")}
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />

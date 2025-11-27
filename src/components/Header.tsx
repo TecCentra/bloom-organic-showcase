@@ -107,7 +107,7 @@
 // };
 
 // export default Header;
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ShoppingCart, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -199,7 +199,6 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => {
-              const isContact = link.name === "Contact Us";
               const isProducts = link.hasDropdown;
               
               if (isProducts) {
@@ -253,26 +252,31 @@ const Header = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={
-                    isContact
-                      ? `px-4 py-2 rounded-xl border ${
-                          isActive(link.path)
-                            ? "border-primary text-primary"
-                            : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
-                        } transition-colors font-body font-medium`
-                      : `relative font-body font-medium transition-colors duration-300 ${
-                          isActive(link.path)
-                            ? "text-primary"
-                            : "text-foreground hover:text-primary"
-                        } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
-                          isActive(link.path) ? "after:scale-x-100" : ""
-                        }`
-                  }
+                  className={`relative font-body font-medium transition-colors duration-300 ${
+                    isActive(link.path)
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary"
+                  } after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                    isActive(link.path) ? "after:scale-x-100" : ""
+                  }`}
                 >
                   {link.name}
                 </Link>
               );
             })}
+            {/* Login Button (Desktop) - Appears last after all nav links */}
+            {!isLoggedIn && (
+              <Link
+                to="/login"
+                className={`px-4 py-2 rounded-xl border ${
+                  isActive("/login")
+                    ? "border-primary text-primary"
+                    : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
+                } transition-colors font-body font-medium`}
+              >
+                Login
+              </Link>
+            )}
             {/* Profile Icon (Desktop) - Only show when logged in */}
             {isLoggedIn && (
               <Link to="/profile" className="relative group" aria-label="Profile">
@@ -321,7 +325,6 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden mt-1 py-1 border-t border-border animate-fade-in">
             {navLinks.map((link) => {
-              const isContact = link.name === "Contact Us";
               const isProducts = link.hasDropdown;
               
               if (isProducts) {
@@ -366,24 +369,30 @@ const Header = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={
-                    isContact
-                      ? `block w-full text-center mt-1 px-2.5 py-1.5 rounded-xl border text-xs ${
-                          isActive(link.path)
-                            ? "border-primary text-primary"
-                            : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
-                        } transition-colors font-body font-medium`
-                      : `block py-1.5 text-xs font-body font-medium transition-colors duration-300 ${
-                          isActive(link.path)
-                            ? "text-primary"
-                            : "text-foreground hover:text-primary"
-                        }`
-                  }
+                  className={`block py-1.5 text-xs font-body font-medium transition-colors duration-300 ${
+                    isActive(link.path)
+                      ? "text-primary"
+                      : "text-foreground hover:text-primary"
+                  }`}
                 >
                   {link.name}
                 </Link>
               );
             })}
+            {/* Login Button (Mobile) - Appears last after all nav links */}
+            {!isLoggedIn && (
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className={`block w-full text-center mt-1 px-2.5 py-1.5 rounded-xl border text-xs ${
+                  isActive("/login")
+                    ? "border-primary text-primary"
+                    : "border-foreground/30 text-foreground hover:border-primary hover:text-primary"
+                } transition-colors font-body font-medium`}
+              >
+                Login
+              </Link>
+            )}
           </div>
         )}
       </nav>
