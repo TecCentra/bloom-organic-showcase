@@ -26,7 +26,10 @@ import AllProducts from "./pages/AllProducts";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryProducts from "./pages/CategoryProducts";
 import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import UserProfile from "./pages/UserProfile";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import PaymentFailedPage from "./pages/PaymentFailedPage";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -52,11 +55,14 @@ const App = () => (
                 <Route path="/products" element={<CategoriesPage />} />
                 <Route path="/products/:slug" element={<CategoryProducts />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/cart" element={<CartPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/signup" element={<RegisterForm />} />-
                 <Route path="/profile" element={<UserProfile />} />
+                <Route path="/payment-success" element={<PaymentSuccessPage />} />
+                <Route path="/payment-failed" element={<PaymentFailedPage />} />
                 <Route path="/admin/*" element={
                   <AdminAuthProvider>
                     <AdminPanel />

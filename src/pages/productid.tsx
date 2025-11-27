@@ -1399,7 +1399,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import ForgotPasswordModal from "@/components/ForgotPasswordModal";
 import { Leaf, Shield, Heart, Star, Truck, RotateCcw, Award, Plus, Minus, ShoppingCart, Check, ArrowLeft, XCircle, User, Eye, EyeOff, Loader2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -1425,6 +1424,7 @@ interface RegisterFormData {
 
 const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onSwitchToSignup: () => void }) => {
   const { setToken } = useUserAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
@@ -1432,7 +1432,6 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showForgot, setShowForgot] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -1529,7 +1528,18 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </Button>
           </div>
-          <p className="mt-1 text-xs text-muted-foreground">Forgot password? <Button type="button" variant="link" size="sm" className="h-auto p-0 text-primary hover:text-primary/80" onClick={() => setShowForgot(true)}>Reset</Button></p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Forgot password?{' '}
+            <Button 
+              type="button" 
+              variant="link" 
+              size="sm" 
+              className="h-auto p-0 text-primary hover:text-primary/80" 
+              onClick={() => navigate('/forgot-password')}
+            >
+              Reset
+            </Button>
+          </p>
         </div>
 
         {message && (
@@ -1572,7 +1582,6 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
           Sign Up
         </Button>
       </div>
-      <ForgotPasswordModal open={showForgot} onOpenChange={setShowForgot} />
     </>
   );
 };
@@ -2243,24 +2252,35 @@ const ProductDetail = () => {
                   <Plus className="w-4 h-4" />
                 </button>
               </div>
-              <Button
-                size="lg"
-                className="flex-1 text-lg py-6 rounded-lg"
-                disabled={!transformedProduct.inStock}
-                onClick={handleAddToCart}
-              >
-                {transformedProduct.inStock ? (
-                  <>
-                    <ShoppingCart className="w-5 h-5 mr-2" />
-                    Add to Cart
-                  </>
-                ) : (
-                  <>
-                    <XCircle className="w-5 h-5 mr-2" />
-                    Out of Stock
-                  </>
-                )}
-              </Button>
+              <div className="flex gap-3 flex-1">
+                <Button
+                  size="lg"
+                  className="flex-1 text-lg py-6 rounded-lg"
+                  disabled={!transformedProduct.inStock}
+                  onClick={handleAddToCart}
+                >
+                  {transformedProduct.inStock ? (
+                    <>
+                      <ShoppingCart className="w-5 h-5 mr-2" />
+                      Add to Cart
+                    </>
+                  ) : (
+                    <>
+                      <XCircle className="w-5 h-5 mr-2" />
+                      Out of Stock
+                    </>
+                  )}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg py-6 rounded-lg"
+                  onClick={() => navigate("/cart")}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  View Cart
+                </Button>
+              </div>
             </div>
             {/* Write a Review (only for logged-in users and not yet reviewed) */}
             {!hasReviewed && (

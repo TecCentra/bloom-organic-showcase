@@ -4086,16 +4086,18 @@ const CheckoutPage = () => {
         } catch {}
 
         if (res.ok && d.success && d.data) {
-          const status = d.data.payment_status || d.data.status;
+          // Check payment_status from order object (API returns data.order.payment_status)
+          const status = d.data.order?.payment_status || d.data.payment_status || d.data.order?.status || d.data.status;
           if (['completed', 'paid', 'success'].includes(status)) {
             pollingActiveRef.current = false;
             clear();
-            navigate('/profile');
+            navigate('/payment-success', { state: { orderId: orderId } });
             return;
           }
-          if (['failed', 'cancelled'].includes(status)) {
+          if (['failed', 'cancelled', 'error'].includes(status)) {
             pollingActiveRef.current = false;
             setPaymentStatus("failed");
+            navigate('/payment-failed', { state: { orderId: orderId } });
             return;
           }
         }
