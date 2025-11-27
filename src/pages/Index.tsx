@@ -799,7 +799,7 @@ const Index = () => {
                   
                   <div className="grid grid-cols-2 gap-6">
                     {row.map((p, i) => (
-                      <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
+                      <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
                         <ProductCard {...p} />
                       </div>
                     ))}
@@ -815,7 +815,7 @@ const Index = () => {
                 
                   <div className="grid grid-cols-3 gap-8">
                     {row.map((p, i) => (
-                      <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
+                      <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
                         <ProductCard {...p} />
                       </div>
                     ))}
@@ -830,7 +830,7 @@ const Index = () => {
                 <div key={`d-${rIdx}`} className="space-y-5">
                   <div className="grid grid-cols-4 gap-9">
                     {row.map((p, i) => (
-                      <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
+                      <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
                         <ProductCard {...p} />
                       </div>
                     ))}

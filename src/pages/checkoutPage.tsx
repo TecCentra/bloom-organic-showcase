@@ -4159,7 +4159,12 @@ const CheckoutPage = () => {
         full_name: fullName,
         email: customerInfo.email,
         phone: mpesaNumber,
-        ...(deliveryMethod === "ship" && { shipping_address: shippingAddress })
+        shipping_cost: shippingCost, // Include shipping cost in cents
+        ...(deliveryMethod === "ship" && { 
+          shipping_address: shippingAddress,
+          ...(selectedZone && { shipping_zone: selectedZone.zone }),
+          ...(selectedArea && { shipping_area: selectedArea })
+        })
       };
 
       const token = localStorage.getItem('token');
