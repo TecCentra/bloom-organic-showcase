@@ -65,7 +65,7 @@ const CategoriesPage = () => {
       try {
         // First, fetch categories to build the category map
         let map: Record<string, string> = {};
-        const categoriesResponse = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/categories');
+        const categoriesResponse = await fetch('https://bloom-backend-2.onrender.com/api/v1/categories');
         if (categoriesResponse.ok) {
           const categoriesData = await categoriesResponse.json();
           if (categoriesData.success && categoriesData.data.categories) {
@@ -77,7 +77,7 @@ const CategoriesPage = () => {
         }
 
         // Then fetch products
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/products?page=1&limit=200&search=&category=');
+        const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }

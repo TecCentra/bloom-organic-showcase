@@ -1,7 +1,7 @@
 // // API Configuration
 // export const API_CONFIG = {
 //   // Base URL for the API - can be changed based on environment
-//   BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://bloom-backend-hqu8.onrender.com/api/v1',
+//   BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://bloom-backend-2.onrender.com/api/v1',
   
 //   // Endpoints
 //   ENDPOINTS: {
@@ -86,7 +86,7 @@
 // API Configuration
 export const API_CONFIG = {
   // Base URL for the API - can be changed based on environment
-  BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://bloom-backend-hqu8.onrender.com/api/v1',
+  BASE_URL:'https://bloom-backend-2.onrender.com/api/v1',
   
   // Endpoints
   ENDPOINTS: {

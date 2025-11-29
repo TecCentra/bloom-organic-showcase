@@ -43,7 +43,7 @@ Extracted product ID: abc-123-def
 Number of images to upload: 2
 Adding image 1: {name: "...", type: "...", size: ...}
 Adding image 2: {name: "...", type: "...", size: ...}
-Upload URL: https://bloom-backend-hqu8.onrender.com/api/v1/products/abc-123-def/images
+Upload URL: https://bloom-backend-2.onrender.com/api/v1/products/abc-123-def/images
 Image upload response status: 200
 ✅ Images uploaded successfully: {...}
 ```
@@ -77,7 +77,7 @@ Expected response structure:
 **Check:**
 1. Verify the endpoint exists on the backend
 2. Check the URL being called (shown in console)
-3. Expected: `https://bloom-backend-hqu8.onrender.com/api/v1/products/{productId}/images`
+3. Expected: `https://bloom-backend-2.onrender.com/api/v1/products/{productId}/images`
 
 ### Issue 3: Image Upload Fails (401)
 **Console shows:** `Image upload response status: 401`
@@ -132,7 +132,7 @@ formData.append('file', image);
 
 ```bash
 # 1. Create a product first
-curl -X POST "https://bloom-backend-hqu8.onrender.com/api/v1/products" \
+curl -X POST "https://bloom-backend-2.onrender.com/api/v1/products" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
@@ -149,7 +149,7 @@ curl -X POST "https://bloom-backend-hqu8.onrender.com/api/v1/products" \
 # Note the product_id from response
 
 # 2. Upload an image
-curl -X POST "https://bloom-backend-hqu8.onrender.com/api/v1/products/PRODUCT_ID_HERE/images" \
+curl -X POST "https://bloom-backend-2.onrender.com/api/v1/products/PRODUCT_ID_HERE/images" \
   -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
   -F "image=@/path/to/your/image.jpg"
 ```

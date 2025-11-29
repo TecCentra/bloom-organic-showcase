@@ -274,7 +274,7 @@
 // //     setMessage(null);
 
 // //     try {
-// //       const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(formData),
@@ -431,7 +431,7 @@
 // //     setMessage(null);
 
 // //     try {
-// //       const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/register', {
+// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(formData),
@@ -898,7 +898,7 @@
 
 //     try {
 //       console.log('Attempting login with:', formData);
-//       const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+//       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify(formData),
@@ -1064,7 +1064,7 @@
 
 //     try {
 //       console.log('Attempting register with:', formData);
-//       const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/register', {
+//       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify({
@@ -1086,7 +1086,7 @@
 //         if (!accessToken) {
 //           // Fallback: Login immediately after register
 //           console.log('No token from register, auto-logging in...');
-//           const loginRes = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+//           const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
 //             method: 'POST',
 //             headers: { 'Content-Type': 'application/json' },
 //             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -1587,7 +1587,7 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
 
     try {
       console.log('Attempting login with:', formData);
-      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+      const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -1768,7 +1768,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
 
     try {
       console.log('Attempting register with:', formData);
-      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/register', {
+      const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1789,7 +1789,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
         let refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
         if (!accessToken) {
           console.log('No token from register, auto-logging in...');
-          const loginRes = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+          const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: formData.email, password: formData.password }),

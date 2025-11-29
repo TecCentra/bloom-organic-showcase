@@ -44,7 +44,7 @@ const Login: React.FC = () => {
     setMessage(null);
 
     try {
-      const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/login', {
+      const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

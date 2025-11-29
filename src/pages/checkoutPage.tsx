@@ -1197,7 +1197,7 @@
 // // //       const fetchUserProfile = async () => {
 // // //         try {
 // // //           console.log('Fetching user profile...');
-// // //           const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/me', {
+// // //           const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
 // // //             method: 'GET',
 // // //             headers: {
 // // //               'Authorization': `Bearer ${token}`,
@@ -2190,7 +2190,7 @@
 // //       const fetchUserProfile = async () => {
 // //         try {
 // //           console.log('Fetching user profile...');
-// //           const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/me', {
+// //           const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
 // //             method: 'GET',
 // //             headers: {
 // //               'Authorization': `Bearer ${token}`,
@@ -3208,7 +3208,7 @@
 
 //     const fetchUserProfile = async () => {
 //       try {
-//         const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/me', {
+//         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
 //           headers: {
 //             'Authorization': `Bearer ${token}`,
 //             'Content-Type': 'application/json',
@@ -3958,7 +3958,7 @@ const CheckoutPage = () => {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/me', {
+        const res = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         let data = {};
@@ -4032,7 +4032,7 @@ const CheckoutPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('https://bloom-backend-hqu8.onrender.com/api/v3/kcb/stkpush', {
+      const res = await fetch('https://bloom-backend-2.onrender.com/api/v3/kcb/stkpush', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
