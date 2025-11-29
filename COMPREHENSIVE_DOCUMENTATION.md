@@ -921,7 +921,7 @@ The admin panel features a collapsible sidebar with the following menu items:
 - CSRF protection
 
 ### Integration Points
-- Backend API connection (`https://bloom-backend-hqu8.onrender.com`)
+- Backend API connection (`https://bloom-backend-2.onrender.com`)
 - WhatsApp integration for customer support
 - Payment gateway integration (M-Pesa, Card payments)
 - Email notification system (if implemented)

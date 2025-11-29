@@ -121,7 +121,7 @@ const UserProfile = () => {
 
       try {
         setIsLoading(true);
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/auth/me', {
+        const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -161,7 +161,7 @@ const UserProfile = () => {
 
       try {
         setIsLoadingOrders(true);
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/orders?status=&page=1&limit=10', {
+        const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/orders?status=&page=1&limit=10', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -321,7 +321,7 @@ const UserProfile = () => {
     try {
       setIsCancelling(true);
       const response = await fetch(
-        `https://bloom-backend-hqu8.onrender.com/api/v1/orders/${selectedOrderId}/cancel`,
+        `https://bloom-backend-2.onrender.com/api/v1/orders/${selectedOrderId}/cancel`,
         {
           method: 'POST',
           headers: {

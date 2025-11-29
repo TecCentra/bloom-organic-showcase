@@ -64,7 +64,7 @@ const AllProducts = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://bloom-backend-hqu8.onrender.com/api/v1/products?page=1&limit=100&search=${searchTerm}&category=`
+          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=${searchTerm}&category=`
         );
         
         if (!response.ok) {

@@ -60,7 +60,7 @@ const AdminHealth: React.FC = () => {
       setError(null);
       
       // Note: Health endpoint is at /api/health, not /api/v1/health
-      const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace('/v1', '') || 'https://bloom-backend-hqu8.onrender.com/api';
+      const baseUrl = import.meta.env.VITE_API_BASE_URL?.replace('/v1', '') || 'https://bloom-backend-2.onrender.com/api';
       const response = await fetch(`${baseUrl}/health`, {
         method: 'GET',
         headers: {

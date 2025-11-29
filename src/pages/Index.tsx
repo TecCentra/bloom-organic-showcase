@@ -506,7 +506,7 @@ const Index = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://bloom-backend-hqu8.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
+        const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }

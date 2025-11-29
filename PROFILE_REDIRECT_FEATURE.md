@@ -18,7 +18,7 @@ After a successful STK push (M-Pesa payment), users are now automatically redire
 
 **API Integration:**
 ```typescript
-GET https://bloom-backend-hqu8.onrender.com/api/v1/auth/me
+GET https://bloom-backend-2.onrender.com/api/v1/auth/me
 Headers: Authorization: Bearer {token}
 
 Response:
