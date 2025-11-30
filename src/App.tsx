@@ -45,7 +45,7 @@ const App = () => (
               <UserAuthProvider>
                 <CartProvider>
                   <ScrollToTop />
-                  <FloatingWhatsApp />4
+                  <FloatingWhatsApp />
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/contact" element={<Contact />} />
