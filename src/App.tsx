@@ -45,7 +45,7 @@ const App = () => (
               <UserAuthProvider>
                 <CartProvider>
                   <ScrollToTop />
-                  <FloatingWhatsApp />
+                  <FloatingWhatsApp />4
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/contact" element={<Contact />} />
@@ -56,7 +56,7 @@ const App = () => (
                     <Route path="/products" element={<CategoriesPage />} />
                     <Route path="/products/:slug" element={<CategoryProducts />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password/:token" element={<ResetPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/product/:id" element={<ProductDetail />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/checkout" element={<CheckoutPage />} />

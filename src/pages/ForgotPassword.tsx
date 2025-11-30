@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
@@ -10,14 +10,25 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useMaterialToast();
+  const isSubmittingRef = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    // Prevent double submission
+    if (isSubmittingRef.current || loading) {
+      return;
+    }
+    
     if (!email) {
       toast({ description: "Please enter your email address.", variant: "destructive", duration: 3000 });
       return;
     }
+    
+    isSubmittingRef.current = true;
     setLoading(true);
+    
     try {
       const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.FORGOT_PASSWORD}`, {
         method: 'POST',
@@ -42,6 +53,7 @@ const ForgotPassword = () => {
       toast({ description: "Please try again.", variant: "destructive", duration: 3000 });
     } finally {
       setLoading(false);
+      isSubmittingRef.current = false;
     }
   };
 
