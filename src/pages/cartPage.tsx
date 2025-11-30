@@ -1667,18 +1667,17 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </Button>
           </div>
-          <p className="mt-1 text-xs text-muted-foreground">
-            Forgot password?{' '}
+          <div className="mt-2 flex items-center justify-between">
             <Button 
               type="button" 
               variant="link" 
               size="sm" 
-              className="h-auto p-0 text-primary hover:text-primary/80" 
+              className="h-auto p-0 text-primary hover:text-primary/80 underline text-xs font-medium" 
               onClick={() => navigate('/forgot-password')}
             >
-              Reset
+              Forgot password?
             </Button>
-          </p>
+          </div>
         </div>
 
         {message && (
