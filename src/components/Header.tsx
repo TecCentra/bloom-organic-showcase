@@ -112,12 +112,14 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, ShoppingCart, User } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/assets/logo.jpeg";
+import { AuthModal } from "@/components/AuthModal";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDesktopProductsOpen, setIsDesktopProductsOpen] = useState(false);
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const location = useLocation();
   const { itemCount } = useCart();
 
@@ -266,8 +268,8 @@ const Header = () => {
             })}
             {/* Login Button (Desktop) - Appears last after all nav links */}
             {!isLoggedIn && (
-              <Link
-                to="/login"
+              <button
+                onClick={() => setShowAuthModal(true)}
                 className={`px-4 py-2 rounded-xl border ${
                   isActive("/login")
                     ? "border-primary text-primary"
@@ -275,7 +277,7 @@ const Header = () => {
                 } transition-colors font-body font-medium`}
               >
                 Login
-              </Link>
+              </button>
             )}
             {/* Profile Icon (Desktop) - Only show when logged in */}
             {isLoggedIn && (
@@ -381,9 +383,11 @@ const Header = () => {
             })}
             {/* Login Button (Mobile) - Appears last after all nav links */}
             {!isLoggedIn && (
-              <Link
-                to="/login"
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  setShowAuthModal(true);
+                }}
                 className={`block w-full text-center mt-1 px-2.5 py-1.5 rounded-xl border text-xs ${
                   isActive("/login")
                     ? "border-primary text-primary"
@@ -391,11 +395,21 @@ const Header = () => {
                 } transition-colors font-body font-medium`}
               >
                 Login
-              </Link>
+              </button>
             )}
           </div>
         )}
       </nav>
+      
+      {/* Auth Modal */}
+      <AuthModal 
+        open={showAuthModal} 
+        onOpenChange={setShowAuthModal}
+        onSuccess={() => {
+          // Refresh the page or update login state
+          window.location.reload();
+        }}
+      />
     </header>
   );
 };
