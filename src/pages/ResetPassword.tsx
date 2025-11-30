@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,8 @@ import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 const ResetPassword = () => {
-  const { token } = useParams<{ token: string }>();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get('token');
   const navigate = useNavigate();
   const { toast } = useMaterialToast();
   
@@ -25,7 +26,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     // Validate token format (basic check)
-    if (!token || token.length < 10) {
+    if (!token || token.trim().length === 0) {
       setIsValidating(false);
       setTokenValid(false);
       toast({ 
@@ -69,6 +70,15 @@ const ResetPassword = () => {
       return;
     }
 
+    if (!token) {
+      toast({ 
+        description: "Invalid reset token.", 
+        variant: "destructive", 
+        duration: 3000 
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       const res = await fetch(
@@ -88,7 +98,7 @@ const ResetPassword = () => {
           duration: 3000 
         });
         setTimeout(() => {
-          navigate("/signup");
+          navigate("/login");
         }, 2000);
       } else {
         toast({ 
@@ -231,7 +241,7 @@ const ResetPassword = () => {
 
         <div className="mt-6 text-center">
           <Link
-            to="/signup"
+            to="/login"
             className="text-sm text-primary hover:underline"
           >
             Back to Login
