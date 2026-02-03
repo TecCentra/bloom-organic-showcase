@@ -457,9 +457,11 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
 import heroImage from "@/assets/hero-organic.jpg";
-import categoryHerbs from "@/assets/category-herbs.jpg";
-import categoryCleansers from "@/assets/category-cleansers.jpg";
-import categoryGutHealth from "@/assets/org.jpg";
+import mens from "@/assets/mens.jpeg";
+import natural from "@/assets/natural.jpeg";
+import nutritional from "@/assets/nutritional.jpeg";
+import weight from "@/assets/weight.jpeg";
+import Yoni from "@/assets/yoni.jpeg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 interface ProductImage {
@@ -645,31 +647,31 @@ const Index = () => {
     {
       title: "Weight Management Products",
       description: "Flat tummy, upper body fat, full weight loss packages.",
-      image: categoryHerbs,
+      image: weight,
       to: "/products/weight-management",
     },
     {
       title: "Yoni & Female Fertility Care",
       description: "Steam herbs, washes, tightening pearls & more.",
-      image: categoryCleansers,
+      image: Yoni,
       to: "/products/female-care",
     },
     {
       title: "Men's Boosters & Fertility Support",
       description: "Stamina, libido, and reproductive health.",
-      image: categoryGutHealth,
+      image: mens,
       to: "/products/mens-health",
     },
     {
       title: "Natural Skin Care",
       description: "Healing soaps, oils, scrubs, and glow enhancers.",
-      image: categoryGutHealth,
+      image: natural,
       to: "/products/skin-care",
     },
     {
       title: "Nutritional Supplements",
       description: "Essential micro & macro nutrients.",
-      image: categoryGutHealth,
+      image: nutritional,
       to: "/products/supplements",
     },
   ];
