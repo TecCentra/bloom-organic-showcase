@@ -81,7 +81,7 @@ const Map = () => {
             scrolling="no"
             marginHeight={0}
             marginWidth={0}
-            src="https://maps.google.com/maps?width=1486&amp;height=400&amp;hl=en&amp;q=Beaver House&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=KTDA%20Tom%20Mboya%20Street%20%20Nairobi+(Organic%20Bloom%20Kenya)&amp;t=&amp;z=20&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
           ></iframe>
         </div>
         <style>{`

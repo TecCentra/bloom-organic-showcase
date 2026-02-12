@@ -84,8 +84,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3 text-muted-foreground">
                 <MapPin className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>KTDA Farmers Building, 7th Floor, Suite 730 – Nairobi CBD, along Tom Mboya Street (near Gill House and R.O.G Bus Terminus).
-Use the lift to the 7th floor and find Suite 730.</span>
+                <span>KTDA Farmers Building, 7th Floor, Suite 730 – Nairobi CBD, along Tom Mboya Street (near Gill House and R.O.G Bus Terminus)</span>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />

@@ -61,7 +61,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Visit Us",
-      content: "Beaver House, Basement B11, Opposite Club Eureka, Tom Mboya Street",
+      content: "KTDA Farmers Building, 7th Floor, Suite 730 – Nairobi CBD, along Tom Mboya Street (near Gill House and R.O.G Bus Terminus).",
     },
     {
       icon: Phone,
