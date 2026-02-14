@@ -1641,7 +1641,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
-import heroImage from "@/assets/hero.jpeg";
+import heroImage from "@/assets/h.jpg";
 import mens from "@/assets/mens.jpeg";
 import natural from "@/assets/natural.jpeg";
 import nutritional from "@/assets/nutritional.jpeg";
@@ -1929,31 +1929,31 @@ const Index = () => {
       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
         <div className="absolute inset-0">
   <a 
-    href="http://localhost:8080/shop"
+    href="https://organicbloom.co.ke/shop"
     className="block w-full h-full"
   >
     <img
       src={heroImage}
       alt="Organic products in natural setting"
-      className="w-full h-full object-cover"
+      className="w-full h-full object-cover transition-transform duration-300 hover-scale"
     />
   </a>
 
   {/* Overlays */}
-  <div className="absolute inset-0 pointer-events-none bg-foreground/25 mix-blend-multiply"></div>
+  {/* <div className="absolute inset-0 pointer-events-none bg-foreground/25 mix-blend-multiply"></div>
   <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
   <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
-  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
+  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div> */}
 </div>
 
         
-        {/* <div className="relative container mx-auto px-4 h-full flex items-center">
+        <div className="relative container mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
               Nurture Life, Naturally
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
+            <p className="text-lg md:text-xl mb-8 text-white font-bold">
               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
             </p>
             <Button 
@@ -1965,7 +1965,7 @@ const Index = () => {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </div>
-        </div> */}
+        </div>
       </section>
 
       {/* Featured Products Section */}
