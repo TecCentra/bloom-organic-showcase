@@ -168,6 +168,11 @@ const Header = () => {
       name: "Nutritional Supplements",
       description: "Essential vitamins and health supplements",
       path: "/products/supplements"
+    },
+    {
+      name: "Organic Herbs",
+      description: "Pure, sustainably sourced herbs for wellness and rituals",
+      path: "/products/organic-herbs"
     }
   ];
 
