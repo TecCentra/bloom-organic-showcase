@@ -41,7 +41,8 @@ const slugToCategoryId: Record<string, { id: string; name: string }> = {
   "female-care": { id: "f9d5401f-a4f8-46f0-a0f0-2f409287d44a", name: "Yoni & Female Fertility Care" },
   "mens-health": { id: "6ec176fc-cac4-40ee-b1d1-249e396632a8", name: "Men's Boosters & Fertility Support" },
   "skin-care": { id: "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515", name: "Natural Skin Care" },
-  "supplements": { id: "fc0ef0fa-db5d-4a32-b051-c90d0cabf525", name: "Nutritional Supplements" }
+  "supplements": { id: "fc0ef0fa-db5d-4a32-b051-c90d0cabf525", name: "Nutritional Supplements" },
+  "organic-herbs": { id: "c424a6ed-d2bf-496c-bac9-e1b7ec189233", name: "Organic Herbs" }
 };
 
 const getPlaceholderImage = (name: string) => {
