@@ -1798,7 +1798,7 @@ const Index = () => {
   };
 
   // Category mapping
-  const categoryMap: Record<string, string> = {
+  const categoryMap: Record<string, string> = { 
     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
