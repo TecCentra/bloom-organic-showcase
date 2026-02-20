@@ -1645,6 +1645,7 @@ import heroImage from "@/assets/h.jpg";
 import mens from "@/assets/mens.jpeg";
 import natural from "@/assets/natural.jpeg";
 import nutritional from "@/assets/nutritional.jpeg";
+import organicherbs from "@/assets/organic herbs.jpeg";
 import weight from "@/assets/weight.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
@@ -1803,6 +1804,7 @@ const Index = () => {
     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+    'c424a6ed-d2bf-496c-bac9-e1b7ec189233': 'Organic Herbs',
   };
 
   // Placeholder image generator
@@ -1861,25 +1863,37 @@ const Index = () => {
       image: nutritional,
       to: "/products/supplements",
     },
+    {
+      title: "Organic Herbs",
+      description: "Pure, sustainably sourced herbs for wellness and rituals.",
+      image: organicherbs,
+      to: "/products/organic-herbs",
+    },
   ];
 
   const testimonials = [
     {
-      name: "Jennifer Martinez",
-      role: "Wellness Enthusiast",
-      content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+      name: "Shirleen Kimani",
+      role: "",
+      content: "I’m really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I’ll definitely keep using it.",
       rating: 5,
     },
     {
-      name: "Robert Kim",
-      role: "Nutrition Coach",
-      content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
-      rating: 5,
+      name: "Kathurima Simon",
+      role: "",
+      content: "Order received well and on time. I’m very impressed with the professionalism and customer care. Thank you so much!",
+      rating: 4,
     },
     {
-      name: "Amanda Foster",
+      name: "Kilavu Juliet",
       role: "Busy Mom of Three",
-      content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+      content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.",
+      rating: 5,
+    },
+    {
+      name: "Joseph Kigo",
+      role: "Busy Mom of Three",
+      content: "Thank you so much — I’ve received my order safely. It’s not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.",
       rating: 5,
     },
   ];
