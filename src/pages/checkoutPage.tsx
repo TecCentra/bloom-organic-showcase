@@ -4500,9 +4500,13 @@ const CheckoutPage = () => {
                 <div className="flex justify-between">
                   <span>{deliveryMethod === "pickup" ? "Pickup" : "Shipping"}</span>
                   <span>
-                    {shippingCost === 0 ? (
+                    {deliveryMethod === "pickup" ? (
                       <Badge variant="outline" className="text-green-600">FREE</Badge>
-                    ) : `Ksh ${(shippingCost / 100).toFixed(2)}`}
+                    ) : selectedZone ? (
+                      `Ksh ${(shippingCost / 100).toFixed(2)}`
+                    ) : (
+                      <span className="text-muted-foreground text-xs">Select a zone</span>
+                    )}
                   </span>
                 </div>
                 {deliveryMethod === "ship" && selectedZone && (
