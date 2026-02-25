@@ -45,6 +45,31 @@ const slugToCategoryId: Record<string, { id: string; name: string }> = {
   "organic-herbs": { id: "c424a6ed-d2bf-496c-bac9-e1b7ec189233", name: "Organic Herbs" }
 };
 
+  const CATEGORY_CACHE_PREFIX = 'category_products_';
+  const CATEGORY_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+  const getCategoryCache = (slug: string) => {
+    try {
+      const raw = localStorage.getItem(`${CATEGORY_CACHE_PREFIX}${slug}`);
+      if (!raw) return null;
+      const { data, timestamp } = JSON.parse(raw);
+      if (Date.now() - timestamp > CATEGORY_CACHE_TTL) {
+        localStorage.removeItem(`${CATEGORY_CACHE_PREFIX}${slug}`);
+        return null;
+      }
+      return data;
+    } catch { return null; }
+  };
+
+  const setCategoryCache = (slug: string, data: Product[]) => {
+    try {
+      localStorage.setItem(
+        `${CATEGORY_CACHE_PREFIX}${slug}`,
+        JSON.stringify({ data, timestamp: Date.now() })
+      );
+    } catch {}
+  };
+
 const getPlaceholderImage = (name: string) => {
   const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
@@ -57,10 +82,48 @@ const CategoryProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const targetCategory = useMemo(() => (slug ? slugToCategoryId[slug] : undefined), [slug]);
+  
 
   useEffect(() => {
+    // const fetchProducts = async () => {
+    //   setLoading(true);
+    //   try {
+    //     const categoryParam = targetCategory ? encodeURIComponent(targetCategory.id) : '';
+    //     const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
+    //     if (!response.ok) throw new Error('Failed to fetch products');
+    //     const data: ApiResponse = await response.json();
+    //     if (!data.success || !data.data?.products) throw new Error('Invalid response');
+
+    //     const active = data.data.products.filter(p => p.is_active);
+    //     const clientFiltered = targetCategory
+    //       ? active.filter(p => p.category_id === targetCategory.id)
+    //       : active;
+        
+        
+    //     const sortedProducts = [...clientFiltered].sort((a, b) => {
+    //       const dateA = new Date(a.created_at || 0).getTime();
+    //       const dateB = new Date(b.created_at || 0).getTime();
+    //       return dateB - dateA; 
+    //     });
+        
+    //     setProducts(sortedProducts);
+    //   } catch (e) {
+    //     console.error(e);
+    //     setProducts([]);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
     const fetchProducts = async () => {
-      setLoading(true);
+  // Load from cache instantly if available
+      const cached = getCategoryCache(slug!);
+      if (cached) {
+        setProducts(cached);
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
+
       try {
         const categoryParam = targetCategory ? encodeURIComponent(targetCategory.id) : '';
         const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
@@ -72,18 +135,18 @@ const CategoryProducts = () => {
         const clientFiltered = targetCategory
           ? active.filter(p => p.category_id === targetCategory.id)
           : active;
-        
-        // Sort by created_at descending (newest first)
-        const sortedProducts = [...clientFiltered].sort((a, b) => {
-          const dateA = new Date(a.created_at || 0).getTime();
-          const dateB = new Date(b.created_at || 0).getTime();
-          return dateB - dateA; // Descending order
-        });
-        
+
+        const sortedProducts = [...clientFiltered].sort((a, b) =>
+          new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()
+        );
+
         setProducts(sortedProducts);
+        setCategoryCache(slug!, sortedProducts); // ← save to cache
       } catch (e) {
         console.error(e);
-        setProducts([]);
+        if (!getCategoryCache(slug!)) {
+          setProducts([]); // only clear if no cached fallback
+        }
       } finally {
         setLoading(false);
       }
