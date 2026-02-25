@@ -2175,17 +2175,13 @@ const CartPage = () => {
                   <span className="text-muted-foreground">Subtotal</span>
                   <span>Ksh {(subtotal / 100).toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Shipping</span>
-                  <span>
-                    {shipping === 0 ? (
-                      <Badge variant="outline" className="text-green-600 border-green-600">
-                        FREE
-                      </Badge>
-                    ) : (
-                      `Ksh ${(shipping / 100).toFixed(2)}`
-                    )}
-                  </span>
+                <div className="flex justify-between items-start">
+                  <span className="text-muted-foreground">Shop Pickup</span>
+                  <Badge variant="outline" className="text-green-600 border-green-600">FREE</Badge>
+                </div>
+                <div className="flex justify-between items-start">
+                  <span className="text-muted-foreground">Delivery</span>
+                  <span className="text-sm text-muted-foreground text-right">Varies by location</span>
                 </div>
                 {subtotal < 5000 && (
                   <p className="text-xs text-muted-foreground">

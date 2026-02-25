@@ -59,6 +59,29 @@ const AdminProducts: React.FC = () => {
   const { adminToken } = useAdminAuth();
   const { confirm } = useMaterialConfirm();
   const { toast } = useMaterialToast();
+  const CACHE_KEY = 'admin_products_cache';
+const CACHE_TTL = 5 * 60 * 1000;
+
+const getCache = () => {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const { data, timestamp } = JSON.parse(raw);
+    if (Date.now() - timestamp > CACHE_TTL) {
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+    return data;
+  } catch { return null; }
+};
+
+const setCache = (data: any) => {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: Date.now() }));
+  } catch {}
+};
+
+const clearCache = () => localStorage.removeItem(CACHE_KEY);
 
   // Form state for creating products
   const [formData, setFormData] = useState({
@@ -85,72 +108,133 @@ const AdminProducts: React.FC = () => {
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
   const [imagePreview, setImagePreview] = useState<string[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!adminToken) return;
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (!adminToken) return;
       
-      try {
-        setIsLoading(true);
-        setError(null);
+  //     try {
+  //       setIsLoading(true);
+  //       setError(null);
 
-        // Fetch products with pagination
-        const productsResponse = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}?page=${currentPage}&limit=10`), {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${adminToken}`,
-            'Content-Type': 'application/json',
-          },
-        });
+  //       const productsResponse = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}?page=${currentPage}&limit=10`), {
+  //         method: 'GET',
+  //         headers: {
+  //           'Authorization': `Bearer ${adminToken}`,
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
 
-        if (productsResponse.ok) {
-          const productsData = await productsResponse.json();
-          const productsList = productsData.data?.products || productsData.data || [];
+  //       if (productsResponse.ok) {
+  //         const productsData = await productsResponse.json();
+  //         const productsList = productsData.data?.products || productsData.data || [];
           
-          // Sort by created_at descending (newest first)
-          const sortedProducts = [...productsList].sort((a, b) => {
-            const dateA = new Date(a.created_at || 0).getTime();
-            const dateB = new Date(b.created_at || 0).getTime();
-            return dateB - dateA; // Descending order
-          });
+  //         const sortedProducts = [...productsList].sort((a, b) => {
+  //           const dateA = new Date(a.created_at || 0).getTime();
+  //           const dateB = new Date(b.created_at || 0).getTime();
+  //           return dateB - dateA; 
+  //         });
           
-          setProducts(sortedProducts);
-          setPagination(productsData.data?.pagination);
-        } else {
-          throw new Error('Failed to fetch products');
-        }
+  //         setProducts(sortedProducts);
+  //         setPagination(productsData.data?.pagination);
+  //       } else {
+  //         throw new Error('Failed to fetch products');
+  //       }
 
-        // Fetch categories for dropdown
-        const categoriesResponse = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}?includeProducts=false`), {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${adminToken}`,
-            'Content-Type': 'application/json',
-          },
-        });
+  //       const categoriesResponse = await fetch(buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}?includeProducts=false`), {
+  //         method: 'GET',
+  //         headers: {
+  //           'Authorization': `Bearer ${adminToken}`,
+  //           'Content-Type': 'application/json',
+  //         },
+  //       });
 
-        if (categoriesResponse.ok) {
-          const categoriesData = await categoriesResponse.json();
-          if (categoriesData.data && categoriesData.data.categories) {
-            setCategories(categoriesData.data.categories);
-          } else if (categoriesData.data && Array.isArray(categoriesData.data)) {
-            setCategories(categoriesData.data);
-          } else if (Array.isArray(categoriesData)) {
-            setCategories(categoriesData);
-          }
-        } else {
-          console.warn('Failed to fetch categories');
-        }
+  //       if (categoriesResponse.ok) {
+  //         const categoriesData = await categoriesResponse.json();
+  //         if (categoriesData.data && categoriesData.data.categories) {
+  //           setCategories(categoriesData.data.categories);
+  //         } else if (categoriesData.data && Array.isArray(categoriesData.data)) {
+  //           setCategories(categoriesData.data);
+  //         } else if (Array.isArray(categoriesData)) {
+  //           setCategories(categoriesData);
+  //         }
+  //       } else {
+  //         console.warn('Failed to fetch categories');
+  //       }
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError(error instanceof Error ? error.message : 'Failed to fetch data');
-      } finally {
-        setIsLoading(false);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //       setError(error instanceof Error ? error.message : 'Failed to fetch data');
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [adminToken, currentPage]);
+  useEffect(() => {
+  const fetchData = async () => {
+    if (!adminToken) return;
+
+    const cached = getCache();
+    if (cached) {
+      setProducts(cached.products);
+      setCategories(cached.categories);
+      setPagination(cached.pagination);
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+    }
+
+    try {
+      setError(null);
+
+      const productsResponse = await fetch(
+        buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}?page=${currentPage}&limit=10`),
+        { headers: { 'Authorization': `Bearer ${adminToken}`, 'Content-Type': 'application/json' } }
+      );
+
+      if (!productsResponse.ok) throw new Error('Failed to fetch products');
+
+      const productsData = await productsResponse.json();
+      const productsList = productsData.data?.products || productsData.data || [];
+      const sortedProducts = [...productsList].sort((a, b) =>
+        new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()
+      );
+      setProducts(sortedProducts);
+      setPagination(productsData.data?.pagination);
+
+      const categoriesResponse = await fetch(
+        buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.CATEGORIES}?includeProducts=false`),
+        { headers: { 'Authorization': `Bearer ${adminToken}`, 'Content-Type': 'application/json' } }
+      );
+
+      let fetchedCategories: any[] = [];
+      if (categoriesResponse.ok) {
+        const categoriesData = await categoriesResponse.json();
+        fetchedCategories =
+          categoriesData.data?.categories ||
+          (Array.isArray(categoriesData.data) ? categoriesData.data : null) ||
+          (Array.isArray(categoriesData) ? categoriesData : []);
+        setCategories(fetchedCategories);
       }
-    };
 
-    fetchData();
-  }, [adminToken, currentPage]);
+      setCache({
+        products: sortedProducts,
+        categories: fetchedCategories,
+        pagination: productsData.data?.pagination
+      });
+
+    } catch (error) {
+      if (!getCache()) {
+        setError(error instanceof Error ? error.message : 'Failed to fetch data');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchData();
+}, [adminToken, currentPage]);
 
   // Helper function to get category name from category_id
   const getCategoryName = (categoryId: string | number | null | undefined) => {
@@ -326,6 +410,7 @@ const AdminProducts: React.FC = () => {
           setSelectedImages([]);
           setImagePreview([]);
           
+          clearCache();
           setTimeout(() => {
             window.location.reload();
           }, 1500);
@@ -498,6 +583,7 @@ const AdminProducts: React.FC = () => {
         )
       );
 
+      clearCache();
       toast({
         title: 'Product Updated',
         description: `${editFormData.name} has been successfully updated`,
@@ -596,6 +682,7 @@ const AdminProducts: React.FC = () => {
       // Remove product from local state
       setProducts(prevProducts => prevProducts.filter(p => p.product_id !== productId));
 
+      clearCache();
       toast({
         title: 'Product Deleted',
         description: `${productName} has been successfully deleted`,
@@ -624,7 +711,7 @@ const AdminProducts: React.FC = () => {
         </div>
         <div className="flex space-x-2">
           <Button 
-            onClick={() => window.location.reload()} 
+            onClick={() => { clearCache(); window.location.reload(); }}  
             variant="outline" 
             size="sm"
             disabled={isLoading}
