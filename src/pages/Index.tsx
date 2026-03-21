@@ -1648,6 +1648,7 @@ import nutritional from "@/assets/nutritional.jpeg";
 import organicherbs from "@/assets/organic herbs.jpeg";
 import weight from "@/assets/weight.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
+import Honey from "@/assets/Honey.jpeg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 interface ProductImage {
@@ -1805,6 +1806,7 @@ const Index = () => {
     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
     'c424a6ed-d2bf-496c-bac9-e1b7ec189233': 'Organic Herbs',
+    '360c510f-8b36-43c0-89bf-81c96a0ea885': 'Pure Honey & Honey Products',
   };
 
   // Placeholder image generator
@@ -1868,6 +1870,12 @@ const Index = () => {
       description: "Pure, sustainably sourced herbs for wellness and rituals.",
       image: organicherbs,
       to: "/products/organic-herbs",
+    },
+    {
+      title: "Pure Honey & Honey Productsts",
+      description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
+      image: Honey,
+      to: "/products/pure-honey",
     },
   ];
 

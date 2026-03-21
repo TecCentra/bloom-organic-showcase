@@ -57,6 +57,7 @@ const AllProducts = () => {
     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+    '360c510f-8b36-43c0-89bf-81c96a0ea885': 'Pure Honey & Honey Products',
   };
 
   useEffect(() => {
