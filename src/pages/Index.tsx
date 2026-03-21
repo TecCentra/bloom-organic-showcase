@@ -1872,7 +1872,7 @@ const Index = () => {
       to: "/products/organic-herbs",
     },
     {
-      title: "Pure Honey & Honey Productsts",
+      title: "Pure Honey & Honey Products",
       description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
       image: Honey,
       to: "/products/pure-honey",

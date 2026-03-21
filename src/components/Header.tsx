@@ -177,7 +177,7 @@ const Header = () => {
       path: "/products/organic-herbs"
     },
     {
-      name: "Pure Honey & Honey Productsts",
+      name: "Pure Honey & Honey Products",
       description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
       path: "/products/pure-honey"
     }
