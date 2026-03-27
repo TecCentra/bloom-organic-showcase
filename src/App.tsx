@@ -31,6 +31,7 @@ import ResetPassword from "./pages/ResetPassword";
 import UserProfile from "./pages/UserProfile";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentFailedPage from "./pages/PaymentFailedPage";
+import { Analytics } from "@vercel/analytics/react";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -76,6 +77,7 @@ const App = () => (
                 </CartProvider>
               </UserAuthProvider>
             </BrowserRouter>
+             <Analytics /> 
           </TooltipProvider>
         </ConfirmProvider>
       </ToastProvider>
