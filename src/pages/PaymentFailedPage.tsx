@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Copy, Check, X } from 'lucide-react';
 
@@ -23,6 +23,15 @@ const PaymentFailedPage = () => {
       setTimeout(() => setCopiedAccount(false), 2000);
     }
   };
+  useEffect(() => {
+  if (typeof window !== 'undefined' && (window as any).ttq) {
+    (window as any).ttq.track('CancelOrder', {
+      content_type: 'product',
+      currency: 'KES',
+      ...(orderId && { order_id: orderId }),
+    });
+  }
+}, []);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
