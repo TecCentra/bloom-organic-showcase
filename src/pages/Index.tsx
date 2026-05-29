@@ -1696,7 +1696,7 @@ const Index = () => {
     const fetchProducts = async () => {
       try {
         // Fetch more products (limit=100) to ensure we get the latest ones
-        const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
+        const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
         if (!response.ok) {
           throw new Error('Failed to fetch products');
         }

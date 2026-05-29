@@ -1025,7 +1025,7 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
     setIsLoading(true);
     setMessage(null);
     try {
-      const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+      const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -1143,7 +1143,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
     setIsLoading(true);
     setMessage(null);
     try {
-      const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+      const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1159,7 +1159,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
         let accessTokenExpires = data.data?.accessTokenExpires;
         let refreshTokenExpires = data.data?.refreshTokenExpires;
         if (!accessToken) {
-          const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+          const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -1302,7 +1302,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products/${id}`);
+        const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products/${id}`);
         if (response.ok) {
           const data = await response.json();
           if (data.success && data.data) {
