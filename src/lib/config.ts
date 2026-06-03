@@ -87,7 +87,7 @@
 export const API_CONFIG = {
   // Base URL for the API - can be changed based on environment
   // BASE_URL:'https://bloom-backend-2.onrender.com/api/v1',
-  BASE_URL:'https://bloom-backend-zzcv.onrender.com/api/v1',
+  BASE_URL:'https://bloom-backend-2.onrender.com/api/v1',
   // Endpoints
   ENDPOINTS: {
     AUTH: {

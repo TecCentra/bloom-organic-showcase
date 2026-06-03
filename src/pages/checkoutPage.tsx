@@ -130,7 +130,7 @@ const CheckoutPage = () => {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/me', {
+        const res = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         let data = {};
