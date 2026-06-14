@@ -462,6 +462,11 @@ const Header = () => {
 
   const productCategories = [
     {
+      name: "Clearance Sale",
+      description: "Limited-time offers on select products.",
+      path: "/products/clearance",
+    },
+    {
       name: "Weight Management Products",
       description: "Flat tummy, upper body fat, full weight loss packages",
       path: "/products/weight-management",

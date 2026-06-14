@@ -2301,6 +2301,7 @@ import organicherbs from "@/assets/organic herbs.jpeg";
 import weight from "@/assets/weight.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
 import Honey from "@/assets/Honey.jpeg";
+import Clearance from "@/assets/clearance.jpg"
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 interface ProductImage {
@@ -2347,7 +2348,7 @@ const categoryMap: Record<string, string> = {
   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-  [CLEARANCE_CATEGORY_ID]: "Clearance Sale",
+  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
 };
 
 const chunk = <T,>(arr: T[], size: number): T[][] => {
@@ -2515,6 +2516,7 @@ const Index = () => {
     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
+    { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
   ];
 
   const testimonials = [
@@ -2588,9 +2590,9 @@ const Index = () => {
             <Button
               size="lg"
               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-              onClick={() => navigate("/shop")}
+              onClick={() => navigate("/products/clearance")}
             >
-              Shop Now
+              Shop Clearance Sale
               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
             </Button>
           </div>
@@ -2668,9 +2670,9 @@ const Index = () => {
               variant="outline"
               size="lg"
               className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
-              onClick={() => navigate("/shop")}
+              onClick={() => navigate("/products/clearance")}
             >
-              View All Products
+              View All Deals
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </div>
