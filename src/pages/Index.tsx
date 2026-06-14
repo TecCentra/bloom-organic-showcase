@@ -1,3 +1,454 @@
+// // // // import { Button } from "@/components/ui/button";
+// // // // import { Input } from "@/components/ui/input";
+// // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
+// // // // import Header from "@/components/Header";
+// // // // import Footer from "@/components/Footer";
+// // // // import ProductCard from "@/components/ProductCard";
+// // // // import CategoryCard from "@/components/CategoryCard";
+// // // // import heroImage from "@/assets/hero-organic.jpg";
+// // // // import productHoney from "@/assets/org.jpg";
+// // // // import productTea from "@/assets/product-tea.jpg";
+// // // // import productGranola from "@/assets/organic.jpg";
+// // // // import productOil from "@/assets/product-oil.jpg";
+// // // // import categoryHerbs from "@/assets/category-herbs.jpg";
+// // // // import categoryWeightLoss from "@/assets/organic.jpg";
+// // // // import categoryCleansers from "@/assets/category-cleansers.jpg";
+// // // // import categoryGutHealth from "@/assets/org.jpg";
+
+// // // // const Index = () => {
+// // // //   const products = [
+// // // //     {
+// // // //       id: "raw-organic-honey",
+// // // //       name: "Raw Organic Honey",
+// // // //       price: "Ksh 3500",
+// // // //       image: productHoney,
+// // // //       category: "Sweeteners",
+// // // //     },
+// // // //     {
+// // // //       id: "premium-green-tea",
+// // // //       name: "Premium Green Tea",
+// // // //       price: "Ksh18.99",
+// // // //       image: productTea,
+// // // //       category: "Beverages",
+// // // //     },
+// // // //     {
+// // // //       id: "artisan-granola-mix",
+// // // //       name: "Artisan Granola Mix",
+// // // //       price: "Ksh 2700",
+// // // //       image: productGranola,
+// // // //       category: "Breakfast",
+// // // //     },
+// // // //     {
+// // // //       id: "cold-pressed-olive-oil",
+// // // //       name: "Cold-Pressed Olive Oil",
+// // // //       price: "Ksh28.99",
+// // // //       image: productOil,
+// // // //       category: "Oils",
+// // // //     },
+// // // //     {
+// // // //       id: "raw-organic-honey",
+// // // //       name: "Raw Organic Honey",
+// // // //       price: "Ksh24.99",
+// // // //       image: productHoney,
+// // // //       category: "Sweeteners",
+// // // //     },
+// // // //     {
+// // // //       id: "premium-green-tea",
+// // // //       name: "Premium Green Tea",
+// // // //       price: "Ksh18.99",
+// // // //       image: productTea,
+// // // //       category: "Beverages",
+// // // //     },
+// // // //     {
+// // // //       id: "artisan-granola-mix",
+// // // //       name: "Artisan Granola Mix",
+// // // //       price: "Ksh15.99",
+// // // //       image: productGranola,
+// // // //       category: "Breakfast",
+// // // //     },
+// // // //     {
+// // // //       id: "cold-pressed-olive-oil",
+// // // //       name: "Cold-Pressed Olive Oil",
+// // // //       price: "Ksh28.99",
+// // // //       image: productOil,
+// // // //       category: "Oils",
+// // // //     },
+// // // //   ];
+
+// // // //   const categories = [
+// // // //     {
+// // // //       title: "Weight Management Products",
+// // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
+// // // //       image: categoryHerbs,
+// // // //     },
+// // // //     // {
+// // // //     //   title: "Weight Loss",
+// // // //     //   description: "Support your health goals with our carefully selected organic products designed to naturally complement your balanced lifestyle.",
+// // // //     //   image: categoryWeightLoss,
+// // // //     // },
+// // // //     {
+// // // //       title: "Yoni & Female Fertility Care",
+// // // //       description: "Steam herbs, washes, tightening pearls & more.",
+// // // //       image: categoryCleansers,
+// // // //     },
+// // // //     {
+// // // //       title: "Men's Boosters & Fertility Support",
+// // // //       description: "Stamina, libido, and reproductive health.",
+// // // //       image: categoryGutHealth,
+// // // //     },
+// // // //     {
+// // // //       title: "Natural Skin Care",
+// // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
+// // // //       image: categoryGutHealth,
+// // // //     },
+// // // //     {
+// // // //       title: "Nutritional Supplements",
+// // // //       description: "Essential micro & macro nutrients.",
+// // // //       image: categoryGutHealth,
+// // // //     },
+// // // //   ];
+
+// // // //   const testimonials = [
+// // // //     {
+// // // //       name: "Jennifer Martinez",
+// // // //       role: "Wellness Enthusiast",
+// // // //       content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+// // // //       rating: 5,
+// // // //     },
+// // // //     {
+// // // //       name: "Robert Kim",
+// // // //       role: "Nutrition Coach",
+// // // //       content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
+// // // //       rating: 5,
+// // // //     },
+// // // //     {
+// // // //       name: "Amanda Foster",
+// // // //       role: "Busy Mom of Three",
+// // // //       content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+// // // //       rating: 5,
+// // // //     },
+// // // //   ];
+
+// // // //   const certifications = [
+// // // //     { name: "USDA Organic", description: "Certified organic standards" },
+// // // //     { name: "Non-GMO", description: "Verified non-GMO products" },
+// // // //     { name: "Gluten-Free", description: "Certified gluten-free options" },
+// // // //     { name: "Fair Trade", description: "Ethically sourced ingredients" },
+// // // //   ];
+
+// // // //   const benefits = [
+// // // //     {
+// // // //       icon: Leaf,
+// // // //       title: "100% Organic",
+// // // //       description: "Certified organic ingredients sourced from sustainable farms",
+// // // //     },
+// // // //     {
+// // // //       icon: Shield,
+// // // //       title: "Quality Assured",
+// // // //       description: "Rigorous testing ensures premium quality in every product",
+// // // //     },
+// // // //     {
+// // // //       icon: Heart,
+// // // //       title: "Health First",
+// // // //       description: "Nutritious products that support your wellness journey",
+// // // //     },
+// // // //     {
+// // // //       icon: Sparkles,
+// // // //       title: "Pure & Natural",
+// // // //       description: "No artificial additives, preservatives, or chemicals",
+// // // //     },
+// // // //   ];
+
+// // // //   // Utility to chunk an array into rows
+// // // //   const chunk = <T,>(arr: T[], size: number): T[][] => {
+// // // //     const rows: T[][] = [];
+// // // //     for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+// // // //     return rows;
+// // // //   };
+
+// // // //   return (
+// // // //     <div className="min-h-screen">
+// // // //       <Header />
+
+// // // //       {/* Hero Section */}
+// // // //       <section className="relative h-[800px] md:h-[920px] overflow-hidden">
+// // // //         <div className="absolute inset-0">
+// // // //           <img
+// // // //             src={heroImage}
+// // // //             alt="Organic products in natural setting"
+// // // //             className="w-full h-full object-cover"
+// // // //           />
+// // // //           {/* Soft overlay across hero */}
+// // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
+// // // //           {/* Directional light overlay similar to provided design */}
+// // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
+// // // //           {/* Subtle vignette to focus center */}
+// // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
+// // // //           {/* Bottom shadowy fade (retain intensity) */}
+// // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
+// // // //           {/* Hairline cover to remove any visible bottom frame */}
+// // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
+// // // //         </div>
+        
+// // // //         <div className="relative container mx-auto px-4 h-full flex items-center">
+// // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
+// // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+// // // //               Nurture Life, Naturally
+// // // //             </h1>
+// // // //             <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
+// // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+// // // //             </p>
+// // // //             <Button 
+// // // //               size="lg" 
+// // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
+// // // //             >
+// // // //               Shop Now
+// // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // //             </Button>
+// // // //           </div>
+// // // //         </div>
+// // // //       </section>
+
+// // // //       {/* Featured Products Section */}
+// // // //       <section className="container mx-auto px-4 py-20">
+// // // //         <div className="text-center mb-12 animate-fade-in">
+// // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // //             Featured Products
+// // // //           </h2>
+// // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // //             Handpicked selections from our organic collection, crafted with care for your wellbeing
+// // // //           </p>
+// // // //         </div>
+
+// // // //         {/* Mobile: 2 per row with left-aligned header/description per row */}
+// // // //         <div className="md:hidden space-y-8">
+// // // //           {chunk(products, 2).map((row, rIdx) => (
+// // // //             <div key={`m-${rIdx}`} className="space-y-3">
+// // // //               <div className="text-left">
+// // // //                 <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
+// // // //                 <p className="text-sm text-muted-foreground">Curated picks crafted for wholesome living.</p>
+// // // //               </div>
+// // // //               <div className="grid grid-cols-2 gap-6">
+// // // //                 {row.map((p, i) => (
+// // // //                   <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
+// // // //                     <ProductCard {...p} />
+// // // //                   </div>
+// // // //                 ))}
+// // // //               </div>
+// // // //             </div>
+// // // //           ))}
+// // // //         </div>
+
+// // // //         {/* Tablet: 3 per row */}
+// // // //         <div className="hidden md:block lg:hidden space-y-10">
+// // // //           {chunk(products, 3).map((row, rIdx) => (
+// // // //             <div key={`t-${rIdx}`} className="space-y-4">
+// // // //               <div className="text-left">
+// // // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
+// // // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
+// // // //               </div>
+// // // //               <div className="grid grid-cols-3 gap-8">
+// // // //                 {row.map((p, i) => (
+// // // //                   <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
+// // // //                     <ProductCard {...p} />
+// // // //                   </div>
+// // // //                 ))}
+// // // //               </div>
+// // // //             </div>
+// // // //           ))}
+// // // //         </div>
+
+// // // //         {/* Desktop: 4 per row */}
+// // // //         <div className="hidden lg:block space-y-12">
+// // // //           {chunk(products, 4).map((row, rIdx) => (
+// // // //             <div key={`d-${rIdx}`} className="space-y-5">
+// // // //               {/* <div className="text-left">
+// // // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
+// // // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
+// // // //               </div> */}
+// // // //               <div className="grid grid-cols-4 gap-9">
+// // // //                 {row.map((p, i) => (
+// // // //                   <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
+// // // //                     <ProductCard {...p} />
+// // // //                   </div>
+// // // //                 ))}
+// // // //               </div>
+// // // //             </div>
+// // // //           ))}
+// // // //         </div>
+// // // //       </section>
+
+// // // //       {/* Shop By Lifestyle Section */}
+// // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
+// // // //         <div className="text-center mb-12 animate-fade-in">
+// // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // //             Shop By Lifestyle
+// // // //           </h2>
+// // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // //             Find the perfect organic solutions tailored to your unique wellness needs
+// // // //           </p>
+// // // //         </div>
+
+// // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+// // // //           {categories.map((category, index) => (
+// // // //             <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+// // // //               <CategoryCard {...category} />
+// // // //             </div>
+// // // //           ))}
+// // // //         </div>
+// // // //       </section>
+
+// // // //       {/* Why Choose Organic Bloom Section */}
+// // // //       <section className="container mx-auto px-4 py-20">
+// // // //         <div className="text-center mb-16 animate-fade-in">
+// // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // //             Why Choose Organic Bloom
+// // // //           </h2>
+// // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // //             We're committed to bringing you the finest organic products with unwavering quality and care
+// // // //           </p>
+// // // //         </div>
+
+// // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+// // // //           {benefits.map((benefit, index) => (
+// // // //             <div
+// // // //               key={index}
+// // // //               className="text-center group animate-fade-in"
+// // // //               style={{ animationDelay: `${index * 100}ms` }}
+// // // //             >
+// // // //               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+// // // //                 <benefit.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+// // // //               </div>
+// // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
+// // // //                 {benefit.title}
+// // // //               </h3>
+// // // //               <p className="text-muted-foreground">
+// // // //                 {benefit.description}
+// // // //               </p>
+// // // //             </div>
+// // // //           ))}
+// // // //         </div>
+// // // //       </section>
+
+// // // //       {/* Testimonials Section */}
+// // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
+// // // //         <div className="container mx-auto px-4">
+// // // //           <div className="text-center mb-12 animate-fade-in">
+// // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // //               What Our Customers Say
+// // // //             </h2>
+// // // //             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // //               Real experiences from people who've embraced organic living with us
+// // // //             </p>
+// // // //           </div>
+
+// // // //           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+// // // //             {testimonials.map((testimonial, index) => (
+// // // //               <div
+// // // //                 key={index}
+// // // //                 className="bg-card border border-border rounded-xl p-8 hover-lift animate-fade-in"
+// // // //                 style={{ animationDelay: `${index * 100}ms` }}
+// // // //               >
+// // // //                 <Quote className="w-10 h-10 text-primary/30 mb-4" />
+// // // //                 <div className="flex gap-1 mb-4">
+// // // //                   {[...Array(testimonial.rating)].map((_, i) => (
+// // // //                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+// // // //                   ))}
+// // // //                 </div>
+// // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">
+// // // //                   "{testimonial.content}"
+// // // //                 </p>
+// // // //                 <div>
+// // // //                   <p className="font-heading font-semibold text-foreground">
+// // // //                     {testimonial.name}
+// // // //                   </p>
+// // // //                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // //                 </div>
+// // // //               </div>
+// // // //             ))}
+// // // //           </div>
+// // // //         </div>
+// // // //       </section>
+
+// // // //       {/* Certifications Section */}
+// // // //       <section className="container mx-auto px-4 py-20">
+// // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
+// // // //           <div className="text-center mb-12 animate-fade-in">
+// // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+// // // //               Certified Excellence
+// // // //             </h2>
+// // // //             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // //               Our commitment to quality is backed by industry-leading certifications
+// // // //             </p>
+// // // //           </div>
+
+// // // //           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+// // // //             {certifications.map((cert, index) => (
+// // // //               <div
+// // // //                 key={index}
+// // // //                 className="text-center group animate-fade-in"
+// // // //                 style={{ animationDelay: `${index * 100}ms` }}
+// // // //               >
+// // // //                 <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+// // // //                   <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
+// // // //                 </div>
+// // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">
+// // // //                   {cert.name}
+// // // //                 </h3>
+// // // //                 <p className="text-sm text-muted-foreground">{cert.description}</p>
+// // // //               </div>
+// // // //             ))}
+// // // //           </div>
+// // // //         </div>
+// // // //       </section>
+
+// // // //       {/* Newsletter Section */}
+// // // //       <section className="container mx-auto px-4 py-20">
+// // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
+// // // //           <div className="absolute inset-0 opacity-10">
+// // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
+// // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+// // // //           </div>
+          
+// // // //           <div className="relative z-10 max-w-2xl mx-auto">
+// // // //             <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
+// // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+// // // //               Join Our Organic Community
+// // // //             </h2>
+// // // //             <p className="text-lg text-white/90 mb-8">
+// // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
+// // // //             </p>
+            
+// // // //             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+// // // //               <Input
+// // // //                 type="email"
+// // // //                 placeholder="Enter your email"
+// // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
+// // // //                 required
+// // // //               />
+// // // //               <Button 
+// // // //                 type="submit" 
+// // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+// // // //               >
+// // // //                 Subscribe
+// // // //               </Button>
+// // // //             </form>
+            
+// // // //             <p className="text-sm text-white/70 mt-4">
+// // // //               We respect your privacy. Unsubscribe anytime.
+// // // //             </p>
+// // // //           </div>
+// // // //         </div>
+// // // //       </section>
+
+// // // //       <Footer />
+// // // //     </div>
+// // // //   );
+// // // // };
+
+// // // // export default Index;
+// // // import { useState, useEffect } from "react";
+// // // import { useNavigate } from "react-router-dom";
 // // // import { Button } from "@/components/ui/button";
 // // // import { Input } from "@/components/ui/input";
 // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
@@ -6,105 +457,222 @@
 // // // import ProductCard from "@/components/ProductCard";
 // // // import CategoryCard from "@/components/CategoryCard";
 // // // import heroImage from "@/assets/hero-organic.jpg";
-// // // import productHoney from "@/assets/org.jpg";
-// // // import productTea from "@/assets/product-tea.jpg";
-// // // import productGranola from "@/assets/organic.jpg";
-// // // import productOil from "@/assets/product-oil.jpg";
-// // // import categoryHerbs from "@/assets/category-herbs.jpg";
-// // // import categoryWeightLoss from "@/assets/organic.jpg";
-// // // import categoryCleansers from "@/assets/category-cleansers.jpg";
-// // // import categoryGutHealth from "@/assets/org.jpg";
+// // // import mens from "@/assets/mens.jpeg";
+// // // import natural from "@/assets/natural.jpeg";
+// // // import nutritional from "@/assets/nutritional.jpeg";
+// // // import weight from "@/assets/weight.jpeg";
+// // // import Yoni from "@/assets/yoni.jpeg";
+// // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
+
+// // // interface ProductImage {
+// // //   image_id: string;
+// // //   image_url: string;
+// // //   alt_text: string;
+// // //   is_primary: boolean;
+// // // }
+
+// // // interface Product {
+// // //   product_id: string;
+// // //   name: string;
+// // //   description: string;
+// // //   price: string;
+// // //   stock_quantity: number;
+// // //   sku: string;
+// // //   category_id: string;
+// // //   is_active: boolean;
+// // //   created_at: string;
+// // //   updated_at: string;
+// // //   images?: ProductImage[];
+// // // }
+
+// // // interface ApiResponse {
+// // //   success: boolean;
+// // //   statusCode: number;
+// // //   message: string;
+// // //   data: {
+// // //     products: Product[];
+// // //   };
+// // //   timestamp: string;
+// // // }
 
 // // // const Index = () => {
-// // //   const products = [
-// // //     {
-// // //       id: "raw-organic-honey",
-// // //       name: "Raw Organic Honey",
-// // //       price: "Ksh 3500",
-// // //       image: productHoney,
-// // //       category: "Sweeteners",
-// // //     },
-// // //     {
-// // //       id: "premium-green-tea",
-// // //       name: "Premium Green Tea",
-// // //       price: "Ksh18.99",
-// // //       image: productTea,
-// // //       category: "Beverages",
-// // //     },
-// // //     {
-// // //       id: "artisan-granola-mix",
-// // //       name: "Artisan Granola Mix",
-// // //       price: "Ksh 2700",
-// // //       image: productGranola,
-// // //       category: "Breakfast",
-// // //     },
-// // //     {
-// // //       id: "cold-pressed-olive-oil",
-// // //       name: "Cold-Pressed Olive Oil",
-// // //       price: "Ksh28.99",
-// // //       image: productOil,
-// // //       category: "Oils",
-// // //     },
-// // //     {
-// // //       id: "raw-organic-honey",
-// // //       name: "Raw Organic Honey",
-// // //       price: "Ksh24.99",
-// // //       image: productHoney,
-// // //       category: "Sweeteners",
-// // //     },
-// // //     {
-// // //       id: "premium-green-tea",
-// // //       name: "Premium Green Tea",
-// // //       price: "Ksh18.99",
-// // //       image: productTea,
-// // //       category: "Beverages",
-// // //     },
-// // //     {
-// // //       id: "artisan-granola-mix",
-// // //       name: "Artisan Granola Mix",
-// // //       price: "Ksh15.99",
-// // //       image: productGranola,
-// // //       category: "Breakfast",
-// // //     },
-// // //     {
-// // //       id: "cold-pressed-olive-oil",
-// // //       name: "Cold-Pressed Olive Oil",
-// // //       price: "Ksh28.99",
-// // //       image: productOil,
-// // //       category: "Oils",
-// // //     },
-// // //   ];
+// // //   const navigate = useNavigate();
+// // //   const [products, setProducts] = useState<Product[]>([]);
+// // //   const [loading, setLoading] = useState(true);
+  
+// // //   // Newsletter state
+// // //   const [newsletterEmail, setNewsletterEmail] = useState('');
+// // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
+// // //   const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+// // //   useEffect(() => {
+// // //     const fetchProducts = async () => {
+// // //       try {
+// // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
+// // //         if (!response.ok) {
+// // //           throw new Error('Failed to fetch products');
+// // //         }
+// // //         const data: ApiResponse = await response.json();
+// // //         if (data.success && data.data.products) {
+// // //           // API already returns page/limit; filter active and sort by created_at (newest first)
+// // //           const latestProducts = data.data.products
+// // //             .filter(product => product.is_active)
+// // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+// // //           setProducts(latestProducts);
+// // //         }
+// // //       } catch (err) {
+// // //         console.error('Error fetching products:', err);
+// // //       } finally {
+// // //         setLoading(false);
+// // //       }
+// // //     };
+
+// // //     fetchProducts();
+// // //   }, []);
+
+// // //   // Newsletter subscribe handler
+// // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+// // //     e.preventDefault();
+    
+// // //     if (!newsletterEmail || !newsletterEmail.includes('@')) {
+// // //       setNewsletterMessage({ 
+// // //         text: 'Please enter a valid email address', 
+// // //         type: 'error' 
+// // //       });
+// // //       return;
+// // //     }
+
+// // //     setNewsletterLoading(true);
+// // //     setNewsletterMessage(null);
+
+// // //     try {
+// // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
+// // //         method: 'POST',
+// // //         headers: {
+// // //           'Content-Type': 'application/json',
+// // //         },
+// // //         body: JSON.stringify({ email: newsletterEmail }),
+// // //       });
+
+// // //       const data = await response.json();
+
+// // //       if (response.ok) {
+// // //         setNewsletterMessage({ 
+// // //           text: 'Successfully subscribed to our newsletter!', 
+// // //           type: 'success' 
+// // //         });
+// // //         setNewsletterEmail('');
+// // //       } else {
+// // //         setNewsletterMessage({ 
+// // //           text: data.message || 'Failed to subscribe. Please try again.', 
+// // //           type: 'error' 
+// // //         });
+// // //       }
+// // //     } catch (error) {
+// // //       console.error('Newsletter subscription error:', error);
+// // //       setNewsletterMessage({ 
+// // //         text: 'Network error. Please check your connection and try again.', 
+// // //         type: 'error' 
+// // //       });
+// // //     } finally {
+// // //       setNewsletterLoading(false);
+// // //     }
+// // //   };
+
+// // //   // Newsletter unsubscribe handler
+// // //   const handleUnsubscribe = async () => {
+// // //     const email = prompt('Please enter your email address to unsubscribe:');
+    
+// // //     if (!email || !email.includes('@')) {
+// // //       return;
+// // //     }
+
+// // //     try {
+// // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
+// // //         method: 'POST',
+// // //         headers: {
+// // //           'Content-Type': 'application/json',
+// // //         },
+// // //         body: JSON.stringify({ email }),
+// // //       });
+
+// // //       const data = await response.json();
+
+// // //       if (response.ok) {
+// // //         alert('Successfully unsubscribed from our newsletter.');
+// // //       } else {
+// // //         alert(data.message || 'Failed to unsubscribe. Please try again.');
+// // //       }
+// // //     } catch (error) {
+// // //       console.error('Newsletter unsubscribe error:', error);
+// // //       alert('Network error. Please check your connection and try again.');
+// // //     }
+// // //   };
+
+// // //   // Category mapping
+// // //   const categoryMap: Record<string, string> = {
+// // //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
+// // //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
+// // //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
+// // //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
+// // //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+// // //   };
+
+// // //   // Placeholder image generator
+// // //   const getPlaceholderImage = (name: string) => {
+// // //     const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
+// // //     return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
+// // //   };
+
+// // //   // Transform API products to match ProductCard props
+// // //   const transformedProducts = products.map(product => {
+// // //     // Use actual product image if available, otherwise fallback to placeholder
+// // //     let imageUrl = getPlaceholderImage(product.name);
+// // //     if (product.images && product.images.length > 0) {
+// // //       const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+// // //       imageUrl = primaryImage.image_url;
+// // //     }
+    
+// // //     return {
+// // //       id: product.product_id,
+// // //       name: product.name,
+// // //       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+// // //       image: imageUrl,
+// // //       category: categoryMap[product.category_id] || 'Uncategorized',
+// // //       stockQuantity: product.stock_quantity,
+// // //     };
+// // //   });
 
 // // //   const categories = [
 // // //     {
 // // //       title: "Weight Management Products",
 // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
-// // //       image: categoryHerbs,
+// // //       image: weight,
+// // //       to: "/products/weight-management",
 // // //     },
-// // //     // {
-// // //     //   title: "Weight Loss",
-// // //     //   description: "Support your health goals with our carefully selected organic products designed to naturally complement your balanced lifestyle.",
-// // //     //   image: categoryWeightLoss,
-// // //     // },
 // // //     {
 // // //       title: "Yoni & Female Fertility Care",
 // // //       description: "Steam herbs, washes, tightening pearls & more.",
-// // //       image: categoryCleansers,
+// // //       image: Yoni,
+// // //       to: "/products/female-care",
 // // //     },
 // // //     {
 // // //       title: "Men's Boosters & Fertility Support",
 // // //       description: "Stamina, libido, and reproductive health.",
-// // //       image: categoryGutHealth,
+// // //       image: mens,
+// // //       to: "/products/mens-health",
 // // //     },
 // // //     {
 // // //       title: "Natural Skin Care",
 // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
-// // //       image: categoryGutHealth,
+// // //       image: natural,
+// // //       to: "/products/skin-care",
 // // //     },
 // // //     {
 // // //       title: "Nutritional Supplements",
 // // //       description: "Essential micro & macro nutrients.",
-// // //       image: categoryGutHealth,
+// // //       image: nutritional,
+// // //       to: "/products/supplements",
 // // //     },
 // // //   ];
 
@@ -178,15 +746,10 @@
 // // //             alt="Organic products in natural setting"
 // // //             className="w-full h-full object-cover"
 // // //           />
-// // //           {/* Soft overlay across hero */}
 // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
-// // //           {/* Directional light overlay similar to provided design */}
 // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
-// // //           {/* Subtle vignette to focus center */}
 // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
-// // //           {/* Bottom shadowy fade (retain intensity) */}
 // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
-// // //           {/* Hairline cover to remove any visible bottom frame */}
 // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
 // // //         </div>
         
@@ -201,6 +764,7 @@
 // // //             <Button 
 // // //               size="lg" 
 // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
+// // //               onClick={() => navigate('/shop')}
 // // //             >
 // // //               Shop Now
 // // //               <ArrowRight className="ml-2 w-5 h-5" />
@@ -220,62 +784,64 @@
 // // //           </p>
 // // //         </div>
 
-// // //         {/* Mobile: 2 per row with left-aligned header/description per row */}
-// // //         <div className="md:hidden space-y-8">
-// // //           {chunk(products, 2).map((row, rIdx) => (
-// // //             <div key={`m-${rIdx}`} className="space-y-3">
-// // //               <div className="text-left">
-// // //                 <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
-// // //                 <p className="text-sm text-muted-foreground">Curated picks crafted for wholesome living.</p>
-// // //               </div>
-// // //               <div className="grid grid-cols-2 gap-6">
-// // //                 {row.map((p, i) => (
-// // //                   <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
-// // //                     <ProductCard {...p} />
+// // //         {loading ? (
+// // //           <div className="flex justify-center items-center h-64">
+// // //             <div className="text-lg">Loading products...</div>
+// // //           </div>
+// // //         ) : transformedProducts.length === 0 ? (
+// // //           <div className="flex justify-center items-center h-64">
+// // //             <div className="text-lg text-muted-foreground">No products available at the moment.</div>
+// // //           </div>
+// // //         ) : (
+// // //           <>
+// // //             {/* Mobile: 2 per row */}
+// // //             <div className="md:hidden space-y-8">
+// // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
+// // //                 <div key={`m-${rIdx}`} className="space-y-3">
+                  
+// // //                   <div className="grid grid-cols-2 gap-6">
+// // //                     {row.map((p, i) => (
+// // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // //                         <ProductCard {...p} />
+// // //                       </div>
+// // //                     ))}
 // // //                   </div>
-// // //                 ))}
-// // //               </div>
+// // //                 </div>
+// // //               ))}
 // // //             </div>
-// // //           ))}
-// // //         </div>
 
-// // //         {/* Tablet: 3 per row */}
-// // //         <div className="hidden md:block lg:hidden space-y-10">
-// // //           {chunk(products, 3).map((row, rIdx) => (
-// // //             <div key={`t-${rIdx}`} className="space-y-4">
-// // //               <div className="text-left">
-// // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
-// // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
-// // //               </div>
-// // //               <div className="grid grid-cols-3 gap-8">
-// // //                 {row.map((p, i) => (
-// // //                   <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
-// // //                     <ProductCard {...p} />
+// // //             {/* Tablet: 3 per row */}
+// // //             <div className="hidden md:block lg:hidden space-y-10">
+// // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
+// // //                 <div key={`t-${rIdx}`} className="space-y-4">
+                
+// // //                   <div className="grid grid-cols-3 gap-8">
+// // //                     {row.map((p, i) => (
+// // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // //                         <ProductCard {...p} />
+// // //                       </div>
+// // //                     ))}
 // // //                   </div>
-// // //                 ))}
-// // //               </div>
+// // //                 </div>
+// // //               ))}
 // // //             </div>
-// // //           ))}
-// // //         </div>
 
-// // //         {/* Desktop: 4 per row */}
-// // //         <div className="hidden lg:block space-y-12">
-// // //           {chunk(products, 4).map((row, rIdx) => (
-// // //             <div key={`d-${rIdx}`} className="space-y-5">
-// // //               {/* <div className="text-left">
-// // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
-// // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
-// // //               </div> */}
-// // //               <div className="grid grid-cols-4 gap-9">
-// // //                 {row.map((p, i) => (
-// // //                   <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
-// // //                     <ProductCard {...p} />
+// // //             {/* Desktop: 4 per row */}
+// // //             <div className="hidden lg:block space-y-12">
+// // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
+// // //                 <div key={`d-${rIdx}`} className="space-y-5">
+// // //                   <div className="grid grid-cols-4 gap-9">
+// // //                     {row.map((p, i) => (
+// // //                       <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // //                         <ProductCard {...p} />
+// // //                       </div>
+// // //                     ))}
 // // //                   </div>
-// // //                 ))}
-// // //               </div>
+// // //                 </div>
+// // //               ))}
 // // //             </div>
-// // //           ))}
-// // //         </div>
+// // //           </>
+// // //         )}
 // // //       </section>
 
 // // //       {/* Shop By Lifestyle Section */}
@@ -419,23 +985,49 @@
 // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
 // // //             </p>
             
-// // //             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+// // //             <form 
+// // //               onSubmit={handleNewsletterSubmit}
+// // //               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+// // //             >
 // // //               <Input
 // // //                 type="email"
 // // //                 placeholder="Enter your email"
+// // //                 value={newsletterEmail}
+// // //                 onChange={(e) => {
+// // //                   setNewsletterEmail(e.target.value);
+// // //                   setNewsletterMessage(null);
+// // //                 }}
 // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
 // // //                 required
+// // //                 disabled={newsletterLoading}
 // // //               />
 // // //               <Button 
 // // //                 type="submit" 
 // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+// // //                 disabled={newsletterLoading}
 // // //               >
-// // //                 Subscribe
+// // //                 {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
 // // //               </Button>
 // // //             </form>
             
+// // //             {newsletterMessage && (
+// // //               <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
+// // //                 newsletterMessage.type === 'success' 
+// // //                   ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
+// // //                   : 'bg-red-500/20 text-red-100 border border-red-400/30'
+// // //               }`}>
+// // //                 <p className="text-sm">{newsletterMessage.text}</p>
+// // //               </div>
+// // //             )}
+            
 // // //             <p className="text-sm text-white/70 mt-4">
-// // //               We respect your privacy. Unsubscribe anytime.
+// // //               We respect your privacy. <button 
+// // //                 type="button"
+// // //                 onClick={handleUnsubscribe}
+// // //                 className="underline hover:text-white transition-colors"
+// // //               >
+// // //                 Unsubscribe anytime
+// // //               </button>
 // // //             </p>
 // // //           </div>
 // // //         </div>
@@ -456,7 +1048,7 @@
 // // import Footer from "@/components/Footer";
 // // import ProductCard from "@/components/ProductCard";
 // // import CategoryCard from "@/components/CategoryCard";
-// // import heroImage from "@/assets/hero-organic.jpg";
+// // import heroImage from "@/assets/hero.jpeg";
 // // import mens from "@/assets/mens.jpeg";
 // // import natural from "@/assets/natural.jpeg";
 // // import nutritional from "@/assets/nutritional.jpeg";
@@ -508,16 +1100,18 @@
 // //   useEffect(() => {
 // //     const fetchProducts = async () => {
 // //       try {
-// //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
+// //         // Fetch more products (limit=100) to ensure we get the latest ones
+// //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
 // //         if (!response.ok) {
 // //           throw new Error('Failed to fetch products');
 // //         }
 // //         const data: ApiResponse = await response.json();
 // //         if (data.success && data.data.products) {
-// //           // API already returns page/limit; filter active and sort by created_at (newest first)
+// //           // Filter active products, sort by created_at (newest first), then take only 8
 // //           const latestProducts = data.data.products
 // //             .filter(product => product.is_active)
-// //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+// //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+// //             .slice(0, 8); // Take only the 8 most recent products
 // //           setProducts(latestProducts);
 // //         }
 // //       } catch (err) {
@@ -753,7 +1347,7 @@
 // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
 // //         </div>
         
-// //         <div className="relative container mx-auto px-4 h-full flex items-center">
+// //         {/* <div className="relative container mx-auto px-4 h-full flex items-center">
 // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
 // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // //               Nurture Life, Naturally
@@ -762,7 +1356,7 @@
 // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
 // //             </p>
 // //             <Button 
-// //               size="lg" 
+// //               size="lg"
 // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
 // //               onClick={() => navigate('/shop')}
 // //             >
@@ -770,7 +1364,7 @@
 // //               <ArrowRight className="ml-2 w-5 h-5" />
 // //             </Button>
 // //           </div>
-// //         </div>
+// //         </div> */}
 // //       </section>
 
 // //       {/* Featured Products Section */}
@@ -798,7 +1392,6 @@
 // //             <div className="md:hidden space-y-8">
 // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
 // //                 <div key={`m-${rIdx}`} className="space-y-3">
-                  
 // //                   <div className="grid grid-cols-2 gap-6">
 // //                     {row.map((p, i) => (
 // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
@@ -814,7 +1407,6 @@
 // //             <div className="hidden md:block lg:hidden space-y-10">
 // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
 // //                 <div key={`t-${rIdx}`} className="space-y-4">
-                
 // //                   <div className="grid grid-cols-3 gap-8">
 // //                     {row.map((p, i) => (
 // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
@@ -1002,7 +1594,7 @@
 // //                 disabled={newsletterLoading}
 // //               />
 // //               <Button 
-// //                 type="submit" 
+// //                 type="submit"
 // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
 // //                 disabled={newsletterLoading}
 // //               >
@@ -1046,14 +1638,17 @@
 // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 // import Header from "@/components/Header";
 // import Footer from "@/components/Footer";
+// import Link from "next/link";
 // import ProductCard from "@/components/ProductCard";
 // import CategoryCard from "@/components/CategoryCard";
-// import heroImage from "@/assets/hero.jpeg";
+// import heroImage from "@/assets/h.jpg";
 // import mens from "@/assets/mens.jpeg";
 // import natural from "@/assets/natural.jpeg";
 // import nutritional from "@/assets/nutritional.jpeg";
+// import organicherbs from "@/assets/organic herbs.jpeg";
 // import weight from "@/assets/weight.jpeg";
 // import Yoni from "@/assets/yoni.jpeg";
+// import Honey from "@/assets/Honey.jpeg";
 // import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 // interface ProductImage {
@@ -1204,12 +1799,14 @@
 //   };
 
 //   // Category mapping
-//   const categoryMap: Record<string, string> = {
+//   const categoryMap: Record<string, string> = { 
 //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
 //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
 //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
 //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
 //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+//     'c424a6ed-d2bf-496c-bac9-e1b7ec189233': 'Organic Herbs',
+//     '360c510f-8b36-43c0-89bf-81c96a0ea885': 'Pure Honey & Honey Products',
 //   };
 
 //   // Placeholder image generator
@@ -1268,25 +1865,43 @@
 //       image: nutritional,
 //       to: "/products/supplements",
 //     },
+//     {
+//       title: "Organic Herbs",
+//       description: "Pure, sustainably sourced herbs for wellness and rituals.",
+//       image: organicherbs,
+//       to: "/products/organic-herbs",
+//     },
+//     {
+//       title: "Pure Honey & Honey Products",
+//       description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
+//       image: Honey,
+//       to: "/products/pure-honey",
+//     },
 //   ];
 
 //   const testimonials = [
 //     {
-//       name: "Jennifer Martinez",
-//       role: "Wellness Enthusiast",
-//       content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+//       name: "Shirleen Kimani",
+//       role: "",
+//       content: "I’m really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I’ll definitely keep using it.",
 //       rating: 5,
 //     },
 //     {
-//       name: "Robert Kim",
-//       role: "Nutrition Coach",
-//       content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
-//       rating: 5,
+//       name: "Kathurima Simon",
+//       role: "",
+//       content: "Order received well and on time. I’m very impressed with the professionalism and customer care. Thank you so much!",
+//       rating: 4,
 //     },
 //     {
-//       name: "Amanda Foster",
+//       name: "Kilavu Juliet",
 //       role: "Busy Mom of Three",
-//       content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+//       content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.",
+//       rating: 5,
+//     },
+//     {
+//       name: "Joseph Kigo",
+//       role: "Busy Mom of Three",
+//       content: "Thank you so much — I’ve received my order safely. It’s not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.",
 //       rating: 5,
 //     },
 //   ];
@@ -1333,26 +1948,28 @@
 //       <Header />
 
 //       {/* Hero Section */}
-//       <section className="relative h-[800px] md:h-[920px] overflow-hidden">
+//       {/* <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
 //         <div className="absolute inset-0">
-//           <img
-//             src={heroImage}
-//             alt="Organic products in natural setting"
-//             className="w-full h-full object-cover"
-//           />
-//           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
-//           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
-//           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
-//           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
-//           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
-//         </div>
+//   <a 
+//     href="https://organicbloom.co.ke/shop"
+//     className="block w-full h-full"
+//   >
+//     <img
+//       src={heroImage}
+//       alt="Organic products in natural setting"
+//       className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+//     />
+//   </a>
+  
+// </div>
+
         
-//         {/* <div className="relative container mx-auto px-4 h-full flex items-center">
+//         <div className="relative container mx-auto px-4 h-full flex items-center">
 //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
 //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 //               Nurture Life, Naturally
 //             </h1>
-//             <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
+//             <p className="text-lg md:text-xl mb-8 text-white font-bold">
 //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
 //             </p>
 //             <Button 
@@ -1364,8 +1981,44 @@
 //               <ArrowRight className="ml-2 w-5 h-5" />
 //             </Button>
 //           </div>
-//         </div> */}
-//       </section>
+//         </div>
+//       </section> */}
+//       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+//   <div className="absolute inset-0">
+//     <a 
+//       href="https://organicbloom.co.ke/shop"
+//       className="block w-full h-full"
+//     >
+//       <img
+//         src={heroImage}
+//         alt="Organic products in natural setting"
+//         className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+//       />
+//     </a>
+//   </div>
+
+//   {/* Dark overlay for better text visibility */}
+//   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+  
+//   <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+//     <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
+//       <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+//         Nurture Life, Naturally
+//       </h1>
+//       <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
+//         Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+//       </p>
+//       <Button 
+//         size="lg"
+//         className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+//         onClick={() => navigate('/shop')}
+//       >
+//         Shop Now
+//         <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
+//       </Button>
+//     </div>
+//   </div>
+// </section>
 
 //       {/* Featured Products Section */}
 //       <section className="container mx-auto px-4 py-20">
@@ -1638,7 +2291,6 @@ import { Input } from "@/components/ui/input";
 import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
 import heroImage from "@/assets/h.jpg";
@@ -1655,18 +2307,21 @@ interface ProductImage {
   image_id: string;
   image_url: string;
   alt_text: string;
-  is_primary: boolean;
+  is_primary: number | boolean;
+  created_at: string;
+  updated_at: string;
+  storage_path: string;
 }
 
 interface Product {
   product_id: string;
   name: string;
   description: string;
-  price: string;
+  price: number | string;
   stock_quantity: number;
   sku: string;
   category_id: string;
-  is_active: boolean;
+  is_active: number | boolean;
   created_at: string;
   updated_at: string;
   images?: ProductImage[];
@@ -1682,228 +2337,191 @@ interface ApiResponse {
   timestamp: string;
 }
 
+const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+const categoryMap: Record<string, string> = {
+  "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
+  "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
+  "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
+  "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
+  "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
+  "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
+  "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
+  [CLEARANCE_CATEGORY_ID]: "Clearance Sale",
+};
+
+const chunk = <T,>(arr: T[], size: number): T[][] => {
+  const rows: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+  return rows;
+};
+
+const getPlaceholderImage = (name: string) => {
+  const encodedName = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
+  return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
+};
+
+// ── Shimmer card ──────────────────────────────────────────────────────────────
+const ShimmerCard = () => (
+  <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
+    <div className="w-full aspect-square bg-muted" />
+    <div className="p-4 space-y-3">
+      <div className="h-4 bg-muted rounded w-3/4" />
+      <div className="h-3 bg-muted rounded w-1/2" />
+      <div className="h-5 bg-muted rounded w-1/3 mt-2" />
+      <div className="h-9 bg-muted rounded w-full mt-2" />
+    </div>
+  </div>
+);
+
+const ShimmerGrid = ({ count }: { count: number }) => (
+  <>
+    {/* Mobile */}
+    <div className="md:hidden grid grid-cols-2 gap-4">
+      {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+    </div>
+    {/* Tablet */}
+    <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
+      {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+    </div>
+    {/* Desktop */}
+    <div className="hidden lg:grid grid-cols-4 gap-8">
+      {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+    </div>
+  </>
+);
+// ─────────────────────────────────────────────────────────────────────────────
+
 const Index = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  
-  // Newsletter state
-  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterLoading, setNewsletterLoading] = useState(false);
-  const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+  const [newsletterMessage, setNewsletterMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Fetch more products (limit=100) to ensure we get the latest ones
-        const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
+        // Fetch all products, then filter client-side as backend category param may be unreliable
+        const response = await fetch(
+          "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+        );
+        if (!response.ok) throw new Error("Failed to fetch products");
         const data: ApiResponse = await response.json();
         if (data.success && data.data.products) {
-          // Filter active products, sort by created_at (newest first), then take only 8
-          const latestProducts = data.data.products
-            .filter(product => product.is_active)
-            .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-            .slice(0, 8); // Take only the 8 most recent products
-          setProducts(latestProducts);
+          const clearanceProducts = data.data.products
+            .filter(
+              (p) =>
+                p.is_active &&
+                p.category_id === CLEARANCE_CATEGORY_ID
+            )
+            .sort(
+              (a, b) =>
+                new Date(b.created_at).getTime() -
+                new Date(a.created_at).getTime()
+            )
+            .slice(0, 8);
+          setProducts(clearanceProducts);
         }
       } catch (err) {
-        console.error('Error fetching products:', err);
+        console.error("Error fetching products:", err);
       } finally {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
 
-  // Newsletter subscribe handler
   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    if (!newsletterEmail || !newsletterEmail.includes('@')) {
-      setNewsletterMessage({ 
-        text: 'Please enter a valid email address', 
-        type: 'error' 
-      });
+    if (!newsletterEmail || !newsletterEmail.includes("@")) {
+      setNewsletterMessage({ text: "Please enter a valid email address", type: "error" });
       return;
     }
-
     setNewsletterLoading(true);
     setNewsletterMessage(null);
-
     try {
-      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email: newsletterEmail }),
-      });
-
+      const response = await fetch(
+        buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE),
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: newsletterEmail }),
+        }
+      );
       const data = await response.json();
-
       if (response.ok) {
-        setNewsletterMessage({ 
-          text: 'Successfully subscribed to our newsletter!', 
-          type: 'success' 
-        });
-        setNewsletterEmail('');
+        setNewsletterMessage({ text: "Successfully subscribed to our newsletter!", type: "success" });
+        setNewsletterEmail("");
       } else {
-        setNewsletterMessage({ 
-          text: data.message || 'Failed to subscribe. Please try again.', 
-          type: 'error' 
-        });
+        setNewsletterMessage({ text: data.message || "Failed to subscribe. Please try again.", type: "error" });
       }
-    } catch (error) {
-      console.error('Newsletter subscription error:', error);
-      setNewsletterMessage({ 
-        text: 'Network error. Please check your connection and try again.', 
-        type: 'error' 
-      });
+    } catch {
+      setNewsletterMessage({ text: "Network error. Please check your connection and try again.", type: "error" });
     } finally {
       setNewsletterLoading(false);
     }
   };
 
-  // Newsletter unsubscribe handler
   const handleUnsubscribe = async () => {
-    const email = prompt('Please enter your email address to unsubscribe:');
-    
-    if (!email || !email.includes('@')) {
-      return;
-    }
-
+    const email = prompt("Please enter your email address to unsubscribe:");
+    if (!email || !email.includes("@")) return;
     try {
-      const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
+      const response = await fetch(
+        buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE),
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
       const data = await response.json();
-
-      if (response.ok) {
-        alert('Successfully unsubscribed from our newsletter.');
-      } else {
-        alert(data.message || 'Failed to unsubscribe. Please try again.');
-      }
-    } catch (error) {
-      console.error('Newsletter unsubscribe error:', error);
-      alert('Network error. Please check your connection and try again.');
+      alert(
+        response.ok
+          ? "Successfully unsubscribed from our newsletter."
+          : data.message || "Failed to unsubscribe. Please try again."
+      );
+    } catch {
+      alert("Network error. Please check your connection and try again.");
     }
   };
 
-  // Category mapping
-  const categoryMap: Record<string, string> = { 
-    'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
-    '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
-    '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
-    'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
-    'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
-    'c424a6ed-d2bf-496c-bac9-e1b7ec189233': 'Organic Herbs',
-    '360c510f-8b36-43c0-89bf-81c96a0ea885': 'Pure Honey & Honey Products',
-  };
-
-  // Placeholder image generator
-  const getPlaceholderImage = (name: string) => {
-    const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
-    return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
-  };
-
-  // Transform API products to match ProductCard props
-  const transformedProducts = products.map(product => {
-    // Use actual product image if available, otherwise fallback to placeholder
+  const transformedProducts = products.map((product) => {
     let imageUrl = getPlaceholderImage(product.name);
     if (product.images && product.images.length > 0) {
-      const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+      const primaryImage =
+        product.images.find((img) => img.is_primary) || product.images[0];
       imageUrl = primaryImage.image_url;
     }
-    
     return {
       id: product.product_id,
       name: product.name,
-      price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+      price: `Ksh ${parseFloat(String(product.price)).toFixed(2)}`,
       image: imageUrl,
-      category: categoryMap[product.category_id] || 'Uncategorized',
+      category: categoryMap[product.category_id] || "Uncategorized",
       stockQuantity: product.stock_quantity,
     };
   });
 
   const categories = [
-    {
-      title: "Weight Management Products",
-      description: "Flat tummy, upper body fat, full weight loss packages.",
-      image: weight,
-      to: "/products/weight-management",
-    },
-    {
-      title: "Yoni & Female Fertility Care",
-      description: "Steam herbs, washes, tightening pearls & more.",
-      image: Yoni,
-      to: "/products/female-care",
-    },
-    {
-      title: "Men's Boosters & Fertility Support",
-      description: "Stamina, libido, and reproductive health.",
-      image: mens,
-      to: "/products/mens-health",
-    },
-    {
-      title: "Natural Skin Care",
-      description: "Healing soaps, oils, scrubs, and glow enhancers.",
-      image: natural,
-      to: "/products/skin-care",
-    },
-    {
-      title: "Nutritional Supplements",
-      description: "Essential micro & macro nutrients.",
-      image: nutritional,
-      to: "/products/supplements",
-    },
-    {
-      title: "Organic Herbs",
-      description: "Pure, sustainably sourced herbs for wellness and rituals.",
-      image: organicherbs,
-      to: "/products/organic-herbs",
-    },
-    {
-      title: "Pure Honey & Honey Products",
-      description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
-      image: Honey,
-      to: "/products/pure-honey",
-    },
+    { title: "Weight Management Products", description: "Flat tummy, upper body fat, full weight loss packages.", image: weight, to: "/products/weight-management" },
+    { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
+    { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
+    { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
+    { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+    { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
+    { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
   ];
 
   const testimonials = [
-    {
-      name: "Shirleen Kimani",
-      role: "",
-      content: "I’m really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I’ll definitely keep using it.",
-      rating: 5,
-    },
-    {
-      name: "Kathurima Simon",
-      role: "",
-      content: "Order received well and on time. I’m very impressed with the professionalism and customer care. Thank you so much!",
-      rating: 4,
-    },
-    {
-      name: "Kilavu Juliet",
-      role: "Busy Mom of Three",
-      content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.",
-      rating: 5,
-    },
-    {
-      name: "Joseph Kigo",
-      role: "Busy Mom of Three",
-      content: "Thank you so much — I’ve received my order safely. It’s not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.",
-      rating: 5,
-    },
+    { name: "Shirleen Kimani", role: "", content: "I'm really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I'll definitely keep using it.", rating: 5 },
+    { name: "Kathurima Simon", role: "", content: "Order received well and on time. I'm very impressed with the professionalism and customer care. Thank you so much!", rating: 4 },
+    { name: "Kilavu Juliet", role: "Busy Mom of Three", content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.", rating: 5 },
+    { name: "Joseph Kigo", role: "", content: "Thank you so much — I've received my order safely. It's not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.", rating: 5 },
   ];
 
   const certifications = [
@@ -1914,182 +2532,152 @@ const Index = () => {
   ];
 
   const benefits = [
-    {
-      icon: Leaf,
-      title: "100% Organic",
-      description: "Certified organic ingredients sourced from sustainable farms",
-    },
-    {
-      icon: Shield,
-      title: "Quality Assured",
-      description: "Rigorous testing ensures premium quality in every product",
-    },
-    {
-      icon: Heart,
-      title: "Health First",
-      description: "Nutritious products that support your wellness journey",
-    },
-    {
-      icon: Sparkles,
-      title: "Pure & Natural",
-      description: "No artificial additives, preservatives, or chemicals",
-    },
+    { icon: Leaf, title: "100% Organic", description: "Certified organic ingredients sourced from sustainable farms" },
+    { icon: Shield, title: "Quality Assured", description: "Rigorous testing ensures premium quality in every product" },
+    { icon: Heart, title: "Health First", description: "Nutritious products that support your wellness journey" },
+    { icon: Sparkles, title: "Pure & Natural", description: "No artificial additives, preservatives, or chemicals" },
   ];
 
-  // Utility to chunk an array into rows
-  const chunk = <T,>(arr: T[], size: number): T[][] => {
-    const rows: T[][] = [];
-    for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
-    return rows;
-  };
+  const tickerItems = [
+    "🔥 Clearance Sale — Limited Stock!",
+    "💸 Huge Savings on Selected Products",
+    "⚡ Shop Before It's Gone",
+    "🌿 Organic Goodness at Unbeatable Prices",
+    "🛒 While Stocks Last",
+  ];
 
   return (
     <div className="min-h-screen">
+      {/* ── Clearance Sale Ticker ── */}
+      <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
+        <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
+          {[...Array(4)].map((_, repeat) =>
+            tickerItems.map((item, i) => (
+              <span key={`${repeat}-${i}`} className="mx-10 text-sm font-semibold tracking-widest uppercase">
+                {item}
+                <span className="mx-6 text-red-300">|</span>
+              </span>
+            ))
+          )}
+        </div>
+      </div>
       <Header />
+      
 
-      {/* Hero Section */}
-      {/* <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+      {/* ── Hero ── */}
+      <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
         <div className="absolute inset-0">
-  <a 
-    href="https://organicbloom.co.ke/shop"
-    className="block w-full h-full"
-  >
-    <img
-      src={heroImage}
-      alt="Organic products in natural setting"
-      className="w-full h-full object-cover transition-transform duration-300 hover-scale"
-    />
-  </a>
-  
-</div>
-
-        
-        <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
+          <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
+            <img
+              src={heroImage}
+              alt="Organic products in natural setting"
+              className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+            />
+          </a>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+          <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
               Nurture Life, Naturally
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-white font-bold">
-              Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+            <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
+              Discover premium organic products that bring the pure essence of nature
+              to your daily life. Handpicked, packaged with care, and delivered to your door.
             </p>
-            <Button 
+            <Button
               size="lg"
-              className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
-              onClick={() => navigate('/shop')}
+              className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+              onClick={() => navigate("/shop")}
             >
               Shop Now
-              <ArrowRight className="ml-2 w-5 h-5" />
+              <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
             </Button>
           </div>
         </div>
-      </section> */}
-      <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
-  <div className="absolute inset-0">
-    <a 
-      href="https://organicbloom.co.ke/shop"
-      className="block w-full h-full"
-    >
-      <img
-        src={heroImage}
-        alt="Organic products in natural setting"
-        className="w-full h-full object-cover transition-transform duration-300 hover-scale"
-      />
-    </a>
-  </div>
+      </section>
 
-  {/* Dark overlay for better text visibility */}
-  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-  
-  <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
-    <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
-      <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
-        Nurture Life, Naturally
-      </h1>
-      <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
-        Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
-      </p>
-      <Button 
-        size="lg"
-        className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-        onClick={() => navigate('/shop')}
-      >
-        Shop Now
-        <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
-      </Button>
-    </div>
-  </div>
-</section>
+      
 
-      {/* Featured Products Section */}
+      {/* ── Clearance Sale Products ── */}
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-12 animate-fade-in">
+          <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
+            🔥 Limited Time Only
+          </div>
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-            Featured Products
+            Clearance Sale
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Handpicked selections from our organic collection, crafted with care for your wellbeing
+            Grab these deals before they're gone — massive savings on selected
+            organic products while stocks last
           </p>
         </div>
 
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="text-lg">Loading products...</div>
-          </div>
+          <ShimmerGrid count={8} />
         ) : transformedProducts.length === 0 ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="text-lg text-muted-foreground">No products available at the moment.</div>
+          <div className="flex flex-col justify-center items-center h-64 gap-3">
+            <p className="text-lg text-muted-foreground">No clearance products available at the moment.</p>
+            <Button variant="outline" onClick={() => navigate("/shop")}>Browse All Products</Button>
           </div>
         ) : (
           <>
             {/* Mobile: 2 per row */}
-            <div className="md:hidden space-y-8">
+            <div className="md:hidden space-y-4">
               {chunk(transformedProducts, 2).map((row, rIdx) => (
-                <div key={`m-${rIdx}`} className="space-y-3">
-                  <div className="grid grid-cols-2 gap-6">
-                    {row.map((p, i) => (
-                      <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
-                        <ProductCard {...p} />
-                      </div>
-                    ))}
-                  </div>
+                <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
+                  {row.map((p, i) => (
+                    <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
+                      <ProductCard {...p} />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-
             {/* Tablet: 3 per row */}
-            <div className="hidden md:block lg:hidden space-y-10">
+            <div className="hidden md:block lg:hidden space-y-6">
               {chunk(transformedProducts, 3).map((row, rIdx) => (
-                <div key={`t-${rIdx}`} className="space-y-4">
-                  <div className="grid grid-cols-3 gap-8">
-                    {row.map((p, i) => (
-                      <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
-                        <ProductCard {...p} />
-                      </div>
-                    ))}
-                  </div>
+                <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
+                  {row.map((p, i) => (
+                    <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
+                      <ProductCard {...p} />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-
             {/* Desktop: 4 per row */}
-            <div className="hidden lg:block space-y-12">
+            <div className="hidden lg:block space-y-8">
               {chunk(transformedProducts, 4).map((row, rIdx) => (
-                <div key={`d-${rIdx}`} className="space-y-5">
-                  <div className="grid grid-cols-4 gap-9">
-                    {row.map((p, i) => (
-                      <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
-                        <ProductCard {...p} />
-                      </div>
-                    ))}
-                  </div>
+                <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
+                  {row.map((p, i) => (
+                    <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
+                      <ProductCard {...p} />
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
           </>
         )}
+
+        {!loading && transformedProducts.length > 0 && (
+          <div className="text-center mt-12">
+            <Button
+              variant="outline"
+              size="lg"
+              className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
+              onClick={() => navigate("/shop")}
+            >
+              View All Products
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          </div>
+        )}
       </section>
 
-      {/* Shop By Lifestyle Section */}
+      {/* ── Shop By Lifestyle ── */}
       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
         <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -2099,7 +2687,6 @@ const Index = () => {
             Find the perfect organic solutions tailored to your unique wellness needs
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category, index) => (
             <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
@@ -2109,7 +2696,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose Organic Bloom Section */}
+      {/* ── Why Choose Organic Bloom ── */}
       <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -2119,29 +2706,20 @@ const Index = () => {
             We're committed to bringing you the finest organic products with unwavering quality and care
           </p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
-            <div
-              key={index}
-              className="text-center group animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
+            <div key={index} className="text-center group animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
                 <benefit.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
               </div>
-              <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
-                {benefit.title}
-              </h3>
-              <p className="text-muted-foreground">
-                {benefit.description}
-              </p>
+              <h3 className="text-xl font-heading font-semibold text-foreground mb-3">{benefit.title}</h3>
+              <p className="text-muted-foreground">{benefit.description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {/* ── Testimonials ── */}
       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 animate-fade-in">
@@ -2152,7 +2730,6 @@ const Index = () => {
               Real experiences from people who've embraced organic living with us
             </p>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
               <div
@@ -2166,14 +2743,12 @@ const Index = () => {
                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
                   ))}
                 </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  "{testimonial.content}"
-                </p>
+                <p className="text-muted-foreground mb-6 leading-relaxed">"{testimonial.content}"</p>
                 <div>
-                  <p className="font-heading font-semibold text-foreground">
-                    {testimonial.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  <p className="font-heading font-semibold text-foreground">{testimonial.name}</p>
+                  {testimonial.role && (
+                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                  )}
                 </div>
               </div>
             ))}
@@ -2181,7 +2756,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Certifications Section */}
+      {/* ── Certifications ── */}
       <section className="container mx-auto px-4 py-20">
         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
           <div className="text-center mb-12 animate-fade-in">
@@ -2192,20 +2767,13 @@ const Index = () => {
               Our commitment to quality is backed by industry-leading certifications
             </p>
           </div>
-
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {certifications.map((cert, index) => (
-              <div
-                key={index}
-                className="text-center group animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
+              <div key={index} className="text-center group animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
                 <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
                   <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
                 </div>
-                <h3 className="font-heading font-semibold text-foreground mb-1">
-                  {cert.name}
-                </h3>
+                <h3 className="font-heading font-semibold text-foreground mb-1">{cert.name}</h3>
                 <p className="text-sm text-muted-foreground">{cert.description}</p>
               </div>
             ))}
@@ -2213,14 +2781,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Newsletter Section */}
+      {/* ── Newsletter ── */}
       <section className="container mx-auto px-4 py-20">
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
-            <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+            <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl" />
+            <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl" />
           </div>
-          
           <div className="relative z-10 max-w-2xl mx-auto">
             <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
@@ -2229,8 +2796,7 @@ const Index = () => {
             <p className="text-lg text-white/90 mb-8">
               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
             </p>
-            
-            <form 
+            <form
               onSubmit={handleNewsletterSubmit}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
@@ -2238,39 +2804,31 @@ const Index = () => {
                 type="email"
                 placeholder="Enter your email"
                 value={newsletterEmail}
-                onChange={(e) => {
-                  setNewsletterEmail(e.target.value);
-                  setNewsletterMessage(null);
-                }}
+                onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterMessage(null); }}
                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
                 required
                 disabled={newsletterLoading}
               />
-              <Button 
+              <Button
                 type="submit"
                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
                 disabled={newsletterLoading}
               >
-                {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
+                {newsletterLoading ? "Subscribing..." : "Subscribe"}
               </Button>
             </form>
-            
             {newsletterMessage && (
               <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
-                newsletterMessage.type === 'success' 
-                  ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
-                  : 'bg-red-500/20 text-red-100 border border-red-400/30'
+                newsletterMessage.type === "success"
+                  ? "bg-green-500/20 text-green-100 border border-green-400/30"
+                  : "bg-red-500/20 text-red-100 border border-red-400/30"
               }`}>
                 <p className="text-sm">{newsletterMessage.text}</p>
               </div>
             )}
-            
             <p className="text-sm text-white/70 mt-4">
-              We respect your privacy. <button 
-                type="button"
-                onClick={handleUnsubscribe}
-                className="underline hover:text-white transition-colors"
-              >
+              We respect your privacy.{" "}
+              <button type="button" onClick={handleUnsubscribe} className="underline hover:text-white transition-colors">
                 Unsubscribe anytime
               </button>
             </p>
@@ -2279,6 +2837,13 @@ const Index = () => {
       </section>
 
       <Footer />
+
+      <style>{`
+        @keyframes marquee {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 };
