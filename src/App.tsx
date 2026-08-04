@@ -121,6 +121,8 @@ import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentFailedPage from "./pages/PaymentFailedPage";
 import { Analytics } from "@vercel/analytics/react";
 import { useEffect } from "react";
+import MacaBoostListPage from "./pages/Macapage";
+import Shilagit from "./pages/shilagit";
 
 // ---- TikTok page view hook ----
 function TikTokPageView() {
@@ -161,7 +163,7 @@ const App = () => (
                     <Route path="/products" element={<CategoriesPage />} />
                     <Route path="/products/:slug" element={<CategoryProducts />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/reset-password/:token" element={<ResetPassword />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/product/:id" element={<ProductDetail />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/checkout" element={<CheckoutPage />} />
@@ -169,6 +171,8 @@ const App = () => (
                     <Route path="/signup" element={<RegisterForm />} />
                     <Route path="/profile" element={<UserProfile />} />
                     <Route path="/payment-success" element={<PaymentSuccessPage />} />
+                    <Route path="/maca-boost" element={<MacaBoostListPage />} />
+                    <Route path="/shilagit" element={<Shilagit />} />
                     <Route path="/payment-failed" element={<PaymentFailedPage />} />
                     <Route path="/admin/*" element={
                       <AdminAuthProvider>

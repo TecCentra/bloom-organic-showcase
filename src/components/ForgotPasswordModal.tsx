@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,14 +15,25 @@ const ForgotPasswordModal = ({ trigger, open, onOpenChange }: ForgotPasswordModa
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useMaterialToast();
+  const isSubmittingRef = useRef(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    e.stopPropagation();
+    
+    // Prevent double submission
+    if (isSubmittingRef.current || loading) {
+      return;
+    }
+    
     if (!email) {
       toast({ description: "Please enter your email address.", variant: "destructive", duration: 3000 });
       return;
     }
+    
+    isSubmittingRef.current = true;
     setLoading(true);
+    
     try {
       const res = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.AUTH.FORGOT_PASSWORD}`, {
         method: 'POST',
@@ -41,6 +52,7 @@ const ForgotPasswordModal = ({ trigger, open, onOpenChange }: ForgotPasswordModa
       toast({ description: "Please try again.", variant: "destructive", duration: 3000 });
     } finally {
       setLoading(false);
+      isSubmittingRef.current = false;
     }
   };
 

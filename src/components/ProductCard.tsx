@@ -11,9 +11,10 @@ interface ProductCardProps {
   category: string;
   id: string;
   stockQuantity?: number;
+  hidePrice?: boolean;
 }
 
-const ProductCard = ({ name, price, image, category, id, stockQuantity = 1 }: ProductCardProps) => {
+const ProductCard = ({ name, price, image, category, id, stockQuantity = 1, hidePrice = false }: ProductCardProps) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
 
@@ -93,7 +94,7 @@ const ProductCard = ({ name, price, image, category, id, stockQuantity = 1 }: Pr
           {name}
         </h3>
         <div className="flex items-center justify-between mt-auto">
-          <p className="text-xl font-semibold text-primary">{price}</p>
+          {!hidePrice && <p className="text-xl font-semibold text-primary">{price}</p>}
           {isOutOfStock && (
             <span className="text-xs text-red-500 font-medium">Unavailable</span>
           )}
