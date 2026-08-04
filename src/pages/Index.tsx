@@ -5434,7 +5434,8 @@ const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
       <ProductCard
         id={product.id}
         name={product.name}
-        price=""
+        price={product.price}
+        hidePrice 
         image={product.image}
         category={product.category}
         stockQuantity={product.stockQuantity}
