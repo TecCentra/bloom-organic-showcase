@@ -2640,6 +2640,7 @@ const ProductDetail = () => {
                   : apiProduct?.category_id === "fa289cf9-629d-43fd-ad24-16dc5d5dc363" ? "weight-management"
                   : apiProduct?.category_id === "c424a6ed-d2bf-496c-bac9-e1b7ec189233" ? "organic-herbs"
                   : apiProduct?.category_id === "360c510f-8b36-43c0-89bf-81c96a0ea885" ? "pure-honey"
+                   : apiProduct?.category_id === "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5" ? "herbal-medicated-oils"
                   : ""
               }`)}>
                 View All

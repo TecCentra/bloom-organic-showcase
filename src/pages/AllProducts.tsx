@@ -247,6 +247,7 @@ const categoryMap: Record<string, string> = {
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+  "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Mediacated Oils",
 };
 
 const getPlaceholderImage = (name: string) => {
