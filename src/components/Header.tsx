@@ -477,7 +477,7 @@ const Header = () => {
       path: "/products/female-care",
     },
     {
-      name: "Herbal Mediacated Oils",
+      name: "Herbal Medicated Oils",
       description: "Natural support for pain relief, joint care, skin & overall wellness.",
       path: "/products/herbal-medicated-oils",
     },
