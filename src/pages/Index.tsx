@@ -5301,6 +5301,7 @@ import natural from "@/assets/natural.jpeg";
 import nutritional from "@/assets/nutritional.jpeg";
 import organicherbs from "@/assets/organic herbs.jpeg";
 import weight from "@/assets/weight.jpeg";
+import Herbaloil from "@/assets/herbal oil.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
 import Honey from "@/assets/Honey.jpeg";
 import Clearance from "@/assets/clearance.jpg";
@@ -5338,6 +5339,7 @@ const categoryMap: Record<string, string> = {
   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
+   "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
@@ -5573,6 +5575,7 @@ const Index = () => {
     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
+     { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },

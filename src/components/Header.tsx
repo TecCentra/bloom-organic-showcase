@@ -477,6 +477,11 @@ const Header = () => {
       path: "/products/female-care",
     },
     {
+      name: "Herbal Medicated Oils",
+      description: "Natural support for pain relief, joint care, skin & overall wellness.",
+      path: "/products/herbal-medicated-oils",
+    },
+    {
       name: "Men's Boosters & Fertility Support",
       description: "Stamina, libido, and reproductive health",
       path: "/products/mens-health",
