@@ -5292,9 +5292,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
-import heroImage from "@/assets/maccalarge.jpg";
+import heroImage from "@/assets/web.png"
 import heroImage1 from "@/assets/shilagit large.png";
-import heroImagemobile from "@/assets/macamobile.png";
+import heroImagemobile from "@/assets/mobile.png";
 import heroImage1mobile from "@/assets/shilagitmoble.png";
 import mens from "@/assets/mens.jpeg";
 import natural from "@/assets/natural.jpeg";
@@ -5350,17 +5350,17 @@ const heroSlides: HeroSlide[] = [
   {
     desktop: heroImage,
     mobile: heroImagemobile,
-    alt: "Organic Maca products",
-    label: "Shop Maca",
-    to: "/maca-boost",
+    alt: "Gummies",
+    label: "SHOP GUMMIES",
+    to: "/product/677cb54e-f09d-43e3-a77d-6a88cf7487e9",
   },
-  {
-    desktop: heroImage1,
-    mobile: heroImage1mobile,
-    alt: "Organic Shilajit products",
-    label: "Shop Shilajit",
-    to: "/shilagit",
-  },
+  // {
+  //   desktop: heroImage1,
+  //   mobile: heroImage1mobile,
+  //   alt: "Organic Shilajit products",
+  //   label: "Shop Shilajit",
+  //   to: "/shilagit",
+  // },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
