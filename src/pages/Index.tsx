@@ -5292,9 +5292,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
-import heroImage from "@/assets/maccalarge.jpg";
+import heroImage from "@/assets/web.png"
 import heroImage1 from "@/assets/shilagit large.png";
-import heroImagemobile from "@/assets/macamobile.png";
+import heroImagemobile from "@/assets/mobile.png";
 import heroImage1mobile from "@/assets/shilagitmoble.png";
 import mens from "@/assets/mens.jpeg";
 import natural from "@/assets/natural.jpeg";
@@ -5335,6 +5335,7 @@ const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
 const categoryMap: Record<string, string> = {
   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
+  "7c095542-a466-4305-a9b0-eec89d30dd65":"Gummies Clearance Sales",
   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
@@ -5350,17 +5351,17 @@ const heroSlides: HeroSlide[] = [
   {
     desktop: heroImage,
     mobile: heroImagemobile,
-    alt: "Organic Maca products",
-    label: "Shop Maca",
-    to: "/maca-boost",
+    alt: "Gummies",
+    label: "SHOP GUMMIES",
+    to: "products/gummies-clearance-sales",
   },
-  {
-    desktop: heroImage1,
-    mobile: heroImage1mobile,
-    alt: "Organic Shilajit products",
-    label: "Shop Shilajit",
-    to: "/shilagit",
-  },
+  // {
+  //   desktop: heroImage1,
+  //   mobile: heroImage1mobile,
+  //   alt: "Organic Shilajit products",
+  //   label: "Shop Shilajit",
+  //   to: "/shilagit",
+  // },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
