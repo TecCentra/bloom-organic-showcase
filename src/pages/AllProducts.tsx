@@ -193,7 +193,7 @@
 // export default AllProducts;
 
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -246,7 +246,6 @@ const categoryMap: Record<string, string> = {
   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
   "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
 };
 
@@ -258,7 +257,7 @@ const getPlaceholderImage = (name: string) => {
 // ── Shimmer ───────────────────────────────────────────────────────────────────
 const ShimmerCard = () => (
   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-    <div className="w-full aspect-square bg-muted" />
+    <div className="w-full aspect-[4/3] bg-muted" />
     <div className="p-4 space-y-3">
       <div className="h-4 bg-muted rounded w-3/4" />
       <div className="h-3 bg-muted rounded w-1/2" />
@@ -269,7 +268,7 @@ const ShimmerCard = () => (
 );
 
 const ShimmerGrid = ({ count = 12 }: { count?: number }) => (
-  <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+  <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
     {Array.from({ length: count }).map((_, i) => (
       <ShimmerCard key={i} />
     ))}
@@ -279,19 +278,41 @@ const ShimmerGrid = ({ count = 12 }: { count?: number }) => (
 
 const AllProducts = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlSearch = searchParams.get("search") ?? "";
+  const [searchTerm, setSearchTerm] = useState(urlSearch); // local input mirror
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+
+  // Push the input into the URL ?search= param (debounced 300ms, replace) —
+  // same pattern as the admin products search before hitting the server.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const next = searchTerm.trim();
+      if (next !== urlSearch) {
+        setSearchParams(next ? { search: next } : {}, { replace: true });
+      }
+    }, 300);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm]);
+
+  // Keep the input in sync when the URL changes (e.g. header search submit)
+  useEffect(() => {
+    if (urlSearch !== searchTerm) setSearchTerm(urlSearch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlSearch]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(searchTerm)}&category=`
+          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(urlSearch)}&category=`
         );
         if (!response.ok) throw new Error("Failed to fetch products");
         const data: ApiResponse = await response.json();
+        if (cancel) return;
         if (data.success && data.data.products) {
           const activeProducts = data.data.products
             .filter((p) => p.is_active)
@@ -304,15 +325,22 @@ const AllProducts = () => {
         }
       } catch (error) {
         console.error("Error fetching products:", error);
+        if (cancel) return;
         setProducts([]);
       } finally {
-        setLoading(false);
+        if (!cancel) setLoading(false);
       }
     };
 
-    const debounceTimer = setTimeout(fetchProducts, 300);
-    return () => clearTimeout(debounceTimer);
-  }, [searchTerm]);
+    // The URL param is the single source of truth — fetch on every change.
+    // The 300ms debounce lives on the URL update above, and the cancel flag
+    // guards against out-of-order responses.
+    let cancel = false;
+    fetchProducts();
+    return () => {
+      cancel = true;
+    };
+  }, [urlSearch]);
 
   const transformedProducts = products.map((product) => {
     let imageUrl = getPlaceholderImage(product.name);
@@ -394,7 +422,7 @@ const AllProducts = () => {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
             {transformedProducts.map((product) => (
               <div key={product.id} className="animate-fade-in h-full">
                 <ProductCard {...product} />

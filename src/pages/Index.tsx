@@ -71,10 +71,8 @@
 // // // // // // // // //       name: "Cold-Pressed Olive Oil",
 // // // // // // // // //       price: "Ksh28.99",
 // // // // // // // // //       image: productOil,
-// // // // // // // // //       category: "Oils",
-// // // // // // // // //     },
-// // // // // // // // //   ];
-
+// // // // // // // // //       category: "Oils",// // // // // // // // //   },
+// // // // // // // // // ];
 // // // // // // // // //   const categories = [
 // // // // // // // // //     {
 // // // // // // // // //       title: "Weight Management Products",
@@ -672,9 +670,8 @@
 // // // // // // // //       title: "Nutritional Supplements",
 // // // // // // // //       description: "Essential micro & macro nutrients.",
 // // // // // // // //       image: nutritional,
-// // // // // // // //       to: "/products/supplements",
-// // // // // // // //     },
-// // // // // // // //   ];
+// // // // // // // //       to: "/products/supplements"
+
 
 // // // // // // // //   const testimonials = [
 // // // // // // // //     {
@@ -1266,7 +1263,7 @@
 // // // // // // //       title: "Nutritional Supplements",
 // // // // // // //       description: "Essential micro & macro nutrients.",
 // // // // // // //       image: nutritional,
-// // // // // // //       to: "/products/supplements",
+// // // // // // //       to: "/products/supplements"
 // // // // // // //     },
 // // // // // // //   ];
 
@@ -1863,7 +1860,7 @@
 // // // // // //       title: "Nutritional Supplements",
 // // // // // //       description: "Essential micro & macro nutrients.",
 // // // // // //       image: nutritional,
-// // // // // //       to: "/products/supplements",
+// // // // // //       to: "/products/supplements"
 // // // // // //     },
 // // // // // //     {
 // // // // // //       title: "Organic Herbs",
@@ -2348,7 +2345,7 @@
 // // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
 // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+// // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // // };
 
 // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
@@ -2513,10 +2510,10 @@
 // // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-// // // // //     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+// // // // //     {title: "Nutritional Supplements",
 // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// // // // //     { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
+// // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/best-seller" },
 // // // // //   ];
 
 // // // // //   const testimonials = [
@@ -2541,7 +2538,7 @@
 // // // // //   ];
 
 // // // // //   const tickerItems = [
-// // // // //     "🔥 Clearance Sale — Limited Stock!",
+// // // // //     "🌟 Best Seller — Limited Stock!",
 // // // // //     "💸 Huge Savings on Selected Products",
 // // // // //     "⚡ Shop Before It's Gone",
 // // // // //     "🌿 Organic Goodness at Unbeatable Prices",
@@ -2550,7 +2547,7 @@
 
 // // // // //   return (
 // // // // //     <div className="min-h-screen">
-// // // // //       {/* ── Clearance Sale Ticker ── */}
+// // // // //       {/* ── Best Seller Ticker ── */}
 // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 // // // // //           {[...Array(4)].map((_, repeat) =>
@@ -2592,7 +2589,7 @@
 // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
 // // // // //               onClick={() => navigate("/products/clearance")}
 // // // // //             >
-// // // // //               Shop Clearance Sale
+// // // // //               Shop Best Seller
 // // // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // // // //             </Button>
 // // // // //           </div>
@@ -2601,14 +2598,14 @@
 
       
 
-// // // // //       {/* ── Clearance Sale Products ── */}
+// // // // //       {/* ── Best Seller Products ── */}
 // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
 // // // // //             🔥 Limited Time Only
 // // // // //           </div>
 // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // // // //             Clearance Sale
+// // // // //             Best Seller
 // // // // //           </h2>
 // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
 // // // // //             Grab these deals before they're gone — massive savings on selected
@@ -2928,7 +2925,7 @@
 // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
 // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+// // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // };
 
 // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
@@ -3129,10 +3126,10 @@
 // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-// // // //     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+// // // //     {title: "Nutritional Supplements",
 // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// // // //     { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
+// // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // // // //   ];
 
 // // // //   const testimonials = [
@@ -3157,7 +3154,7 @@
 // // // //   ];
 
 // // // //   const tickerItems = [
-// // // //     "🔥 Clearance Sale — Limited Stock!",
+// // // //     "🌟 Best Seller — Limited Stock!",
 // // // //     "💸 Huge Savings on Selected Products",
 // // // //     "⚡ Shop Before It's Gone",
 // // // //     "🌿 Organic Goodness at Unbeatable Prices",
@@ -3166,7 +3163,7 @@
 
 // // // //   return (
 // // // //     <div className="min-h-screen">
-// // // //       {/* ── Clearance Sale Ticker ── */}
+// // // //       {/* ── Best Seller Ticker ── */}
 // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 // // // //           {[...Array(4)].map((_, repeat) =>
@@ -3207,21 +3204,21 @@
 // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
 // // // //               onClick={() => navigate("/products/clearance")}
 // // // //             >
-// // // //               Shop Clearance Sale
+// // // //               Shop Best Seller
 // // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // // //             </Button>
 // // // //           </div>
 // // // //         </div>
 // // // //       </section>
 
-// // // //       {/* ── Clearance Sale Products ── */}
+// // // //       {/* ── Best Seller Products ── */}
 // // // //       <section className="container mx-auto px-4 py-20">
 // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
 // // // //             🔥 Limited Time Only
 // // // //           </div>
 // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // // //             Clearance Sale
+// // // //             Best Seller
 // // // //           </h2>
 // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
 // // // //             Grab these deals before they're gone — massive savings on selected
@@ -3535,7 +3532,7 @@
 // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
 // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+// // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // };
 
 // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
@@ -3750,10 +3747,27 @@
 // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-// // //     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+// // //     {title: "Nutritional Supplements",
+    //   description: "Essential micro & macro nutrients.",
+    //   image: nutritional,
+    //   to: "/products/supplements"
+    // },
+    // {
+    //   title: "Best Seller",
+    //   description: "Our most popular organic products",
+    //   image: nutritional,
+    //   to: "/products/best-seller"
+    // }
+    // },
+    // {
+    //   title: "Best Seller",
+    //   description: "Our most popular organic products",
+    //   image: nutritional,
+    //   to: "/products/best-seller"
+    // },
 // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// // //     { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
+// // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // // //   ];
 
 // // //   const testimonials = [
@@ -3778,7 +3792,7 @@
 // // //   ];
 
 // // //   const tickerItems = [
-// // //     "🔥 Clearance Sale — Limited Stock!",
+// // //     "🌟 Best Seller — Limited Stock!",
 // // //     "💸 Huge Savings on Selected Products",
 // // //     "⚡ Shop Before It's Gone",
 // // //     "🌿 Organic Goodness at Unbeatable Prices",
@@ -3787,7 +3801,7 @@
 
 // // //   return (
 // // //     <div className="min-h-screen">
-// // //       {/* ── Clearance Sale Ticker ── */}
+// // //       {/* ── Best Seller Ticker ── */}
 // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 // // //           {[...Array(4)].map((_, repeat) =>
@@ -3828,21 +3842,21 @@
 // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
 // // //               onClick={() => navigate("/products/clearance")}
 // // //             >
-// // //               Shop Clearance Sale
+// // //               Shop Best Seller
 // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // //             </Button>
 // // //           </div>
 // // //         </div>
 // // //       </section>
 
-// // //       {/* ── Clearance Sale Products ── */}
+// // //       {/* ── Best Seller Products ── */}
 // // //       <section className="container mx-auto px-4 py-20">
 // // //         <div className="text-center mb-12 animate-fade-in">
 // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
 // // //             🔥 Limited Time Only
 // // //           </div>
 // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // //             Clearance Sale
+// // //             Best Seller
 // // //           </h2>
 // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
 // // //             Grab these deals before they're gone — massive savings on selected
@@ -4127,7 +4141,7 @@
 // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
 // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+// //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // };
 
 // // // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -4261,7 +4275,7 @@
 // //     return () => { cancelled = true; };
 // //   }, []);
 
-// //   // ── Newsletter ──────────────────────────────────────────────────────────────
+// //    // ── Newsletter ──────────────────────────────────────────────────────────────
 
 // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // //     e.preventDefault();
@@ -4330,10 +4344,10 @@
 // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-// //     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+// //     {title: "Nutritional Supplements",
 // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// //     { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
+// //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // //   ];
 
 // //   const testimonials = [
@@ -4358,7 +4372,7 @@
 // //   ];
 
 // //   const tickerItems = [
-// //     "🔥 Clearance Sale — Limited Stock!",
+// //     "🌟 Best Seller — Limited Stock!",
 // //     "💸 Huge Savings on Selected Products",
 // //     "⚡ Shop Before It's Gone",
 // //     "🌿 Organic Goodness at Unbeatable Prices",
@@ -4369,7 +4383,7 @@
 
 // //   return (
 // //     <div className="min-h-screen">
-// //       {/* Clearance Sale Ticker */}
+// //       {/* Best Seller Ticker */}
 // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 // //           {[...Array(4)].map((_, repeat) =>
@@ -4411,21 +4425,21 @@
 // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
 // //               onClick={() => navigate("/products/clearance")}
 // //             >
-// //               Shop Clearance Sale
+// //               Shop Best Seller
 // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // //             </Button>
 // //           </div>
 // //         </div>
 // //       </section>
 
-// //       {/* Clearance Sale Products */}
+// //       {/* Best Seller Products */}
 // //       <section className="container mx-auto px-4 py-20">
 // //         <div className="text-center mb-12 animate-fade-in">
 // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
 // //             🔥 Limited Time Only
 // //           </div>
 // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// //             Clearance Sale
+// //             Best Seller
 // //           </h2>
 // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
 // //             Grab these deals before they're gone — massive savings on selected
@@ -4706,7 +4720,7 @@
 //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
 //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-//   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+//   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // };
 
 // // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -4851,7 +4865,7 @@
 //     return () => { cancelled = true; };
 //   }, []);
 
-//   // ── Newsletter ──────────────────────────────────────────────────────────────
+//    // ── Newsletter ──────────────────────────────────────────────────────────────
 
 //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
@@ -4920,10 +4934,27 @@
 //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-//     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+//     {title: "Nutritional Supplements",
+    //   description: "Essential micro & macro nutrients.",
+    //   image: nutritional,
+    //   to: "/products/supplements"
+    // },
+    // {
+    //   title: "Best Seller",
+    //   description: "Our most popular organic products",
+    //   image: nutritional,
+    //   to: "/products/best-seller"
+    // }
+    // },
+    // {
+    //   title: "Best Seller",
+    //   description: "Our most popular organic products",
+    //   image: nutritional,
+    //   to: "/products/best-seller"
+    // },
 //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-//     { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
+//     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 //   ];
 
 //   const testimonials = [
@@ -4948,7 +4979,7 @@
 //   ];
 
 //   const tickerItems = [
-//     "🔥 Clearance Sale — Limited Stock!",
+//     "🌟 Best Seller — Limited Stock!",
 //     "💸 Huge Savings on Selected Products",
 //     "⚡ Shop Before It's Gone",
 //     "🌿 Organic Goodness at Unbeatable Prices",
@@ -4959,7 +4990,7 @@
 
 //   return (
 //     <div className="min-h-screen">
-//       {/* Clearance Sale Ticker */}
+//       {/* Best Seller Ticker */}
 //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 //           {[...Array(4)].map((_, repeat) =>
@@ -5027,7 +5058,7 @@
 //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
 //                 onClick={() => navigate("/products/clearance")}
 //               >
-//                 Shop Clearance Sale
+//                 Shop Best Seller
 //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 //               </Button>
 
@@ -5044,14 +5075,14 @@
 //         </div>
 //       </section>
 
-//       {/* Clearance Sale Products */}
+//       {/* Best Seller Products */}
 //       <section className="container mx-auto px-4 py-20">
 //         <div className="text-center mb-12 animate-fade-in">
 //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
 //             🔥 Limited Time Only
 //           </div>
 //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-//             Clearance Sale
+//             Best Seller
 //           </h2>
 //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
 //             Grab these deals before they're gone — massive savings on selected
@@ -5285,16 +5316,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import CategoryCard from "@/components/CategoryCard";
-import heroImage from "@/assets/web.png"
+import heroImage from "@/assets/web-hero.jpg"
 import heroImage1 from "@/assets/shilagit large.png";
-import heroImagemobile from "@/assets/mobile.png";
+import heroImagemobile from "@/assets/mobile-hero.jpg";
 import heroImage1mobile from "@/assets/shilagitmoble.png";
 import mens from "@/assets/mens.jpeg";
 import natural from "@/assets/natural.jpeg";
@@ -5304,22 +5334,10 @@ import weight from "@/assets/weight.jpeg";
 import Herbaloil from "@/assets/herbal oil.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
 import Honey from "@/assets/Honey.jpeg";
-import Clearance from "@/assets/clearance.jpg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
-import { fetchProducts, type Product } from "@/lib/productsCache"
+import { fetchProducts, type Product } from "@/lib/productsCache";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
-
-interface TransformedProduct {
-  id: string;
-  name: string;
-  price: string;
-  originalPrice: string;
-  discountPercent: number;
-  image: string;
-  category: string;
-  stockQuantity: number;
-}
 
 interface HeroSlide {
   desktop: string;
@@ -5331,11 +5349,9 @@ interface HeroSlide {
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
-
 const categoryMap: Record<string, string> = {
   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
-  "7c095542-a466-4305-a9b0-eec89d30dd65":"Gummies Clearance Sales",
+  "7c095542-a466-4305-a9b0-eec89d30dd65":"Gummies Best Sellerss",
   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
@@ -5343,8 +5359,10 @@ const categoryMap: Record<string, string> = {
    "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 };
+
+const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
 // Hero slides — each pairs a desktop/mobile image with its own CTA label + link
 const heroSlides: HeroSlide[] = [
@@ -5366,106 +5384,23 @@ const heroSlides: HeroSlide[] = [
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-const chunk = <T,>(arr: T[], size: number): T[][] => {
-  const rows: T[][] = [];
-  for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
-  return rows;
-};
-
 const getPlaceholderImage = (name: string) => {
   const encodedName = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 };
 
-const transformProduct = (product: Product): TransformedProduct => {
-  let imageUrl = getPlaceholderImage(product.name);
-  if (product.images && product.images.length > 0) {
-    const primaryImage =
-      product.images.find((img) => img.is_primary) || product.images[0];
-    imageUrl = primaryImage.image_url;
-  }
-  const numericPrice = parseFloat(String(product.price));
-  const originalPrice = numericPrice * 1.2;
-  const discountPercent = Math.round(
-    ((originalPrice - numericPrice) / originalPrice) * 100
-  );
-  return {
-    id: product.product_id,
-    name: product.name,
-    price: `Ksh ${numericPrice.toFixed(2)}`,
-    originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
-    discountPercent,
-    image: imageUrl,
-    category: categoryMap[product.category_id] || "Uncategorized",
-    stockQuantity: product.stock_quantity,
-  };
-};
-
-// ── Shimmer ───────────────────────────────────────────────────────────────────
-
-const ShimmerCard = () => (
-  <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-    <div className="w-full aspect-square bg-muted" />
-    <div className="p-4 space-y-3">
-      <div className="h-4 bg-muted rounded w-3/4" />
-      <div className="h-3 bg-muted rounded w-1/2" />
-      <div className="h-5 bg-muted rounded w-1/3 mt-2" />
-      <div className="h-9 bg-muted rounded w-full mt-2" />
-    </div>
-  </div>
-);
-
-const ShimmerGrid = ({ count }: { count: number }) => (
-  <>
-    <div className="md:hidden grid grid-cols-2 gap-4">
-      {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-    </div>
-    <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
-      {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-    </div>
-    <div className="hidden lg:grid grid-cols-4 gap-8">
-      {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-    </div>
-  </>
-);
-
-// ── ClearanceProductCard ──────────────────────────────────────────────────────
-
-const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
-  <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
-    <div className="flex-1 [&_[class*='price']]:hidden [&_[class*='Price']]:hidden">
-      <ProductCard
-        id={product.id}
-        name={product.name}
-        price={product.price}
-        hidePrice 
-        image={product.image}
-        category={product.category}
-        stockQuantity={product.stockQuantity}
-      />
-    </div>
-    <div className="px-4 py-3 border-t border-border bg-card flex items-center gap-2 flex-wrap">
-      <span className="text-base font-bold text-foreground">{product.price}</span>
-      <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
-      <Badge variant="destructive" className="text-xs font-semibold px-2 py-0.5">
-        Save {product.discountPercent}%
-      </Badge>
-    </div>
-  </div>
-);
-
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 const Index = () => {
   const navigate = useNavigate();
-  const [transformedProducts, setTransformedProducts] = useState<TransformedProduct[]>([]);
-  const [loading, setLoading] = useState(true);
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterLoading, setNewsletterLoading] = useState(false);
   const [newsletterMessage, setNewsletterMessage] = useState<{
     text: string;
     type: "success" | "error";
   } | null>(null);
+  const [bestSellers, setBestSellers] = useState<Product[]>([]);
+  const [bestSellersLoading, setBestSellersLoading] = useState(true);
 
   // ── Hero slider ───────────────────────────────────────────────────────────
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -5481,30 +5416,31 @@ const Index = () => {
   useEffect(() => {
     let cancelled = false;
 
-    const load = async () => {
+    const loadBestSellers = async () => {
       try {
-        const all = await fetchProducts();
-        if (cancelled) return;
-
-        const clearance = all
-          .filter((p) => p.is_active && p.category_id === CLEARANCE_CATEGORY_ID)
-          .sort(
-            (a, b) =>
-              new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-          )
-          .slice(0, 8)
-          .map(transformProduct);
-
-        setTransformedProducts(clearance);
-      } catch (err) {
-        console.error("Error fetching products:", err);
+        const products = await fetchProducts();
+        if (!cancelled) {
+          setBestSellers(
+            products
+              .filter(
+                (product) =>
+                  product.is_active &&
+                  product.category_id === BEST_SELLER_CATEGORY_ID
+              )
+              .slice(0, 8)
+          );
+        }
+      } catch (error) {
+        console.error("Error loading best sellers:", error);
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) setBestSellersLoading(false);
       }
     };
 
-    load();
-    return () => { cancelled = true; };
+    loadBestSellers();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // ── Newsletter ──────────────────────────────────────────────────────────────
@@ -5577,10 +5513,13 @@ const Index = () => {
     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
      { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
-    { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
+    {title: "Nutritional Supplements",
+      description: "Essential micro & macro nutrients.",
+      image: nutritional,
+      to: "/products/supplements"
+    },
     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-    { title: "Clearance Sale", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
   ];
 
   const testimonials = [
@@ -5604,32 +5543,10 @@ const Index = () => {
     { icon: Sparkles, title: "Pure & Natural", description: "No artificial additives, preservatives, or chemicals" },
   ];
 
-  const tickerItems = [
-    "🔥 Clearance Sale — Limited Stock!",
-    "💸 Huge Savings on Selected Products",
-    "⚡ Shop Before It's Gone",
-    "🌿 Organic Goodness at Unbeatable Prices",
-    "🛒 While Stocks Last",
-  ];
-
   // ── Render ──────────────────────────────────────────────────────────────────
 
   return (
     <div className="min-h-screen">
-      {/* Clearance Sale Ticker */}
-      <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
-        <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
-          {[...Array(4)].map((_, repeat) =>
-            tickerItems.map((item, i) => (
-              <span key={`${repeat}-${i}`} className="mx-10 text-sm font-semibold tracking-widest uppercase">
-                {item}
-                <span className="mx-6 text-red-300">|</span>
-              </span>
-            ))
-          )}
-        </div>
-      </div>
-
       <Header />
 
       {/* Hero */}
@@ -5708,69 +5625,59 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Clearance Sale Products */}
-      <section className="container mx-auto px-4 py-20">
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
-            🔥 Limited Time Only
+      {/* Best Sellers */}
+      <section className="container mx-auto px-4 py-16 md:py-20">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
+              Best Sellers
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Customer favorites, all in one place
+            </p>
           </div>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-            Clearance Sale
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Grab these deals before they're gone — massive savings on selected
-            organic products while stocks last
-          </p>
         </div>
 
-        {loading ? (
-          <ShimmerGrid count={8} />
-        ) : transformedProducts.length === 0 ? (
-          <div className="flex flex-col justify-center items-center h-64 gap-3">
-            <p className="text-lg text-muted-foreground">No clearance products available at the moment.</p>
-            <Button variant="outline" onClick={() => navigate("/shop")}>Browse All Products</Button>
+        {bestSellersLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div
+                key={index}
+                className="rounded-xl border border-border bg-card animate-pulse"
+              >
+                <div className="aspect-[4/3] rounded-t-xl bg-muted" />
+                <div className="p-5 space-y-3">
+                  <div className="h-3 w-1/3 rounded bg-muted" />
+                  <div className="h-4 w-3/4 rounded bg-muted" />
+                  <div className="h-5 w-1/2 rounded bg-muted" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : bestSellers.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {bestSellers.map((product) => {
+              const primaryImage =
+                product.images?.find((image) => image.is_primary) ??
+                product.images?.[0];
+
+              return (
+                <ProductCard
+                  key={product.product_id}
+                  id={product.product_id}
+                  name={product.name}
+                  price={`Ksh ${Number(product.price).toFixed(2)}`}
+                  image={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+                  category={categoryMap[product.category_id] ?? "Best Seller"}
+                  stockQuantity={product.stock_quantity}
+                />
+              );
+            })}
           </div>
         ) : (
-          <>
-            {/* Mobile: 2 per row */}
-            <div className="md:hidden space-y-4">
-              {chunk(transformedProducts, 2).map((row, rIdx) => (
-                <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
-                  {row.map((p, i) => <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />)}
-                </div>
-              ))}
-            </div>
-            {/* Tablet: 3 per row */}
-            <div className="hidden md:block lg:hidden space-y-6">
-              {chunk(transformedProducts, 3).map((row, rIdx) => (
-                <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
-                  {row.map((p, i) => <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />)}
-                </div>
-              ))}
-            </div>
-            {/* Desktop: 4 per row */}
-            <div className="hidden lg:block space-y-8">
-              {chunk(transformedProducts, 4).map((row, rIdx) => (
-                <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
-                  {row.map((p, i) => <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />)}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-
-        {!loading && transformedProducts.length > 0 && (
-          <div className="text-center mt-12">
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
-              onClick={() => navigate("/products/clearance")}
-            >
-              View All Deals
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
+          <p className="text-center text-muted-foreground py-12">
+            Best sellers are coming soon. Browse our full collection in the meantime.
+          </p>
         )}
       </section>
 

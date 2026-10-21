@@ -412,8 +412,8 @@
 
 // export default Header;
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ShoppingCart, User } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X, ChevronDown, ShoppingCart, User, Search } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Logo from "@/assets/logo.jpeg";
 import { AuthModal } from "@/components/AuthModal";
@@ -424,7 +424,9 @@ const Header = () => {
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
   const { itemCount } = useCart();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -461,11 +463,6 @@ const Header = () => {
   };
 
   const productCategories = [
-    {
-      name: "Clearance Sale",
-      description: "Limited-time offers on select products.",
-      path: "/products/clearance",
-    },
     {
       name: "Weight Management Products",
       description: "Flat tummy, upper body fat, full weight loss packages",
@@ -620,6 +617,25 @@ const Header = () => {
               );
             })}
 
+            {/* Search box (Desktop) */}
+            <form
+              className="relative"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+                setSearchQuery("");
+              }}
+            >
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 pointer-events-none" />
+              <input
+                type="search"
+                placeholder="Search products…"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-40 lg:w-56 pl-9 pr-3 py-2 rounded-xl border border-border bg-background text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary"
+              />
+            </form>
+
             {!isLoggedIn && (
               <button
                 onClick={() => setShowAuthModal(true)}
@@ -675,6 +691,27 @@ const Header = () => {
         {/* ── Mobile Navigation ── */}
         {isMenuOpen && (
           <div className="md:hidden mt-1 py-1 border-t border-border animate-fade-in">
+            {/* Search box (Mobile) */}
+            <form
+              className="px-1 pb-2"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
+                setSearchQuery("");
+                setIsMenuOpen(false);
+              }}
+            >
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/50 pointer-events-none" />
+                <input
+                  type="search"
+                  placeholder="Search products…"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-border bg-background text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-primary"
+                />
+              </div>
+            </form>
             {navLinks.map((link) => {
               if (link.hasDropdown) {
                 return (

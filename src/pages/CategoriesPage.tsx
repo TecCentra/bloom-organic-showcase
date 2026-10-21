@@ -261,7 +261,7 @@
 
 // export default CategoriesPage;
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
@@ -311,7 +311,7 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "weight-management",
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "organic-herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "pure-honey",
-  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "clearance",
+  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "best-seller",
 };
 
 const getPlaceholderImage = (name: string) =>
@@ -322,7 +322,7 @@ const getPlaceholderImage = (name: string) =>
 // ── Shimmer ───────────────────────────────────────────────────────────────────
 const ShimmerCard = () => (
   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-    <div className="w-full aspect-square bg-muted" />
+    <div className="w-full aspect-[4/3] bg-muted" />
     <div className="p-4 space-y-3">
       <div className="h-4 bg-muted rounded w-3/4" />
       <div className="h-3 bg-muted rounded w-1/2" />
@@ -343,7 +343,7 @@ const ShimmerSection = () => (
       <div className="h-9 bg-muted rounded w-24" />
     </div>
     {/* Cards shimmer */}
-    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
       {Array.from({ length: 4 }).map((_, i) => (
         <ShimmerCard key={i} />
       ))}
@@ -354,9 +354,30 @@ const ShimmerSection = () => (
 
 const CategoriesPage = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlSearch = searchParams.get("search") ?? "";
+  const [searchTerm, setSearchTerm] = useState(urlSearch); // local input mirror
   const [categories, setCategories] = useState<CategoryGroup[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+
+  // Push the input into the URL ?search= param (debounced 300ms, replace) —
+  // same pattern as the admin products search before hitting the server.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const next = searchTerm.trim();
+      if (next !== urlSearch) {
+        setSearchParams(next ? { search: next } : {}, { replace: true });
+      }
+    }, 300);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm]);
+
+  // Keep the input in sync when the URL changes (e.g. header search submit)
+  useEffect(() => {
+    if (urlSearch !== searchTerm) setSearchTerm(urlSearch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [urlSearch]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -375,9 +396,9 @@ const CategoriesPage = () => {
           }
         }
 
-        // Fetch all products
+        // Fetch all products (server-side filtered by ?search= like the admin table)
         const prodRes = await fetch(
-          "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(urlSearch)}&category=`
         );
         if (!prodRes.ok) throw new Error("Failed to fetch products");
         const data: ApiResponse = await prodRes.json();
@@ -412,24 +433,27 @@ const CategoriesPage = () => {
             })
           );
 
-          // Sort: most products first, clearance always last
-          groups.sort((a, b) => {
-            if (a.id === "d31bcff6-34c8-48d9-a6c4-621d3867436d") return 1;
-            if (b.id === "d31bcff6-34c8-48d9-a6c4-621d3867436d") return -1;
-            return b.products.length - a.products.length;
-          });
+          // Sort: most products first. Include all categories (best-seller is now shown as a regular category).
+          const catalog = groups.sort((a, b) => b.products.length - a.products.length);
 
-          setCategories(groups);
+          if (cancel) return;
+        setCategories(catalog);
         }
       } catch (err) {
         console.error("Error fetching data:", err);
       } finally {
-        setLoading(false);
+        if (!cancel) setLoading(false);
       }
     };
 
+    // The URL ?search= param is the single source of truth — refetch on every
+    // change; the 300ms debounce lives on the URL update above.
+    let cancel = false;
     fetchData();
-  }, []);
+    return () => {
+      cancel = true;
+    };
+  }, [urlSearch]);
 
   const filteredCategories = categories
     .map((cat) => ({
@@ -516,8 +540,6 @@ const CategoriesPage = () => {
         ) : (
           <div className="space-y-16">
             {filteredCategories.map((category) => {
-              const isHighlighted =
-                category.id === "d31bcff6-34c8-48d9-a6c4-621d3867436d";
               const displayProducts = category.products.slice(0, 8);
 
               return (
@@ -525,12 +547,7 @@ const CategoriesPage = () => {
                   {/* Section header */}
                   <div className="flex items-center justify-between mb-8">
                     <div>
-                      <h2
-                        className={`text-3xl font-heading font-bold ${
-                          isHighlighted ? "text-red-600" : "text-foreground"
-                        }`}
-                      >
-                        {isHighlighted ? "🔥 " : ""}
+                      <h2 className="text-3xl font-heading font-bold text-foreground">
                         {category.name}
                       </h2>
                       <p className="text-muted-foreground mt-1">
@@ -541,11 +558,6 @@ const CategoriesPage = () => {
                     {category.products.length > 4 && (
                       <Button
                         variant="outline"
-                        className={
-                          isHighlighted
-                            ? "border-red-400 text-red-600 hover:bg-red-50"
-                            : ""
-                        }
                         onClick={() =>
                           navigate(`/products/${category.slug}`)
                         }
@@ -555,17 +567,8 @@ const CategoriesPage = () => {
                     )}
                   </div>
 
-                  {/* Clearance top banner */}
-                  {isHighlighted && (
-                    <div className="mb-6 rounded-xl bg-red-50 border border-red-200 px-5 py-3 flex items-center gap-3">
-                      <span className="text-red-600 text-sm font-semibold">
-                        ⚡ Limited stock — prices slashed for clearance. Grab yours before they're gone.
-                      </span>
-                    </div>
-                  )}
-
                   {/* Product grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-6">
                     {displayProducts.map((product) => (
                       <div key={product.product_id} className="h-full animate-fade-in">
                         <ProductCard
@@ -580,11 +583,6 @@ const CategoriesPage = () => {
                     <div className="text-center mt-8">
                       <Button
                         variant="outline"
-                        className={
-                          isHighlighted
-                            ? "border-red-400 text-red-600 hover:bg-red-50"
-                            : ""
-                        }
                         onClick={() => navigate(`/products/${category.slug}`)}
                       >
                         View All {category.products.length} in {category.name}
