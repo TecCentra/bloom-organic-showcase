@@ -1792,7 +1792,7 @@ const CATEGORY_NAME_MAP: Record<string, string> = {
   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Clearance Sale",
+  "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Sellers",
 };
 
 // ── Shimmer components ────────────────────────────────────────────────────────
@@ -1801,7 +1801,7 @@ const ShimmerProductDetail = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
       {/* Image area */}
       <div className="space-y-4">
-        <div className="aspect-square rounded-2xl bg-muted w-full" />
+        <div className="aspect-[4/3] rounded-2xl bg-muted w-full" />
         <div className="grid grid-cols-4 gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
             <div key={i} className="aspect-square rounded-lg bg-muted" />
@@ -1851,7 +1851,7 @@ const ShimmerProductDetail = () => (
 
 const ShimmerCard = () => (
   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-    <div className="w-full aspect-square bg-muted" />
+    <div className="w-full aspect-[4/3] bg-muted" />
     <div className="p-4 space-y-3">
       <div className="h-4 bg-muted rounded w-3/4" />
       <div className="h-3 bg-muted rounded w-1/2" />
@@ -2412,7 +2412,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
           {/* Images */}
           <div className="space-y-4 order-1">
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-secondary/30 border border-border">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-secondary/30 border border-border">
               {displayImages.length > 0 && displayImages[selectedImage] ? (
                 <img
                   src={displayImages[selectedImage]}

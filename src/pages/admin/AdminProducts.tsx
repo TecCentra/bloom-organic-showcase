@@ -1550,6 +1550,7 @@ const AdminProducts: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [showLowStock, setShowLowStock] = useState(false);
   const [lowStockThreshold, setLowStockThreshold] = useState(10);
@@ -1592,11 +1593,22 @@ const AdminProducts: React.FC = () => {
 
   // ─── Fetch data ──────────────────────────────────────────────────────────────
 
+  // Debounce the admin search so we request the server, not on every keystroke
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(searchTerm.trim()), 300);
+    return () => clearTimeout(t);
+  }, [searchTerm]);
+
+  // Restart at page 1 whenever the search term changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [debouncedSearch]);
+
   const fetchData = useCallback(async () => {
     if (!adminToken) return;
 
     const cached = getCache();
-    if (cached) {
+    if (cached && !debouncedSearch) {
       setProducts(cached.products);
       setCategories(cached.categories);
       setPagination(cached.pagination);
@@ -1610,7 +1622,9 @@ const AdminProducts: React.FC = () => {
 
       const [productsRes, categoriesRes] = await Promise.all([
         fetch(
-          buildApiUrl(`${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}?page=${currentPage}&limit=10`),
+          buildApiUrl(
+            `${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}?page=${currentPage}&limit=10&search=${encodeURIComponent(debouncedSearch)}`
+          ),
           { headers: { Authorization: `Bearer ${adminToken}`, 'Content-Type': 'application/json' } }
         ),
         fetch(
@@ -1647,7 +1661,7 @@ const AdminProducts: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [adminToken, currentPage]);
+  }, [adminToken, currentPage, debouncedSearch]);
 
   useEffect(() => {
     fetchData();
@@ -1663,14 +1677,19 @@ const AdminProducts: React.FC = () => {
     return cat?.name ?? 'No Category';
   };
 
-  const filteredProducts = products.filter(
-    (p) =>
-      p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      p.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (p.category_name ?? getCategoryName(p.category_id))
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-  );
+  // When a server-side search is active, trust the API results (they may match
+  // description too, which the client-side filter would wrongly hide).
+  const filteredProducts = debouncedSearch
+    ? products
+    : products.filter(
+        (p) =>
+          !searchTerm.trim() ||
+          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.sku.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (p.category_name ?? getCategoryName(p.category_id))
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+      );
 
   // ─── Image upload (shared) ───────────────────────────────────────────────────
 
@@ -1879,7 +1898,63 @@ const AdminProducts: React.FC = () => {
     }
   };
 
-  // ─── Standalone image upload ──────────────────────────────────────────────────
+  // ─── Delete product image ────────────────────────────────────────────────
+
+  const handleDeleteImage = async (productId: string, imageId: string, imageLabel = 'this image') => {
+    const confirmed = await confirm({
+      title: 'Delete Image',
+      message: `Are you sure you want to delete "${imageLabel}"? This action cannot be undone.`,
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
+      confirmColor: 'error',
+    });
+    if (!confirmed) return;
+
+    try {
+      const res = await fetch(
+        buildApiUrl(
+          `${API_CONFIG.ENDPOINTS.PUBLIC.PRODUCTS}/${productId}/images/${imageId}`
+        ),
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${adminToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message ?? 'Failed to delete image');
+      }
+
+      // Drop the image from local state + cache so the UI reflects the change
+      const removeImageFrom = (p: Product) =>
+        p.product_id === productId
+          ? { ...p, images: (p.images ?? []).filter((img) => img.image_id !== imageId) }
+          : p;
+      setProducts((prev) => prev.map(removeImageFrom));
+      setSelectedProduct((prev) => (prev ? removeImageFrom(prev) : prev));
+      clearCache();
+      toast({
+        title: 'Image Deleted',
+        description: 'The image has been successfully deleted',
+        variant: 'success',
+      });
+    } catch (err: any) {
+      toast({
+        title: 'Delete Failed',
+        description: err.message ?? 'Failed to delete image',
+        variant: 'destructive',
+        action: {
+          label: 'Retry',
+          onClick: () => handleDeleteImage(productId, imageId, imageLabel),
+        },
+      });
+    }
+  };
+
+  // ─── Standalone image upload ─────────────────────────────────────────────────
 
   const handleOpenImageUpload = (product: Product) => {
     setUploadImageProduct(product);
@@ -1958,7 +2033,7 @@ const AdminProducts: React.FC = () => {
 
     return (
       <div
-        className="w-12 h-12 rounded-lg overflow-hidden border border-gray-200 relative group cursor-pointer"
+        className="w-16 h-16 rounded-lg overflow-hidden border border-gray-200 relative group cursor-pointer"
         title={showUploadHint ? 'Click to upload image' : 'Click to replace image'}
         onClick={() => handleOpenImageUpload(product)}
       >
@@ -2541,12 +2616,28 @@ const AdminProducts: React.FC = () => {
                   <div className="grid grid-cols-4 gap-4">
                     {selectedProduct.images.map((img, idx) => (
                       <div key={img.image_id}>
-                        <img
-                          src={img.image_url}
-                          alt={img.alt_text ?? `Image ${idx + 1}`}
-                          className="w-full h-32 object-cover rounded-lg border border-gray-200"
-                          onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
-                        />
+                        <div className="relative">
+                          <img
+                            src={img.image_url}
+                            alt={img.alt_text ?? `Image ${idx + 1}`}
+                            className="w-full h-40 object-cover rounded-lg border border-gray-200"
+                            onError={(e) => { e.currentTarget.src = '/placeholder.svg'; }}
+                          />
+                          <button
+                            type="button"
+                            title="Delete image"
+                            onClick={() =>
+                              handleDeleteImage(
+                                selectedProduct.product_id,
+                                img.image_id,
+                                img.alt_text || `image ${idx + 1}`
+                              )
+                            }
+                            className="absolute top-1 right-1 bg-red-600/90 hover:bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center transition-colors"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
                         <div className="mt-1 text-xs text-gray-500">
                           <p>Primary: {img.is_primary ? 'Yes' : 'No'}</p>
                         </div>

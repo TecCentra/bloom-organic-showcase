@@ -65,10 +65,18 @@ export function ConfirmProvider({ children }: { children: ReactNode }) {
         onClose={handleCancel}
         aria-labelledby="confirm-dialog-title"
         aria-describedby="confirm-dialog-description"
+        /* Radix (shadcn) modals set body { pointer-events: none } while open,
+           which leaves this portal unclickable when a confirm is raised on top
+           of a shadcn dialog. Re-enable pointer events for the popup subtree. */
+        sx={{
+          '&.MuiModal-root': { pointerEvents: 'auto' },
+          '& .MuiDialog-paper': { pointerEvents: 'auto' },
+        }}
         PaperProps={{
           sx: {
             borderRadius: 2,
             minWidth: 300,
+            pointerEvents: 'auto',
           },
         }}
       >

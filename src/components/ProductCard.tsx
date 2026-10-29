@@ -46,10 +46,12 @@ const ProductCard = ({ name, price, image, category, id, stockQuantity = 1, hide
     <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer relative h-full flex flex-col"
      onClick={handleClick} 
     >
-      <div className="relative overflow-hidden aspect-square flex-shrink-0">
+      <div className="relative overflow-hidden aspect-[4/3] flex-shrink-0">
         <img
           src={image}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isOutOfStock ? 'opacity-60' : ''}`}
         />
         
