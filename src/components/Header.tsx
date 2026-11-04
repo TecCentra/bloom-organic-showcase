@@ -1797,7 +1797,7 @@ import {
   Package,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
-import Logo from "@/assets/logo.jpeg";
+import Logo from "@/assets/logo.png";
 import { AuthModal } from "@/components/AuthModal";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
