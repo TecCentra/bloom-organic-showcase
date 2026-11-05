@@ -2220,7 +2220,7 @@ const Header = () => {
               className="md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
             />
             <span className="md:text-base lg:text-lg font-heading font-semibold text-foreground leading-tight md:text-center md:whitespace-nowrap">
-              Organic Bloom
+              Your health Your wealth
             </span>
           </Link>
 
