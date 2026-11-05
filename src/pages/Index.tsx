@@ -13487,7 +13487,7 @@ import allProductsMobile from "@/assets/vcvc.jpg";
 import mens from "@/assets/mens.jpeg";
 import natural from "@/assets/natural.jpeg";
 import nutritional from "@/assets/nutritional.jpeg";
-import organicherbs from "@/assets/organihome.jpg";
+import organicherbs from "@/assets/trdfx.jpeg";
 import weight from "@/assets/weight.jpeg";
 import Herbaloil from "@/assets/herbal oil.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
@@ -13555,9 +13555,9 @@ const heroSlides: HeroSlide[] = [
     label: "SHOP NOW",
     to: "/products",
     badge: "Organic Bloom · Kenya",
-    title: "Wellness, the Natural Way",
+    title: "Nurture Life Naturally",
     subtitle:
-      "Certified organic, non-GMO remedies, supplements and skincare, from herbal oils to pure honey, made to support your wellness journey.",
+      "Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.",
   },
   // {
   //   desktop: allProducts,
