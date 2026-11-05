@@ -1,3 +1,1043 @@
+// // // // // // // // // // // // // // // // // // // // // // import { Button } from "@/components/ui/button";
+// // // // // // // // // // // // // // // // // // // // // // import { Input } from "@/components/ui/input";
+// // // // // // // // // // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
+// // // // // // // // // // // // // // // // // // // // // // import Header from "@/components/Header";
+// // // // // // // // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
+// // // // // // // // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
+// // // // // // // // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
+// // // // // // // // // // // // // // // // // // // // // // import heroImage from "@/assets/hero-organic.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import productHoney from "@/assets/org.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import productTea from "@/assets/product-tea.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import productGranola from "@/assets/organic.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import productOil from "@/assets/product-oil.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import categoryHerbs from "@/assets/category-herbs.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import categoryWeightLoss from "@/assets/organic.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import categoryCleansers from "@/assets/category-cleansers.jpg";
+// // // // // // // // // // // // // // // // // // // // // // import categoryGutHealth from "@/assets/org.jpg";
+
+// // // // // // // // // // // // // // // // // // // // // // const Index = () => {
+// // // // // // // // // // // // // // // // // // // // // //   const products = [
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "raw-organic-honey",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Raw Organic Honey",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh 3500",
+// // // // // // // // // // // // // // // // // // // // // //       image: productHoney,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Sweeteners",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "premium-green-tea",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Premium Green Tea",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh18.99",
+// // // // // // // // // // // // // // // // // // // // // //       image: productTea,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Beverages",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "artisan-granola-mix",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Artisan Granola Mix",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh 2700",
+// // // // // // // // // // // // // // // // // // // // // //       image: productGranola,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Breakfast",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "cold-pressed-olive-oil",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Cold-Pressed Olive Oil",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh28.99",
+// // // // // // // // // // // // // // // // // // // // // //       image: productOil,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Oils",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "raw-organic-honey",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Raw Organic Honey",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh24.99",
+// // // // // // // // // // // // // // // // // // // // // //       image: productHoney,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Sweeteners",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "premium-green-tea",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Premium Green Tea",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh18.99",
+// // // // // // // // // // // // // // // // // // // // // //       image: productTea,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Beverages",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "artisan-granola-mix",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Artisan Granola Mix",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh15.99",
+// // // // // // // // // // // // // // // // // // // // // //       image: productGranola,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Breakfast",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       id: "cold-pressed-olive-oil",
+// // // // // // // // // // // // // // // // // // // // // //       name: "Cold-Pressed Olive Oil",
+// // // // // // // // // // // // // // // // // // // // // //       price: "Ksh28.99",
+// // // // // // // // // // // // // // // // // // // // // //       image: productOil,
+// // // // // // // // // // // // // // // // // // // // // //       category: "Oils",// // // // // // // // //   },
+// // // // // // // // // // // // // // // // // // // // // // ];
+// // // // // // // // // // // // // // // // // // // // // //   const categories = [
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       title: "Weight Management Products",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
+// // // // // // // // // // // // // // // // // // // // // //       image: categoryHerbs,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     // {
+// // // // // // // // // // // // // // // // // // // // // //     //   title: "Weight Loss",
+// // // // // // // // // // // // // // // // // // // // // //     //   description: "Support your health goals with our carefully selected organic products designed to naturally complement your balanced lifestyle.",
+// // // // // // // // // // // // // // // // // // // // // //     //   image: categoryWeightLoss,
+// // // // // // // // // // // // // // // // // // // // // //     // },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       title: "Yoni & Female Fertility Care",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Steam herbs, washes, tightening pearls & more.",
+// // // // // // // // // // // // // // // // // // // // // //       image: categoryCleansers,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       title: "Men's Boosters & Fertility Support",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Stamina, libido, and reproductive health.",
+// // // // // // // // // // // // // // // // // // // // // //       image: categoryGutHealth,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       title: "Natural Skin Care",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
+// // // // // // // // // // // // // // // // // // // // // //       image: categoryGutHealth,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       title: "Nutritional Supplements",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
+// // // // // // // // // // // // // // // // // // // // // //       image: categoryGutHealth,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // // //   const testimonials = [
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       name: "Jennifer Martinez",
+// // // // // // // // // // // // // // // // // // // // // //       role: "Wellness Enthusiast",
+// // // // // // // // // // // // // // // // // // // // // //       content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+// // // // // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       name: "Robert Kim",
+// // // // // // // // // // // // // // // // // // // // // //       role: "Nutrition Coach",
+// // // // // // // // // // // // // // // // // // // // // //       content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
+// // // // // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       name: "Amanda Foster",
+// // // // // // // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
+// // // // // // // // // // // // // // // // // // // // // //       content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+// // // // // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // // //   const certifications = [
+// // // // // // // // // // // // // // // // // // // // // //     { name: "USDA Organic", description: "Certified organic standards" },
+// // // // // // // // // // // // // // // // // // // // // //     { name: "Non-GMO", description: "Verified non-GMO products" },
+// // // // // // // // // // // // // // // // // // // // // //     { name: "Gluten-Free", description: "Certified gluten-free options" },
+// // // // // // // // // // // // // // // // // // // // // //     { name: "Fair Trade", description: "Ethically sourced ingredients" },
+// // // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // // //   const benefits = [
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       icon: Leaf,
+// // // // // // // // // // // // // // // // // // // // // //       title: "100% Organic",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Certified organic ingredients sourced from sustainable farms",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       icon: Shield,
+// // // // // // // // // // // // // // // // // // // // // //       title: "Quality Assured",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Rigorous testing ensures premium quality in every product",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       icon: Heart,
+// // // // // // // // // // // // // // // // // // // // // //       title: "Health First",
+// // // // // // // // // // // // // // // // // // // // // //       description: "Nutritious products that support your wellness journey",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // // //       icon: Sparkles,
+// // // // // // // // // // // // // // // // // // // // // //       title: "Pure & Natural",
+// // // // // // // // // // // // // // // // // // // // // //       description: "No artificial additives, preservatives, or chemicals",
+// // // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // // //   // Utility to chunk an array into rows
+// // // // // // // // // // // // // // // // // // // // // //   const chunk = <T,>(arr: T[], size: number): T[][] => {
+// // // // // // // // // // // // // // // // // // // // // //     const rows: T[][] = [];
+// // // // // // // // // // // // // // // // // // // // // //     for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+// // // // // // // // // // // // // // // // // // // // // //     return rows;
+// // // // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // // // //   return (
+// // // // // // // // // // // // // // // // // // // // // //     <div className="min-h-screen">
+// // // // // // // // // // // // // // // // // // // // // //       <Header />
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Hero Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="relative h-[800px] md:h-[920px] overflow-hidden">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="absolute inset-0">
+// // // // // // // // // // // // // // // // // // // // // //           <img
+// // // // // // // // // // // // // // // // // // // // // //             src={heroImage}
+// // // // // // // // // // // // // // // // // // // // // //             alt="Organic products in natural setting"
+// // // // // // // // // // // // // // // // // // // // // //             className="w-full h-full object-cover"
+// // // // // // // // // // // // // // // // // // // // // //           />
+// // // // // // // // // // // // // // // // // // // // // //           {/* Soft overlay across hero */}
+// // // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
+// // // // // // // // // // // // // // // // // // // // // //           {/* Directional light overlay similar to provided design */}
+// // // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
+// // // // // // // // // // // // // // // // // // // // // //           {/* Subtle vignette to focus center */}
+// // // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
+// // // // // // // // // // // // // // // // // // // // // //           {/* Bottom shadowy fade (retain intensity) */}
+// // // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
+// // // // // // // // // // // // // // // // // // // // // //           {/* Hairline cover to remove any visible bottom frame */}
+// // // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+        
+// // // // // // // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-center">
+// // // // // // // // // // // // // // // // // // // // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+// // // // // // // // // // // // // // // // // // // // // //               Nurture Life, Naturally
+// // // // // // // // // // // // // // // // // // // // // //             </h1>
+// // // // // // // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
+// // // // // // // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+// // // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // // //             <Button 
+// // // // // // // // // // // // // // // // // // // // // //               size="lg" 
+// // // // // // // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
+// // // // // // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // // // // // //               Shop Now
+// // // // // // // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // // // // // // // // // // // // // // //             </Button>
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Featured Products Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // // //             Featured Products
+// // // // // // // // // // // // // // // // // // // // // //           </h2>
+// // // // // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //             Handpicked selections from our organic collection, crafted with care for your wellbeing
+// // // // // // // // // // // // // // // // // // // // // //           </p>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // // //         {/* Mobile: 2 per row with left-aligned header/description per row */}
+// // // // // // // // // // // // // // // // // // // // // //         <div className="md:hidden space-y-8">
+// // // // // // // // // // // // // // // // // // // // // //           {chunk(products, 2).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // // // //             <div key={`m-${rIdx}`} className="space-y-3">
+// // // // // // // // // // // // // // // // // // // // // //               <div className="text-left">
+// // // // // // // // // // // // // // // // // // // // // //                 <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
+// // // // // // // // // // // // // // // // // // // // // //                 <p className="text-sm text-muted-foreground">Curated picks crafted for wholesome living.</p>
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //               <div className="grid grid-cols-2 gap-6">
+// // // // // // // // // // // // // // // // // // // // // //                 {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // // // //                   <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //                     <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // // // // // //                 ))}
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // // //         {/* Tablet: 3 per row */}
+// // // // // // // // // // // // // // // // // // // // // //         <div className="hidden md:block lg:hidden space-y-10">
+// // // // // // // // // // // // // // // // // // // // // //           {chunk(products, 3).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // // // //             <div key={`t-${rIdx}`} className="space-y-4">
+// // // // // // // // // // // // // // // // // // // // // //               <div className="text-left">
+// // // // // // // // // // // // // // // // // // // // // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
+// // // // // // // // // // // // // // // // // // // // // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //               <div className="grid grid-cols-3 gap-8">
+// // // // // // // // // // // // // // // // // // // // // //                 {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // // // //                   <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //                     <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // // // // // //                 ))}
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // // //         {/* Desktop: 4 per row */}
+// // // // // // // // // // // // // // // // // // // // // //         <div className="hidden lg:block space-y-12">
+// // // // // // // // // // // // // // // // // // // // // //           {chunk(products, 4).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // // // //             <div key={`d-${rIdx}`} className="space-y-5">
+// // // // // // // // // // // // // // // // // // // // // //               {/* <div className="text-left">
+// // // // // // // // // // // // // // // // // // // // // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
+// // // // // // // // // // // // // // // // // // // // // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
+// // // // // // // // // // // // // // // // // // // // // //               </div> */}
+// // // // // // // // // // // // // // // // // // // // // //               <div className="grid grid-cols-4 gap-9">
+// // // // // // // // // // // // // // // // // // // // // //                 {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // // // //                   <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //                     <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // // // // // //                 ))}
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Shop By Lifestyle Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // // //             Shop By Lifestyle
+// // // // // // // // // // // // // // // // // // // // // //           </h2>
+// // // // // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //             Find the perfect organic solutions tailored to your unique wellness needs
+// // // // // // // // // // // // // // // // // // // // // //           </p>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+// // // // // // // // // // // // // // // // // // // // // //           {categories.map((category, index) => (
+// // // // // // // // // // // // // // // // // // // // // //             <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+// // // // // // // // // // // // // // // // // // // // // //               <CategoryCard {...category} />
+// // // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Why Choose Organic Bloom Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="text-center mb-16 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // // //             Why Choose Organic Bloom
+// // // // // // // // // // // // // // // // // // // // // //           </h2>
+// // // // // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //             We're committed to bringing you the finest organic products with unwavering quality and care
+// // // // // // // // // // // // // // // // // // // // // //           </p>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+// // // // // // // // // // // // // // // // // // // // // //           {benefits.map((benefit, index) => (
+// // // // // // // // // // // // // // // // // // // // // //             <div
+// // // // // // // // // // // // // // // // // // // // // //               key={index}
+// // // // // // // // // // // // // // // // // // // // // //               className="text-center group animate-fade-in"
+// // // // // // // // // // // // // // // // // // // // // //               style={{ animationDelay: `${index * 100}ms` }}
+// // // // // // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // // // // // //               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+// // // // // // // // // // // // // // // // // // // // // //                 <benefit.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
+// // // // // // // // // // // // // // // // // // // // // //                 {benefit.title}
+// // // // // // // // // // // // // // // // // // // // // //               </h3>
+// // // // // // // // // // // // // // // // // // // // // //               <p className="text-muted-foreground">
+// // // // // // // // // // // // // // // // // // // // // //                 {benefit.description}
+// // // // // // // // // // // // // // // // // // // // // //               </p>
+// // // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Testimonials Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="container mx-auto px-4">
+// // // // // // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // // //               What Our Customers Say
+// // // // // // // // // // // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // // // // // // // // // // //             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //               Real experiences from people who've embraced organic living with us
+// // // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+
+// // // // // // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+// // // // // // // // // // // // // // // // // // // // // //             {testimonials.map((testimonial, index) => (
+// // // // // // // // // // // // // // // // // // // // // //               <div
+// // // // // // // // // // // // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // // // // // // // // // // // //                 className="bg-card border border-border rounded-xl p-8 hover-lift animate-fade-in"
+// // // // // // // // // // // // // // // // // // // // // //                 style={{ animationDelay: `${index * 100}ms` }}
+// // // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // // //                 <Quote className="w-10 h-10 text-primary/30 mb-4" />
+// // // // // // // // // // // // // // // // // // // // // //                 <div className="flex gap-1 mb-4">
+// // // // // // // // // // // // // // // // // // // // // //                   {[...Array(testimonial.rating)].map((_, i) => (
+// // // // // // // // // // // // // // // // // // // // // //                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+// // // // // // // // // // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">
+// // // // // // // // // // // // // // // // // // // // // //                   "{testimonial.content}"
+// // // // // // // // // // // // // // // // // // // // // //                 </p>
+// // // // // // // // // // // // // // // // // // // // // //                 <div>
+// // // // // // // // // // // // // // // // // // // // // //                   <p className="font-heading font-semibold text-foreground">
+// // // // // // // // // // // // // // // // // // // // // //                     {testimonial.name}
+// // // // // // // // // // // // // // // // // // // // // //                   </p>
+// // // // // // // // // // // // // // // // // // // // // //                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //             ))}
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Certifications Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
+// // // // // // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // // //               Certified Excellence
+// // // // // // // // // // // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // // // // // // // // // // //             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //               Our commitment to quality is backed by industry-leading certifications
+// // // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+
+// // // // // // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+// // // // // // // // // // // // // // // // // // // // // //             {certifications.map((cert, index) => (
+// // // // // // // // // // // // // // // // // // // // // //               <div
+// // // // // // // // // // // // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // // // // // // // // // // // //                 className="text-center group animate-fade-in"
+// // // // // // // // // // // // // // // // // // // // // //                 style={{ animationDelay: `${index * 100}ms` }}
+// // // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // // //                 <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+// // // // // // // // // // // // // // // // // // // // // //                   <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
+// // // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">
+// // // // // // // // // // // // // // // // // // // // // //                   {cert.name}
+// // // // // // // // // // // // // // // // // // // // // //                 </h3>
+// // // // // // // // // // // // // // // // // // // // // //                 <p className="text-sm text-muted-foreground">{cert.description}</p>
+// // // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // // //             ))}
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       {/* Newsletter Section */}
+// // // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 opacity-10">
+// // // // // // // // // // // // // // // // // // // // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
+// // // // // // // // // // // // // // // // // // // // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+          
+// // // // // // // // // // // // // // // // // // // // // //           <div className="relative z-10 max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //             <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
+// // // // // // // // // // // // // // // // // // // // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+// // // // // // // // // // // // // // // // // // // // // //               Join Our Organic Community
+// // // // // // // // // // // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // // // // // // // // // // //             <p className="text-lg text-white/90 mb-8">
+// // // // // // // // // // // // // // // // // // // // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
+// // // // // // // // // // // // // // // // // // // // // //             </p>
+            
+// // // // // // // // // // // // // // // // // // // // // //             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+// // // // // // // // // // // // // // // // // // // // // //               <Input
+// // // // // // // // // // // // // // // // // // // // // //                 type="email"
+// // // // // // // // // // // // // // // // // // // // // //                 placeholder="Enter your email"
+// // // // // // // // // // // // // // // // // // // // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
+// // // // // // // // // // // // // // // // // // // // // //                 required
+// // // // // // // // // // // // // // // // // // // // // //               />
+// // // // // // // // // // // // // // // // // // // // // //               <Button 
+// // // // // // // // // // // // // // // // // // // // // //                 type="submit" 
+// // // // // // // // // // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+// // // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // // //                 Subscribe
+// // // // // // // // // // // // // // // // // // // // // //               </Button>
+// // // // // // // // // // // // // // // // // // // // // //             </form>
+            
+// // // // // // // // // // // // // // // // // // // // // //             <p className="text-sm text-white/70 mt-4">
+// // // // // // // // // // // // // // // // // // // // // //               We respect your privacy. Unsubscribe anytime.
+// // // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // // //       <Footer />
+// // // // // // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // // // // // //   );
+// // // // // // // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // // // // // // export default Index;
+// // // // // // // // // // // // // // // // // // // // // import { useState, useEffect } from "react";
+// // // // // // // // // // // // // // // // // // // // // import { useNavigate } from "react-router-dom";
+// // // // // // // // // // // // // // // // // // // // // import { Button } from "@/components/ui/button";
+// // // // // // // // // // // // // // // // // // // // // import { Input } from "@/components/ui/input";
+// // // // // // // // // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
+// // // // // // // // // // // // // // // // // // // // // import Header from "@/components/Header";
+// // // // // // // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
+// // // // // // // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
+// // // // // // // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
+// // // // // // // // // // // // // // // // // // // // // import heroImage from "@/assets/hero-organic.jpg";
+// // // // // // // // // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
+// // // // // // // // // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
+// // // // // // // // // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
+// // // // // // // // // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
+// // // // // // // // // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
+// // // // // // // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
+
+// // // // // // // // // // // // // // // // // // // // // interface ProductImage {
+// // // // // // // // // // // // // // // // // // // // //   image_id: string;
+// // // // // // // // // // // // // // // // // // // // //   image_url: string;
+// // // // // // // // // // // // // // // // // // // // //   alt_text: string;
+// // // // // // // // // // // // // // // // // // // // //   is_primary: boolean;
+// // // // // // // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // // // // // interface Product {
+// // // // // // // // // // // // // // // // // // // // //   product_id: string;
+// // // // // // // // // // // // // // // // // // // // //   name: string;
+// // // // // // // // // // // // // // // // // // // // //   description: string;
+// // // // // // // // // // // // // // // // // // // // //   price: string;
+// // // // // // // // // // // // // // // // // // // // //   stock_quantity: number;
+// // // // // // // // // // // // // // // // // // // // //   sku: string;
+// // // // // // // // // // // // // // // // // // // // //   category_id: string;
+// // // // // // // // // // // // // // // // // // // // //   is_active: boolean;
+// // // // // // // // // // // // // // // // // // // // //   created_at: string;
+// // // // // // // // // // // // // // // // // // // // //   updated_at: string;
+// // // // // // // // // // // // // // // // // // // // //   images?: ProductImage[];
+// // // // // // // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // // // // // interface ApiResponse {
+// // // // // // // // // // // // // // // // // // // // //   success: boolean;
+// // // // // // // // // // // // // // // // // // // // //   statusCode: number;
+// // // // // // // // // // // // // // // // // // // // //   message: string;
+// // // // // // // // // // // // // // // // // // // // //   data: {
+// // // // // // // // // // // // // // // // // // // // //     products: Product[];
+// // // // // // // // // // // // // // // // // // // // //   };
+// // // // // // // // // // // // // // // // // // // // //   timestamp: string;
+// // // // // // // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // // // // // const Index = () => {
+// // // // // // // // // // // // // // // // // // // // //   const navigate = useNavigate();
+// // // // // // // // // // // // // // // // // // // // //   const [products, setProducts] = useState<Product[]>([]);
+// // // // // // // // // // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
+  
+// // // // // // // // // // // // // // // // // // // // //   // Newsletter state
+// // // // // // // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState('');
+// // // // // // // // // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
+// // // // // // // // // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+// // // // // // // // // // // // // // // // // // // // //   useEffect(() => {
+// // // // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
+// // // // // // // // // // // // // // // // // // // // //       try {
+// // // // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
+// // // // // // // // // // // // // // // // // // // // //         if (!response.ok) {
+// // // // // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
+// // // // // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
+// // // // // // // // // // // // // // // // // // // // //         if (data.success && data.data.products) {
+// // // // // // // // // // // // // // // // // // // // //           // API already returns page/limit; filter active and sort by created_at (newest first)
+// // // // // // // // // // // // // // // // // // // // //           const latestProducts = data.data.products
+// // // // // // // // // // // // // // // // // // // // //             .filter(product => product.is_active)
+// // // // // // // // // // // // // // // // // // // // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+// // // // // // // // // // // // // // // // // // // // //           setProducts(latestProducts);
+// // // // // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // // // // //       } catch (err) {
+// // // // // // // // // // // // // // // // // // // // //         console.error('Error fetching products:', err);
+// // // // // // // // // // // // // // // // // // // // //       } finally {
+// // // // // // // // // // // // // // // // // // // // //         setLoading(false);
+// // // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // // //     };
+
+// // // // // // // // // // // // // // // // // // // // //     fetchProducts();
+// // // // // // // // // // // // // // // // // // // // //   }, []);
+
+// // // // // // // // // // // // // // // // // // // // //   // Newsletter subscribe handler
+// // // // // // // // // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+// // // // // // // // // // // // // // // // // // // // //     e.preventDefault();
+    
+// // // // // // // // // // // // // // // // // // // // //     if (!newsletterEmail || !newsletterEmail.includes('@')) {
+// // // // // // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // // //         text: 'Please enter a valid email address', 
+// // // // // // // // // // // // // // // // // // // // //         type: 'error' 
+// // // // // // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // // // // // //       return;
+// // // // // // // // // // // // // // // // // // // // //     }
+
+// // // // // // // // // // // // // // // // // // // // //     setNewsletterLoading(true);
+// // // // // // // // // // // // // // // // // // // // //     setNewsletterMessage(null);
+
+// // // // // // // // // // // // // // // // // // // // //     try {
+// // // // // // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
+// // // // // // // // // // // // // // // // // // // // //         method: 'POST',
+// // // // // // // // // // // // // // // // // // // // //         headers: {
+// // // // // // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
+// // // // // // // // // // // // // // // // // // // // //         },
+// // // // // // // // // // // // // // // // // // // // //         body: JSON.stringify({ email: newsletterEmail }),
+// // // // // // // // // // // // // // // // // // // // //       });
+
+// // // // // // // // // // // // // // // // // // // // //       const data = await response.json();
+
+// // // // // // // // // // // // // // // // // // // // //       if (response.ok) {
+// // // // // // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // // //           text: 'Successfully subscribed to our newsletter!', 
+// // // // // // // // // // // // // // // // // // // // //           type: 'success' 
+// // // // // // // // // // // // // // // // // // // // //         });
+// // // // // // // // // // // // // // // // // // // // //         setNewsletterEmail('');
+// // // // // // // // // // // // // // // // // // // // //       } else {
+// // // // // // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // // //           text: data.message || 'Failed to subscribe. Please try again.', 
+// // // // // // // // // // // // // // // // // // // // //           type: 'error' 
+// // // // // // // // // // // // // // // // // // // // //         });
+// // // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // // //     } catch (error) {
+// // // // // // // // // // // // // // // // // // // // //       console.error('Newsletter subscription error:', error);
+// // // // // // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // // //         text: 'Network error. Please check your connection and try again.', 
+// // // // // // // // // // // // // // // // // // // // //         type: 'error' 
+// // // // // // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // // // // // //     } finally {
+// // // // // // // // // // // // // // // // // // // // //       setNewsletterLoading(false);
+// // // // // // // // // // // // // // // // // // // // //     }
+// // // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // // //   // Newsletter unsubscribe handler
+// // // // // // // // // // // // // // // // // // // // //   const handleUnsubscribe = async () => {
+// // // // // // // // // // // // // // // // // // // // //     const email = prompt('Please enter your email address to unsubscribe:');
+    
+// // // // // // // // // // // // // // // // // // // // //     if (!email || !email.includes('@')) {
+// // // // // // // // // // // // // // // // // // // // //       return;
+// // // // // // // // // // // // // // // // // // // // //     }
+
+// // // // // // // // // // // // // // // // // // // // //     try {
+// // // // // // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
+// // // // // // // // // // // // // // // // // // // // //         method: 'POST',
+// // // // // // // // // // // // // // // // // // // // //         headers: {
+// // // // // // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
+// // // // // // // // // // // // // // // // // // // // //         },
+// // // // // // // // // // // // // // // // // // // // //         body: JSON.stringify({ email }),
+// // // // // // // // // // // // // // // // // // // // //       });
+
+// // // // // // // // // // // // // // // // // // // // //       const data = await response.json();
+
+// // // // // // // // // // // // // // // // // // // // //       if (response.ok) {
+// // // // // // // // // // // // // // // // // // // // //         alert('Successfully unsubscribed from our newsletter.');
+// // // // // // // // // // // // // // // // // // // // //       } else {
+// // // // // // // // // // // // // // // // // // // // //         alert(data.message || 'Failed to unsubscribe. Please try again.');
+// // // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // // //     } catch (error) {
+// // // // // // // // // // // // // // // // // // // // //       console.error('Newsletter unsubscribe error:', error);
+// // // // // // // // // // // // // // // // // // // // //       alert('Network error. Please check your connection and try again.');
+// // // // // // // // // // // // // // // // // // // // //     }
+// // // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // // //   // Category mapping
+// // // // // // // // // // // // // // // // // // // // //   const categoryMap: Record<string, string> = {
+// // // // // // // // // // // // // // // // // // // // //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
+// // // // // // // // // // // // // // // // // // // // //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
+// // // // // // // // // // // // // // // // // // // // //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
+// // // // // // // // // // // // // // // // // // // // //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
+// // // // // // // // // // // // // // // // // // // // //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+// // // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // // //   // Placeholder image generator
+// // // // // // // // // // // // // // // // // // // // //   const getPlaceholderImage = (name: string) => {
+// // // // // // // // // // // // // // // // // // // // //     const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
+// // // // // // // // // // // // // // // // // // // // //     return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
+// // // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // // //   // Transform API products to match ProductCard props
+// // // // // // // // // // // // // // // // // // // // //   const transformedProducts = products.map(product => {
+// // // // // // // // // // // // // // // // // // // // //     // Use actual product image if available, otherwise fallback to placeholder
+// // // // // // // // // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
+// // // // // // // // // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
+// // // // // // // // // // // // // // // // // // // // //       const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+// // // // // // // // // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
+// // // // // // // // // // // // // // // // // // // // //     }
+    
+// // // // // // // // // // // // // // // // // // // // //     return {
+// // // // // // // // // // // // // // // // // // // // //       id: product.product_id,
+// // // // // // // // // // // // // // // // // // // // //       name: product.name,
+// // // // // // // // // // // // // // // // // // // // //       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+// // // // // // // // // // // // // // // // // // // // //       image: imageUrl,
+// // // // // // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || 'Uncategorized',
+// // // // // // // // // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
+// // // // // // // // // // // // // // // // // // // // //     };
+// // // // // // // // // // // // // // // // // // // // //   });
+
+// // // // // // // // // // // // // // // // // // // // //   const categories = [
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       title: "Weight Management Products",
+// // // // // // // // // // // // // // // // // // // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
+// // // // // // // // // // // // // // // // // // // // //       image: weight,
+// // // // // // // // // // // // // // // // // // // // //       to: "/products/weight-management",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       title: "Yoni & Female Fertility Care",
+// // // // // // // // // // // // // // // // // // // // //       description: "Steam herbs, washes, tightening pearls & more.",
+// // // // // // // // // // // // // // // // // // // // //       image: Yoni,
+// // // // // // // // // // // // // // // // // // // // //       to: "/products/female-care",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       title: "Men's Boosters & Fertility Support",
+// // // // // // // // // // // // // // // // // // // // //       description: "Stamina, libido, and reproductive health.",
+// // // // // // // // // // // // // // // // // // // // //       image: mens,
+// // // // // // // // // // // // // // // // // // // // //       to: "/products/mens-health",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       title: "Natural Skin Care",
+// // // // // // // // // // // // // // // // // // // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
+// // // // // // // // // // // // // // // // // // // // //       image: natural,
+// // // // // // // // // // // // // // // // // // // // //       to: "/products/skin-care",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       title: "Nutritional Supplements",
+// // // // // // // // // // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
+// // // // // // // // // // // // // // // // // // // // //       image: nutritional,
+// // // // // // // // // // // // // // // // // // // // //       to: "/products/supplements"
+
+
+// // // // // // // // // // // // // // // // // // // // //   const testimonials = [
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       name: "Jennifer Martinez",
+// // // // // // // // // // // // // // // // // // // // //       role: "Wellness Enthusiast",
+// // // // // // // // // // // // // // // // // // // // //       content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+// // // // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       name: "Robert Kim",
+// // // // // // // // // // // // // // // // // // // // //       role: "Nutrition Coach",
+// // // // // // // // // // // // // // // // // // // // //       content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
+// // // // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       name: "Amanda Foster",
+// // // // // // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
+// // // // // // // // // // // // // // // // // // // // //       content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+// // // // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // //   const certifications = [
+// // // // // // // // // // // // // // // // // // // // //     { name: "USDA Organic", description: "Certified organic standards" },
+// // // // // // // // // // // // // // // // // // // // //     { name: "Non-GMO", description: "Verified non-GMO products" },
+// // // // // // // // // // // // // // // // // // // // //     { name: "Gluten-Free", description: "Certified gluten-free options" },
+// // // // // // // // // // // // // // // // // // // // //     { name: "Fair Trade", description: "Ethically sourced ingredients" },
+// // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // //   const benefits = [
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       icon: Leaf,
+// // // // // // // // // // // // // // // // // // // // //       title: "100% Organic",
+// // // // // // // // // // // // // // // // // // // // //       description: "Certified organic ingredients sourced from sustainable farms",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       icon: Shield,
+// // // // // // // // // // // // // // // // // // // // //       title: "Quality Assured",
+// // // // // // // // // // // // // // // // // // // // //       description: "Rigorous testing ensures premium quality in every product",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       icon: Heart,
+// // // // // // // // // // // // // // // // // // // // //       title: "Health First",
+// // // // // // // // // // // // // // // // // // // // //       description: "Nutritious products that support your wellness journey",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // // // //       icon: Sparkles,
+// // // // // // // // // // // // // // // // // // // // //       title: "Pure & Natural",
+// // // // // // // // // // // // // // // // // // // // //       description: "No artificial additives, preservatives, or chemicals",
+// // // // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // // // //   ];
+
+// // // // // // // // // // // // // // // // // // // // //   // Utility to chunk an array into rows
+// // // // // // // // // // // // // // // // // // // // //   const chunk = <T,>(arr: T[], size: number): T[][] => {
+// // // // // // // // // // // // // // // // // // // // //     const rows: T[][] = [];
+// // // // // // // // // // // // // // // // // // // // //     for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+// // // // // // // // // // // // // // // // // // // // //     return rows;
+// // // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // // //   return (
+// // // // // // // // // // // // // // // // // // // // //     <div className="min-h-screen">
+// // // // // // // // // // // // // // // // // // // // //       <Header />
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Hero Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="relative h-[800px] md:h-[920px] overflow-hidden">
+// // // // // // // // // // // // // // // // // // // // //         <div className="absolute inset-0">
+// // // // // // // // // // // // // // // // // // // // //           <img
+// // // // // // // // // // // // // // // // // // // // //             src={heroImage}
+// // // // // // // // // // // // // // // // // // // // //             alt="Organic products in natural setting"
+// // // // // // // // // // // // // // // // // // // // //             className="w-full h-full object-cover"
+// // // // // // // // // // // // // // // // // // // // //           />
+// // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
+// // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
+// // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
+// // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
+// // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+        
+// // // // // // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-center">
+// // // // // // // // // // // // // // // // // // // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+// // // // // // // // // // // // // // // // // // // // //               Nurture Life, Naturally
+// // // // // // // // // // // // // // // // // // // // //             </h1>
+// // // // // // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
+// // // // // // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+// // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // //             <Button 
+// // // // // // // // // // // // // // // // // // // // //               size="lg" 
+// // // // // // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
+// // // // // // // // // // // // // // // // // // // // //               onClick={() => navigate('/shop')}
+// // // // // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // // // // //               Shop Now
+// // // // // // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // // // // // // // // // // // // // //             </Button>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Featured Products Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // //             Featured Products
+// // // // // // // // // // // // // // // // // // // // //           </h2>
+// // // // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // //             Handpicked selections from our organic collection, crafted with care for your wellbeing
+// // // // // // // // // // // // // // // // // // // // //           </p>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // //         {loading ? (
+// // // // // // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
+// // // // // // // // // // // // // // // // // // // // //             <div className="text-lg">Loading products...</div>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // //         ) : transformedProducts.length === 0 ? (
+// // // // // // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
+// // // // // // // // // // // // // // // // // // // // //             <div className="text-lg text-muted-foreground">No products available at the moment.</div>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // //         ) : (
+// // // // // // // // // // // // // // // // // // // // //           <>
+// // // // // // // // // // // // // // // // // // // // //             {/* Mobile: 2 per row */}
+// // // // // // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-8">
+// // // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="space-y-3">
+                  
+// // // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-2 gap-6">
+// // // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // // //                       </div>
+// // // // // // // // // // // // // // // // // // // // //                     ))}
+// // // // // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // //               ))}
+// // // // // // // // // // // // // // // // // // // // //             </div>
+
+// // // // // // // // // // // // // // // // // // // // //             {/* Tablet: 3 per row */}
+// // // // // // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-10">
+// // // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="space-y-4">
+                
+// // // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-3 gap-8">
+// // // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // // //                       </div>
+// // // // // // // // // // // // // // // // // // // // //                     ))}
+// // // // // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // //               ))}
+// // // // // // // // // // // // // // // // // // // // //             </div>
+
+// // // // // // // // // // // // // // // // // // // // //             {/* Desktop: 4 per row */}
+// // // // // // // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-12">
+// // // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="space-y-5">
+// // // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-4 gap-9">
+// // // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // // //                       <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // // //                       </div>
+// // // // // // // // // // // // // // // // // // // // //                     ))}
+// // // // // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // //               ))}
+// // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // //           </>
+// // // // // // // // // // // // // // // // // // // // //         )}
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Shop By Lifestyle Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
+// // // // // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // //             Shop By Lifestyle
+// // // // // // // // // // // // // // // // // // // // //           </h2>
+// // // // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // //             Find the perfect organic solutions tailored to your unique wellness needs
+// // // // // // // // // // // // // // // // // // // // //           </p>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+// // // // // // // // // // // // // // // // // // // // //           {categories.map((category, index) => (
+// // // // // // // // // // // // // // // // // // // // //             <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+// // // // // // // // // // // // // // // // // // // // //               <CategoryCard {...category} />
+// // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Why Choose Organic Bloom Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // //         <div className="text-center mb-16 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // //             Why Choose Organic Bloom
+// // // // // // // // // // // // // // // // // // // // //           </h2>
+// // // // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // //             We're committed to bringing you the finest organic products with unwavering quality and care
+// // // // // // // // // // // // // // // // // // // // //           </p>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+// // // // // // // // // // // // // // // // // // // // //           {benefits.map((benefit, index) => (
+// // // // // // // // // // // // // // // // // // // // //             <div
+// // // // // // // // // // // // // // // // // // // // //               key={index}
+// // // // // // // // // // // // // // // // // // // // //               className="text-center group animate-fade-in"
+// // // // // // // // // // // // // // // // // // // // //               style={{ animationDelay: `${index * 100}ms` }}
+// // // // // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // // // // //               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+// // // // // // // // // // // // // // // // // // // // //                 <benefit.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+// // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
+// // // // // // // // // // // // // // // // // // // // //                 {benefit.title}
+// // // // // // // // // // // // // // // // // // // // //               </h3>
+// // // // // // // // // // // // // // // // // // // // //               <p className="text-muted-foreground">
+// // // // // // // // // // // // // // // // // // // // //                 {benefit.description}
+// // // // // // // // // // // // // // // // // // // // //               </p>
+// // // // // // // // // // // // // // // // // // // // //             </div>
+// // // // // // // // // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Testimonials Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
+// // // // // // // // // // // // // // // // // // // // //         <div className="container mx-auto px-4">
+// // // // // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // //               What Our Customers Say
+// // // // // // // // // // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // // // // // // // // // //             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // //               Real experiences from people who've embraced organic living with us
+// // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+
+// // // // // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+// // // // // // // // // // // // // // // // // // // // //             {testimonials.map((testimonial, index) => (
+// // // // // // // // // // // // // // // // // // // // //               <div
+// // // // // // // // // // // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // // // // // // // // // // //                 className="bg-card border border-border rounded-xl p-8 hover-lift animate-fade-in"
+// // // // // // // // // // // // // // // // // // // // //                 style={{ animationDelay: `${index * 100}ms` }}
+// // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // //                 <Quote className="w-10 h-10 text-primary/30 mb-4" />
+// // // // // // // // // // // // // // // // // // // // //                 <div className="flex gap-1 mb-4">
+// // // // // // // // // // // // // // // // // // // // //                   {[...Array(testimonial.rating)].map((_, i) => (
+// // // // // // // // // // // // // // // // // // // // //                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
+// // // // // // // // // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">
+// // // // // // // // // // // // // // // // // // // // //                   "{testimonial.content}"
+// // // // // // // // // // // // // // // // // // // // //                 </p>
+// // // // // // // // // // // // // // // // // // // // //                 <div>
+// // // // // // // // // // // // // // // // // // // // //                   <p className="font-heading font-semibold text-foreground">
+// // // // // // // // // // // // // // // // // // // // //                     {testimonial.name}
+// // // // // // // // // // // // // // // // // // // // //                   </p>
+// // // // // // // // // // // // // // // // // // // // //                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // //             ))}
+// // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Certifications Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
+// // // // // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
+// // // // // // // // // // // // // // // // // // // // //               Certified Excellence
+// // // // // // // // // // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // // // // // // // // // //             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // //               Our commitment to quality is backed by industry-leading certifications
+// // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+
+// // // // // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+// // // // // // // // // // // // // // // // // // // // //             {certifications.map((cert, index) => (
+// // // // // // // // // // // // // // // // // // // // //               <div
+// // // // // // // // // // // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // // // // // // // // // // //                 className="text-center group animate-fade-in"
+// // // // // // // // // // // // // // // // // // // // //                 style={{ animationDelay: `${index * 100}ms` }}
+// // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // //                 <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
+// // // // // // // // // // // // // // // // // // // // //                   <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
+// // // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">
+// // // // // // // // // // // // // // // // // // // // //                   {cert.name}
+// // // // // // // // // // // // // // // // // // // // //                 </h3>
+// // // // // // // // // // // // // // // // // // // // //                 <p className="text-sm text-muted-foreground">{cert.description}</p>
+// // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // //             ))}
+// // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       {/* Newsletter Section */}
+// // // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
+// // // // // // // // // // // // // // // // // // // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
+// // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 opacity-10">
+// // // // // // // // // // // // // // // // // // // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
+// // // // // // // // // // // // // // // // // // // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+          
+// // // // // // // // // // // // // // // // // // // // //           <div className="relative z-10 max-w-2xl mx-auto">
+// // // // // // // // // // // // // // // // // // // // //             <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
+// // // // // // // // // // // // // // // // // // // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
+// // // // // // // // // // // // // // // // // // // // //               Join Our Organic Community
+// // // // // // // // // // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // // // // // // // // // //             <p className="text-lg text-white/90 mb-8">
+// // // // // // // // // // // // // // // // // // // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
+// // // // // // // // // // // // // // // // // // // // //             </p>
+            
+// // // // // // // // // // // // // // // // // // // // //             <form 
+// // // // // // // // // // // // // // // // // // // // //               onSubmit={handleNewsletterSubmit}
+// // // // // // // // // // // // // // // // // // // // //               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+// // // // // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // // // // //               <Input
+// // // // // // // // // // // // // // // // // // // // //                 type="email"
+// // // // // // // // // // // // // // // // // // // // //                 placeholder="Enter your email"
+// // // // // // // // // // // // // // // // // // // // //                 value={newsletterEmail}
+// // // // // // // // // // // // // // // // // // // // //                 onChange={(e) => {
+// // // // // // // // // // // // // // // // // // // // //                   setNewsletterEmail(e.target.value);
+// // // // // // // // // // // // // // // // // // // // //                   setNewsletterMessage(null);
+// // // // // // // // // // // // // // // // // // // // //                 }}
+// // // // // // // // // // // // // // // // // // // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
+// // // // // // // // // // // // // // // // // // // // //                 required
+// // // // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
+// // // // // // // // // // // // // // // // // // // // //               />
+// // // // // // // // // // // // // // // // // // // // //               <Button 
+// // // // // // // // // // // // // // // // // // // // //                 type="submit" 
+// // // // // // // // // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+// // // // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
+// // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // //                 {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
+// // // // // // // // // // // // // // // // // // // // //               </Button>
+// // // // // // // // // // // // // // // // // // // // //             </form>
+            
+// // // // // // // // // // // // // // // // // // // // //             {newsletterMessage && (
+// // // // // // // // // // // // // // // // // // // // //               <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
+// // // // // // // // // // // // // // // // // // // // //                 newsletterMessage.type === 'success' 
+// // // // // // // // // // // // // // // // // // // // //                   ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
+// // // // // // // // // // // // // // // // // // // // //                   : 'bg-red-500/20 text-red-100 border border-red-400/30'
+// // // // // // // // // // // // // // // // // // // // //               }`}>
+// // // // // // // // // // // // // // // // // // // // //                 <p className="text-sm">{newsletterMessage.text}</p>
+// // // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // // //             )}
+            
+// // // // // // // // // // // // // // // // // // // // //             <p className="text-sm text-white/70 mt-4">
+// // // // // // // // // // // // // // // // // // // // //               We respect your privacy. <button 
+// // // // // // // // // // // // // // // // // // // // //                 type="button"
+// // // // // // // // // // // // // // // // // // // // //                 onClick={handleUnsubscribe}
+// // // // // // // // // // // // // // // // // // // // //                 className="underline hover:text-white transition-colors"
+// // // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // // //                 Unsubscribe anytime
+// // // // // // // // // // // // // // // // // // // // //               </button>
+// // // // // // // // // // // // // // // // // // // // //             </p>
+// // // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // // //       </section>
+
+// // // // // // // // // // // // // // // // // // // // //       <Footer />
+// // // // // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // // // // //   );
+// // // // // // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // // // // // export default Index;
+// // // // // // // // // // // // // // // // // // // // import { useState, useEffect } from "react";
+// // // // // // // // // // // // // // // // // // // // import { useNavigate } from "react-router-dom";
 // // // // // // // // // // // // // // // // // // // // import { Button } from "@/components/ui/button";
 // // // // // // // // // // // // // // // // // // // // import { Input } from "@/components/ui/input";
 // // // // // // // // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
@@ -5,104 +1045,225 @@
 // // // // // // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // // // // // // // // // import heroImage from "@/assets/hero-organic.jpg";
-// // // // // // // // // // // // // // // // // // // // import productHoney from "@/assets/org.jpg";
-// // // // // // // // // // // // // // // // // // // // import productTea from "@/assets/product-tea.jpg";
-// // // // // // // // // // // // // // // // // // // // import productGranola from "@/assets/organic.jpg";
-// // // // // // // // // // // // // // // // // // // // import productOil from "@/assets/product-oil.jpg";
-// // // // // // // // // // // // // // // // // // // // import categoryHerbs from "@/assets/category-herbs.jpg";
-// // // // // // // // // // // // // // // // // // // // import categoryWeightLoss from "@/assets/organic.jpg";
-// // // // // // // // // // // // // // // // // // // // import categoryCleansers from "@/assets/category-cleansers.jpg";
-// // // // // // // // // // // // // // // // // // // // import categoryGutHealth from "@/assets/org.jpg";
+// // // // // // // // // // // // // // // // // // // // import heroImage from "@/assets/hero.jpeg";
+// // // // // // // // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
+// // // // // // // // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
+// // // // // // // // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
+// // // // // // // // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
+// // // // // // // // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
+// // // // // // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
+
+// // // // // // // // // // // // // // // // // // // // interface ProductImage {
+// // // // // // // // // // // // // // // // // // // //   image_id: string;
+// // // // // // // // // // // // // // // // // // // //   image_url: string;
+// // // // // // // // // // // // // // // // // // // //   alt_text: string;
+// // // // // // // // // // // // // // // // // // // //   is_primary: boolean;
+// // // // // // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // // // // interface Product {
+// // // // // // // // // // // // // // // // // // // //   product_id: string;
+// // // // // // // // // // // // // // // // // // // //   name: string;
+// // // // // // // // // // // // // // // // // // // //   description: string;
+// // // // // // // // // // // // // // // // // // // //   price: string;
+// // // // // // // // // // // // // // // // // // // //   stock_quantity: number;
+// // // // // // // // // // // // // // // // // // // //   sku: string;
+// // // // // // // // // // // // // // // // // // // //   category_id: string;
+// // // // // // // // // // // // // // // // // // // //   is_active: boolean;
+// // // // // // // // // // // // // // // // // // // //   created_at: string;
+// // // // // // // // // // // // // // // // // // // //   updated_at: string;
+// // // // // // // // // // // // // // // // // // // //   images?: ProductImage[];
+// // // // // // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // // // // interface ApiResponse {
+// // // // // // // // // // // // // // // // // // // //   success: boolean;
+// // // // // // // // // // // // // // // // // // // //   statusCode: number;
+// // // // // // // // // // // // // // // // // // // //   message: string;
+// // // // // // // // // // // // // // // // // // // //   data: {
+// // // // // // // // // // // // // // // // // // // //     products: Product[];
+// // // // // // // // // // // // // // // // // // // //   };
+// // // // // // // // // // // // // // // // // // // //   timestamp: string;
+// // // // // // // // // // // // // // // // // // // // }
 
 // // // // // // // // // // // // // // // // // // // // const Index = () => {
-// // // // // // // // // // // // // // // // // // // //   const products = [
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "raw-organic-honey",
-// // // // // // // // // // // // // // // // // // // //       name: "Raw Organic Honey",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh 3500",
-// // // // // // // // // // // // // // // // // // // //       image: productHoney,
-// // // // // // // // // // // // // // // // // // // //       category: "Sweeteners",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "premium-green-tea",
-// // // // // // // // // // // // // // // // // // // //       name: "Premium Green Tea",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh18.99",
-// // // // // // // // // // // // // // // // // // // //       image: productTea,
-// // // // // // // // // // // // // // // // // // // //       category: "Beverages",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "artisan-granola-mix",
-// // // // // // // // // // // // // // // // // // // //       name: "Artisan Granola Mix",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh 2700",
-// // // // // // // // // // // // // // // // // // // //       image: productGranola,
-// // // // // // // // // // // // // // // // // // // //       category: "Breakfast",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "cold-pressed-olive-oil",
-// // // // // // // // // // // // // // // // // // // //       name: "Cold-Pressed Olive Oil",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh28.99",
-// // // // // // // // // // // // // // // // // // // //       image: productOil,
-// // // // // // // // // // // // // // // // // // // //       category: "Oils",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "raw-organic-honey",
-// // // // // // // // // // // // // // // // // // // //       name: "Raw Organic Honey",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh24.99",
-// // // // // // // // // // // // // // // // // // // //       image: productHoney,
-// // // // // // // // // // // // // // // // // // // //       category: "Sweeteners",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "premium-green-tea",
-// // // // // // // // // // // // // // // // // // // //       name: "Premium Green Tea",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh18.99",
-// // // // // // // // // // // // // // // // // // // //       image: productTea,
-// // // // // // // // // // // // // // // // // // // //       category: "Beverages",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "artisan-granola-mix",
-// // // // // // // // // // // // // // // // // // // //       name: "Artisan Granola Mix",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh15.99",
-// // // // // // // // // // // // // // // // // // // //       image: productGranola,
-// // // // // // // // // // // // // // // // // // // //       category: "Breakfast",
-// // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // // //       id: "cold-pressed-olive-oil",
-// // // // // // // // // // // // // // // // // // // //       name: "Cold-Pressed Olive Oil",
-// // // // // // // // // // // // // // // // // // // //       price: "Ksh28.99",
-// // // // // // // // // // // // // // // // // // // //       image: productOil,
-// // // // // // // // // // // // // // // // // // // //       category: "Oils",// // // // // // // // //   },
-// // // // // // // // // // // // // // // // // // // // ];
+// // // // // // // // // // // // // // // // // // // //   const navigate = useNavigate();
+// // // // // // // // // // // // // // // // // // // //   const [products, setProducts] = useState<Product[]>([]);
+// // // // // // // // // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
+  
+// // // // // // // // // // // // // // // // // // // //   // Newsletter state
+// // // // // // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState('');
+// // // // // // // // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
+// // // // // // // // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+
+// // // // // // // // // // // // // // // // // // // //   useEffect(() => {
+// // // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
+// // // // // // // // // // // // // // // // // // // //       try {
+// // // // // // // // // // // // // // // // // // // //         // Fetch more products (limit=100) to ensure we get the latest ones
+// // // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
+// // // // // // // // // // // // // // // // // // // //         if (!response.ok) {
+// // // // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
+// // // // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
+// // // // // // // // // // // // // // // // // // // //         if (data.success && data.data.products) {
+// // // // // // // // // // // // // // // // // // // //           // Filter active products, sort by created_at (newest first), then take only 8
+// // // // // // // // // // // // // // // // // // // //           const latestProducts = data.data.products
+// // // // // // // // // // // // // // // // // // // //             .filter(product => product.is_active)
+// // // // // // // // // // // // // // // // // // // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+// // // // // // // // // // // // // // // // // // // //             .slice(0, 8); // Take only the 8 most recent products
+// // // // // // // // // // // // // // // // // // // //           setProducts(latestProducts);
+// // // // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // // // //       } catch (err) {
+// // // // // // // // // // // // // // // // // // // //         console.error('Error fetching products:', err);
+// // // // // // // // // // // // // // // // // // // //       } finally {
+// // // // // // // // // // // // // // // // // // // //         setLoading(false);
+// // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // //     };
+
+// // // // // // // // // // // // // // // // // // // //     fetchProducts();
+// // // // // // // // // // // // // // // // // // // //   }, []);
+
+// // // // // // // // // // // // // // // // // // // //   // Newsletter subscribe handler
+// // // // // // // // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+// // // // // // // // // // // // // // // // // // // //     e.preventDefault();
+    
+// // // // // // // // // // // // // // // // // // // //     if (!newsletterEmail || !newsletterEmail.includes('@')) {
+// // // // // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // //         text: 'Please enter a valid email address', 
+// // // // // // // // // // // // // // // // // // // //         type: 'error' 
+// // // // // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // // // // //       return;
+// // // // // // // // // // // // // // // // // // // //     }
+
+// // // // // // // // // // // // // // // // // // // //     setNewsletterLoading(true);
+// // // // // // // // // // // // // // // // // // // //     setNewsletterMessage(null);
+
+// // // // // // // // // // // // // // // // // // // //     try {
+// // // // // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
+// // // // // // // // // // // // // // // // // // // //         method: 'POST',
+// // // // // // // // // // // // // // // // // // // //         headers: {
+// // // // // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
+// // // // // // // // // // // // // // // // // // // //         },
+// // // // // // // // // // // // // // // // // // // //         body: JSON.stringify({ email: newsletterEmail }),
+// // // // // // // // // // // // // // // // // // // //       });
+
+// // // // // // // // // // // // // // // // // // // //       const data = await response.json();
+
+// // // // // // // // // // // // // // // // // // // //       if (response.ok) {
+// // // // // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // //           text: 'Successfully subscribed to our newsletter!', 
+// // // // // // // // // // // // // // // // // // // //           type: 'success' 
+// // // // // // // // // // // // // // // // // // // //         });
+// // // // // // // // // // // // // // // // // // // //         setNewsletterEmail('');
+// // // // // // // // // // // // // // // // // // // //       } else {
+// // // // // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // //           text: data.message || 'Failed to subscribe. Please try again.', 
+// // // // // // // // // // // // // // // // // // // //           type: 'error' 
+// // // // // // // // // // // // // // // // // // // //         });
+// // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // //     } catch (error) {
+// // // // // // // // // // // // // // // // // // // //       console.error('Newsletter subscription error:', error);
+// // // // // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
+// // // // // // // // // // // // // // // // // // // //         text: 'Network error. Please check your connection and try again.', 
+// // // // // // // // // // // // // // // // // // // //         type: 'error' 
+// // // // // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // // // // //     } finally {
+// // // // // // // // // // // // // // // // // // // //       setNewsletterLoading(false);
+// // // // // // // // // // // // // // // // // // // //     }
+// // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // //   // Newsletter unsubscribe handler
+// // // // // // // // // // // // // // // // // // // //   const handleUnsubscribe = async () => {
+// // // // // // // // // // // // // // // // // // // //     const email = prompt('Please enter your email address to unsubscribe:');
+    
+// // // // // // // // // // // // // // // // // // // //     if (!email || !email.includes('@')) {
+// // // // // // // // // // // // // // // // // // // //       return;
+// // // // // // // // // // // // // // // // // // // //     }
+
+// // // // // // // // // // // // // // // // // // // //     try {
+// // // // // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
+// // // // // // // // // // // // // // // // // // // //         method: 'POST',
+// // // // // // // // // // // // // // // // // // // //         headers: {
+// // // // // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
+// // // // // // // // // // // // // // // // // // // //         },
+// // // // // // // // // // // // // // // // // // // //         body: JSON.stringify({ email }),
+// // // // // // // // // // // // // // // // // // // //       });
+
+// // // // // // // // // // // // // // // // // // // //       const data = await response.json();
+
+// // // // // // // // // // // // // // // // // // // //       if (response.ok) {
+// // // // // // // // // // // // // // // // // // // //         alert('Successfully unsubscribed from our newsletter.');
+// // // // // // // // // // // // // // // // // // // //       } else {
+// // // // // // // // // // // // // // // // // // // //         alert(data.message || 'Failed to unsubscribe. Please try again.');
+// // // // // // // // // // // // // // // // // // // //       }
+// // // // // // // // // // // // // // // // // // // //     } catch (error) {
+// // // // // // // // // // // // // // // // // // // //       console.error('Newsletter unsubscribe error:', error);
+// // // // // // // // // // // // // // // // // // // //       alert('Network error. Please check your connection and try again.');
+// // // // // // // // // // // // // // // // // // // //     }
+// // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // //   // Category mapping
+// // // // // // // // // // // // // // // // // // // //   const categoryMap: Record<string, string> = {
+// // // // // // // // // // // // // // // // // // // //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
+// // // // // // // // // // // // // // // // // // // //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
+// // // // // // // // // // // // // // // // // // // //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
+// // // // // // // // // // // // // // // // // // // //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
+// // // // // // // // // // // // // // // // // // // //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+// // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // //   // Placeholder image generator
+// // // // // // // // // // // // // // // // // // // //   const getPlaceholderImage = (name: string) => {
+// // // // // // // // // // // // // // // // // // // //     const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
+// // // // // // // // // // // // // // // // // // // //     return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
+// // // // // // // // // // // // // // // // // // // //   };
+
+// // // // // // // // // // // // // // // // // // // //   // Transform API products to match ProductCard props
+// // // // // // // // // // // // // // // // // // // //   const transformedProducts = products.map(product => {
+// // // // // // // // // // // // // // // // // // // //     // Use actual product image if available, otherwise fallback to placeholder
+// // // // // // // // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
+// // // // // // // // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
+// // // // // // // // // // // // // // // // // // // //       const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+// // // // // // // // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
+// // // // // // // // // // // // // // // // // // // //     }
+    
+// // // // // // // // // // // // // // // // // // // //     return {
+// // // // // // // // // // // // // // // // // // // //       id: product.product_id,
+// // // // // // // // // // // // // // // // // // // //       name: product.name,
+// // // // // // // // // // // // // // // // // // // //       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+// // // // // // // // // // // // // // // // // // // //       image: imageUrl,
+// // // // // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || 'Uncategorized',
+// // // // // // // // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
+// // // // // // // // // // // // // // // // // // // //     };
+// // // // // // // // // // // // // // // // // // // //   });
+
 // // // // // // // // // // // // // // // // // // // //   const categories = [
 // // // // // // // // // // // // // // // // // // // //     {
 // // // // // // // // // // // // // // // // // // // //       title: "Weight Management Products",
 // // // // // // // // // // // // // // // // // // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
-// // // // // // // // // // // // // // // // // // // //       image: categoryHerbs,
+// // // // // // // // // // // // // // // // // // // //       image: weight,
+// // // // // // // // // // // // // // // // // // // //       to: "/products/weight-management",
 // // // // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // // // //     // {
-// // // // // // // // // // // // // // // // // // // //     //   title: "Weight Loss",
-// // // // // // // // // // // // // // // // // // // //     //   description: "Support your health goals with our carefully selected organic products designed to naturally complement your balanced lifestyle.",
-// // // // // // // // // // // // // // // // // // // //     //   image: categoryWeightLoss,
-// // // // // // // // // // // // // // // // // // // //     // },
 // // // // // // // // // // // // // // // // // // // //     {
 // // // // // // // // // // // // // // // // // // // //       title: "Yoni & Female Fertility Care",
 // // // // // // // // // // // // // // // // // // // //       description: "Steam herbs, washes, tightening pearls & more.",
-// // // // // // // // // // // // // // // // // // // //       image: categoryCleansers,
+// // // // // // // // // // // // // // // // // // // //       image: Yoni,
+// // // // // // // // // // // // // // // // // // // //       to: "/products/female-care",
 // // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // // //     {
 // // // // // // // // // // // // // // // // // // // //       title: "Men's Boosters & Fertility Support",
 // // // // // // // // // // // // // // // // // // // //       description: "Stamina, libido, and reproductive health.",
-// // // // // // // // // // // // // // // // // // // //       image: categoryGutHealth,
+// // // // // // // // // // // // // // // // // // // //       image: mens,
+// // // // // // // // // // // // // // // // // // // //       to: "/products/mens-health",
 // // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // // //     {
 // // // // // // // // // // // // // // // // // // // //       title: "Natural Skin Care",
 // // // // // // // // // // // // // // // // // // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
-// // // // // // // // // // // // // // // // // // // //       image: categoryGutHealth,
+// // // // // // // // // // // // // // // // // // // //       image: natural,
+// // // // // // // // // // // // // // // // // // // //       to: "/products/skin-care",
 // // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // // //     {
 // // // // // // // // // // // // // // // // // // // //       title: "Nutritional Supplements",
 // // // // // // // // // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
-// // // // // // // // // // // // // // // // // // // //       image: categoryGutHealth,
+// // // // // // // // // // // // // // // // // // // //       image: nutritional,
+// // // // // // // // // // // // // // // // // // // //       to: "/products/supplements"
 // // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // // //   ];
 
@@ -176,19 +1337,14 @@
 // // // // // // // // // // // // // // // // // // // //             alt="Organic products in natural setting"
 // // // // // // // // // // // // // // // // // // // //             className="w-full h-full object-cover"
 // // // // // // // // // // // // // // // // // // // //           />
-// // // // // // // // // // // // // // // // // // // //           {/* Soft overlay across hero */}
 // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
-// // // // // // // // // // // // // // // // // // // //           {/* Directional light overlay similar to provided design */}
 // // // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
-// // // // // // // // // // // // // // // // // // // //           {/* Subtle vignette to focus center */}
 // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
-// // // // // // // // // // // // // // // // // // // //           {/* Bottom shadowy fade (retain intensity) */}
 // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
-// // // // // // // // // // // // // // // // // // // //           {/* Hairline cover to remove any visible bottom frame */}
 // // // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
 // // // // // // // // // // // // // // // // // // // //         </div>
         
-// // // // // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-center">
+// // // // // // // // // // // // // // // // // // // //         {/* <div className="relative container mx-auto px-4 h-full flex items-center">
 // // // // // // // // // // // // // // // // // // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
 // // // // // // // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // // // // // // // // // // //               Nurture Life, Naturally
@@ -197,14 +1353,15 @@
 // // // // // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
 // // // // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // // // // //             <Button 
-// // // // // // // // // // // // // // // // // // // //               size="lg" 
+// // // // // // // // // // // // // // // // // // // //               size="lg"
 // // // // // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
+// // // // // // // // // // // // // // // // // // // //               onClick={() => navigate('/shop')}
 // // // // // // // // // // // // // // // // // // // //             >
 // // // // // // // // // // // // // // // // // // // //               Shop Now
 // // // // // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
 // // // // // // // // // // // // // // // // // // // //             </Button>
 // // // // // // // // // // // // // // // // // // // //           </div>
-// // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // //         </div> */}
 // // // // // // // // // // // // // // // // // // // //       </section>
 
 // // // // // // // // // // // // // // // // // // // //       {/* Featured Products Section */}
@@ -218,62 +1375,62 @@
 // // // // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // // // // //         </div>
 
-// // // // // // // // // // // // // // // // // // // //         {/* Mobile: 2 per row with left-aligned header/description per row */}
-// // // // // // // // // // // // // // // // // // // //         <div className="md:hidden space-y-8">
-// // // // // // // // // // // // // // // // // // // //           {chunk(products, 2).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // // // // //             <div key={`m-${rIdx}`} className="space-y-3">
-// // // // // // // // // // // // // // // // // // // //               <div className="text-left">
-// // // // // // // // // // // // // // // // // // // //                 <h3 className="text-xl font-heading font-semibold text-foreground">Featured Selection</h3>
-// // // // // // // // // // // // // // // // // // // //                 <p className="text-sm text-muted-foreground">Curated picks crafted for wholesome living.</p>
-// // // // // // // // // // // // // // // // // // // //               </div>
-// // // // // // // // // // // // // // // // // // // //               <div className="grid grid-cols-2 gap-6">
-// // // // // // // // // // // // // // // // // // // //                 {row.map((p, i) => (
-// // // // // // // // // // // // // // // // // // // //                   <div key={`m-${rIdx}-${i}`} className="animate-fade-in">
-// // // // // // // // // // // // // // // // // // // //                     <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // //         {loading ? (
+// // // // // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
+// // // // // // // // // // // // // // // // // // // //             <div className="text-lg">Loading products...</div>
+// // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // //         ) : transformedProducts.length === 0 ? (
+// // // // // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
+// // // // // // // // // // // // // // // // // // // //             <div className="text-lg text-muted-foreground">No products available at the moment.</div>
+// // // // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // // // //         ) : (
+// // // // // // // // // // // // // // // // // // // //           <>
+// // // // // // // // // // // // // // // // // // // //             {/* Mobile: 2 per row */}
+// // // // // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-8">
+// // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="space-y-3">
+// // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-2 gap-6">
+// // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // //                       </div>
+// // // // // // // // // // // // // // // // // // // //                     ))}
 // // // // // // // // // // // // // // // // // // // //                   </div>
-// // // // // // // // // // // // // // // // // // // //                 ))}
-// // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // // // // //             </div>
-// // // // // // // // // // // // // // // // // // // //           ))}
-// // // // // // // // // // // // // // // // // // // //         </div>
 
-// // // // // // // // // // // // // // // // // // // //         {/* Tablet: 3 per row */}
-// // // // // // // // // // // // // // // // // // // //         <div className="hidden md:block lg:hidden space-y-10">
-// // // // // // // // // // // // // // // // // // // //           {chunk(products, 3).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // // // // //             <div key={`t-${rIdx}`} className="space-y-4">
-// // // // // // // // // // // // // // // // // // // //               <div className="text-left">
-// // // // // // // // // // // // // // // // // // // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
-// // // // // // // // // // // // // // // // // // // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
-// // // // // // // // // // // // // // // // // // // //               </div>
-// // // // // // // // // // // // // // // // // // // //               <div className="grid grid-cols-3 gap-8">
-// // // // // // // // // // // // // // // // // // // //                 {row.map((p, i) => (
-// // // // // // // // // // // // // // // // // // // //                   <div key={`t-${rIdx}-${i}`} className="animate-fade-in">
-// // // // // // // // // // // // // // // // // // // //                     <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // //             {/* Tablet: 3 per row */}
+// // // // // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-10">
+// // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="space-y-4">
+// // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-3 gap-8">
+// // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // //                       </div>
+// // // // // // // // // // // // // // // // // // // //                     ))}
 // // // // // // // // // // // // // // // // // // // //                   </div>
-// // // // // // // // // // // // // // // // // // // //                 ))}
-// // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // // // // //             </div>
-// // // // // // // // // // // // // // // // // // // //           ))}
-// // // // // // // // // // // // // // // // // // // //         </div>
 
-// // // // // // // // // // // // // // // // // // // //         {/* Desktop: 4 per row */}
-// // // // // // // // // // // // // // // // // // // //         <div className="hidden lg:block space-y-12">
-// // // // // // // // // // // // // // // // // // // //           {chunk(products, 4).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // // // // //             <div key={`d-${rIdx}`} className="space-y-5">
-// // // // // // // // // // // // // // // // // // // //               {/* <div className="text-left">
-// // // // // // // // // // // // // // // // // // // //                 <h3 className="text-2xl font-heading font-semibold text-foreground">Featured Selection</h3>
-// // // // // // // // // // // // // // // // // // // //                 <p className="text-base text-muted-foreground">Curated picks crafted for wholesome living.</p>
-// // // // // // // // // // // // // // // // // // // //               </div> */}
-// // // // // // // // // // // // // // // // // // // //               <div className="grid grid-cols-4 gap-9">
-// // // // // // // // // // // // // // // // // // // //                 {row.map((p, i) => (
-// // // // // // // // // // // // // // // // // // // //                   <div key={`d-${rIdx}-${i}`} className="animate-fade-in">
-// // // // // // // // // // // // // // // // // // // //                     <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // //             {/* Desktop: 4 per row */}
+// // // // // // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-12">
+// // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
+// // // // // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="space-y-5">
+// // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-4 gap-9">
+// // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // // // //                       <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // // // //                       </div>
+// // // // // // // // // // // // // // // // // // // //                     ))}
 // // // // // // // // // // // // // // // // // // // //                   </div>
-// // // // // // // // // // // // // // // // // // // //                 ))}
-// // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // // // // //             </div>
-// // // // // // // // // // // // // // // // // // // //           ))}
-// // // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // // //           </>
+// // // // // // // // // // // // // // // // // // // //         )}
 // // // // // // // // // // // // // // // // // // // //       </section>
 
 // // // // // // // // // // // // // // // // // // // //       {/* Shop By Lifestyle Section */}
@@ -417,23 +1574,49 @@
 // // // // // // // // // // // // // // // // // // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
 // // // // // // // // // // // // // // // // // // // //             </p>
             
-// // // // // // // // // // // // // // // // // // // //             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+// // // // // // // // // // // // // // // // // // // //             <form 
+// // // // // // // // // // // // // // // // // // // //               onSubmit={handleNewsletterSubmit}
+// // // // // // // // // // // // // // // // // // // //               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+// // // // // // // // // // // // // // // // // // // //             >
 // // // // // // // // // // // // // // // // // // // //               <Input
 // // // // // // // // // // // // // // // // // // // //                 type="email"
 // // // // // // // // // // // // // // // // // // // //                 placeholder="Enter your email"
+// // // // // // // // // // // // // // // // // // // //                 value={newsletterEmail}
+// // // // // // // // // // // // // // // // // // // //                 onChange={(e) => {
+// // // // // // // // // // // // // // // // // // // //                   setNewsletterEmail(e.target.value);
+// // // // // // // // // // // // // // // // // // // //                   setNewsletterMessage(null);
+// // // // // // // // // // // // // // // // // // // //                 }}
 // // // // // // // // // // // // // // // // // // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
 // // // // // // // // // // // // // // // // // // // //                 required
+// // // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // // // // //               />
 // // // // // // // // // // // // // // // // // // // //               <Button 
-// // // // // // // // // // // // // // // // // // // //                 type="submit" 
+// // // // // // // // // // // // // // // // // // // //                 type="submit"
 // // // // // // // // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
+// // // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // // // // //               >
-// // // // // // // // // // // // // // // // // // // //                 Subscribe
+// // // // // // // // // // // // // // // // // // // //                 {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
 // // // // // // // // // // // // // // // // // // // //               </Button>
 // // // // // // // // // // // // // // // // // // // //             </form>
             
+// // // // // // // // // // // // // // // // // // // //             {newsletterMessage && (
+// // // // // // // // // // // // // // // // // // // //               <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
+// // // // // // // // // // // // // // // // // // // //                 newsletterMessage.type === 'success' 
+// // // // // // // // // // // // // // // // // // // //                   ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
+// // // // // // // // // // // // // // // // // // // //                   : 'bg-red-500/20 text-red-100 border border-red-400/30'
+// // // // // // // // // // // // // // // // // // // //               }`}>
+// // // // // // // // // // // // // // // // // // // //                 <p className="text-sm">{newsletterMessage.text}</p>
+// // // // // // // // // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // // // // // // // // //             )}
+            
 // // // // // // // // // // // // // // // // // // // //             <p className="text-sm text-white/70 mt-4">
-// // // // // // // // // // // // // // // // // // // //               We respect your privacy. Unsubscribe anytime.
+// // // // // // // // // // // // // // // // // // // //               We respect your privacy. <button 
+// // // // // // // // // // // // // // // // // // // //                 type="button"
+// // // // // // // // // // // // // // // // // // // //                 onClick={handleUnsubscribe}
+// // // // // // // // // // // // // // // // // // // //                 className="underline hover:text-white transition-colors"
+// // // // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // // // //                 Unsubscribe anytime
+// // // // // // // // // // // // // // // // // // // //               </button>
 // // // // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // // // // //         </div>
@@ -452,14 +1635,17 @@
 // // // // // // // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 // // // // // // // // // // // // // // // // // // // import Header from "@/components/Header";
 // // // // // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
+// // // // // // // // // // // // // // // // // // // import Link from "next/link";
 // // // // // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // // // // // // // // import heroImage from "@/assets/hero-organic.jpg";
+// // // // // // // // // // // // // // // // // // // import heroImage from "@/assets/h.jpg";
 // // // // // // // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
+// // // // // // // // // // // // // // // // // // // import organicherbs from "@/assets/organic herbs.jpeg";
 // // // // // // // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
 // // // // // // // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
+// // // // // // // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
 // // // // // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 // // // // // // // // // // // // // // // // // // // interface ProductImage {
@@ -506,16 +1692,18 @@
 // // // // // // // // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
+// // // // // // // // // // // // // // // // // // //         // Fetch more products (limit=100) to ensure we get the latest ones
+// // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
 // // // // // // // // // // // // // // // // // // //         if (!response.ok) {
 // // // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
 // // // // // // // // // // // // // // // // // // //         }
 // // // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
 // // // // // // // // // // // // // // // // // // //         if (data.success && data.data.products) {
-// // // // // // // // // // // // // // // // // // //           // API already returns page/limit; filter active and sort by created_at (newest first)
+// // // // // // // // // // // // // // // // // // //           // Filter active products, sort by created_at (newest first), then take only 8
 // // // // // // // // // // // // // // // // // // //           const latestProducts = data.data.products
 // // // // // // // // // // // // // // // // // // //             .filter(product => product.is_active)
-// // // // // // // // // // // // // // // // // // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+// // // // // // // // // // // // // // // // // // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+// // // // // // // // // // // // // // // // // // //             .slice(0, 8); // Take only the 8 most recent products
 // // // // // // // // // // // // // // // // // // //           setProducts(latestProducts);
 // // // // // // // // // // // // // // // // // // //         }
 // // // // // // // // // // // // // // // // // // //       } catch (err) {
@@ -608,12 +1796,14 @@
 // // // // // // // // // // // // // // // // // // //   };
 
 // // // // // // // // // // // // // // // // // // //   // Category mapping
-// // // // // // // // // // // // // // // // // // //   const categoryMap: Record<string, string> = {
+// // // // // // // // // // // // // // // // // // //   const categoryMap: Record<string, string> = { 
 // // // // // // // // // // // // // // // // // // //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
 // // // // // // // // // // // // // // // // // // //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
 // // // // // // // // // // // // // // // // // // //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
 // // // // // // // // // // // // // // // // // // //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
 // // // // // // // // // // // // // // // // // // //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
+// // // // // // // // // // // // // // // // // // //     'c424a6ed-d2bf-496c-bac9-e1b7ec189233': 'Organic Herbs',
+// // // // // // // // // // // // // // // // // // //     '360c510f-8b36-43c0-89bf-81c96a0ea885': 'Pure Honey & Honey Products',
 // // // // // // // // // // // // // // // // // // //   };
 
 // // // // // // // // // // // // // // // // // // //   // Placeholder image generator
@@ -671,25 +1861,44 @@
 // // // // // // // // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
 // // // // // // // // // // // // // // // // // // //       image: nutritional,
 // // // // // // // // // // // // // // // // // // //       to: "/products/supplements"
-
+// // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // //       title: "Organic Herbs",
+// // // // // // // // // // // // // // // // // // //       description: "Pure, sustainably sourced herbs for wellness and rituals.",
+// // // // // // // // // // // // // // // // // // //       image: organicherbs,
+// // // // // // // // // // // // // // // // // // //       to: "/products/organic-herbs",
+// // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // //       title: "Pure Honey & Honey Products",
+// // // // // // // // // // // // // // // // // // //       description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
+// // // // // // // // // // // // // // // // // // //       image: Honey,
+// // // // // // // // // // // // // // // // // // //       to: "/products/pure-honey",
+// // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // // // //   const testimonials = [
 // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // //       name: "Jennifer Martinez",
-// // // // // // // // // // // // // // // // // // //       role: "Wellness Enthusiast",
-// // // // // // // // // // // // // // // // // // //       content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
+// // // // // // // // // // // // // // // // // // //       name: "Shirleen Kimani",
+// // // // // // // // // // // // // // // // // // //       role: "",
+// // // // // // // // // // // // // // // // // // //       content: "I’m really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I’ll definitely keep using it.",
 // // // // // // // // // // // // // // // // // // //       rating: 5,
 // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // //       name: "Robert Kim",
-// // // // // // // // // // // // // // // // // // //       role: "Nutrition Coach",
-// // // // // // // // // // // // // // // // // // //       content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
-// // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // //       name: "Kathurima Simon",
+// // // // // // // // // // // // // // // // // // //       role: "",
+// // // // // // // // // // // // // // // // // // //       content: "Order received well and on time. I’m very impressed with the professionalism and customer care. Thank you so much!",
+// // // // // // // // // // // // // // // // // // //       rating: 4,
 // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // // //       name: "Amanda Foster",
+// // // // // // // // // // // // // // // // // // //       name: "Kilavu Juliet",
 // // // // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
-// // // // // // // // // // // // // // // // // // //       content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
+// // // // // // // // // // // // // // // // // // //       content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.",
+// // // // // // // // // // // // // // // // // // //       rating: 5,
+// // // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // // // // //       name: "Joseph Kigo",
+// // // // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
+// // // // // // // // // // // // // // // // // // //       content: "Thank you so much — I’ve received my order safely. It’s not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.",
 // // // // // // // // // // // // // // // // // // //       rating: 5,
 // // // // // // // // // // // // // // // // // // //     },
 // // // // // // // // // // // // // // // // // // //   ];
@@ -736,30 +1945,32 @@
 // // // // // // // // // // // // // // // // // // //       <Header />
 
 // // // // // // // // // // // // // // // // // // //       {/* Hero Section */}
-// // // // // // // // // // // // // // // // // // //       <section className="relative h-[800px] md:h-[920px] overflow-hidden">
+// // // // // // // // // // // // // // // // // // //       {/* <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
 // // // // // // // // // // // // // // // // // // //         <div className="absolute inset-0">
-// // // // // // // // // // // // // // // // // // //           <img
-// // // // // // // // // // // // // // // // // // //             src={heroImage}
-// // // // // // // // // // // // // // // // // // //             alt="Organic products in natural setting"
-// // // // // // // // // // // // // // // // // // //             className="w-full h-full object-cover"
-// // // // // // // // // // // // // // // // // // //           />
-// // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
-// // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
-// // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
-// // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
-// // // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
-// // // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // // //   <a 
+// // // // // // // // // // // // // // // // // // //     href="https://organicbloom.co.ke/shop"
+// // // // // // // // // // // // // // // // // // //     className="block w-full h-full"
+// // // // // // // // // // // // // // // // // // //   >
+// // // // // // // // // // // // // // // // // // //     <img
+// // // // // // // // // // // // // // // // // // //       src={heroImage}
+// // // // // // // // // // // // // // // // // // //       alt="Organic products in natural setting"
+// // // // // // // // // // // // // // // // // // //       className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+// // // // // // // // // // // // // // // // // // //     />
+// // // // // // // // // // // // // // // // // // //   </a>
+  
+// // // // // // // // // // // // // // // // // // // </div>
+
         
 // // // // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-center">
 // // // // // // // // // // // // // // // // // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
 // // // // // // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // // // // // // // // // //               Nurture Life, Naturally
 // // // // // // // // // // // // // // // // // // //             </h1>
-// // // // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
+// // // // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl mb-8 text-white font-bold">
 // // // // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
 // // // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // // // //             <Button 
-// // // // // // // // // // // // // // // // // // //               size="lg" 
+// // // // // // // // // // // // // // // // // // //               size="lg"
 // // // // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
 // // // // // // // // // // // // // // // // // // //               onClick={() => navigate('/shop')}
 // // // // // // // // // // // // // // // // // // //             >
@@ -768,7 +1979,43 @@
 // // // // // // // // // // // // // // // // // // //             </Button>
 // // // // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // // // //         </div>
-// // // // // // // // // // // // // // // // // // //       </section>
+// // // // // // // // // // // // // // // // // // //       </section> */}
+// // // // // // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // // // // // // // // // // // // //   <div className="absolute inset-0">
+// // // // // // // // // // // // // // // // // // //     <a 
+// // // // // // // // // // // // // // // // // // //       href="https://organicbloom.co.ke/shop"
+// // // // // // // // // // // // // // // // // // //       className="block w-full h-full"
+// // // // // // // // // // // // // // // // // // //     >
+// // // // // // // // // // // // // // // // // // //       <img
+// // // // // // // // // // // // // // // // // // //         src={heroImage}
+// // // // // // // // // // // // // // // // // // //         alt="Organic products in natural setting"
+// // // // // // // // // // // // // // // // // // //         className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+// // // // // // // // // // // // // // // // // // //       />
+// // // // // // // // // // // // // // // // // // //     </a>
+// // // // // // // // // // // // // // // // // // //   </div>
+
+// // // // // // // // // // // // // // // // // // //   {/* Dark overlay for better text visibility */}
+// // // // // // // // // // // // // // // // // // //   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+  
+// // // // // // // // // // // // // // // // // // //   <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+// // // // // // // // // // // // // // // // // // //     <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
+// // // // // // // // // // // // // // // // // // //       <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+// // // // // // // // // // // // // // // // // // //         Nurture Life, Naturally
+// // // // // // // // // // // // // // // // // // //       </h1>
+// // // // // // // // // // // // // // // // // // //       <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
+// // // // // // // // // // // // // // // // // // //         Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+// // // // // // // // // // // // // // // // // // //       </p>
+// // // // // // // // // // // // // // // // // // //       <Button 
+// // // // // // // // // // // // // // // // // // //         size="lg"
+// // // // // // // // // // // // // // // // // // //         className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+// // // // // // // // // // // // // // // // // // //         onClick={() => navigate('/shop')}
+// // // // // // // // // // // // // // // // // // //       >
+// // // // // // // // // // // // // // // // // // //         Shop Now
+// // // // // // // // // // // // // // // // // // //         <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
+// // // // // // // // // // // // // // // // // // //       </Button>
+// // // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // // // // </section>
 
 // // // // // // // // // // // // // // // // // // //       {/* Featured Products Section */}
 // // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
@@ -795,7 +2042,6 @@
 // // // // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-8">
 // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
 // // // // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="space-y-3">
-                  
 // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-2 gap-6">
 // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
 // // // // // // // // // // // // // // // // // // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
@@ -811,7 +2057,6 @@
 // // // // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-10">
 // // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
 // // // // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="space-y-4">
-                
 // // // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-3 gap-8">
 // // // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
 // // // // // // // // // // // // // // // // // // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
@@ -999,7 +2244,7 @@
 // // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // // // //               />
 // // // // // // // // // // // // // // // // // // //               <Button 
-// // // // // // // // // // // // // // // // // // //                 type="submit" 
+// // // // // // // // // // // // // // // // // // //                 type="submit"
 // // // // // // // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
 // // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // // // //               >
@@ -1045,30 +2290,36 @@
 // // // // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // // // // // // // import heroImage from "@/assets/hero.jpeg";
+// // // // // // // // // // // // // // // // // // import heroImage from "@/assets/h.jpg";
 // // // // // // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
+// // // // // // // // // // // // // // // // // // import organicherbs from "@/assets/organic herbs.jpeg";
 // // // // // // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
 // // // // // // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
+// // // // // // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
+// // // // // // // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg"
 // // // // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 // // // // // // // // // // // // // // // // // // interface ProductImage {
 // // // // // // // // // // // // // // // // // //   image_id: string;
 // // // // // // // // // // // // // // // // // //   image_url: string;
 // // // // // // // // // // // // // // // // // //   alt_text: string;
-// // // // // // // // // // // // // // // // // //   is_primary: boolean;
+// // // // // // // // // // // // // // // // // //   is_primary: number | boolean;
+// // // // // // // // // // // // // // // // // //   created_at: string;
+// // // // // // // // // // // // // // // // // //   updated_at: string;
+// // // // // // // // // // // // // // // // // //   storage_path: string;
 // // // // // // // // // // // // // // // // // // }
 
 // // // // // // // // // // // // // // // // // // interface Product {
 // // // // // // // // // // // // // // // // // //   product_id: string;
 // // // // // // // // // // // // // // // // // //   name: string;
 // // // // // // // // // // // // // // // // // //   description: string;
-// // // // // // // // // // // // // // // // // //   price: string;
+// // // // // // // // // // // // // // // // // //   price: number | string;
 // // // // // // // // // // // // // // // // // //   stock_quantity: number;
 // // // // // // // // // // // // // // // // // //   sku: string;
 // // // // // // // // // // // // // // // // // //   category_id: string;
-// // // // // // // // // // // // // // // // // //   is_active: boolean;
+// // // // // // // // // // // // // // // // // //   is_active: number | boolean;
 // // // // // // // // // // // // // // // // // //   created_at: string;
 // // // // // // // // // // // // // // // // // //   updated_at: string;
 // // // // // // // // // // // // // // // // // //   images?: ProductImage[];
@@ -1084,208 +2335,192 @@
 // // // // // // // // // // // // // // // // // //   timestamp: string;
 // // // // // // // // // // // // // // // // // // }
 
+// // // // // // // // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+// // // // // // // // // // // // // // // // // // const categoryMap: Record<string, string> = {
+// // // // // // // // // // // // // // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
+// // // // // // // // // // // // // // // // // //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
+// // // // // // // // // // // // // // // // // //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
+// // // // // // // // // // // // // // // // // //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
+// // // // // // // // // // // // // // // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
+// // // // // // // // // // // // // // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
+// // // // // // // // // // // // // // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
+// // // // // // // // // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
+// // // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
+// // // // // // // // // // // // // // // // // //   const rows: T[][] = [];
+// // // // // // // // // // // // // // // // // //   for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+// // // // // // // // // // // // // // // // // //   return rows;
+// // // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // // const getPlaceholderImage = (name: string) => {
+// // // // // // // // // // // // // // // // // //   const encodedName = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
+// // // // // // // // // // // // // // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
+// // // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // // // ── Shimmer card ──────────────────────────────────────────────────────────────
+// // // // // // // // // // // // // // // // // // const ShimmerCard = () => (
+// // // // // // // // // // // // // // // // // //   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
+// // // // // // // // // // // // // // // // // //     <div className="w-full aspect-square bg-muted" />
+// // // // // // // // // // // // // // // // // //     <div className="p-4 space-y-3">
+// // // // // // // // // // // // // // // // // //       <div className="h-4 bg-muted rounded w-3/4" />
+// // // // // // // // // // // // // // // // // //       <div className="h-3 bg-muted rounded w-1/2" />
+// // // // // // // // // // // // // // // // // //       <div className="h-5 bg-muted rounded w-1/3 mt-2" />
+// // // // // // // // // // // // // // // // // //       <div className="h-9 bg-muted rounded w-full mt-2" />
+// // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // // // );
+
+// // // // // // // // // // // // // // // // // // const ShimmerGrid = ({ count }: { count: number }) => (
+// // // // // // // // // // // // // // // // // //   <>
+// // // // // // // // // // // // // // // // // //     {/* Mobile */}
+// // // // // // // // // // // // // // // // // //     <div className="md:hidden grid grid-cols-2 gap-4">
+// // // // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+// // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // //     {/* Tablet */}
+// // // // // // // // // // // // // // // // // //     <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
+// // // // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+// // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // //     {/* Desktop */}
+// // // // // // // // // // // // // // // // // //     <div className="hidden lg:grid grid-cols-4 gap-8">
+// // // // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+// // // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // // //   </>
+// // // // // // // // // // // // // // // // // // );
+// // // // // // // // // // // // // // // // // // // ─────────────────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // // // // // const Index = () => {
 // // // // // // // // // // // // // // // // // //   const navigate = useNavigate();
 // // // // // // // // // // // // // // // // // //   const [products, setProducts] = useState<Product[]>([]);
 // // // // // // // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
-  
-// // // // // // // // // // // // // // // // // //   // Newsletter state
-// // // // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState('');
+// // // // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState("");
 // // // // // // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
-// // // // // // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+// // // // // // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{
+// // // // // // // // // // // // // // // // // //     text: string;
+// // // // // // // // // // // // // // // // // //     type: "success" | "error";
+// // // // // // // // // // // // // // // // // //   } | null>(null);
 
 // // // // // // // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // // // // // //         // Fetch more products (limit=100) to ensure we get the latest ones
-// // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
-// // // // // // // // // // // // // // // // // //         if (!response.ok) {
-// // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
-// // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // //         // Fetch all products, then filter client-side as backend category param may be unreliable
+// // // // // // // // // // // // // // // // // //         const response = await fetch(
+// // // // // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+// // // // // // // // // // // // // // // // // //         );
+// // // // // // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
 // // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
 // // // // // // // // // // // // // // // // // //         if (data.success && data.data.products) {
-// // // // // // // // // // // // // // // // // //           // Filter active products, sort by created_at (newest first), then take only 8
-// // // // // // // // // // // // // // // // // //           const latestProducts = data.data.products
-// // // // // // // // // // // // // // // // // //             .filter(product => product.is_active)
-// // // // // // // // // // // // // // // // // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-// // // // // // // // // // // // // // // // // //             .slice(0, 8); // Take only the 8 most recent products
-// // // // // // // // // // // // // // // // // //           setProducts(latestProducts);
+// // // // // // // // // // // // // // // // // //           const clearanceProducts = data.data.products
+// // // // // // // // // // // // // // // // // //             .filter(
+// // // // // // // // // // // // // // // // // //               (p) =>
+// // // // // // // // // // // // // // // // // //                 p.is_active &&
+// // // // // // // // // // // // // // // // // //                 p.category_id === CLEARANCE_CATEGORY_ID
+// // // // // // // // // // // // // // // // // //             )
+// // // // // // // // // // // // // // // // // //             .sort(
+// // // // // // // // // // // // // // // // // //               (a, b) =>
+// // // // // // // // // // // // // // // // // //                 new Date(b.created_at).getTime() -
+// // // // // // // // // // // // // // // // // //                 new Date(a.created_at).getTime()
+// // // // // // // // // // // // // // // // // //             )
+// // // // // // // // // // // // // // // // // //             .slice(0, 8);
+// // // // // // // // // // // // // // // // // //           setProducts(clearanceProducts);
 // // // // // // // // // // // // // // // // // //         }
 // // // // // // // // // // // // // // // // // //       } catch (err) {
-// // // // // // // // // // // // // // // // // //         console.error('Error fetching products:', err);
+// // // // // // // // // // // // // // // // // //         console.error("Error fetching products:", err);
 // // // // // // // // // // // // // // // // // //       } finally {
 // // // // // // // // // // // // // // // // // //         setLoading(false);
 // // // // // // // // // // // // // // // // // //       }
 // // // // // // // // // // // // // // // // // //     };
-
 // // // // // // // // // // // // // // // // // //     fetchProducts();
 // // // // // // // // // // // // // // // // // //   }, []);
 
-// // // // // // // // // // // // // // // // // //   // Newsletter subscribe handler
 // // // // // // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // // // // // // // // // // // // // // // // // //     e.preventDefault();
-    
-// // // // // // // // // // // // // // // // // //     if (!newsletterEmail || !newsletterEmail.includes('@')) {
-// // // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // // //         text: 'Please enter a valid email address', 
-// // // // // // // // // // // // // // // // // //         type: 'error' 
-// // // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // // //     if (!newsletterEmail || !newsletterEmail.includes("@")) {
+// // // // // // // // // // // // // // // // // //       setNewsletterMessage({ text: "Please enter a valid email address", type: "error" });
 // // // // // // // // // // // // // // // // // //       return;
 // // // // // // // // // // // // // // // // // //     }
-
 // // // // // // // // // // // // // // // // // //     setNewsletterLoading(true);
 // // // // // // // // // // // // // // // // // //     setNewsletterMessage(null);
-
 // // // // // // // // // // // // // // // // // //     try {
-// // // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
-// // // // // // // // // // // // // // // // // //         method: 'POST',
-// // // // // // // // // // // // // // // // // //         headers: {
-// // // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
-// // // // // // // // // // // // // // // // // //         },
-// // // // // // // // // // // // // // // // // //         body: JSON.stringify({ email: newsletterEmail }),
-// // // // // // // // // // // // // // // // // //       });
-
+// // // // // // // // // // // // // // // // // //       const response = await fetch(
+// // // // // // // // // // // // // // // // // //         buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE),
+// // // // // // // // // // // // // // // // // //         {
+// // // // // // // // // // // // // // // // // //           method: "POST",
+// // // // // // // // // // // // // // // // // //           headers: { "Content-Type": "application/json" },
+// // // // // // // // // // // // // // // // // //           body: JSON.stringify({ email: newsletterEmail }),
+// // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // //       );
 // // // // // // // // // // // // // // // // // //       const data = await response.json();
-
 // // // // // // // // // // // // // // // // // //       if (response.ok) {
-// // // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // // //           text: 'Successfully subscribed to our newsletter!', 
-// // // // // // // // // // // // // // // // // //           type: 'success' 
-// // // // // // // // // // // // // // // // // //         });
-// // // // // // // // // // // // // // // // // //         setNewsletterEmail('');
+// // // // // // // // // // // // // // // // // //         setNewsletterMessage({ text: "Successfully subscribed to our newsletter!", type: "success" });
+// // // // // // // // // // // // // // // // // //         setNewsletterEmail("");
 // // // // // // // // // // // // // // // // // //       } else {
-// // // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // // //           text: data.message || 'Failed to subscribe. Please try again.', 
-// // // // // // // // // // // // // // // // // //           type: 'error' 
-// // // // // // // // // // // // // // // // // //         });
+// // // // // // // // // // // // // // // // // //         setNewsletterMessage({ text: data.message || "Failed to subscribe. Please try again.", type: "error" });
 // // // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // // //     } catch (error) {
-// // // // // // // // // // // // // // // // // //       console.error('Newsletter subscription error:', error);
-// // // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // // //         text: 'Network error. Please check your connection and try again.', 
-// // // // // // // // // // // // // // // // // //         type: 'error' 
-// // // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // // //     } catch {
+// // // // // // // // // // // // // // // // // //       setNewsletterMessage({ text: "Network error. Please check your connection and try again.", type: "error" });
 // // // // // // // // // // // // // // // // // //     } finally {
 // // // // // // // // // // // // // // // // // //       setNewsletterLoading(false);
 // // // // // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // // // // // //   // Newsletter unsubscribe handler
 // // // // // // // // // // // // // // // // // //   const handleUnsubscribe = async () => {
-// // // // // // // // // // // // // // // // // //     const email = prompt('Please enter your email address to unsubscribe:');
-    
-// // // // // // // // // // // // // // // // // //     if (!email || !email.includes('@')) {
-// // // // // // // // // // // // // // // // // //       return;
-// // // // // // // // // // // // // // // // // //     }
-
+// // // // // // // // // // // // // // // // // //     const email = prompt("Please enter your email address to unsubscribe:");
+// // // // // // // // // // // // // // // // // //     if (!email || !email.includes("@")) return;
 // // // // // // // // // // // // // // // // // //     try {
-// // // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
-// // // // // // // // // // // // // // // // // //         method: 'POST',
-// // // // // // // // // // // // // // // // // //         headers: {
-// // // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
-// // // // // // // // // // // // // // // // // //         },
-// // // // // // // // // // // // // // // // // //         body: JSON.stringify({ email }),
-// // // // // // // // // // // // // // // // // //       });
-
+// // // // // // // // // // // // // // // // // //       const response = await fetch(
+// // // // // // // // // // // // // // // // // //         buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE),
+// // // // // // // // // // // // // // // // // //         {
+// // // // // // // // // // // // // // // // // //           method: "POST",
+// // // // // // // // // // // // // // // // // //           headers: { "Content-Type": "application/json" },
+// // // // // // // // // // // // // // // // // //           body: JSON.stringify({ email }),
+// // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // //       );
 // // // // // // // // // // // // // // // // // //       const data = await response.json();
-
-// // // // // // // // // // // // // // // // // //       if (response.ok) {
-// // // // // // // // // // // // // // // // // //         alert('Successfully unsubscribed from our newsletter.');
-// // // // // // // // // // // // // // // // // //       } else {
-// // // // // // // // // // // // // // // // // //         alert(data.message || 'Failed to unsubscribe. Please try again.');
-// // // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // // //     } catch (error) {
-// // // // // // // // // // // // // // // // // //       console.error('Newsletter unsubscribe error:', error);
-// // // // // // // // // // // // // // // // // //       alert('Network error. Please check your connection and try again.');
+// // // // // // // // // // // // // // // // // //       alert(
+// // // // // // // // // // // // // // // // // //         response.ok
+// // // // // // // // // // // // // // // // // //           ? "Successfully unsubscribed from our newsletter."
+// // // // // // // // // // // // // // // // // //           : data.message || "Failed to unsubscribe. Please try again."
+// // // // // // // // // // // // // // // // // //       );
+// // // // // // // // // // // // // // // // // //     } catch {
+// // // // // // // // // // // // // // // // // //       alert("Network error. Please check your connection and try again.");
 // // // // // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // // // // // //   // Category mapping
-// // // // // // // // // // // // // // // // // //   const categoryMap: Record<string, string> = {
-// // // // // // // // // // // // // // // // // //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
-// // // // // // // // // // // // // // // // // //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
-// // // // // // // // // // // // // // // // // //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
-// // // // // // // // // // // // // // // // // //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
-// // // // // // // // // // // // // // // // // //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
-// // // // // // // // // // // // // // // // // //   };
-
-// // // // // // // // // // // // // // // // // //   // Placeholder image generator
-// // // // // // // // // // // // // // // // // //   const getPlaceholderImage = (name: string) => {
-// // // // // // // // // // // // // // // // // //     const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
-// // // // // // // // // // // // // // // // // //     return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
-// // // // // // // // // // // // // // // // // //   };
-
-// // // // // // // // // // // // // // // // // //   // Transform API products to match ProductCard props
-// // // // // // // // // // // // // // // // // //   const transformedProducts = products.map(product => {
-// // // // // // // // // // // // // // // // // //     // Use actual product image if available, otherwise fallback to placeholder
+// // // // // // // // // // // // // // // // // //   const transformedProducts = products.map((product) => {
 // // // // // // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
 // // // // // // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
-// // // // // // // // // // // // // // // // // //       const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+// // // // // // // // // // // // // // // // // //       const primaryImage =
+// // // // // // // // // // // // // // // // // //         product.images.find((img) => img.is_primary) || product.images[0];
 // // // // // // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
 // // // // // // // // // // // // // // // // // //     }
-    
 // // // // // // // // // // // // // // // // // //     return {
 // // // // // // // // // // // // // // // // // //       id: product.product_id,
 // // // // // // // // // // // // // // // // // //       name: product.name,
-// // // // // // // // // // // // // // // // // //       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+// // // // // // // // // // // // // // // // // //       price: `Ksh ${parseFloat(String(product.price)).toFixed(2)}`,
 // // // // // // // // // // // // // // // // // //       image: imageUrl,
-// // // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || 'Uncategorized',
+// // // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || "Uncategorized",
 // // // // // // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
 // // // // // // // // // // // // // // // // // //     };
 // // // // // // // // // // // // // // // // // //   });
 
 // // // // // // // // // // // // // // // // // //   const categories = [
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       title: "Weight Management Products",
-// // // // // // // // // // // // // // // // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
-// // // // // // // // // // // // // // // // // //       image: weight,
-// // // // // // // // // // // // // // // // // //       to: "/products/weight-management",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       title: "Yoni & Female Fertility Care",
-// // // // // // // // // // // // // // // // // //       description: "Steam herbs, washes, tightening pearls & more.",
-// // // // // // // // // // // // // // // // // //       image: Yoni,
-// // // // // // // // // // // // // // // // // //       to: "/products/female-care",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       title: "Men's Boosters & Fertility Support",
-// // // // // // // // // // // // // // // // // //       description: "Stamina, libido, and reproductive health.",
-// // // // // // // // // // // // // // // // // //       image: mens,
-// // // // // // // // // // // // // // // // // //       to: "/products/mens-health",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       title: "Natural Skin Care",
-// // // // // // // // // // // // // // // // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
-// // // // // // // // // // // // // // // // // //       image: natural,
-// // // // // // // // // // // // // // // // // //       to: "/products/skin-care",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       title: "Nutritional Supplements",
-// // // // // // // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
-// // // // // // // // // // // // // // // // // //       image: nutritional,
-// // // // // // // // // // // // // // // // // //       to: "/products/supplements"
-// // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // //     { title: "Weight Management Products", description: "Flat tummy, upper body fat, full weight loss packages.", image: weight, to: "/products/weight-management" },
+// // // // // // // // // // // // // // // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
+// // // // // // // // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
+// // // // // // // // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
+// // // // // // // // // // // // // // // // // //     {title: "Nutritional Supplements",
+// // // // // // // // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
+// // // // // // // // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
+// // // // // // // // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/best-seller" },
 // // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // // //   const testimonials = [
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       name: "Jennifer Martinez",
-// // // // // // // // // // // // // // // // // //       role: "Wellness Enthusiast",
-// // // // // // // // // // // // // // // // // //       content: "Organic Bloom has transformed my approach to healthy living. The quality is exceptional and I can taste the difference in every product.",
-// // // // // // // // // // // // // // // // // //       rating: 5,
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       name: "Robert Kim",
-// // // // // // // // // // // // // // // // // //       role: "Nutrition Coach",
-// // // // // // // // // // // // // // // // // //       content: "I recommend Organic Bloom to all my clients. Their commitment to pure, organic ingredients aligns perfectly with my philosophy of natural wellness.",
-// // // // // // // // // // // // // // // // // //       rating: 5,
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       name: "Amanda Foster",
-// // // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
-// // // // // // // // // // // // // // // // // //       content: "Finally, organic products that don't compromise on taste or quality. My whole family loves the selection, and I love knowing what we're consuming.",
-// // // // // // // // // // // // // // // // // //       rating: 5,
-// // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // //     { name: "Shirleen Kimani", role: "", content: "I'm really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I'll definitely keep using it.", rating: 5 },
+// // // // // // // // // // // // // // // // // //     { name: "Kathurima Simon", role: "", content: "Order received well and on time. I'm very impressed with the professionalism and customer care. Thank you so much!", rating: 4 },
+// // // // // // // // // // // // // // // // // //     { name: "Kilavu Juliet", role: "Busy Mom of Three", content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.", rating: 5 },
+// // // // // // // // // // // // // // // // // //     { name: "Joseph Kigo", role: "", content: "Thank you so much — I've received my order safely. It's not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.", rating: 5 },
 // // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // // //   const certifications = [
@@ -1296,144 +2531,152 @@
 // // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // // //   const benefits = [
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       icon: Leaf,
-// // // // // // // // // // // // // // // // // //       title: "100% Organic",
-// // // // // // // // // // // // // // // // // //       description: "Certified organic ingredients sourced from sustainable farms",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       icon: Shield,
-// // // // // // // // // // // // // // // // // //       title: "Quality Assured",
-// // // // // // // // // // // // // // // // // //       description: "Rigorous testing ensures premium quality in every product",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       icon: Heart,
-// // // // // // // // // // // // // // // // // //       title: "Health First",
-// // // // // // // // // // // // // // // // // //       description: "Nutritious products that support your wellness journey",
-// // // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // // //       icon: Sparkles,
-// // // // // // // // // // // // // // // // // //       title: "Pure & Natural",
-// // // // // // // // // // // // // // // // // //       description: "No artificial additives, preservatives, or chemicals",
-// // // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // // //     { icon: Leaf, title: "100% Organic", description: "Certified organic ingredients sourced from sustainable farms" },
+// // // // // // // // // // // // // // // // // //     { icon: Shield, title: "Quality Assured", description: "Rigorous testing ensures premium quality in every product" },
+// // // // // // // // // // // // // // // // // //     { icon: Heart, title: "Health First", description: "Nutritious products that support your wellness journey" },
+// // // // // // // // // // // // // // // // // //     { icon: Sparkles, title: "Pure & Natural", description: "No artificial additives, preservatives, or chemicals" },
 // // // // // // // // // // // // // // // // // //   ];
 
-// // // // // // // // // // // // // // // // // //   // Utility to chunk an array into rows
-// // // // // // // // // // // // // // // // // //   const chunk = <T,>(arr: T[], size: number): T[][] => {
-// // // // // // // // // // // // // // // // // //     const rows: T[][] = [];
-// // // // // // // // // // // // // // // // // //     for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
-// // // // // // // // // // // // // // // // // //     return rows;
-// // // // // // // // // // // // // // // // // //   };
+// // // // // // // // // // // // // // // // // //   const tickerItems = [
+// // // // // // // // // // // // // // // // // //     "🌟 Best Seller — Limited Stock!",
+// // // // // // // // // // // // // // // // // //     "💸 Huge Savings on Selected Products",
+// // // // // // // // // // // // // // // // // //     "⚡ Shop Before It's Gone",
+// // // // // // // // // // // // // // // // // //     "🌿 Organic Goodness at Unbeatable Prices",
+// // // // // // // // // // // // // // // // // //     "🛒 While Stocks Last",
+// // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // // //   return (
 // // // // // // // // // // // // // // // // // //     <div className="min-h-screen">
-// // // // // // // // // // // // // // // // // //       <Header />
-
-// // // // // // // // // // // // // // // // // //       {/* Hero Section */}
-// // // // // // // // // // // // // // // // // //       <section className="relative h-[800px] md:h-[920px] overflow-hidden">
-// // // // // // // // // // // // // // // // // //         <div className="absolute inset-0">
-// // // // // // // // // // // // // // // // // //           <img
-// // // // // // // // // // // // // // // // // //             src={heroImage}
-// // // // // // // // // // // // // // // // // //             alt="Organic products in natural setting"
-// // // // // // // // // // // // // // // // // //             className="w-full h-full object-cover"
-// // // // // // // // // // // // // // // // // //           />
-// // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-foreground/25 mix-blend-multiply"></div>
-// // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent"></div>
-// // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_20%,rgba(0,0,0,0.22)_100%)]"></div>
-// // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 md:h-48 bg-gradient-to-t from-background/90 via-background/50 to-transparent"></div>
-// // // // // // // // // // // // // // // // // //           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-background"></div>
+// // // // // // // // // // // // // // // // // //       {/* ── Best Seller Ticker ── */}
+// // // // // // // // // // // // // // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
+// // // // // // // // // // // // // // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
+// // // // // // // // // // // // // // // // // //           {[...Array(4)].map((_, repeat) =>
+// // // // // // // // // // // // // // // // // //             tickerItems.map((item, i) => (
+// // // // // // // // // // // // // // // // // //               <span key={`${repeat}-${i}`} className="mx-10 text-sm font-semibold tracking-widest uppercase">
+// // // // // // // // // // // // // // // // // //                 {item}
+// // // // // // // // // // // // // // // // // //                 <span className="mx-6 text-red-300">|</span>
+// // // // // // // // // // // // // // // // // //               </span>
+// // // // // // // // // // // // // // // // // //             ))
+// // // // // // // // // // // // // // // // // //           )}
 // // // // // // // // // // // // // // // // // //         </div>
-        
-// // // // // // // // // // // // // // // // // //         {/* <div className="relative container mx-auto px-4 h-full flex items-center">
-// // // // // // // // // // // // // // // // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
+// // // // // // // // // // // // // // // // // //       </div>
+// // // // // // // // // // // // // // // // // //       <Header />
+      
+
+// // // // // // // // // // // // // // // // // //       {/* ── Hero ── */}
+// // // // // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // // // // // // // // // // // //         <div className="absolute inset-0">
+// // // // // // // // // // // // // // // // // //           <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
+// // // // // // // // // // // // // // // // // //             <img
+// // // // // // // // // // // // // // // // // //               src={heroImage}
+// // // // // // // // // // // // // // // // // //               alt="Organic products in natural setting"
+// // // // // // // // // // // // // // // // // //               className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+// // // // // // // // // // // // // // // // // //             />
+// // // // // // // // // // // // // // // // // //           </a>
+// // // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+// // // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+// // // // // // // // // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
 // // // // // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // // // // // // // // //               Nurture Life, Naturally
 // // // // // // // // // // // // // // // // // //             </h1>
-// // // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl mb-8 text-white/90 font-body">
-// // // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+// // // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
+// // // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature
+// // // // // // // // // // // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
 // // // // // // // // // // // // // // // // // //             </p>
-// // // // // // // // // // // // // // // // // //             <Button 
+// // // // // // // // // // // // // // // // // //             <Button
 // // // // // // // // // // // // // // // // // //               size="lg"
-// // // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
-// // // // // // // // // // // // // // // // // //               onClick={() => navigate('/shop')}
+// // // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+// // // // // // // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
 // // // // // // // // // // // // // // // // // //             >
-// // // // // // // // // // // // // // // // // //               Shop Now
-// // // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // // // // // // // // // // //               Shop Best Seller
+// // // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // // // // // // // // // // // // // // // // //             </Button>
 // // // // // // // // // // // // // // // // // //           </div>
-// // // // // // // // // // // // // // // // // //         </div> */}
+// // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // // //       {/* Featured Products Section */}
+      
+
+// // // // // // // // // // // // // // // // // //       {/* ── Best Seller Products ── */}
 // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
+// // // // // // // // // // // // // // // // // //             🔥 Limited Time Only
+// // // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // // // // // // // // // // // // // // // // //             Featured Products
+// // // // // // // // // // // // // // // // // //             Best Seller
 // // // // // // // // // // // // // // // // // //           </h2>
 // // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-// // // // // // // // // // // // // // // // // //             Handpicked selections from our organic collection, crafted with care for your wellbeing
+// // // // // // // // // // // // // // // // // //             Grab these deals before they're gone — massive savings on selected
+// // // // // // // // // // // // // // // // // //             organic products while stocks last
 // // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // // //         </div>
 
 // // // // // // // // // // // // // // // // // //         {loading ? (
-// // // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
-// // // // // // // // // // // // // // // // // //             <div className="text-lg">Loading products...</div>
-// // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // //           <ShimmerGrid count={8} />
 // // // // // // // // // // // // // // // // // //         ) : transformedProducts.length === 0 ? (
-// // // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
-// // // // // // // // // // // // // // // // // //             <div className="text-lg text-muted-foreground">No products available at the moment.</div>
+// // // // // // // // // // // // // // // // // //           <div className="flex flex-col justify-center items-center h-64 gap-3">
+// // // // // // // // // // // // // // // // // //             <p className="text-lg text-muted-foreground">No clearance products available at the moment.</p>
+// // // // // // // // // // // // // // // // // //             <Button variant="outline" onClick={() => navigate("/shop")}>Browse All Products</Button>
 // // // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // // //         ) : (
 // // // // // // // // // // // // // // // // // //           <>
 // // // // // // // // // // // // // // // // // //             {/* Mobile: 2 per row */}
-// // // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-8">
+// // // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-4">
 // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="space-y-3">
-// // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-2 gap-6">
-// // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
-// // // // // // // // // // // // // // // // // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
-// // // // // // // // // // // // // // // // // //                       </div>
-// // // // // // // // // // // // // // // // // //                     ))}
-// // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
+// // // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // //                     <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // //                       <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // //                     </div>
+// // // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // // //             </div>
-
 // // // // // // // // // // // // // // // // // //             {/* Tablet: 3 per row */}
-// // // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-10">
+// // // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-6">
 // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="space-y-4">
-// // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-3 gap-8">
-// // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
-// // // // // // // // // // // // // // // // // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
-// // // // // // // // // // // // // // // // // //                       </div>
-// // // // // // // // // // // // // // // // // //                     ))}
-// // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
+// // // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // //                     <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // //                       <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // //                     </div>
+// // // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // // //             </div>
-
 // // // // // // // // // // // // // // // // // //             {/* Desktop: 4 per row */}
-// // // // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-12">
+// // // // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-8">
 // // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="space-y-5">
-// // // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-4 gap-9">
-// // // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
-// // // // // // // // // // // // // // // // // //                       <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
-// // // // // // // // // // // // // // // // // //                       </div>
-// // // // // // // // // // // // // // // // // //                     ))}
-// // // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
+// // // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
+// // // // // // // // // // // // // // // // // //                     <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
+// // // // // // // // // // // // // // // // // //                       <ProductCard {...p} />
+// // // // // // // // // // // // // // // // // //                     </div>
+// // // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // // //             </div>
 // // // // // // // // // // // // // // // // // //           </>
 // // // // // // // // // // // // // // // // // //         )}
+
+// // // // // // // // // // // // // // // // // //         {!loading && transformedProducts.length > 0 && (
+// // // // // // // // // // // // // // // // // //           <div className="text-center mt-12">
+// // // // // // // // // // // // // // // // // //             <Button
+// // // // // // // // // // // // // // // // // //               variant="outline"
+// // // // // // // // // // // // // // // // // //               size="lg"
+// // // // // // // // // // // // // // // // // //               className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
+// // // // // // // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
+// // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // //               View All Deals
+// // // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // // // // // // // // // // //             </Button>
+// // // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // // //         )}
 // // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // // //       {/* Shop By Lifestyle Section */}
+// // // // // // // // // // // // // // // // // //       {/* ── Shop By Lifestyle ── */}
 // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
 // // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -1443,7 +2686,6 @@
 // // // // // // // // // // // // // // // // // //             Find the perfect organic solutions tailored to your unique wellness needs
 // // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // // //         </div>
-
 // // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 // // // // // // // // // // // // // // // // // //           {categories.map((category, index) => (
 // // // // // // // // // // // // // // // // // //             <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
@@ -1453,7 +2695,7 @@
 // // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // // //       {/* Why Choose Organic Bloom Section */}
+// // // // // // // // // // // // // // // // // //       {/* ── Why Choose Organic Bloom ── */}
 // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // // //         <div className="text-center mb-16 animate-fade-in">
 // // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -1463,29 +2705,20 @@
 // // // // // // // // // // // // // // // // // //             We're committed to bringing you the finest organic products with unwavering quality and care
 // // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // // //         </div>
-
 // // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 // // // // // // // // // // // // // // // // // //           {benefits.map((benefit, index) => (
-// // // // // // // // // // // // // // // // // //             <div
-// // // // // // // // // // // // // // // // // //               key={index}
-// // // // // // // // // // // // // // // // // //               className="text-center group animate-fade-in"
-// // // // // // // // // // // // // // // // // //               style={{ animationDelay: `${index * 100}ms` }}
-// // // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // // //             <div key={index} className="text-center group animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
 // // // // // // // // // // // // // // // // // //               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
 // // // // // // // // // // // // // // // // // //                 <benefit.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
 // // // // // // // // // // // // // // // // // //               </div>
-// // // // // // // // // // // // // // // // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
-// // // // // // // // // // // // // // // // // //                 {benefit.title}
-// // // // // // // // // // // // // // // // // //               </h3>
-// // // // // // // // // // // // // // // // // //               <p className="text-muted-foreground">
-// // // // // // // // // // // // // // // // // //                 {benefit.description}
-// // // // // // // // // // // // // // // // // //               </p>
+// // // // // // // // // // // // // // // // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">{benefit.title}</h3>
+// // // // // // // // // // // // // // // // // //               <p className="text-muted-foreground">{benefit.description}</p>
 // // // // // // // // // // // // // // // // // //             </div>
 // // // // // // // // // // // // // // // // // //           ))}
 // // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // // //       {/* Testimonials Section */}
+// // // // // // // // // // // // // // // // // //       {/* ── Testimonials ── */}
 // // // // // // // // // // // // // // // // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
 // // // // // // // // // // // // // // // // // //         <div className="container mx-auto px-4">
 // // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -1496,7 +2729,6 @@
 // // // // // // // // // // // // // // // // // //               Real experiences from people who've embraced organic living with us
 // // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // // //           </div>
-
 // // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 // // // // // // // // // // // // // // // // // //             {testimonials.map((testimonial, index) => (
 // // // // // // // // // // // // // // // // // //               <div
@@ -1510,14 +2742,12 @@
 // // // // // // // // // // // // // // // // // //                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
 // // // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // // // // // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">
-// // // // // // // // // // // // // // // // // //                   "{testimonial.content}"
-// // // // // // // // // // // // // // // // // //                 </p>
+// // // // // // // // // // // // // // // // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">"{testimonial.content}"</p>
 // // // // // // // // // // // // // // // // // //                 <div>
-// // // // // // // // // // // // // // // // // //                   <p className="font-heading font-semibold text-foreground">
-// // // // // // // // // // // // // // // // // //                     {testimonial.name}
-// // // // // // // // // // // // // // // // // //                   </p>
-// // // // // // // // // // // // // // // // // //                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // // // // // // // // // // // // // // // //                   <p className="font-heading font-semibold text-foreground">{testimonial.name}</p>
+// // // // // // // // // // // // // // // // // //                   {testimonial.role && (
+// // // // // // // // // // // // // // // // // //                     <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // // // // // // // // // // // // // // // //                   )}
 // // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // // //               </div>
 // // // // // // // // // // // // // // // // // //             ))}
@@ -1525,7 +2755,7 @@
 // // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // // //       {/* Certifications Section */}
+// // // // // // // // // // // // // // // // // //       {/* ── Certifications ── */}
 // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
 // // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -1536,20 +2766,13 @@
 // // // // // // // // // // // // // // // // // //               Our commitment to quality is backed by industry-leading certifications
 // // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // // //           </div>
-
 // // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 // // // // // // // // // // // // // // // // // //             {certifications.map((cert, index) => (
-// // // // // // // // // // // // // // // // // //               <div
-// // // // // // // // // // // // // // // // // //                 key={index}
-// // // // // // // // // // // // // // // // // //                 className="text-center group animate-fade-in"
-// // // // // // // // // // // // // // // // // //                 style={{ animationDelay: `${index * 100}ms` }}
-// // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // //               <div key={index} className="text-center group animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
 // // // // // // // // // // // // // // // // // //                 <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
 // // // // // // // // // // // // // // // // // //                   <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
 // // // // // // // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // // // // // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">
-// // // // // // // // // // // // // // // // // //                   {cert.name}
-// // // // // // // // // // // // // // // // // //                 </h3>
+// // // // // // // // // // // // // // // // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">{cert.name}</h3>
 // // // // // // // // // // // // // // // // // //                 <p className="text-sm text-muted-foreground">{cert.description}</p>
 // // // // // // // // // // // // // // // // // //               </div>
 // // // // // // // // // // // // // // // // // //             ))}
@@ -1557,14 +2780,13 @@
 // // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // // //       {/* Newsletter Section */}
+// // // // // // // // // // // // // // // // // //       {/* ── Newsletter ── */}
 // // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
 // // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 opacity-10">
-// // // // // // // // // // // // // // // // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
-// // // // // // // // // // // // // // // // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+// // // // // // // // // // // // // // // // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl" />
+// // // // // // // // // // // // // // // // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl" />
 // // // // // // // // // // // // // // // // // //           </div>
-          
 // // // // // // // // // // // // // // // // // //           <div className="relative z-10 max-w-2xl mx-auto">
 // // // // // // // // // // // // // // // // // //             <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
 // // // // // // // // // // // // // // // // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
@@ -1573,8 +2795,7 @@
 // // // // // // // // // // // // // // // // // //             <p className="text-lg text-white/90 mb-8">
 // // // // // // // // // // // // // // // // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
 // // // // // // // // // // // // // // // // // //             </p>
-            
-// // // // // // // // // // // // // // // // // //             <form 
+// // // // // // // // // // // // // // // // // //             <form
 // // // // // // // // // // // // // // // // // //               onSubmit={handleNewsletterSubmit}
 // // // // // // // // // // // // // // // // // //               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
 // // // // // // // // // // // // // // // // // //             >
@@ -1582,39 +2803,31 @@
 // // // // // // // // // // // // // // // // // //                 type="email"
 // // // // // // // // // // // // // // // // // //                 placeholder="Enter your email"
 // // // // // // // // // // // // // // // // // //                 value={newsletterEmail}
-// // // // // // // // // // // // // // // // // //                 onChange={(e) => {
-// // // // // // // // // // // // // // // // // //                   setNewsletterEmail(e.target.value);
-// // // // // // // // // // // // // // // // // //                   setNewsletterMessage(null);
-// // // // // // // // // // // // // // // // // //                 }}
+// // // // // // // // // // // // // // // // // //                 onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterMessage(null); }}
 // // // // // // // // // // // // // // // // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
 // // // // // // // // // // // // // // // // // //                 required
 // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // // //               />
-// // // // // // // // // // // // // // // // // //               <Button 
+// // // // // // // // // // // // // // // // // //               <Button
 // // // // // // // // // // // // // // // // // //                 type="submit"
 // // // // // // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
 // // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // // //               >
-// // // // // // // // // // // // // // // // // //                 {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
+// // // // // // // // // // // // // // // // // //                 {newsletterLoading ? "Subscribing..." : "Subscribe"}
 // // // // // // // // // // // // // // // // // //               </Button>
 // // // // // // // // // // // // // // // // // //             </form>
-            
 // // // // // // // // // // // // // // // // // //             {newsletterMessage && (
 // // // // // // // // // // // // // // // // // //               <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
-// // // // // // // // // // // // // // // // // //                 newsletterMessage.type === 'success' 
-// // // // // // // // // // // // // // // // // //                   ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
-// // // // // // // // // // // // // // // // // //                   : 'bg-red-500/20 text-red-100 border border-red-400/30'
+// // // // // // // // // // // // // // // // // //                 newsletterMessage.type === "success"
+// // // // // // // // // // // // // // // // // //                   ? "bg-green-500/20 text-green-100 border border-green-400/30"
+// // // // // // // // // // // // // // // // // //                   : "bg-red-500/20 text-red-100 border border-red-400/30"
 // // // // // // // // // // // // // // // // // //               }`}>
 // // // // // // // // // // // // // // // // // //                 <p className="text-sm">{newsletterMessage.text}</p>
 // // // // // // // // // // // // // // // // // //               </div>
 // // // // // // // // // // // // // // // // // //             )}
-            
 // // // // // // // // // // // // // // // // // //             <p className="text-sm text-white/70 mt-4">
-// // // // // // // // // // // // // // // // // //               We respect your privacy. <button 
-// // // // // // // // // // // // // // // // // //                 type="button"
-// // // // // // // // // // // // // // // // // //                 onClick={handleUnsubscribe}
-// // // // // // // // // // // // // // // // // //                 className="underline hover:text-white transition-colors"
-// // // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // // //               We respect your privacy.{" "}
+// // // // // // // // // // // // // // // // // //               <button type="button" onClick={handleUnsubscribe} className="underline hover:text-white transition-colors">
 // // // // // // // // // // // // // // // // // //                 Unsubscribe anytime
 // // // // // // // // // // // // // // // // // //               </button>
 // // // // // // // // // // // // // // // // // //             </p>
@@ -1623,6 +2836,13 @@
 // // // // // // // // // // // // // // // // // //       </section>
 
 // // // // // // // // // // // // // // // // // //       <Footer />
+
+// // // // // // // // // // // // // // // // // //       <style>{`
+// // // // // // // // // // // // // // // // // //         @keyframes marquee {
+// // // // // // // // // // // // // // // // // //           0%   { transform: translateX(0); }
+// // // // // // // // // // // // // // // // // //           100% { transform: translateX(-50%); }
+// // // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // // //       `}</style>
 // // // // // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // // // // // //   );
 // // // // // // // // // // // // // // // // // // };
@@ -1631,11 +2851,11 @@
 // // // // // // // // // // // // // // // // // import { useState, useEffect } from "react";
 // // // // // // // // // // // // // // // // // import { useNavigate } from "react-router-dom";
 // // // // // // // // // // // // // // // // // import { Button } from "@/components/ui/button";
+// // // // // // // // // // // // // // // // // import { Badge } from "@/components/ui/badge";
 // // // // // // // // // // // // // // // // // import { Input } from "@/components/ui/input";
 // // // // // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 // // // // // // // // // // // // // // // // // import Header from "@/components/Header";
 // // // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
-// // // // // // // // // // // // // // // // // import Link from "next/link";
 // // // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
 // // // // // // // // // // // // // // // // // import heroImage from "@/assets/h.jpg";
@@ -1646,24 +2866,28 @@
 // // // // // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
 // // // // // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
 // // // // // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
+// // // // // // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg";
 // // // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 // // // // // // // // // // // // // // // // // interface ProductImage {
 // // // // // // // // // // // // // // // // //   image_id: string;
 // // // // // // // // // // // // // // // // //   image_url: string;
 // // // // // // // // // // // // // // // // //   alt_text: string;
-// // // // // // // // // // // // // // // // //   is_primary: boolean;
+// // // // // // // // // // // // // // // // //   is_primary: number | boolean;
+// // // // // // // // // // // // // // // // //   created_at: string;
+// // // // // // // // // // // // // // // // //   updated_at: string;
+// // // // // // // // // // // // // // // // //   storage_path: string;
 // // // // // // // // // // // // // // // // // }
 
 // // // // // // // // // // // // // // // // // interface Product {
 // // // // // // // // // // // // // // // // //   product_id: string;
 // // // // // // // // // // // // // // // // //   name: string;
 // // // // // // // // // // // // // // // // //   description: string;
-// // // // // // // // // // // // // // // // //   price: string;
+// // // // // // // // // // // // // // // // //   price: number | string;
 // // // // // // // // // // // // // // // // //   stock_quantity: number;
 // // // // // // // // // // // // // // // // //   sku: string;
 // // // // // // // // // // // // // // // // //   category_id: string;
-// // // // // // // // // // // // // // // // //   is_active: boolean;
+// // // // // // // // // // // // // // // // //   is_active: number | boolean;
 // // // // // // // // // // // // // // // // //   created_at: string;
 // // // // // // // // // // // // // // // // //   updated_at: string;
 // // // // // // // // // // // // // // // // //   images?: ProductImage[];
@@ -1679,228 +2903,240 @@
 // // // // // // // // // // // // // // // // //   timestamp: string;
 // // // // // // // // // // // // // // // // // }
 
+// // // // // // // // // // // // // // // // // // Transformed product includes originalPrice for the offer badge
+// // // // // // // // // // // // // // // // // interface TransformedProduct {
+// // // // // // // // // // // // // // // // //   id: string;
+// // // // // // // // // // // // // // // // //   name: string;
+// // // // // // // // // // // // // // // // //   price: string;
+// // // // // // // // // // // // // // // // //   originalPrice: string;
+// // // // // // // // // // // // // // // // //   discountPercent: number;
+// // // // // // // // // // // // // // // // //   image: string;
+// // // // // // // // // // // // // // // // //   category: string;
+// // // // // // // // // // // // // // // // //   stockQuantity: number;
+// // // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+// // // // // // // // // // // // // // // // // const categoryMap: Record<string, string> = {
+// // // // // // // // // // // // // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
+// // // // // // // // // // // // // // // // //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
+// // // // // // // // // // // // // // // // //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
+// // // // // // // // // // // // // // // // //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
+// // // // // // // // // // // // // // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
+// // // // // // // // // // // // // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
+// // // // // // // // // // // // // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
+// // // // // // // // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
+// // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
+// // // // // // // // // // // // // // // // //   const rows: T[][] = [];
+// // // // // // // // // // // // // // // // //   for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
+// // // // // // // // // // // // // // // // //   return rows;
+// // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // const getPlaceholderImage = (name: string) => {
+// // // // // // // // // // // // // // // // //   const encodedName = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
+// // // // // // // // // // // // // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
+// // // // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // // // ── Shimmer card ──────────────────────────────────────────────────────────────
+// // // // // // // // // // // // // // // // // const ShimmerCard = () => (
+// // // // // // // // // // // // // // // // //   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
+// // // // // // // // // // // // // // // // //     <div className="w-full aspect-square bg-muted" />
+// // // // // // // // // // // // // // // // //     <div className="p-4 space-y-3">
+// // // // // // // // // // // // // // // // //       <div className="h-4 bg-muted rounded w-3/4" />
+// // // // // // // // // // // // // // // // //       <div className="h-3 bg-muted rounded w-1/2" />
+// // // // // // // // // // // // // // // // //       <div className="h-5 bg-muted rounded w-1/3 mt-2" />
+// // // // // // // // // // // // // // // // //       <div className="h-9 bg-muted rounded w-full mt-2" />
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // // );
+
+// // // // // // // // // // // // // // // // // const ShimmerGrid = ({ count }: { count: number }) => (
+// // // // // // // // // // // // // // // // //   <>
+// // // // // // // // // // // // // // // // //     {/* Mobile */}
+// // // // // // // // // // // // // // // // //     <div className="md:hidden grid grid-cols-2 gap-4">
+// // // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //     {/* Tablet */}
+// // // // // // // // // // // // // // // // //     <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
+// // // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //     {/* Desktop */}
+// // // // // // // // // // // // // // // // //     <div className="hidden lg:grid grid-cols-4 gap-8">
+// // // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //   </>
+// // // // // // // // // // // // // // // // // );
+
+// // // // // // // // // // // // // // // // // // ── Clearance product card wrapper with offer badge ───────────────────────────
+// // // // // // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
+// // // // // // // // // // // // // // // // //   <div className="relative animate-fade-in h-full">
+// // // // // // // // // // // // // // // // //     {/* Discount badge — top-left corner, above the card */}
+// // // // // // // // // // // // // // // // //     <div className="absolute top-2 left-2 z-10 pointer-events-none">
+// // // // // // // // // // // // // // // // //       <Badge
+// // // // // // // // // // // // // // // // //         variant="destructive"
+// // // // // // // // // // // // // // // // //         className="text-xs font-bold px-2 py-1 shadow-md"
+// // // // // // // // // // // // // // // // //       >
+// // // // // // // // // // // // // // // // //         Save {product.discountPercent}%
+// // // // // // // // // // // // // // // // //       </Badge>
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //     <ProductCard
+// // // // // // // // // // // // // // // // //       id={product.id}
+// // // // // // // // // // // // // // // // //       name={product.name}
+// // // // // // // // // // // // // // // // //       price={product.price}
+// // // // // // // // // // // // // // // // //       image={product.image}
+// // // // // // // // // // // // // // // // //       category={product.category}
+// // // // // // // // // // // // // // // // //       stockQuantity={product.stockQuantity}
+// // // // // // // // // // // // // // // // //     />
+// // // // // // // // // // // // // // // // //     {/* Original price shown below the card's price area via an overlay strip */}
+// // // // // // // // // // // // // // // // //     <div className="px-4 pb-3 -mt-1 bg-card rounded-b-xl border-x border-b border-border">
+// // // // // // // // // // // // // // // // //       <p className="text-xs text-muted-foreground line-through">
+// // // // // // // // // // // // // // // // //         Was {product.originalPrice}
+// // // // // // // // // // // // // // // // //       </p>
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // // );
+// // // // // // // // // // // // // // // // // // ─────────────────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // // // // const Index = () => {
 // // // // // // // // // // // // // // // // //   const navigate = useNavigate();
 // // // // // // // // // // // // // // // // //   const [products, setProducts] = useState<Product[]>([]);
 // // // // // // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
-  
-// // // // // // // // // // // // // // // // //   // Newsletter state
-// // // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState('');
+// // // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState("");
 // // // // // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
-// // // // // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
+// // // // // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{
+// // // // // // // // // // // // // // // // //     text: string;
+// // // // // // // // // // // // // // // // //     type: "success" | "error";
+// // // // // // // // // // // // // // // // //   } | null>(null);
 
 // // // // // // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // // // // //         // Fetch more products (limit=100) to ensure we get the latest ones
-// // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
-// // // // // // // // // // // // // // // // //         if (!response.ok) {
-// // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
-// // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // //         const response = await fetch(
+// // // // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+// // // // // // // // // // // // // // // // //         );
+// // // // // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
 // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
 // // // // // // // // // // // // // // // // //         if (data.success && data.data.products) {
-// // // // // // // // // // // // // // // // //           // Filter active products, sort by created_at (newest first), then take only 8
-// // // // // // // // // // // // // // // // //           const latestProducts = data.data.products
-// // // // // // // // // // // // // // // // //             .filter(product => product.is_active)
-// // // // // // // // // // // // // // // // //             .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-// // // // // // // // // // // // // // // // //             .slice(0, 8); // Take only the 8 most recent products
-// // // // // // // // // // // // // // // // //           setProducts(latestProducts);
+// // // // // // // // // // // // // // // // //           const clearanceProducts = data.data.products
+// // // // // // // // // // // // // // // // //             .filter(
+// // // // // // // // // // // // // // // // //               (p) =>
+// // // // // // // // // // // // // // // // //                 p.is_active &&
+// // // // // // // // // // // // // // // // //                 p.category_id === CLEARANCE_CATEGORY_ID
+// // // // // // // // // // // // // // // // //             )
+// // // // // // // // // // // // // // // // //             .sort(
+// // // // // // // // // // // // // // // // //               (a, b) =>
+// // // // // // // // // // // // // // // // //                 new Date(b.created_at).getTime() -
+// // // // // // // // // // // // // // // // //                 new Date(a.created_at).getTime()
+// // // // // // // // // // // // // // // // //             )
+// // // // // // // // // // // // // // // // //             .slice(0, 8);
+// // // // // // // // // // // // // // // // //           setProducts(clearanceProducts);
 // // // // // // // // // // // // // // // // //         }
 // // // // // // // // // // // // // // // // //       } catch (err) {
-// // // // // // // // // // // // // // // // //         console.error('Error fetching products:', err);
+// // // // // // // // // // // // // // // // //         console.error("Error fetching products:", err);
 // // // // // // // // // // // // // // // // //       } finally {
 // // // // // // // // // // // // // // // // //         setLoading(false);
 // // // // // // // // // // // // // // // // //       }
 // // // // // // // // // // // // // // // // //     };
-
 // // // // // // // // // // // // // // // // //     fetchProducts();
 // // // // // // // // // // // // // // // // //   }, []);
 
-// // // // // // // // // // // // // // // // //   // Newsletter subscribe handler
 // // // // // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // // // // // // // // // // // // // // // // //     e.preventDefault();
-    
-// // // // // // // // // // // // // // // // //     if (!newsletterEmail || !newsletterEmail.includes('@')) {
-// // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // //         text: 'Please enter a valid email address', 
-// // // // // // // // // // // // // // // // //         type: 'error' 
-// // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // //     if (!newsletterEmail || !newsletterEmail.includes("@")) {
+// // // // // // // // // // // // // // // // //       setNewsletterMessage({ text: "Please enter a valid email address", type: "error" });
 // // // // // // // // // // // // // // // // //       return;
 // // // // // // // // // // // // // // // // //     }
-
 // // // // // // // // // // // // // // // // //     setNewsletterLoading(true);
 // // // // // // // // // // // // // // // // //     setNewsletterMessage(null);
-
 // // // // // // // // // // // // // // // // //     try {
-// // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE), {
-// // // // // // // // // // // // // // // // //         method: 'POST',
-// // // // // // // // // // // // // // // // //         headers: {
-// // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
-// // // // // // // // // // // // // // // // //         },
-// // // // // // // // // // // // // // // // //         body: JSON.stringify({ email: newsletterEmail }),
-// // // // // // // // // // // // // // // // //       });
-
+// // // // // // // // // // // // // // // // //       const response = await fetch(
+// // // // // // // // // // // // // // // // //         buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.SUBSCRIBE),
+// // // // // // // // // // // // // // // // //         {
+// // // // // // // // // // // // // // // // //           method: "POST",
+// // // // // // // // // // // // // // // // //           headers: { "Content-Type": "application/json" },
+// // // // // // // // // // // // // // // // //           body: JSON.stringify({ email: newsletterEmail }),
+// // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // //       );
 // // // // // // // // // // // // // // // // //       const data = await response.json();
-
 // // // // // // // // // // // // // // // // //       if (response.ok) {
-// // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // //           text: 'Successfully subscribed to our newsletter!', 
-// // // // // // // // // // // // // // // // //           type: 'success' 
-// // // // // // // // // // // // // // // // //         });
-// // // // // // // // // // // // // // // // //         setNewsletterEmail('');
+// // // // // // // // // // // // // // // // //         setNewsletterMessage({ text: "Successfully subscribed to our newsletter!", type: "success" });
+// // // // // // // // // // // // // // // // //         setNewsletterEmail("");
 // // // // // // // // // // // // // // // // //       } else {
-// // // // // // // // // // // // // // // // //         setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // //           text: data.message || 'Failed to subscribe. Please try again.', 
-// // // // // // // // // // // // // // // // //           type: 'error' 
-// // // // // // // // // // // // // // // // //         });
+// // // // // // // // // // // // // // // // //         setNewsletterMessage({ text: data.message || "Failed to subscribe. Please try again.", type: "error" });
 // // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // //     } catch (error) {
-// // // // // // // // // // // // // // // // //       console.error('Newsletter subscription error:', error);
-// // // // // // // // // // // // // // // // //       setNewsletterMessage({ 
-// // // // // // // // // // // // // // // // //         text: 'Network error. Please check your connection and try again.', 
-// // // // // // // // // // // // // // // // //         type: 'error' 
-// // // // // // // // // // // // // // // // //       });
+// // // // // // // // // // // // // // // // //     } catch {
+// // // // // // // // // // // // // // // // //       setNewsletterMessage({ text: "Network error. Please check your connection and try again.", type: "error" });
 // // // // // // // // // // // // // // // // //     } finally {
 // // // // // // // // // // // // // // // // //       setNewsletterLoading(false);
 // // // // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // // // // //   // Newsletter unsubscribe handler
 // // // // // // // // // // // // // // // // //   const handleUnsubscribe = async () => {
-// // // // // // // // // // // // // // // // //     const email = prompt('Please enter your email address to unsubscribe:');
-    
-// // // // // // // // // // // // // // // // //     if (!email || !email.includes('@')) {
-// // // // // // // // // // // // // // // // //       return;
-// // // // // // // // // // // // // // // // //     }
-
+// // // // // // // // // // // // // // // // //     const email = prompt("Please enter your email address to unsubscribe:");
+// // // // // // // // // // // // // // // // //     if (!email || !email.includes("@")) return;
 // // // // // // // // // // // // // // // // //     try {
-// // // // // // // // // // // // // // // // //       const response = await fetch(buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE), {
-// // // // // // // // // // // // // // // // //         method: 'POST',
-// // // // // // // // // // // // // // // // //         headers: {
-// // // // // // // // // // // // // // // // //           'Content-Type': 'application/json',
-// // // // // // // // // // // // // // // // //         },
-// // // // // // // // // // // // // // // // //         body: JSON.stringify({ email }),
-// // // // // // // // // // // // // // // // //       });
-
+// // // // // // // // // // // // // // // // //       const response = await fetch(
+// // // // // // // // // // // // // // // // //         buildApiUrl(API_CONFIG.ENDPOINTS.NEWSLETTER.UNSUBSCRIBE),
+// // // // // // // // // // // // // // // // //         {
+// // // // // // // // // // // // // // // // //           method: "POST",
+// // // // // // // // // // // // // // // // //           headers: { "Content-Type": "application/json" },
+// // // // // // // // // // // // // // // // //           body: JSON.stringify({ email }),
+// // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // //       );
 // // // // // // // // // // // // // // // // //       const data = await response.json();
-
-// // // // // // // // // // // // // // // // //       if (response.ok) {
-// // // // // // // // // // // // // // // // //         alert('Successfully unsubscribed from our newsletter.');
-// // // // // // // // // // // // // // // // //       } else {
-// // // // // // // // // // // // // // // // //         alert(data.message || 'Failed to unsubscribe. Please try again.');
-// // // // // // // // // // // // // // // // //       }
-// // // // // // // // // // // // // // // // //     } catch (error) {
-// // // // // // // // // // // // // // // // //       console.error('Newsletter unsubscribe error:', error);
-// // // // // // // // // // // // // // // // //       alert('Network error. Please check your connection and try again.');
+// // // // // // // // // // // // // // // // //       alert(
+// // // // // // // // // // // // // // // // //         response.ok
+// // // // // // // // // // // // // // // // //           ? "Successfully unsubscribed from our newsletter."
+// // // // // // // // // // // // // // // // //           : data.message || "Failed to unsubscribe. Please try again."
+// // // // // // // // // // // // // // // // //       );
+// // // // // // // // // // // // // // // // //     } catch {
+// // // // // // // // // // // // // // // // //       alert("Network error. Please check your connection and try again.");
 // // // // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // // // // //   // Category mapping
-// // // // // // // // // // // // // // // // //   const categoryMap: Record<string, string> = { 
-// // // // // // // // // // // // // // // // //     'fc0ef0fa-db5d-4a32-b051-c90d0cabf525': 'Nutritional Supplements',
-// // // // // // // // // // // // // // // // //     '261b45ec-a4c0-4e44-92b9-9ad4c2ca1515': 'Natural Skin Care',
-// // // // // // // // // // // // // // // // //     '6ec176fc-cac4-40ee-b1d1-249e396632a8': 'Mens Boosters & Fertility Support',
-// // // // // // // // // // // // // // // // //     'f9d5401f-a4f8-46f0-a0f0-2f409287d44a': 'Yoni & Female Fertility Care',
-// // // // // // // // // // // // // // // // //     'fa289cf9-629d-43fd-ad24-16dc5d5dc363': 'Weight Management Products',
-// // // // // // // // // // // // // // // // //     'c424a6ed-d2bf-496c-bac9-e1b7ec189233': 'Organic Herbs',
-// // // // // // // // // // // // // // // // //     '360c510f-8b36-43c0-89bf-81c96a0ea885': 'Pure Honey & Honey Products',
-// // // // // // // // // // // // // // // // //   };
-
-// // // // // // // // // // // // // // // // //   // Placeholder image generator
-// // // // // // // // // // // // // // // // //   const getPlaceholderImage = (name: string) => {
-// // // // // // // // // // // // // // // // //     const encodedName = encodeURIComponent(name.replace(/\s+/g, '-').toLowerCase());
-// // // // // // // // // // // // // // // // //     return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
-// // // // // // // // // // // // // // // // //   };
-
-// // // // // // // // // // // // // // // // //   // Transform API products to match ProductCard props
-// // // // // // // // // // // // // // // // //   const transformedProducts = products.map(product => {
-// // // // // // // // // // // // // // // // //     // Use actual product image if available, otherwise fallback to placeholder
+// // // // // // // // // // // // // // // // //   // Transform products and compute originalPrice (same logic as ProductDetail: original = price * 1.2)
+// // // // // // // // // // // // // // // // //   const transformedProducts: TransformedProduct[] = products.map((product) => {
 // // // // // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
 // // // // // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
-// // // // // // // // // // // // // // // // //       const primaryImage = product.images.find(img => img.is_primary) || product.images[0];
+// // // // // // // // // // // // // // // // //       const primaryImage =
+// // // // // // // // // // // // // // // // //         product.images.find((img) => img.is_primary) || product.images[0];
 // // // // // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
 // // // // // // // // // // // // // // // // //     }
-    
+// // // // // // // // // // // // // // // // //     const numericPrice = parseFloat(String(product.price));
+// // // // // // // // // // // // // // // // //     const originalPrice = numericPrice * 1.2;
+// // // // // // // // // // // // // // // // //     const discountPercent = Math.round(
+// // // // // // // // // // // // // // // // //       ((originalPrice - numericPrice) / originalPrice) * 100
+// // // // // // // // // // // // // // // // //     );
 // // // // // // // // // // // // // // // // //     return {
 // // // // // // // // // // // // // // // // //       id: product.product_id,
 // // // // // // // // // // // // // // // // //       name: product.name,
-// // // // // // // // // // // // // // // // //       price: `Ksh ${parseFloat(product.price).toFixed(2)}`,
+// // // // // // // // // // // // // // // // //       price: `Ksh ${numericPrice.toFixed(2)}`,
+// // // // // // // // // // // // // // // // //       originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
+// // // // // // // // // // // // // // // // //       discountPercent,
 // // // // // // // // // // // // // // // // //       image: imageUrl,
-// // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || 'Uncategorized',
+// // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || "Uncategorized",
 // // // // // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
 // // // // // // // // // // // // // // // // //     };
 // // // // // // // // // // // // // // // // //   });
 
 // // // // // // // // // // // // // // // // //   const categories = [
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Weight Management Products",
-// // // // // // // // // // // // // // // // //       description: "Flat tummy, upper body fat, full weight loss packages.",
-// // // // // // // // // // // // // // // // //       image: weight,
-// // // // // // // // // // // // // // // // //       to: "/products/weight-management",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Yoni & Female Fertility Care",
-// // // // // // // // // // // // // // // // //       description: "Steam herbs, washes, tightening pearls & more.",
-// // // // // // // // // // // // // // // // //       image: Yoni,
-// // // // // // // // // // // // // // // // //       to: "/products/female-care",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Men's Boosters & Fertility Support",
-// // // // // // // // // // // // // // // // //       description: "Stamina, libido, and reproductive health.",
-// // // // // // // // // // // // // // // // //       image: mens,
-// // // // // // // // // // // // // // // // //       to: "/products/mens-health",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Natural Skin Care",
-// // // // // // // // // // // // // // // // //       description: "Healing soaps, oils, scrubs, and glow enhancers.",
-// // // // // // // // // // // // // // // // //       image: natural,
-// // // // // // // // // // // // // // // // //       to: "/products/skin-care",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Nutritional Supplements",
-// // // // // // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
-// // // // // // // // // // // // // // // // //       image: nutritional,
-// // // // // // // // // // // // // // // // //       to: "/products/supplements"
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Organic Herbs",
-// // // // // // // // // // // // // // // // //       description: "Pure, sustainably sourced herbs for wellness and rituals.",
-// // // // // // // // // // // // // // // // //       image: organicherbs,
-// // // // // // // // // // // // // // // // //       to: "/products/organic-herbs",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       title: "Pure Honey & Honey Products",
-// // // // // // // // // // // // // // // // //       description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products. Sourced with care, our honey retains its rich flavor, golden color, and essential nutrients, making it perfect for everyday use.",
-// // // // // // // // // // // // // // // // //       image: Honey,
-// // // // // // // // // // // // // // // // //       to: "/products/pure-honey",
-// // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // //     { title: "Weight Management Products", description: "Flat tummy, upper body fat, full weight loss packages.", image: weight, to: "/products/weight-management" },
+// // // // // // // // // // // // // // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
+// // // // // // // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
+// // // // // // // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
+// // // // // // // // // // // // // // // // //     {title: "Nutritional Supplements",
+// // // // // // // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
+// // // // // // // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
+// // // // // // // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // //   const testimonials = [
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       name: "Shirleen Kimani",
-// // // // // // // // // // // // // // // // //       role: "",
-// // // // // // // // // // // // // // // // //       content: "I’m really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I’ll definitely keep using it.",
-// // // // // // // // // // // // // // // // //       rating: 5,
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       name: "Kathurima Simon",
-// // // // // // // // // // // // // // // // //       role: "",
-// // // // // // // // // // // // // // // // //       content: "Order received well and on time. I’m very impressed with the professionalism and customer care. Thank you so much!",
-// // // // // // // // // // // // // // // // //       rating: 4,
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       name: "Kilavu Juliet",
-// // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
-// // // // // // // // // // // // // // // // //       content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.",
-// // // // // // // // // // // // // // // // //       rating: 5,
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       name: "Joseph Kigo",
-// // // // // // // // // // // // // // // // //       role: "Busy Mom of Three",
-// // // // // // // // // // // // // // // // //       content: "Thank you so much — I’ve received my order safely. It’s not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.",
-// // // // // // // // // // // // // // // // //       rating: 5,
-// // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // //     { name: "Shirleen Kimani", role: "", content: "I'm really happy with the Hips & Butt Tea results so far! My curves are starting to show and I can already see positive changes. I'll definitely keep using it.", rating: 5 },
+// // // // // // // // // // // // // // // // //     { name: "Kathurima Simon", role: "", content: "Order received well and on time. I'm very impressed with the professionalism and customer care. Thank you so much!", rating: 4 },
+// // // // // // // // // // // // // // // // //     { name: "Kilavu Juliet", role: "Busy Mom of Three", content: "The Candies worked amazingly for me — everything felt more heightened and pleasurable. My partner even commented on the difference. Thank you for boosting our confidence and enjoyment.", rating: 5 },
+// // // // // // // // // // // // // // // // //     { name: "Joseph Kigo", role: "", content: "Thank you so much — I've received my order safely. It's not easy to find someone trustworthy online, but you proved to be genuine and reliable. I truly appreciate your honesty.", rating: 5 },
 // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // //   const certifications = [
@@ -1911,182 +3147,143 @@
 // // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // //   const benefits = [
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       icon: Leaf,
-// // // // // // // // // // // // // // // // //       title: "100% Organic",
-// // // // // // // // // // // // // // // // //       description: "Certified organic ingredients sourced from sustainable farms",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       icon: Shield,
-// // // // // // // // // // // // // // // // //       title: "Quality Assured",
-// // // // // // // // // // // // // // // // //       description: "Rigorous testing ensures premium quality in every product",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       icon: Heart,
-// // // // // // // // // // // // // // // // //       title: "Health First",
-// // // // // // // // // // // // // // // // //       description: "Nutritious products that support your wellness journey",
-// // // // // // // // // // // // // // // // //     },
-// // // // // // // // // // // // // // // // //     {
-// // // // // // // // // // // // // // // // //       icon: Sparkles,
-// // // // // // // // // // // // // // // // //       title: "Pure & Natural",
-// // // // // // // // // // // // // // // // //       description: "No artificial additives, preservatives, or chemicals",
-// // // // // // // // // // // // // // // // //     },
+// // // // // // // // // // // // // // // // //     { icon: Leaf, title: "100% Organic", description: "Certified organic ingredients sourced from sustainable farms" },
+// // // // // // // // // // // // // // // // //     { icon: Shield, title: "Quality Assured", description: "Rigorous testing ensures premium quality in every product" },
+// // // // // // // // // // // // // // // // //     { icon: Heart, title: "Health First", description: "Nutritious products that support your wellness journey" },
+// // // // // // // // // // // // // // // // //     { icon: Sparkles, title: "Pure & Natural", description: "No artificial additives, preservatives, or chemicals" },
 // // // // // // // // // // // // // // // // //   ];
 
-// // // // // // // // // // // // // // // // //   // Utility to chunk an array into rows
-// // // // // // // // // // // // // // // // //   const chunk = <T,>(arr: T[], size: number): T[][] => {
-// // // // // // // // // // // // // // // // //     const rows: T[][] = [];
-// // // // // // // // // // // // // // // // //     for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
-// // // // // // // // // // // // // // // // //     return rows;
-// // // // // // // // // // // // // // // // //   };
+// // // // // // // // // // // // // // // // //   const tickerItems = [
+// // // // // // // // // // // // // // // // //     "🌟 Best Seller — Limited Stock!",
+// // // // // // // // // // // // // // // // //     "💸 Huge Savings on Selected Products",
+// // // // // // // // // // // // // // // // //     "⚡ Shop Before It's Gone",
+// // // // // // // // // // // // // // // // //     "🌿 Organic Goodness at Unbeatable Prices",
+// // // // // // // // // // // // // // // // //     "🛒 While Stocks Last",
+// // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // // //   return (
 // // // // // // // // // // // // // // // // //     <div className="min-h-screen">
+// // // // // // // // // // // // // // // // //       {/* ── Best Seller Ticker ── */}
+// // // // // // // // // // // // // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
+// // // // // // // // // // // // // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
+// // // // // // // // // // // // // // // // //           {[...Array(4)].map((_, repeat) =>
+// // // // // // // // // // // // // // // // //             tickerItems.map((item, i) => (
+// // // // // // // // // // // // // // // // //               <span key={`${repeat}-${i}`} className="mx-10 text-sm font-semibold tracking-widest uppercase">
+// // // // // // // // // // // // // // // // //                 {item}
+// // // // // // // // // // // // // // // // //                 <span className="mx-6 text-red-300">|</span>
+// // // // // // // // // // // // // // // // //               </span>
+// // // // // // // // // // // // // // // // //             ))
+// // // // // // // // // // // // // // // // //           )}
+// // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // //       </div>
 // // // // // // // // // // // // // // // // //       <Header />
 
-// // // // // // // // // // // // // // // // //       {/* Hero Section */}
-// // // // // // // // // // // // // // // // //       {/* <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // // // // // // // // // // //       {/* ── Hero ── */}
+// // // // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
 // // // // // // // // // // // // // // // // //         <div className="absolute inset-0">
-// // // // // // // // // // // // // // // // //   <a 
-// // // // // // // // // // // // // // // // //     href="https://organicbloom.co.ke/shop"
-// // // // // // // // // // // // // // // // //     className="block w-full h-full"
-// // // // // // // // // // // // // // // // //   >
-// // // // // // // // // // // // // // // // //     <img
-// // // // // // // // // // // // // // // // //       src={heroImage}
-// // // // // // // // // // // // // // // // //       alt="Organic products in natural setting"
-// // // // // // // // // // // // // // // // //       className="w-full h-full object-cover transition-transform duration-300 hover-scale"
-// // // // // // // // // // // // // // // // //     />
-// // // // // // // // // // // // // // // // //   </a>
-  
-// // // // // // // // // // // // // // // // // </div>
-
-        
-// // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-center">
-// // // // // // // // // // // // // // // // //           <div className="max-w-2xl text-white drop-shadow-md animate-fade-in">
+// // // // // // // // // // // // // // // // //           <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
+// // // // // // // // // // // // // // // // //             <img
+// // // // // // // // // // // // // // // // //               src={heroImage}
+// // // // // // // // // // // // // // // // //               alt="Organic products in natural setting"
+// // // // // // // // // // // // // // // // //               className="w-full h-full object-cover transition-transform duration-300 hover-scale"
+// // // // // // // // // // // // // // // // //             />
+// // // // // // // // // // // // // // // // //           </a>
+// // // // // // // // // // // // // // // // //         </div>
+// // // // // // // // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+// // // // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
+// // // // // // // // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
 // // // // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // // // // // // // //               Nurture Life, Naturally
 // // // // // // // // // // // // // // // // //             </h1>
-// // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl mb-8 text-white font-bold">
-// // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
+// // // // // // // // // // // // // // // // //             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
+// // // // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature
+// // // // // // // // // // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
 // // // // // // // // // // // // // // // // //             </p>
-// // // // // // // // // // // // // // // // //             <Button 
+// // // // // // // // // // // // // // // // //             <Button
 // // // // // // // // // // // // // // // // //               size="lg"
-// // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6 rounded-full hover-scale"
-// // // // // // // // // // // // // // // // //               onClick={() => navigate('/shop')}
+// // // // // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+// // // // // // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
 // // // // // // // // // // // // // // // // //             >
-// // // // // // // // // // // // // // // // //               Shop Now
-// // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // // // // // // // // // //               Shop Best Seller
+// // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // // // // // // // // // // // // // // // //             </Button>
 // // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // //         </div>
-// // // // // // // // // // // // // // // // //       </section> */}
-// // // // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
-// // // // // // // // // // // // // // // // //   <div className="absolute inset-0">
-// // // // // // // // // // // // // // // // //     <a 
-// // // // // // // // // // // // // // // // //       href="https://organicbloom.co.ke/shop"
-// // // // // // // // // // // // // // // // //       className="block w-full h-full"
-// // // // // // // // // // // // // // // // //     >
-// // // // // // // // // // // // // // // // //       <img
-// // // // // // // // // // // // // // // // //         src={heroImage}
-// // // // // // // // // // // // // // // // //         alt="Organic products in natural setting"
-// // // // // // // // // // // // // // // // //         className="w-full h-full object-cover transition-transform duration-300 hover-scale"
-// // // // // // // // // // // // // // // // //       />
-// // // // // // // // // // // // // // // // //     </a>
-// // // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // //   {/* Dark overlay for better text visibility */}
-// // // // // // // // // // // // // // // // //   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-  
-// // // // // // // // // // // // // // // // //   <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
-// // // // // // // // // // // // // // // // //     <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
-// // // // // // // // // // // // // // // // //       <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
-// // // // // // // // // // // // // // // // //         Nurture Life, Naturally
-// // // // // // // // // // // // // // // // //       </h1>
-// // // // // // // // // // // // // // // // //       <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
-// // // // // // // // // // // // // // // // //         Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.
-// // // // // // // // // // // // // // // // //       </p>
-// // // // // // // // // // // // // // // // //       <Button 
-// // // // // // // // // // // // // // // // //         size="lg"
-// // // // // // // // // // // // // // // // //         className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-// // // // // // // // // // // // // // // // //         onClick={() => navigate('/shop')}
-// // // // // // // // // // // // // // // // //       >
-// // // // // // // // // // // // // // // // //         Shop Now
-// // // // // // // // // // // // // // // // //         <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
-// // // // // // // // // // // // // // // // //       </Button>
-// // // // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // // // // //   </div>
-// // // // // // // // // // // // // // // // // </section>
-
-// // // // // // // // // // // // // // // // //       {/* Featured Products Section */}
+// // // // // // // // // // // // // // // // //       {/* ── Best Seller Products ── */}
 // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
+// // // // // // // // // // // // // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
+// // // // // // // // // // // // // // // // //             🔥 Limited Time Only
+// // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // // // // // // // // // // // // // // // //             Featured Products
+// // // // // // // // // // // // // // // // //             Best Seller
 // // // // // // // // // // // // // // // // //           </h2>
 // // // // // // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-// // // // // // // // // // // // // // // // //             Handpicked selections from our organic collection, crafted with care for your wellbeing
+// // // // // // // // // // // // // // // // //             Grab these deals before they're gone — massive savings on selected
+// // // // // // // // // // // // // // // // //             organic products while stocks last
 // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // //         </div>
 
 // // // // // // // // // // // // // // // // //         {loading ? (
-// // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
-// // // // // // // // // // // // // // // // //             <div className="text-lg">Loading products...</div>
-// // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // //           <ShimmerGrid count={8} />
 // // // // // // // // // // // // // // // // //         ) : transformedProducts.length === 0 ? (
-// // // // // // // // // // // // // // // // //           <div className="flex justify-center items-center h-64">
-// // // // // // // // // // // // // // // // //             <div className="text-lg text-muted-foreground">No products available at the moment.</div>
+// // // // // // // // // // // // // // // // //           <div className="flex flex-col justify-center items-center h-64 gap-3">
+// // // // // // // // // // // // // // // // //             <p className="text-lg text-muted-foreground">No clearance products available at the moment.</p>
+// // // // // // // // // // // // // // // // //             <Button variant="outline" onClick={() => navigate("/shop")}>Browse All Products</Button>
 // // // // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // // // // //         ) : (
 // // // // // // // // // // // // // // // // //           <>
 // // // // // // // // // // // // // // // // //             {/* Mobile: 2 per row */}
-// // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-8">
+// // // // // // // // // // // // // // // // //             <div className="md:hidden space-y-4">
 // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="space-y-3">
-// // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-2 gap-6">
-// // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
-// // // // // // // // // // // // // // // // //                       <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
-// // // // // // // // // // // // // // // // //                       </div>
-// // // // // // // // // // // // // // // // //                     ))}
-// // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
+// // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
+// // // // // // // // // // // // // // // // //                     <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />
+// // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // //             </div>
-
 // // // // // // // // // // // // // // // // //             {/* Tablet: 3 per row */}
-// // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-10">
+// // // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-6">
 // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="space-y-4">
-// // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-3 gap-8">
-// // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
-// // // // // // // // // // // // // // // // //                       <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
-// // // // // // // // // // // // // // // // //                       </div>
-// // // // // // // // // // // // // // // // //                     ))}
-// // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
+// // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
+// // // // // // // // // // // // // // // // //                     <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />
+// // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // //             </div>
-
 // // // // // // // // // // // // // // // // //             {/* Desktop: 4 per row */}
-// // // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-12">
+// // // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-8">
 // // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
-// // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="space-y-5">
-// // // // // // // // // // // // // // // // //                   <div className="grid grid-cols-4 gap-9">
-// // // // // // // // // // // // // // // // //                     {row.map((p, i) => (
-// // // // // // // // // // // // // // // // //                       <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // // //                         <ProductCard {...p} />
-// // // // // // // // // // // // // // // // //                       </div>
-// // // // // // // // // // // // // // // // //                     ))}
-// // // // // // // // // // // // // // // // //                   </div>
+// // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
+// // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
+// // // // // // // // // // // // // // // // //                     <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />
+// // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // // // //             </div>
 // // // // // // // // // // // // // // // // //           </>
 // // // // // // // // // // // // // // // // //         )}
+
+// // // // // // // // // // // // // // // // //         {!loading && transformedProducts.length > 0 && (
+// // // // // // // // // // // // // // // // //           <div className="text-center mt-12">
+// // // // // // // // // // // // // // // // //             <Button
+// // // // // // // // // // // // // // // // //               variant="outline"
+// // // // // // // // // // // // // // // // //               size="lg"
+// // // // // // // // // // // // // // // // //               className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
+// // // // // // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
+// // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // //               View All Deals
+// // // // // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // // // // // // // // // //             </Button>
+// // // // // // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // // // // // //         )}
 // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // //       {/* Shop By Lifestyle Section */}
+// // // // // // // // // // // // // // // // //       {/* ── Shop By Lifestyle ── */}
 // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
 // // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -2096,7 +3293,6 @@
 // // // // // // // // // // // // // // // // //             Find the perfect organic solutions tailored to your unique wellness needs
 // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // //         </div>
-
 // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 // // // // // // // // // // // // // // // // //           {categories.map((category, index) => (
 // // // // // // // // // // // // // // // // //             <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
@@ -2106,7 +3302,7 @@
 // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // //       {/* Why Choose Organic Bloom Section */}
+// // // // // // // // // // // // // // // // //       {/* ── Why Choose Organic Bloom ── */}
 // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // //         <div className="text-center mb-16 animate-fade-in">
 // // // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -2116,29 +3312,20 @@
 // // // // // // // // // // // // // // // // //             We're committed to bringing you the finest organic products with unwavering quality and care
 // // // // // // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // // // // // //         </div>
-
 // // // // // // // // // // // // // // // // //         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 // // // // // // // // // // // // // // // // //           {benefits.map((benefit, index) => (
-// // // // // // // // // // // // // // // // //             <div
-// // // // // // // // // // // // // // // // //               key={index}
-// // // // // // // // // // // // // // // // //               className="text-center group animate-fade-in"
-// // // // // // // // // // // // // // // // //               style={{ animationDelay: `${index * 100}ms` }}
-// // // // // // // // // // // // // // // // //             >
+// // // // // // // // // // // // // // // // //             <div key={index} className="text-center group animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
 // // // // // // // // // // // // // // // // //               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
 // // // // // // // // // // // // // // // // //                 <benefit.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
 // // // // // // // // // // // // // // // // //               </div>
-// // // // // // // // // // // // // // // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
-// // // // // // // // // // // // // // // // //                 {benefit.title}
-// // // // // // // // // // // // // // // // //               </h3>
-// // // // // // // // // // // // // // // // //               <p className="text-muted-foreground">
-// // // // // // // // // // // // // // // // //                 {benefit.description}
-// // // // // // // // // // // // // // // // //               </p>
+// // // // // // // // // // // // // // // // //               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">{benefit.title}</h3>
+// // // // // // // // // // // // // // // // //               <p className="text-muted-foreground">{benefit.description}</p>
 // // // // // // // // // // // // // // // // //             </div>
 // // // // // // // // // // // // // // // // //           ))}
 // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // //       {/* Testimonials Section */}
+// // // // // // // // // // // // // // // // //       {/* ── Testimonials ── */}
 // // // // // // // // // // // // // // // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
 // // // // // // // // // // // // // // // // //         <div className="container mx-auto px-4">
 // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -2149,7 +3336,6 @@
 // // // // // // // // // // // // // // // // //               Real experiences from people who've embraced organic living with us
 // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // //           </div>
-
 // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 // // // // // // // // // // // // // // // // //             {testimonials.map((testimonial, index) => (
 // // // // // // // // // // // // // // // // //               <div
@@ -2163,14 +3349,12 @@
 // // // // // // // // // // // // // // // // //                     <Star key={i} className="w-5 h-5 fill-primary text-primary" />
 // // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // // // // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">
-// // // // // // // // // // // // // // // // //                   "{testimonial.content}"
-// // // // // // // // // // // // // // // // //                 </p>
+// // // // // // // // // // // // // // // // //                 <p className="text-muted-foreground mb-6 leading-relaxed">"{testimonial.content}"</p>
 // // // // // // // // // // // // // // // // //                 <div>
-// // // // // // // // // // // // // // // // //                   <p className="font-heading font-semibold text-foreground">
-// // // // // // // // // // // // // // // // //                     {testimonial.name}
-// // // // // // // // // // // // // // // // //                   </p>
-// // // // // // // // // // // // // // // // //                   <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // // // // // // // // // // // // // // //                   <p className="font-heading font-semibold text-foreground">{testimonial.name}</p>
+// // // // // // // // // // // // // // // // //                   {testimonial.role && (
+// // // // // // // // // // // // // // // // //                     <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+// // // // // // // // // // // // // // // // //                   )}
 // // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // // //               </div>
 // // // // // // // // // // // // // // // // //             ))}
@@ -2178,7 +3362,7 @@
 // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // //       {/* Certifications Section */}
+// // // // // // // // // // // // // // // // //       {/* ── Certifications ── */}
 // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
 // // // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -2189,20 +3373,13 @@
 // // // // // // // // // // // // // // // // //               Our commitment to quality is backed by industry-leading certifications
 // // // // // // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // // // // // //           </div>
-
 // // // // // // // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 // // // // // // // // // // // // // // // // //             {certifications.map((cert, index) => (
-// // // // // // // // // // // // // // // // //               <div
-// // // // // // // // // // // // // // // // //                 key={index}
-// // // // // // // // // // // // // // // // //                 className="text-center group animate-fade-in"
-// // // // // // // // // // // // // // // // //                 style={{ animationDelay: `${index * 100}ms` }}
-// // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // //               <div key={index} className="text-center group animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
 // // // // // // // // // // // // // // // // //                 <div className="w-16 h-16 mx-auto mb-3 rounded-full border-2 border-primary flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover-scale">
 // // // // // // // // // // // // // // // // //                   <Leaf className="w-8 h-8 text-primary group-hover:text-white transition-colors duration-300" />
 // // // // // // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // // // // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">
-// // // // // // // // // // // // // // // // //                   {cert.name}
-// // // // // // // // // // // // // // // // //                 </h3>
+// // // // // // // // // // // // // // // // //                 <h3 className="font-heading font-semibold text-foreground mb-1">{cert.name}</h3>
 // // // // // // // // // // // // // // // // //                 <p className="text-sm text-muted-foreground">{cert.description}</p>
 // // // // // // // // // // // // // // // // //               </div>
 // // // // // // // // // // // // // // // // //             ))}
@@ -2210,14 +3387,13 @@
 // // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // // // //       {/* Newsletter Section */}
+// // // // // // // // // // // // // // // // //       {/* ── Newsletter ── */}
 // // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
 // // // // // // // // // // // // // // // // //           <div className="absolute inset-0 opacity-10">
-// // // // // // // // // // // // // // // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl"></div>
-// // // // // // // // // // // // // // // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl"></div>
+// // // // // // // // // // // // // // // // //             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl" />
+// // // // // // // // // // // // // // // // //             <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-white blur-3xl" />
 // // // // // // // // // // // // // // // // //           </div>
-          
 // // // // // // // // // // // // // // // // //           <div className="relative z-10 max-w-2xl mx-auto">
 // // // // // // // // // // // // // // // // //             <Leaf className="w-12 h-12 mx-auto mb-6 text-white" />
 // // // // // // // // // // // // // // // // //             <h2 className="text-3xl md:text-4xl font-heading font-bold text-white mb-4">
@@ -2226,8 +3402,7 @@
 // // // // // // // // // // // // // // // // //             <p className="text-lg text-white/90 mb-8">
 // // // // // // // // // // // // // // // // //               Get exclusive offers, wellness tips, and be the first to know about new organic arrivals
 // // // // // // // // // // // // // // // // //             </p>
-            
-// // // // // // // // // // // // // // // // //             <form 
+// // // // // // // // // // // // // // // // //             <form
 // // // // // // // // // // // // // // // // //               onSubmit={handleNewsletterSubmit}
 // // // // // // // // // // // // // // // // //               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
 // // // // // // // // // // // // // // // // //             >
@@ -2235,39 +3410,31 @@
 // // // // // // // // // // // // // // // // //                 type="email"
 // // // // // // // // // // // // // // // // //                 placeholder="Enter your email"
 // // // // // // // // // // // // // // // // //                 value={newsletterEmail}
-// // // // // // // // // // // // // // // // //                 onChange={(e) => {
-// // // // // // // // // // // // // // // // //                   setNewsletterEmail(e.target.value);
-// // // // // // // // // // // // // // // // //                   setNewsletterMessage(null);
-// // // // // // // // // // // // // // // // //                 }}
+// // // // // // // // // // // // // // // // //                 onChange={(e) => { setNewsletterEmail(e.target.value); setNewsletterMessage(null); }}
 // // // // // // // // // // // // // // // // //                 className="bg-white/95 border-white/50 text-foreground placeholder:text-muted-foreground"
 // // // // // // // // // // // // // // // // //                 required
 // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // //               />
-// // // // // // // // // // // // // // // // //               <Button 
+// // // // // // // // // // // // // // // // //               <Button
 // // // // // // // // // // // // // // // // //                 type="submit"
 // // // // // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold whitespace-nowrap px-8"
 // // // // // // // // // // // // // // // // //                 disabled={newsletterLoading}
 // // // // // // // // // // // // // // // // //               >
-// // // // // // // // // // // // // // // // //                 {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
+// // // // // // // // // // // // // // // // //                 {newsletterLoading ? "Subscribing..." : "Subscribe"}
 // // // // // // // // // // // // // // // // //               </Button>
 // // // // // // // // // // // // // // // // //             </form>
-            
 // // // // // // // // // // // // // // // // //             {newsletterMessage && (
 // // // // // // // // // // // // // // // // //               <div className={`mt-4 px-4 py-2 rounded-lg max-w-md mx-auto ${
-// // // // // // // // // // // // // // // // //                 newsletterMessage.type === 'success' 
-// // // // // // // // // // // // // // // // //                   ? 'bg-green-500/20 text-green-100 border border-green-400/30' 
-// // // // // // // // // // // // // // // // //                   : 'bg-red-500/20 text-red-100 border border-red-400/30'
+// // // // // // // // // // // // // // // // //                 newsletterMessage.type === "success"
+// // // // // // // // // // // // // // // // //                   ? "bg-green-500/20 text-green-100 border border-green-400/30"
+// // // // // // // // // // // // // // // // //                   : "bg-red-500/20 text-red-100 border border-red-400/30"
 // // // // // // // // // // // // // // // // //               }`}>
 // // // // // // // // // // // // // // // // //                 <p className="text-sm">{newsletterMessage.text}</p>
 // // // // // // // // // // // // // // // // //               </div>
 // // // // // // // // // // // // // // // // //             )}
-            
 // // // // // // // // // // // // // // // // //             <p className="text-sm text-white/70 mt-4">
-// // // // // // // // // // // // // // // // //               We respect your privacy. <button 
-// // // // // // // // // // // // // // // // //                 type="button"
-// // // // // // // // // // // // // // // // //                 onClick={handleUnsubscribe}
-// // // // // // // // // // // // // // // // //                 className="underline hover:text-white transition-colors"
-// // // // // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // // // // //               We respect your privacy.{" "}
+// // // // // // // // // // // // // // // // //               <button type="button" onClick={handleUnsubscribe} className="underline hover:text-white transition-colors">
 // // // // // // // // // // // // // // // // //                 Unsubscribe anytime
 // // // // // // // // // // // // // // // // //               </button>
 // // // // // // // // // // // // // // // // //             </p>
@@ -2276,6 +3443,13 @@
 // // // // // // // // // // // // // // // // //       </section>
 
 // // // // // // // // // // // // // // // // //       <Footer />
+
+// // // // // // // // // // // // // // // // //       <style>{`
+// // // // // // // // // // // // // // // // //         @keyframes marquee {
+// // // // // // // // // // // // // // // // //           0%   { transform: translateX(0); }
+// // // // // // // // // // // // // // // // //           100% { transform: translateX(-50%); }
+// // // // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // // // //       `}</style>
 // // // // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // // // // //   );
 // // // // // // // // // // // // // // // // // };
@@ -2284,6 +3458,7 @@
 // // // // // // // // // // // // // // // // import { useState, useEffect } from "react";
 // // // // // // // // // // // // // // // // import { useNavigate } from "react-router-dom";
 // // // // // // // // // // // // // // // // import { Button } from "@/components/ui/button";
+// // // // // // // // // // // // // // // // import { Badge } from "@/components/ui/badge";
 // // // // // // // // // // // // // // // // import { Input } from "@/components/ui/input";
 // // // // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 // // // // // // // // // // // // // // // // import Header from "@/components/Header";
@@ -2298,7 +3473,7 @@
 // // // // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
 // // // // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
 // // // // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
-// // // // // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg"
+// // // // // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg";
 // // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
 
 // // // // // // // // // // // // // // // // interface ProductImage {
@@ -2333,6 +3508,18 @@
 // // // // // // // // // // // // // // // //     products: Product[];
 // // // // // // // // // // // // // // // //   };
 // // // // // // // // // // // // // // // //   timestamp: string;
+// // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // // Transformed product includes originalPrice for the offer badge
+// // // // // // // // // // // // // // // // interface TransformedProduct {
+// // // // // // // // // // // // // // // //   id: string;
+// // // // // // // // // // // // // // // //   name: string;
+// // // // // // // // // // // // // // // //   price: string;
+// // // // // // // // // // // // // // // //   originalPrice: string;
+// // // // // // // // // // // // // // // //   discountPercent: number;
+// // // // // // // // // // // // // // // //   image: string;
+// // // // // // // // // // // // // // // //   category: string;
+// // // // // // // // // // // // // // // //   stockQuantity: number;
 // // // // // // // // // // // // // // // // }
 
 // // // // // // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
@@ -2388,6 +3575,49 @@
 // // // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // // // //   </>
 // // // // // // // // // // // // // // // // );
+
+// // // // // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
+// // // // // // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
+// // // // // // // // // // // // // // // //     <div className="flex-1 [&_[class*='price']]:hidden [&_[class*='Price']]:hidden">
+// // // // // // // // // // // // // // // //       <ProductCard
+// // // // // // // // // // // // // // // //         id={product.id}
+// // // // // // // // // // // // // // // //         name={product.name}
+// // // // // // // // // // // // // // // //         price=""
+// // // // // // // // // // // // // // // //         image={product.image}
+// // // // // // // // // // // // // // // //         category={product.category}
+// // // // // // // // // // // // // // // //         stockQuantity={product.stockQuantity}
+// // // // // // // // // // // // // // // //       />
+// // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // //     <div className="px-4 py-3 border-t border-border bg-card flex items-center gap-2 flex-wrap">
+// // // // // // // // // // // // // // // //       <span className="text-base font-bold text-foreground">{product.price}</span>
+// // // // // // // // // // // // // // // //       <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
+// // // // // // // // // // // // // // // //       <Badge variant="destructive" className="text-xs font-semibold px-2 py-0.5">
+// // // // // // // // // // // // // // // //         Save {product.discountPercent}%
+// // // // // // // // // // // // // // // //       </Badge>
+// // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // );
+// // // // // // // // // // // // // // // // // ── Clearance product card wrapper with inline offer row ─────────────────────
+// // // // // // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
+// // // // // // // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
+// // // // // // // // // // // // // // // // //     <ProductCard
+// // // // // // // // // // // // // // // // //       id={product.id}
+// // // // // // // // // // // // // // // // //       name={product.name}
+// // // // // // // // // // // // // // // // //       price={product.price}
+// // // // // // // // // // // // // // // // //       image={product.image}
+// // // // // // // // // // // // // // // // //       category={product.category}
+// // // // // // // // // // // // // // // // //       stockQuantity={product.stockQuantity}
+// // // // // // // // // // // // // // // // //     />
+// // // // // // // // // // // // // // // // //     {/* Inline offer row: current price · strikethrough original · Save badge */}
+// // // // // // // // // // // // // // // // //     <div className="px-4 pb-4 -mt-2 flex items-center gap-2 flex-wrap">
+// // // // // // // // // // // // // // // // //       <span className="text-base font-bold text-foreground">{product.price}</span>
+// // // // // // // // // // // // // // // // //       <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
+// // // // // // // // // // // // // // // // //       <Badge variant="destructive" className="text-xs font-bold px-2 py-0.5">
+// // // // // // // // // // // // // // // // //         Save {product.discountPercent}%
+// // // // // // // // // // // // // // // // //       </Badge>
+// // // // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // // // //   </div>
+// // // // // // // // // // // // // // // // // );
 // // // // // // // // // // // // // // // // // ─────────────────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // // // const Index = () => {
@@ -2404,7 +3634,6 @@
 // // // // // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // // // //         // Fetch all products, then filter client-side as backend category param may be unreliable
 // // // // // // // // // // // // // // // //         const response = await fetch(
 // // // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
 // // // // // // // // // // // // // // // //         );
@@ -2488,17 +3717,25 @@
 // // // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // // // //   const transformedProducts = products.map((product) => {
+// // // // // // // // // // // // // // // //   // Transform products and compute originalPrice (same logic as ProductDetail: original = price * 1.2)
+// // // // // // // // // // // // // // // //   const transformedProducts: TransformedProduct[] = products.map((product) => {
 // // // // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
 // // // // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
 // // // // // // // // // // // // // // // //       const primaryImage =
 // // // // // // // // // // // // // // // //         product.images.find((img) => img.is_primary) || product.images[0];
 // // // // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
 // // // // // // // // // // // // // // // //     }
+// // // // // // // // // // // // // // // //     const numericPrice = parseFloat(String(product.price));
+// // // // // // // // // // // // // // // //     const originalPrice = numericPrice * 1.2;
+// // // // // // // // // // // // // // // //     const discountPercent = Math.round(
+// // // // // // // // // // // // // // // //       ((originalPrice - numericPrice) / originalPrice) * 100
+// // // // // // // // // // // // // // // //     );
 // // // // // // // // // // // // // // // //     return {
 // // // // // // // // // // // // // // // //       id: product.product_id,
 // // // // // // // // // // // // // // // //       name: product.name,
-// // // // // // // // // // // // // // // //       price: `Ksh ${parseFloat(String(product.price)).toFixed(2)}`,
+// // // // // // // // // // // // // // // //       price: `Ksh ${numericPrice.toFixed(2)}`,
+// // // // // // // // // // // // // // // //       originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
+// // // // // // // // // // // // // // // //       discountPercent,
 // // // // // // // // // // // // // // // //       image: imageUrl,
 // // // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || "Uncategorized",
 // // // // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
@@ -2511,9 +3748,26 @@
 // // // // // // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
 // // // // // // // // // // // // // // // //     {title: "Nutritional Supplements",
+// // // // // // // // // // // // //     //   description: "Essential micro & macro nutrients.",
+// // // // // // // // // // // // //     //   image: nutritional,
+// // // // // // // // // // // // //     //   to: "/products/supplements"
+// // // // // // // // // // // // //     // },
+// // // // // // // // // // // // //     // {
+// // // // // // // // // // // // //     //   title: "Best Seller",
+// // // // // // // // // // // // //     //   description: "Our most popular organic products",
+// // // // // // // // // // // // //     //   image: nutritional,
+// // // // // // // // // // // // //     //   to: "/products/best-seller"
+// // // // // // // // // // // // //     // }
+// // // // // // // // // // // // //     // },
+// // // // // // // // // // // // //     // {
+// // // // // // // // // // // // //     //   title: "Best Seller",
+// // // // // // // // // // // // //     //   description: "Our most popular organic products",
+// // // // // // // // // // // // //     //   image: nutritional,
+// // // // // // // // // // // // //     //   to: "/products/best-seller"
+// // // // // // // // // // // // //     // },
 // // // // // // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// // // // // // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/best-seller" },
+// // // // // // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // // // // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // // // // //   const testimonials = [
@@ -2561,7 +3815,6 @@
 // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // //       </div>
 // // // // // // // // // // // // // // // //       <Header />
-      
 
 // // // // // // // // // // // // // // // //       {/* ── Hero ── */}
 // // // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
@@ -2596,8 +3849,6 @@
 // // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // // //       </section>
 
-      
-
 // // // // // // // // // // // // // // // //       {/* ── Best Seller Products ── */}
 // // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
@@ -2627,9 +3878,7 @@
 // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
 // // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
 // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // // // //                     <div key={`m-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // //                       <ProductCard {...p} />
-// // // // // // // // // // // // // // // //                     </div>
+// // // // // // // // // // // // // // // //                     <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />
 // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // //               ))}
@@ -2639,9 +3888,7 @@
 // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
 // // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
 // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // // // //                     <div key={`t-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // //                       <ProductCard {...p} />
-// // // // // // // // // // // // // // // //                     </div>
+// // // // // // // // // // // // // // // //                     <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />
 // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // //               ))}
@@ -2651,9 +3898,7 @@
 // // // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
 // // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
 // // // // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // // // //                     <div key={`d-${rIdx}-${i}`} className="animate-fade-in h-full">
-// // // // // // // // // // // // // // // //                       <ProductCard {...p} />
-// // // // // // // // // // // // // // // //                     </div>
+// // // // // // // // // // // // // // // //                     <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />
 // // // // // // // // // // // // // // // //                   ))}
 // // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // // //               ))}
@@ -2858,7 +4103,8 @@
 // // // // // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // // // // import heroImage from "@/assets/h.jpg";
+// // // // // // // // // // // // // // // import heroImage from "@/assets/shilagit.png";
+// // // // // // // // // // // // // // // import heroImage1 from "@/assets/maca.png";
 // // // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
@@ -2868,42 +4114,10 @@
 // // // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
 // // // // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg";
 // // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
+// // // // // // // // // // // // // // // import { fetchProducts, type Product } from "@/lib/productsCache"
 
-// // // // // // // // // // // // // // // interface ProductImage {
-// // // // // // // // // // // // // // //   image_id: string;
-// // // // // // // // // // // // // // //   image_url: string;
-// // // // // // // // // // // // // // //   alt_text: string;
-// // // // // // // // // // // // // // //   is_primary: number | boolean;
-// // // // // // // // // // // // // // //   created_at: string;
-// // // // // // // // // // // // // // //   updated_at: string;
-// // // // // // // // // // // // // // //   storage_path: string;
-// // // // // // // // // // // // // // // }
+// // // // // // // // // // // // // // // // ── Types ─────────────────────────────────────────────────────────────────────
 
-// // // // // // // // // // // // // // // interface Product {
-// // // // // // // // // // // // // // //   product_id: string;
-// // // // // // // // // // // // // // //   name: string;
-// // // // // // // // // // // // // // //   description: string;
-// // // // // // // // // // // // // // //   price: number | string;
-// // // // // // // // // // // // // // //   stock_quantity: number;
-// // // // // // // // // // // // // // //   sku: string;
-// // // // // // // // // // // // // // //   category_id: string;
-// // // // // // // // // // // // // // //   is_active: number | boolean;
-// // // // // // // // // // // // // // //   created_at: string;
-// // // // // // // // // // // // // // //   updated_at: string;
-// // // // // // // // // // // // // // //   images?: ProductImage[];
-// // // // // // // // // // // // // // // }
-
-// // // // // // // // // // // // // // // interface ApiResponse {
-// // // // // // // // // // // // // // //   success: boolean;
-// // // // // // // // // // // // // // //   statusCode: number;
-// // // // // // // // // // // // // // //   message: string;
-// // // // // // // // // // // // // // //   data: {
-// // // // // // // // // // // // // // //     products: Product[];
-// // // // // // // // // // // // // // //   };
-// // // // // // // // // // // // // // //   timestamp: string;
-// // // // // // // // // // // // // // // }
-
-// // // // // // // // // // // // // // // // Transformed product includes originalPrice for the offer badge
 // // // // // // // // // // // // // // // interface TransformedProduct {
 // // // // // // // // // // // // // // //   id: string;
 // // // // // // // // // // // // // // //   name: string;
@@ -2914,6 +4128,8 @@
 // // // // // // // // // // // // // // //   category: string;
 // // // // // // // // // // // // // // //   stockQuantity: number;
 // // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
@@ -2928,6 +4144,8 @@
 // // // // // // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // // // // // // // // // // // // };
 
+// // // // // // // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
 // // // // // // // // // // // // // // //   const rows: T[][] = [];
 // // // // // // // // // // // // // // //   for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
@@ -2939,7 +4157,32 @@
 // // // // // // // // // // // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 // // // // // // // // // // // // // // // };
 
-// // // // // // // // // // // // // // // // ── Shimmer card ──────────────────────────────────────────────────────────────
+// // // // // // // // // // // // // // // const transformProduct = (product: Product): TransformedProduct => {
+// // // // // // // // // // // // // // //   let imageUrl = getPlaceholderImage(product.name);
+// // // // // // // // // // // // // // //   if (product.images && product.images.length > 0) {
+// // // // // // // // // // // // // // //     const primaryImage =
+// // // // // // // // // // // // // // //       product.images.find((img) => img.is_primary) || product.images[0];
+// // // // // // // // // // // // // // //     imageUrl = primaryImage.image_url;
+// // // // // // // // // // // // // // //   }
+// // // // // // // // // // // // // // //   const numericPrice = parseFloat(String(product.price));
+// // // // // // // // // // // // // // //   const originalPrice = numericPrice * 1.2;
+// // // // // // // // // // // // // // //   const discountPercent = Math.round(
+// // // // // // // // // // // // // // //     ((originalPrice - numericPrice) / originalPrice) * 100
+// // // // // // // // // // // // // // //   );
+// // // // // // // // // // // // // // //   return {
+// // // // // // // // // // // // // // //     id: product.product_id,
+// // // // // // // // // // // // // // //     name: product.name,
+// // // // // // // // // // // // // // //     price: `Ksh ${numericPrice.toFixed(2)}`,
+// // // // // // // // // // // // // // //     originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
+// // // // // // // // // // // // // // //     discountPercent,
+// // // // // // // // // // // // // // //     image: imageUrl,
+// // // // // // // // // // // // // // //     category: categoryMap[product.category_id] || "Uncategorized",
+// // // // // // // // // // // // // // //     stockQuantity: product.stock_quantity,
+// // // // // // // // // // // // // // //   };
+// // // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // // ── Shimmer ───────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // // const ShimmerCard = () => (
 // // // // // // // // // // // // // // //   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
 // // // // // // // // // // // // // // //     <div className="w-full aspect-square bg-muted" />
@@ -2954,54 +4197,47 @@
 
 // // // // // // // // // // // // // // // const ShimmerGrid = ({ count }: { count: number }) => (
 // // // // // // // // // // // // // // //   <>
-// // // // // // // // // // // // // // //     {/* Mobile */}
 // // // // // // // // // // // // // // //     <div className="md:hidden grid grid-cols-2 gap-4">
 // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
 // // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // // //     {/* Tablet */}
 // // // // // // // // // // // // // // //     <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
 // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
 // // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // // //     {/* Desktop */}
 // // // // // // // // // // // // // // //     <div className="hidden lg:grid grid-cols-4 gap-8">
 // // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
 // // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // // //   </>
 // // // // // // // // // // // // // // // );
 
-// // // // // // // // // // // // // // // // ── Clearance product card wrapper with offer badge ───────────────────────────
+// // // // // // // // // // // // // // // // ── ClearanceProductCard ──────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
-// // // // // // // // // // // // // // //   <div className="relative animate-fade-in h-full">
-// // // // // // // // // // // // // // //     {/* Discount badge — top-left corner, above the card */}
-// // // // // // // // // // // // // // //     <div className="absolute top-2 left-2 z-10 pointer-events-none">
-// // // // // // // // // // // // // // //       <Badge
-// // // // // // // // // // // // // // //         variant="destructive"
-// // // // // // // // // // // // // // //         className="text-xs font-bold px-2 py-1 shadow-md"
-// // // // // // // // // // // // // // //       >
+// // // // // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
+// // // // // // // // // // // // // // //     <div className="flex-1 [&_[class*='price']]:hidden [&_[class*='Price']]:hidden">
+// // // // // // // // // // // // // // //       <ProductCard
+// // // // // // // // // // // // // // //         id={product.id}
+// // // // // // // // // // // // // // //         name={product.name}
+// // // // // // // // // // // // // // //         price=""
+// // // // // // // // // // // // // // //         image={product.image}
+// // // // // // // // // // // // // // //         category={product.category}
+// // // // // // // // // // // // // // //         stockQuantity={product.stockQuantity}
+// // // // // // // // // // // // // // //       />
+// // // // // // // // // // // // // // //     </div>
+// // // // // // // // // // // // // // //     <div className="px-4 py-3 border-t border-border bg-card flex items-center gap-2 flex-wrap">
+// // // // // // // // // // // // // // //       <span className="text-base font-bold text-foreground">{product.price}</span>
+// // // // // // // // // // // // // // //       <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
+// // // // // // // // // // // // // // //       <Badge variant="destructive" className="text-xs font-semibold px-2 py-0.5">
 // // // // // // // // // // // // // // //         Save {product.discountPercent}%
 // // // // // // // // // // // // // // //       </Badge>
 // // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // // //     <ProductCard
-// // // // // // // // // // // // // // //       id={product.id}
-// // // // // // // // // // // // // // //       name={product.name}
-// // // // // // // // // // // // // // //       price={product.price}
-// // // // // // // // // // // // // // //       image={product.image}
-// // // // // // // // // // // // // // //       category={product.category}
-// // // // // // // // // // // // // // //       stockQuantity={product.stockQuantity}
-// // // // // // // // // // // // // // //     />
-// // // // // // // // // // // // // // //     {/* Original price shown below the card's price area via an overlay strip */}
-// // // // // // // // // // // // // // //     <div className="px-4 pb-3 -mt-1 bg-card rounded-b-xl border-x border-b border-border">
-// // // // // // // // // // // // // // //       <p className="text-xs text-muted-foreground line-through">
-// // // // // // // // // // // // // // //         Was {product.originalPrice}
-// // // // // // // // // // // // // // //       </p>
-// // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // // //   </div>
 // // // // // // // // // // // // // // // );
-// // // // // // // // // // // // // // // // ─────────────────────────────────────────────────────────────────────────────
+
+// // // // // // // // // // // // // // // // ── Page ──────────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // // const Index = () => {
 // // // // // // // // // // // // // // //   const navigate = useNavigate();
-// // // // // // // // // // // // // // //   const [products, setProducts] = useState<Product[]>([]);
+// // // // // // // // // // // // // // //   const [transformedProducts, setTransformedProducts] = useState<TransformedProduct[]>([]);
 // // // // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
 // // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState("");
 // // // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
@@ -3011,36 +4247,35 @@
 // // // // // // // // // // // // // // //   } | null>(null);
 
 // // // // // // // // // // // // // // //   useEffect(() => {
-// // // // // // // // // // // // // // //     const fetchProducts = async () => {
+// // // // // // // // // // // // // // //     let cancelled = false;
+
+// // // // // // // // // // // // // // //     const load = async () => {
 // // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // // //         const response = await fetch(
-// // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
-// // // // // // // // // // // // // // //         );
-// // // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
-// // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
-// // // // // // // // // // // // // // //         if (data.success && data.data.products) {
-// // // // // // // // // // // // // // //           const clearanceProducts = data.data.products
-// // // // // // // // // // // // // // //             .filter(
-// // // // // // // // // // // // // // //               (p) =>
-// // // // // // // // // // // // // // //                 p.is_active &&
-// // // // // // // // // // // // // // //                 p.category_id === CLEARANCE_CATEGORY_ID
-// // // // // // // // // // // // // // //             )
-// // // // // // // // // // // // // // //             .sort(
-// // // // // // // // // // // // // // //               (a, b) =>
-// // // // // // // // // // // // // // //                 new Date(b.created_at).getTime() -
-// // // // // // // // // // // // // // //                 new Date(a.created_at).getTime()
-// // // // // // // // // // // // // // //             )
-// // // // // // // // // // // // // // //             .slice(0, 8);
-// // // // // // // // // // // // // // //           setProducts(clearanceProducts);
-// // // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // // //         const all = await fetchProducts();
+// // // // // // // // // // // // // // //         if (cancelled) return;
+
+// // // // // // // // // // // // // // //         const clearance = all
+// // // // // // // // // // // // // // //           .filter((p) => p.is_active && p.category_id === CLEARANCE_CATEGORY_ID)
+// // // // // // // // // // // // // // //           .sort(
+// // // // // // // // // // // // // // //             (a, b) =>
+// // // // // // // // // // // // // // //               new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+// // // // // // // // // // // // // // //           )
+// // // // // // // // // // // // // // //           .slice(0, 8)
+// // // // // // // // // // // // // // //           .map(transformProduct);
+
+// // // // // // // // // // // // // // //         setTransformedProducts(clearance);
 // // // // // // // // // // // // // // //       } catch (err) {
 // // // // // // // // // // // // // // //         console.error("Error fetching products:", err);
 // // // // // // // // // // // // // // //       } finally {
-// // // // // // // // // // // // // // //         setLoading(false);
+// // // // // // // // // // // // // // //         if (!cancelled) setLoading(false);
 // // // // // // // // // // // // // // //       }
 // // // // // // // // // // // // // // //     };
-// // // // // // // // // // // // // // //     fetchProducts();
+
+// // // // // // // // // // // // // // //     load();
+// // // // // // // // // // // // // // //     return () => { cancelled = true; };
 // // // // // // // // // // // // // // //   }, []);
+
+// // // // // // // // // // // // // // //    // ── Newsletter ──────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // // // // // // // // // // // // // // //     e.preventDefault();
@@ -3064,10 +4299,16 @@
 // // // // // // // // // // // // // // //         setNewsletterMessage({ text: "Successfully subscribed to our newsletter!", type: "success" });
 // // // // // // // // // // // // // // //         setNewsletterEmail("");
 // // // // // // // // // // // // // // //       } else {
-// // // // // // // // // // // // // // //         setNewsletterMessage({ text: data.message || "Failed to subscribe. Please try again.", type: "error" });
+// // // // // // // // // // // // // // //         setNewsletterMessage({
+// // // // // // // // // // // // // // //           text: data.message || "Failed to subscribe. Please try again.",
+// // // // // // // // // // // // // // //           type: "error",
+// // // // // // // // // // // // // // //         });
 // // // // // // // // // // // // // // //       }
 // // // // // // // // // // // // // // //     } catch {
-// // // // // // // // // // // // // // //       setNewsletterMessage({ text: "Network error. Please check your connection and try again.", type: "error" });
+// // // // // // // // // // // // // // //       setNewsletterMessage({
+// // // // // // // // // // // // // // //         text: "Network error. Please check your connection and try again.",
+// // // // // // // // // // // // // // //         type: "error",
+// // // // // // // // // // // // // // //       });
 // // // // // // // // // // // // // // //     } finally {
 // // // // // // // // // // // // // // //       setNewsletterLoading(false);
 // // // // // // // // // // // // // // //     }
@@ -3096,30 +4337,7 @@
 // // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // // //   // Transform products and compute originalPrice (same logic as ProductDetail: original = price * 1.2)
-// // // // // // // // // // // // // // //   const transformedProducts: TransformedProduct[] = products.map((product) => {
-// // // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
-// // // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
-// // // // // // // // // // // // // // //       const primaryImage =
-// // // // // // // // // // // // // // //         product.images.find((img) => img.is_primary) || product.images[0];
-// // // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
-// // // // // // // // // // // // // // //     }
-// // // // // // // // // // // // // // //     const numericPrice = parseFloat(String(product.price));
-// // // // // // // // // // // // // // //     const originalPrice = numericPrice * 1.2;
-// // // // // // // // // // // // // // //     const discountPercent = Math.round(
-// // // // // // // // // // // // // // //       ((originalPrice - numericPrice) / originalPrice) * 100
-// // // // // // // // // // // // // // //     );
-// // // // // // // // // // // // // // //     return {
-// // // // // // // // // // // // // // //       id: product.product_id,
-// // // // // // // // // // // // // // //       name: product.name,
-// // // // // // // // // // // // // // //       price: `Ksh ${numericPrice.toFixed(2)}`,
-// // // // // // // // // // // // // // //       originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
-// // // // // // // // // // // // // // //       discountPercent,
-// // // // // // // // // // // // // // //       image: imageUrl,
-// // // // // // // // // // // // // // //       category: categoryMap[product.category_id] || "Uncategorized",
-// // // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
-// // // // // // // // // // // // // // //     };
-// // // // // // // // // // // // // // //   });
+// // // // // // // // // // // // // // //   // ── Static data ─────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // //   const categories = [
 // // // // // // // // // // // // // // //     { title: "Weight Management Products", description: "Flat tummy, upper body fat, full weight loss packages.", image: weight, to: "/products/weight-management" },
@@ -3161,9 +4379,11 @@
 // // // // // // // // // // // // // // //     "🛒 While Stocks Last",
 // // // // // // // // // // // // // // //   ];
 
+// // // // // // // // // // // // // // //   // ── Render ──────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // //   return (
 // // // // // // // // // // // // // // //     <div className="min-h-screen">
-// // // // // // // // // // // // // // //       {/* ── Best Seller Ticker ── */}
+// // // // // // // // // // // // // // //       {/* Best Seller Ticker */}
 // // // // // // // // // // // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 // // // // // // // // // // // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 // // // // // // // // // // // // // // //           {[...Array(4)].map((_, repeat) =>
@@ -3176,9 +4396,10 @@
 // // // // // // // // // // // // // // //           )}
 // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // //       </div>
+
 // // // // // // // // // // // // // // //       <Header />
 
-// // // // // // // // // // // // // // //       {/* ── Hero ── */}
+// // // // // // // // // // // // // // //       {/* Hero */}
 // // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
 // // // // // // // // // // // // // // //         <div className="absolute inset-0">
 // // // // // // // // // // // // // // //           <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
@@ -3211,7 +4432,7 @@
 // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // //       {/* ── Best Seller Products ── */}
+// // // // // // // // // // // // // // //       {/* Best Seller Products */}
 // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // // // // // // // // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
@@ -3239,9 +4460,7 @@
 // // // // // // // // // // // // // // //             <div className="md:hidden space-y-4">
 // // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
 // // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
-// // // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // // //                     <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />
-// // // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />)}
 // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // //             </div>
@@ -3249,9 +4468,7 @@
 // // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-6">
 // // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
 // // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
-// // // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // // //                     <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />
-// // // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />)}
 // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // //             </div>
@@ -3259,9 +4476,7 @@
 // // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-8">
 // // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
 // // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
-// // // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // // //                     <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />
-// // // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />)}
 // // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // // //             </div>
@@ -3283,7 +4498,7 @@
 // // // // // // // // // // // // // // //         )}
 // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // //       {/* ── Shop By Lifestyle ── */}
+// // // // // // // // // // // // // // //       {/* Shop By Lifestyle */}
 // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
 // // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -3302,7 +4517,7 @@
 // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // //       {/* ── Why Choose Organic Bloom ── */}
+// // // // // // // // // // // // // // //       {/* Why Choose Organic Bloom */}
 // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // //         <div className="text-center mb-16 animate-fade-in">
 // // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -3325,7 +4540,7 @@
 // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // //       {/* ── Testimonials ── */}
+// // // // // // // // // // // // // // //       {/* Testimonials */}
 // // // // // // // // // // // // // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
 // // // // // // // // // // // // // // //         <div className="container mx-auto px-4">
 // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -3362,7 +4577,7 @@
 // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // //       {/* ── Certifications ── */}
+// // // // // // // // // // // // // // //       {/* Certifications */}
 // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
 // // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -3387,7 +4602,7 @@
 // // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // // //       {/* ── Newsletter ── */}
+// // // // // // // // // // // // // // //       {/* Newsletter */}
 // // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
 // // // // // // // // // // // // // // //           <div className="absolute inset-0 opacity-10">
@@ -3465,7 +4680,10 @@
 // // // // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // // // import heroImage from "@/assets/h.jpg";
+// // // // // // // // // // // // // // import heroImage from "@/assets/maccalarge.jpg";
+// // // // // // // // // // // // // // import heroImage1 from "@/assets/shilagit large.png";
+// // // // // // // // // // // // // // import heroImagemobile from "@/assets/macamobile.png";
+// // // // // // // // // // // // // // import heroImage1mobile from "@/assets/shilagitmoble.png";
 // // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
@@ -3475,42 +4693,10 @@
 // // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
 // // // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg";
 // // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
+// // // // // // // // // // // // // // import { fetchProducts, type Product } from "@/lib/productsCache"
 
-// // // // // // // // // // // // // // interface ProductImage {
-// // // // // // // // // // // // // //   image_id: string;
-// // // // // // // // // // // // // //   image_url: string;
-// // // // // // // // // // // // // //   alt_text: string;
-// // // // // // // // // // // // // //   is_primary: number | boolean;
-// // // // // // // // // // // // // //   created_at: string;
-// // // // // // // // // // // // // //   updated_at: string;
-// // // // // // // // // // // // // //   storage_path: string;
-// // // // // // // // // // // // // // }
+// // // // // // // // // // // // // // // ── Types ─────────────────────────────────────────────────────────────────────
 
-// // // // // // // // // // // // // // interface Product {
-// // // // // // // // // // // // // //   product_id: string;
-// // // // // // // // // // // // // //   name: string;
-// // // // // // // // // // // // // //   description: string;
-// // // // // // // // // // // // // //   price: number | string;
-// // // // // // // // // // // // // //   stock_quantity: number;
-// // // // // // // // // // // // // //   sku: string;
-// // // // // // // // // // // // // //   category_id: string;
-// // // // // // // // // // // // // //   is_active: number | boolean;
-// // // // // // // // // // // // // //   created_at: string;
-// // // // // // // // // // // // // //   updated_at: string;
-// // // // // // // // // // // // // //   images?: ProductImage[];
-// // // // // // // // // // // // // // }
-
-// // // // // // // // // // // // // // interface ApiResponse {
-// // // // // // // // // // // // // //   success: boolean;
-// // // // // // // // // // // // // //   statusCode: number;
-// // // // // // // // // // // // // //   message: string;
-// // // // // // // // // // // // // //   data: {
-// // // // // // // // // // // // // //     products: Product[];
-// // // // // // // // // // // // // //   };
-// // // // // // // // // // // // // //   timestamp: string;
-// // // // // // // // // // // // // // }
-
-// // // // // // // // // // // // // // // Transformed product includes originalPrice for the offer badge
 // // // // // // // // // // // // // // interface TransformedProduct {
 // // // // // // // // // // // // // //   id: string;
 // // // // // // // // // // // // // //   name: string;
@@ -3521,6 +4707,8 @@
 // // // // // // // // // // // // // //   category: string;
 // // // // // // // // // // // // // //   stockQuantity: number;
 // // // // // // // // // // // // // // }
+
+// // // // // // // // // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
@@ -3535,6 +4723,8 @@
 // // // // // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // // // // // // // // // // // };
 
+// // // // // // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
 // // // // // // // // // // // // // //   const rows: T[][] = [];
 // // // // // // // // // // // // // //   for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
@@ -3546,7 +4736,32 @@
 // // // // // // // // // // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 // // // // // // // // // // // // // // };
 
-// // // // // // // // // // // // // // // ── Shimmer card ──────────────────────────────────────────────────────────────
+// // // // // // // // // // // // // // const transformProduct = (product: Product): TransformedProduct => {
+// // // // // // // // // // // // // //   let imageUrl = getPlaceholderImage(product.name);
+// // // // // // // // // // // // // //   if (product.images && product.images.length > 0) {
+// // // // // // // // // // // // // //     const primaryImage =
+// // // // // // // // // // // // // //       product.images.find((img) => img.is_primary) || product.images[0];
+// // // // // // // // // // // // // //     imageUrl = primaryImage.image_url;
+// // // // // // // // // // // // // //   }
+// // // // // // // // // // // // // //   const numericPrice = parseFloat(String(product.price));
+// // // // // // // // // // // // // //   const originalPrice = numericPrice * 1.2;
+// // // // // // // // // // // // // //   const discountPercent = Math.round(
+// // // // // // // // // // // // // //     ((originalPrice - numericPrice) / originalPrice) * 100
+// // // // // // // // // // // // // //   );
+// // // // // // // // // // // // // //   return {
+// // // // // // // // // // // // // //     id: product.product_id,
+// // // // // // // // // // // // // //     name: product.name,
+// // // // // // // // // // // // // //     price: `Ksh ${numericPrice.toFixed(2)}`,
+// // // // // // // // // // // // // //     originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
+// // // // // // // // // // // // // //     discountPercent,
+// // // // // // // // // // // // // //     image: imageUrl,
+// // // // // // // // // // // // // //     category: categoryMap[product.category_id] || "Uncategorized",
+// // // // // // // // // // // // // //     stockQuantity: product.stock_quantity,
+// // // // // // // // // // // // // //   };
+// // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // // // ── Shimmer ───────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // // const ShimmerCard = () => (
 // // // // // // // // // // // // // //   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
 // // // // // // // // // // // // // //     <div className="w-full aspect-square bg-muted" />
@@ -3561,20 +4776,19 @@
 
 // // // // // // // // // // // // // // const ShimmerGrid = ({ count }: { count: number }) => (
 // // // // // // // // // // // // // //   <>
-// // // // // // // // // // // // // //     {/* Mobile */}
 // // // // // // // // // // // // // //     <div className="md:hidden grid grid-cols-2 gap-4">
 // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
 // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // //     {/* Tablet */}
 // // // // // // // // // // // // // //     <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
 // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
 // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // //     {/* Desktop */}
 // // // // // // // // // // // // // //     <div className="hidden lg:grid grid-cols-4 gap-8">
 // // // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
 // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // //   </>
 // // // // // // // // // // // // // // );
+
+// // // // // // // // // // // // // // // ── ClearanceProductCard ──────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
 // // // // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
@@ -3597,32 +4811,12 @@
 // // // // // // // // // // // // // //     </div>
 // // // // // // // // // // // // // //   </div>
 // // // // // // // // // // // // // // );
-// // // // // // // // // // // // // // // ── Clearance product card wrapper with inline offer row ─────────────────────
-// // // // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
-// // // // // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
-// // // // // // // // // // // // // // //     <ProductCard
-// // // // // // // // // // // // // // //       id={product.id}
-// // // // // // // // // // // // // // //       name={product.name}
-// // // // // // // // // // // // // // //       price={product.price}
-// // // // // // // // // // // // // // //       image={product.image}
-// // // // // // // // // // // // // // //       category={product.category}
-// // // // // // // // // // // // // // //       stockQuantity={product.stockQuantity}
-// // // // // // // // // // // // // // //     />
-// // // // // // // // // // // // // // //     {/* Inline offer row: current price · strikethrough original · Save badge */}
-// // // // // // // // // // // // // // //     <div className="px-4 pb-4 -mt-2 flex items-center gap-2 flex-wrap">
-// // // // // // // // // // // // // // //       <span className="text-base font-bold text-foreground">{product.price}</span>
-// // // // // // // // // // // // // // //       <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
-// // // // // // // // // // // // // // //       <Badge variant="destructive" className="text-xs font-bold px-2 py-0.5">
-// // // // // // // // // // // // // // //         Save {product.discountPercent}%
-// // // // // // // // // // // // // // //       </Badge>
-// // // // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // // // //   </div>
-// // // // // // // // // // // // // // // );
-// // // // // // // // // // // // // // // ─────────────────────────────────────────────────────────────────────────────
+
+// // // // // // // // // // // // // // // ── Page ──────────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // // const Index = () => {
 // // // // // // // // // // // // // //   const navigate = useNavigate();
-// // // // // // // // // // // // // //   const [products, setProducts] = useState<Product[]>([]);
+// // // // // // // // // // // // // //   const [transformedProducts, setTransformedProducts] = useState<TransformedProduct[]>([]);
 // // // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
 // // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState("");
 // // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
@@ -3631,37 +4825,47 @@
 // // // // // // // // // // // // // //     type: "success" | "error";
 // // // // // // // // // // // // // //   } | null>(null);
 
+// // // // // // // // // // // // // //   // ── Hero slider ───────────────────────────────────────────────────────────
+// // // // // // // // // // // // // //   const heroImages = [heroImage, heroImage1];
+// // // // // // // // // // // // // //   const [currentSlide, setCurrentSlide] = useState(0);
+
 // // // // // // // // // // // // // //   useEffect(() => {
-// // // // // // // // // // // // // //     const fetchProducts = async () => {
+// // // // // // // // // // // // // //     const timer = setInterval(() => {
+// // // // // // // // // // // // // //       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+// // // // // // // // // // // // // //     }, 5000); // change slide every 5s
+// // // // // // // // // // // // // //     return () => clearInterval(timer);
+// // // // // // // // // // // // // //   }, []);
+
+// // // // // // // // // // // // // //   useEffect(() => {
+// // // // // // // // // // // // // //     let cancelled = false;
+
+// // // // // // // // // // // // // //     const load = async () => {
 // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // //         const response = await fetch(
-// // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
-// // // // // // // // // // // // // //         );
-// // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
-// // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
-// // // // // // // // // // // // // //         if (data.success && data.data.products) {
-// // // // // // // // // // // // // //           const clearanceProducts = data.data.products
-// // // // // // // // // // // // // //             .filter(
-// // // // // // // // // // // // // //               (p) =>
-// // // // // // // // // // // // // //                 p.is_active &&
-// // // // // // // // // // // // // //                 p.category_id === CLEARANCE_CATEGORY_ID
-// // // // // // // // // // // // // //             )
-// // // // // // // // // // // // // //             .sort(
-// // // // // // // // // // // // // //               (a, b) =>
-// // // // // // // // // // // // // //                 new Date(b.created_at).getTime() -
-// // // // // // // // // // // // // //                 new Date(a.created_at).getTime()
-// // // // // // // // // // // // // //             )
-// // // // // // // // // // // // // //             .slice(0, 8);
-// // // // // // // // // // // // // //           setProducts(clearanceProducts);
-// // // // // // // // // // // // // //         }
+// // // // // // // // // // // // // //         const all = await fetchProducts();
+// // // // // // // // // // // // // //         if (cancelled) return;
+
+// // // // // // // // // // // // // //         const clearance = all
+// // // // // // // // // // // // // //           .filter((p) => p.is_active && p.category_id === CLEARANCE_CATEGORY_ID)
+// // // // // // // // // // // // // //           .sort(
+// // // // // // // // // // // // // //             (a, b) =>
+// // // // // // // // // // // // // //               new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+// // // // // // // // // // // // // //           )
+// // // // // // // // // // // // // //           .slice(0, 8)
+// // // // // // // // // // // // // //           .map(transformProduct);
+
+// // // // // // // // // // // // // //         setTransformedProducts(clearance);
 // // // // // // // // // // // // // //       } catch (err) {
 // // // // // // // // // // // // // //         console.error("Error fetching products:", err);
 // // // // // // // // // // // // // //       } finally {
-// // // // // // // // // // // // // //         setLoading(false);
+// // // // // // // // // // // // // //         if (!cancelled) setLoading(false);
 // // // // // // // // // // // // // //       }
 // // // // // // // // // // // // // //     };
-// // // // // // // // // // // // // //     fetchProducts();
+
+// // // // // // // // // // // // // //     load();
+// // // // // // // // // // // // // //     return () => { cancelled = true; };
 // // // // // // // // // // // // // //   }, []);
+
+// // // // // // // // // // // // // //    // ── Newsletter ──────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // // // // // // // // // // // // // //     e.preventDefault();
@@ -3685,10 +4889,16 @@
 // // // // // // // // // // // // // //         setNewsletterMessage({ text: "Successfully subscribed to our newsletter!", type: "success" });
 // // // // // // // // // // // // // //         setNewsletterEmail("");
 // // // // // // // // // // // // // //       } else {
-// // // // // // // // // // // // // //         setNewsletterMessage({ text: data.message || "Failed to subscribe. Please try again.", type: "error" });
+// // // // // // // // // // // // // //         setNewsletterMessage({
+// // // // // // // // // // // // // //           text: data.message || "Failed to subscribe. Please try again.",
+// // // // // // // // // // // // // //           type: "error",
+// // // // // // // // // // // // // //         });
 // // // // // // // // // // // // // //       }
 // // // // // // // // // // // // // //     } catch {
-// // // // // // // // // // // // // //       setNewsletterMessage({ text: "Network error. Please check your connection and try again.", type: "error" });
+// // // // // // // // // // // // // //       setNewsletterMessage({
+// // // // // // // // // // // // // //         text: "Network error. Please check your connection and try again.",
+// // // // // // // // // // // // // //         type: "error",
+// // // // // // // // // // // // // //       });
 // // // // // // // // // // // // // //     } finally {
 // // // // // // // // // // // // // //       setNewsletterLoading(false);
 // // // // // // // // // // // // // //     }
@@ -3717,30 +4927,7 @@
 // // // // // // // // // // // // // //     }
 // // // // // // // // // // // // // //   };
 
-// // // // // // // // // // // // // //   // Transform products and compute originalPrice (same logic as ProductDetail: original = price * 1.2)
-// // // // // // // // // // // // // //   const transformedProducts: TransformedProduct[] = products.map((product) => {
-// // // // // // // // // // // // // //     let imageUrl = getPlaceholderImage(product.name);
-// // // // // // // // // // // // // //     if (product.images && product.images.length > 0) {
-// // // // // // // // // // // // // //       const primaryImage =
-// // // // // // // // // // // // // //         product.images.find((img) => img.is_primary) || product.images[0];
-// // // // // // // // // // // // // //       imageUrl = primaryImage.image_url;
-// // // // // // // // // // // // // //     }
-// // // // // // // // // // // // // //     const numericPrice = parseFloat(String(product.price));
-// // // // // // // // // // // // // //     const originalPrice = numericPrice * 1.2;
-// // // // // // // // // // // // // //     const discountPercent = Math.round(
-// // // // // // // // // // // // // //       ((originalPrice - numericPrice) / originalPrice) * 100
-// // // // // // // // // // // // // //     );
-// // // // // // // // // // // // // //     return {
-// // // // // // // // // // // // // //       id: product.product_id,
-// // // // // // // // // // // // // //       name: product.name,
-// // // // // // // // // // // // // //       price: `Ksh ${numericPrice.toFixed(2)}`,
-// // // // // // // // // // // // // //       originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
-// // // // // // // // // // // // // //       discountPercent,
-// // // // // // // // // // // // // //       image: imageUrl,
-// // // // // // // // // // // // // //       category: categoryMap[product.category_id] || "Uncategorized",
-// // // // // // // // // // // // // //       stockQuantity: product.stock_quantity,
-// // // // // // // // // // // // // //     };
-// // // // // // // // // // // // // //   });
+// // // // // // // // // // // // // //   // ── Static data ─────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // //   const categories = [
 // // // // // // // // // // // // // //     { title: "Weight Management Products", description: "Flat tummy, upper body fat, full weight loss packages.", image: weight, to: "/products/weight-management" },
@@ -3748,23 +4935,23 @@
 // // // // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
 // // // // // // // // // // // // // //     {title: "Nutritional Supplements",
-// // // // // // // // // // //     //   description: "Essential micro & macro nutrients.",
-// // // // // // // // // // //     //   image: nutritional,
-// // // // // // // // // // //     //   to: "/products/supplements"
-// // // // // // // // // // //     // },
-// // // // // // // // // // //     // {
-// // // // // // // // // // //     //   title: "Best Seller",
-// // // // // // // // // // //     //   description: "Our most popular organic products",
-// // // // // // // // // // //     //   image: nutritional,
-// // // // // // // // // // //     //   to: "/products/best-seller"
-// // // // // // // // // // //     // }
-// // // // // // // // // // //     // },
-// // // // // // // // // // //     // {
-// // // // // // // // // // //     //   title: "Best Seller",
-// // // // // // // // // // //     //   description: "Our most popular organic products",
-// // // // // // // // // // //     //   image: nutritional,
-// // // // // // // // // // //     //   to: "/products/best-seller"
-// // // // // // // // // // //     // },
+// // // // // // // // // // // // //     //   description: "Essential micro & macro nutrients.",
+// // // // // // // // // // // // //     //   image: nutritional,
+// // // // // // // // // // // // //     //   to: "/products/supplements"
+// // // // // // // // // // // // //     // },
+// // // // // // // // // // // // //     // {
+// // // // // // // // // // // // //     //   title: "Best Seller",
+// // // // // // // // // // // // //     //   description: "Our most popular organic products",
+// // // // // // // // // // // // //     //   image: nutritional,
+// // // // // // // // // // // // //     //   to: "/products/best-seller"
+// // // // // // // // // // // // //     // }
+// // // // // // // // // // // // //     // },
+// // // // // // // // // // // // //     // {
+// // // // // // // // // // // // //     //   title: "Best Seller",
+// // // // // // // // // // // // //     //   description: "Our most popular organic products",
+// // // // // // // // // // // // //     //   image: nutritional,
+// // // // // // // // // // // // //     //   to: "/products/best-seller"
+// // // // // // // // // // // // //     // },
 // // // // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
 // // // // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
@@ -3799,9 +4986,11 @@
 // // // // // // // // // // // // // //     "🛒 While Stocks Last",
 // // // // // // // // // // // // // //   ];
 
+// // // // // // // // // // // // // //   // ── Render ──────────────────────────────────────────────────────────────────
+
 // // // // // // // // // // // // // //   return (
 // // // // // // // // // // // // // //     <div className="min-h-screen">
-// // // // // // // // // // // // // //       {/* ── Best Seller Ticker ── */}
+// // // // // // // // // // // // // //       {/* Best Seller Ticker */}
 // // // // // // // // // // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
 // // // // // // // // // // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
 // // // // // // // // // // // // // //           {[...Array(4)].map((_, repeat) =>
@@ -3814,20 +5003,45 @@
 // // // // // // // // // // // // // //           )}
 // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // //       </div>
+
 // // // // // // // // // // // // // //       <Header />
 
-// // // // // // // // // // // // // //       {/* ── Hero ── */}
+// // // // // // // // // // // // // //       {/* Hero */}
 // // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // // // // // // // //         {/* Sliding background images */}
 // // // // // // // // // // // // // //         <div className="absolute inset-0">
 // // // // // // // // // // // // // //           <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
-// // // // // // // // // // // // // //             <img
-// // // // // // // // // // // // // //               src={heroImage}
-// // // // // // // // // // // // // //               alt="Organic products in natural setting"
-// // // // // // // // // // // // // //               className="w-full h-full object-cover transition-transform duration-300 hover-scale"
-// // // // // // // // // // // // // //             />
+// // // // // // // // // // // // // //             {heroImages.map((img, index) => (
+// // // // // // // // // // // // // //               <img
+// // // // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // // // //                 src={img}
+// // // // // // // // // // // // // //                 alt="Organic products in natural setting"
+// // // // // // // // // // // // // //                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
+// // // // // // // // // // // // // //                   index === currentSlide ? "opacity-100" : "opacity-0"
+// // // // // // // // // // // // // //                 }`}
+// // // // // // // // // // // // // //               />
+// // // // // // // // // // // // // //             ))}
 // // // // // // // // // // // // // //           </a>
 // // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // //         {/* Gradient overlay */}
 // // // // // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+// // // // // // // // // // // // // //         {/* Slide indicators */}
+// // // // // // // // // // // // // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+// // // // // // // // // // // // // //           {heroImages.map((_, index) => (
+// // // // // // // // // // // // // //             <button
+// // // // // // // // // // // // // //               key={index}
+// // // // // // // // // // // // // //               onClick={() => setCurrentSlide(index)}
+// // // // // // // // // // // // // //               aria-label={`Go to slide ${index + 1}`}
+// // // // // // // // // // // // // //               className={`h-2.5 rounded-full transition-all duration-300 ${
+// // // // // // // // // // // // // //                 index === currentSlide ? "bg-white w-6" : "bg-white/50 w-2.5"
+// // // // // // // // // // // // // //               }`}
+// // // // // // // // // // // // // //             />
+// // // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // // //         {/* Content */}
 // // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
 // // // // // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
 // // // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
@@ -3837,19 +5051,31 @@
 // // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature
 // // // // // // // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
 // // // // // // // // // // // // // //             </p>
-// // // // // // // // // // // // // //             <Button
-// // // // // // // // // // // // // //               size="lg"
-// // // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-// // // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
-// // // // // // // // // // // // // //             >
-// // // // // // // // // // // // // //               Shop Best Seller
-// // // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
-// // // // // // // // // // // // // //             </Button>
+
+// // // // // // // // // // // // // //             <div className="flex flex-col sm:flex-row gap-4">
+// // // // // // // // // // // // // //               <Button
+// // // // // // // // // // // // // //                 size="lg"
+// // // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+// // // // // // // // // // // // // //                 onClick={() => navigate("/products/clearance")}
+// // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // //                 Shop Best Seller
+// // // // // // // // // // // // // //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
+// // // // // // // // // // // // // //               </Button>
+
+// // // // // // // // // // // // // //               <Button
+// // // // // // // // // // // // // //                 size="lg"
+// // // // // // // // // // // // // //                 variant="outline"
+// // // // // // // // // // // // // //                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+// // // // // // // // // // // // // //                 onClick={() => navigate("/products")}
+// // // // // // // // // // // // // //               >
+// // // // // // // // // // // // // //                 Explore Products
+// // // // // // // // // // // // // //               </Button>
+// // // // // // // // // // // // // //             </div>
 // // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // //       {/* ── Best Seller Products ── */}
+// // // // // // // // // // // // // //       {/* Best Seller Products */}
 // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // // // // // // // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
@@ -3877,9 +5103,7 @@
 // // // // // // // // // // // // // //             <div className="md:hidden space-y-4">
 // // // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
 // // // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
-// // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // //                     <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />
-// // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />)}
 // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // //             </div>
@@ -3887,9 +5111,7 @@
 // // // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-6">
 // // // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
 // // // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
-// // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // //                     <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />
-// // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />)}
 // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // //             </div>
@@ -3897,9 +5119,7 @@
 // // // // // // // // // // // // // //             <div className="hidden lg:block space-y-8">
 // // // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
 // // // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
-// // // // // // // // // // // // // //                   {row.map((p, i) => (
-// // // // // // // // // // // // // //                     <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />
-// // // // // // // // // // // // // //                   ))}
+// // // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />)}
 // // // // // // // // // // // // // //                 </div>
 // // // // // // // // // // // // // //               ))}
 // // // // // // // // // // // // // //             </div>
@@ -3921,7 +5141,7 @@
 // // // // // // // // // // // // // //         )}
 // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // //       {/* ── Shop By Lifestyle ── */}
+// // // // // // // // // // // // // //       {/* Shop By Lifestyle */}
 // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
 // // // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
 // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -3940,7 +5160,7 @@
 // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // //       {/* ── Why Choose Organic Bloom ── */}
+// // // // // // // // // // // // // //       {/* Why Choose Organic Bloom */}
 // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // //         <div className="text-center mb-16 animate-fade-in">
 // // // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
@@ -3963,7 +5183,7 @@
 // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // //       {/* ── Testimonials ── */}
+// // // // // // // // // // // // // //       {/* Testimonials */}
 // // // // // // // // // // // // // //       <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
 // // // // // // // // // // // // // //         <div className="container mx-auto px-4">
 // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -4000,7 +5220,7 @@
 // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // //       {/* ── Certifications ── */}
+// // // // // // // // // // // // // //       {/* Certifications */}
 // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // //         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
 // // // // // // // // // // // // // //           <div className="text-center mb-12 animate-fade-in">
@@ -4025,7 +5245,7 @@
 // // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // // //       {/* ── Newsletter ── */}
+// // // // // // // // // // // // // //       {/* Newsletter */}
 // // // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
 // // // // // // // // // // // // // //         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
 // // // // // // // // // // // // // //           <div className="absolute inset-0 opacity-10">
@@ -4096,186 +5316,138 @@
 // // // // // // // // // // // // // import { useState, useEffect } from "react";
 // // // // // // // // // // // // // import { useNavigate } from "react-router-dom";
 // // // // // // // // // // // // // import { Button } from "@/components/ui/button";
-// // // // // // // // // // // // // import { Badge } from "@/components/ui/badge";
 // // // // // // // // // // // // // import { Input } from "@/components/ui/input";
 // // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 // // // // // // // // // // // // // import Header from "@/components/Header";
 // // // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // // import heroImage from "@/assets/shilagit.png";
-// // // // // // // // // // // // // import heroImage1 from "@/assets/maca.png";
+// // // // // // // // // // // // // import heroImage from "@/assets/web-hero.jpg"
+// // // // // // // // // // // // // import fenu from "@/assets/fenu.jpeg"
+// // // // // // // // // // // // // import mko from "@/assets/mkomber.jpeg"
+// // // // // // // // // // // // // import provo from "@/assets/provocate.jpeg"
+// // // // // // // // // // // // // import vig from "@/assets/viga.jpeg"
+// // // // // // // // // // // // // import heroImage1 from "@/assets/shilagit large.png";
+// // // // // // // // // // // // // import heroImagemobile from "@/assets/mobile-hero.jpg";
+// // // // // // // // // // // // // import heroImage1mobile from "@/assets/shilagitmoble.png";
 // // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
 // // // // // // // // // // // // // import organicherbs from "@/assets/organic herbs.jpeg";
 // // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
+// // // // // // // // // // // // // import Herbaloil from "@/assets/herbal oil.jpeg";
 // // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
 // // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
-// // // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg";
 // // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
-// // // // // // // // // // // // // import { fetchProducts, type Product } from "@/lib/productsCache"
+// // // // // // // // // // // // // import { fetchProducts, type Product } from "@/lib/productsCache";
 
 // // // // // // // // // // // // // // ── Types ─────────────────────────────────────────────────────────────────────
 
-// // // // // // // // // // // // // interface TransformedProduct {
-// // // // // // // // // // // // //   id: string;
-// // // // // // // // // // // // //   name: string;
-// // // // // // // // // // // // //   price: string;
-// // // // // // // // // // // // //   originalPrice: string;
-// // // // // // // // // // // // //   discountPercent: number;
-// // // // // // // // // // // // //   image: string;
-// // // // // // // // // // // // //   category: string;
-// // // // // // // // // // // // //   stockQuantity: number;
+// // // // // // // // // // // // // interface HeroSlide {
+// // // // // // // // // // // // //   desktop: string;
+// // // // // // // // // // // // //   mobile: string;
+// // // // // // // // // // // // //   alt: string;
+// // // // // // // // // // // // //   label: string;
+// // // // // // // // // // // // //   to: string;
 // // // // // // // // // // // // // }
 
 // // // // // // // // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
-// // // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
-
 // // // // // // // // // // // // // const categoryMap: Record<string, string> = {
 // // // // // // // // // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
+// // // // // // // // // // // // //   "7c095542-a466-4305-a9b0-eec89d30dd65":"Gummies Best Sellerss",
 // // // // // // // // // // // // //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
 // // // // // // // // // // // // //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
 // // // // // // // // // // // // //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
 // // // // // // // // // // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
+// // // // // // // // // // // // //    "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
 // // // // // // // // // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // // // // // // // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // // // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
+// // // // // // // // // // // // //    "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // // // // // // // // // // };
+
+// // // // // // // // // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+// // // // // // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link
+// // // // // // // // // // // // // const heroSlides: HeroSlide[] = [
+// // // // // // // // // // // // //   {
+// // // // // // // // // // // // //     desktop: heroImage,
+// // // // // // // // // // // // //     mobile: heroImagemobile,
+// // // // // // // // // // // // //     alt: "Gummies",
+// // // // // // // // // // // // //     label: "SHOP GUMMIES",
+// // // // // // // // // // // // //     to: "products/gummies-clearance-sales",
+// // // // // // // // // // // // //   },
+// // // // // // // // // // // // //   // {
+// // // // // // // // // // // // //   //   desktop: heroImage1,
+// // // // // // // // // // // // //   //   mobile: heroImage1mobile,
+// // // // // // // // // // // // //   //   alt: "Organic Shilajit products",
+// // // // // // // // // // // // //   //   label: "Shop Shilajit",
+// // // // // // // // // // // // //   //   to: "/shilagit",
+// // // // // // // // // // // // //   // },
+// // // // // // // // // // // // // ];
 
 // // // // // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
-
-// // // // // // // // // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
-// // // // // // // // // // // // //   const rows: T[][] = [];
-// // // // // // // // // // // // //   for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
-// // // // // // // // // // // // //   return rows;
-// // // // // // // // // // // // // };
 
 // // // // // // // // // // // // // const getPlaceholderImage = (name: string) => {
 // // // // // // // // // // // // //   const encodedName = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
 // // // // // // // // // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 // // // // // // // // // // // // // };
 
-// // // // // // // // // // // // // const transformProduct = (product: Product): TransformedProduct => {
-// // // // // // // // // // // // //   let imageUrl = getPlaceholderImage(product.name);
-// // // // // // // // // // // // //   if (product.images && product.images.length > 0) {
-// // // // // // // // // // // // //     const primaryImage =
-// // // // // // // // // // // // //       product.images.find((img) => img.is_primary) || product.images[0];
-// // // // // // // // // // // // //     imageUrl = primaryImage.image_url;
-// // // // // // // // // // // // //   }
-// // // // // // // // // // // // //   const numericPrice = parseFloat(String(product.price));
-// // // // // // // // // // // // //   const originalPrice = numericPrice * 1.2;
-// // // // // // // // // // // // //   const discountPercent = Math.round(
-// // // // // // // // // // // // //     ((originalPrice - numericPrice) / originalPrice) * 100
-// // // // // // // // // // // // //   );
-// // // // // // // // // // // // //   return {
-// // // // // // // // // // // // //     id: product.product_id,
-// // // // // // // // // // // // //     name: product.name,
-// // // // // // // // // // // // //     price: `Ksh ${numericPrice.toFixed(2)}`,
-// // // // // // // // // // // // //     originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
-// // // // // // // // // // // // //     discountPercent,
-// // // // // // // // // // // // //     image: imageUrl,
-// // // // // // // // // // // // //     category: categoryMap[product.category_id] || "Uncategorized",
-// // // // // // // // // // // // //     stockQuantity: product.stock_quantity,
-// // // // // // // // // // // // //   };
-// // // // // // // // // // // // // };
-
-// // // // // // // // // // // // // // ── Shimmer ───────────────────────────────────────────────────────────────────
-
-// // // // // // // // // // // // // const ShimmerCard = () => (
-// // // // // // // // // // // // //   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-// // // // // // // // // // // // //     <div className="w-full aspect-square bg-muted" />
-// // // // // // // // // // // // //     <div className="p-4 space-y-3">
-// // // // // // // // // // // // //       <div className="h-4 bg-muted rounded w-3/4" />
-// // // // // // // // // // // // //       <div className="h-3 bg-muted rounded w-1/2" />
-// // // // // // // // // // // // //       <div className="h-5 bg-muted rounded w-1/3 mt-2" />
-// // // // // // // // // // // // //       <div className="h-9 bg-muted rounded w-full mt-2" />
-// // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // //   </div>
-// // // // // // // // // // // // // );
-
-// // // // // // // // // // // // // const ShimmerGrid = ({ count }: { count: number }) => (
-// // // // // // // // // // // // //   <>
-// // // // // // // // // // // // //     <div className="md:hidden grid grid-cols-2 gap-4">
-// // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-// // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // //     <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
-// // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-// // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // //     <div className="hidden lg:grid grid-cols-4 gap-8">
-// // // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-// // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // //   </>
-// // // // // // // // // // // // // );
-
-// // // // // // // // // // // // // // ── ClearanceProductCard ──────────────────────────────────────────────────────
-
-// // // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
-// // // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
-// // // // // // // // // // // // //     <div className="flex-1 [&_[class*='price']]:hidden [&_[class*='Price']]:hidden">
-// // // // // // // // // // // // //       <ProductCard
-// // // // // // // // // // // // //         id={product.id}
-// // // // // // // // // // // // //         name={product.name}
-// // // // // // // // // // // // //         price=""
-// // // // // // // // // // // // //         image={product.image}
-// // // // // // // // // // // // //         category={product.category}
-// // // // // // // // // // // // //         stockQuantity={product.stockQuantity}
-// // // // // // // // // // // // //       />
-// // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // //     <div className="px-4 py-3 border-t border-border bg-card flex items-center gap-2 flex-wrap">
-// // // // // // // // // // // // //       <span className="text-base font-bold text-foreground">{product.price}</span>
-// // // // // // // // // // // // //       <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
-// // // // // // // // // // // // //       <Badge variant="destructive" className="text-xs font-semibold px-2 py-0.5">
-// // // // // // // // // // // // //         Save {product.discountPercent}%
-// // // // // // // // // // // // //       </Badge>
-// // // // // // // // // // // // //     </div>
-// // // // // // // // // // // // //   </div>
-// // // // // // // // // // // // // );
-
 // // // // // // // // // // // // // // ── Page ──────────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // // const Index = () => {
 // // // // // // // // // // // // //   const navigate = useNavigate();
-// // // // // // // // // // // // //   const [transformedProducts, setTransformedProducts] = useState<TransformedProduct[]>([]);
-// // // // // // // // // // // // //   const [loading, setLoading] = useState(true);
 // // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState("");
 // // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
 // // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{
 // // // // // // // // // // // // //     text: string;
 // // // // // // // // // // // // //     type: "success" | "error";
 // // // // // // // // // // // // //   } | null>(null);
+// // // // // // // // // // // // //   const [bestSellers, setBestSellers] = useState<Product[]>([]);
+// // // // // // // // // // // // //   const [bestSellersLoading, setBestSellersLoading] = useState(true);
+
+// // // // // // // // // // // // //   // ── Hero slider ───────────────────────────────────────────────────────────
+// // // // // // // // // // // // //   const [currentSlide, setCurrentSlide] = useState(0);
+// // // // // // // // // // // // //   const activeSlide = heroSlides[currentSlide];
+
+// // // // // // // // // // // // //   useEffect(() => {
+// // // // // // // // // // // // //     const timer = setInterval(() => {
+// // // // // // // // // // // // //       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+// // // // // // // // // // // // //     }, 5000); // change slide every 5s
+// // // // // // // // // // // // //     return () => clearInterval(timer);
+// // // // // // // // // // // // //   }, []);
 
 // // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // // //     let cancelled = false;
 
-// // // // // // // // // // // // //     const load = async () => {
+// // // // // // // // // // // // //     const loadBestSellers = async () => {
 // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // //         const all = await fetchProducts();
-// // // // // // // // // // // // //         if (cancelled) return;
-
-// // // // // // // // // // // // //         const clearance = all
-// // // // // // // // // // // // //           .filter((p) => p.is_active && p.category_id === CLEARANCE_CATEGORY_ID)
-// // // // // // // // // // // // //           .sort(
-// // // // // // // // // // // // //             (a, b) =>
-// // // // // // // // // // // // //               new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-// // // // // // // // // // // // //           )
-// // // // // // // // // // // // //           .slice(0, 8)
-// // // // // // // // // // // // //           .map(transformProduct);
-
-// // // // // // // // // // // // //         setTransformedProducts(clearance);
-// // // // // // // // // // // // //       } catch (err) {
-// // // // // // // // // // // // //         console.error("Error fetching products:", err);
+// // // // // // // // // // // // //         const products = await fetchProducts();
+// // // // // // // // // // // // //         if (!cancelled) {
+// // // // // // // // // // // // //           setBestSellers(
+// // // // // // // // // // // // //             products
+// // // // // // // // // // // // //               .filter(
+// // // // // // // // // // // // //                 (product) =>
+// // // // // // // // // // // // //                   product.is_active &&
+// // // // // // // // // // // // //                   product.category_id === BEST_SELLER_CATEGORY_ID
+// // // // // // // // // // // // //               )
+// // // // // // // // // // // // //               .slice(0, 8)
+// // // // // // // // // // // // //           );
+// // // // // // // // // // // // //         }
+// // // // // // // // // // // // //       } catch (error) {
+// // // // // // // // // // // // //         console.error("Error loading best sellers:", error);
 // // // // // // // // // // // // //       } finally {
-// // // // // // // // // // // // //         if (!cancelled) setLoading(false);
+// // // // // // // // // // // // //         if (!cancelled) setBestSellersLoading(false);
 // // // // // // // // // // // // //       }
 // // // // // // // // // // // // //     };
 
-// // // // // // // // // // // // //     load();
-// // // // // // // // // // // // //     return () => { cancelled = true; };
+// // // // // // // // // // // // //     loadBestSellers();
+// // // // // // // // // // // // //     return () => {
+// // // // // // // // // // // // //       cancelled = true;
+// // // // // // // // // // // // //     };
 // // // // // // // // // // // // //   }, []);
 
-// // // // // // // // // // // // //    // ── Newsletter ──────────────────────────────────────────────────────────────
+// // // // // // // // // // // // //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // // // // // // // // // // // // //     e.preventDefault();
@@ -4344,10 +5516,14 @@
 // // // // // // // // // // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // // // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
+// // // // // // // // // // // // //      { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
 // // // // // // // // // // // // //     {title: "Nutritional Supplements",
+// // // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
+// // // // // // // // // // // // //       image: nutritional,
+// // // // // // // // // // // // //       to: "/products/supplements"
+// // // // // // // // // // // // //     },
 // // // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// // // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // // //   const testimonials = [
@@ -4371,130 +5547,141 @@
 // // // // // // // // // // // // //     { icon: Sparkles, title: "Pure & Natural", description: "No artificial additives, preservatives, or chemicals" },
 // // // // // // // // // // // // //   ];
 
-// // // // // // // // // // // // //   const tickerItems = [
-// // // // // // // // // // // // //     "🌟 Best Seller — Limited Stock!",
-// // // // // // // // // // // // //     "💸 Huge Savings on Selected Products",
-// // // // // // // // // // // // //     "⚡ Shop Before It's Gone",
-// // // // // // // // // // // // //     "🌿 Organic Goodness at Unbeatable Prices",
-// // // // // // // // // // // // //     "🛒 While Stocks Last",
-// // // // // // // // // // // // //   ];
-
 // // // // // // // // // // // // //   // ── Render ──────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // //   return (
 // // // // // // // // // // // // //     <div className="min-h-screen">
-// // // // // // // // // // // // //       {/* Best Seller Ticker */}
-// // // // // // // // // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
-// // // // // // // // // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
-// // // // // // // // // // // // //           {[...Array(4)].map((_, repeat) =>
-// // // // // // // // // // // // //             tickerItems.map((item, i) => (
-// // // // // // // // // // // // //               <span key={`${repeat}-${i}`} className="mx-10 text-sm font-semibold tracking-widest uppercase">
-// // // // // // // // // // // // //                 {item}
-// // // // // // // // // // // // //                 <span className="mx-6 text-red-300">|</span>
-// // // // // // // // // // // // //               </span>
-// // // // // // // // // // // // //             ))
-// // // // // // // // // // // // //           )}
-// // // // // // // // // // // // //         </div>
-// // // // // // // // // // // // //       </div>
-
 // // // // // // // // // // // // //       <Header />
 
 // // // // // // // // // // // // //       {/* Hero */}
 // // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // // // // // // //         {/* Sliding background images — desktop/mobile variant per slide */}
 // // // // // // // // // // // // //         <div className="absolute inset-0">
-// // // // // // // // // // // // //           <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
-// // // // // // // // // // // // //             <img
-// // // // // // // // // // // // //               src={heroImage}
-// // // // // // // // // // // // //               alt="Organic products in natural setting"
-// // // // // // // // // // // // //               className="w-full h-full object-cover transition-transform duration-300 hover-scale"
-// // // // // // // // // // // // //             />
-// // // // // // // // // // // // //           </a>
+// // // // // // // // // // // // //           {heroSlides.map((slide, index) => (
+// // // // // // // // // // // // //             <a
+// // // // // // // // // // // // //               key={index}
+// // // // // // // // // // // // //               href={slide.to}
+// // // // // // // // // // // // //               className={`absolute inset-0 block w-full h-full transition-opacity duration-1000 ease-in-out ${
+// // // // // // // // // // // // //                 index === currentSlide ? "opacity-100" : "opacity-0"
+// // // // // // // // // // // // //               }`}
+// // // // // // // // // // // // //             >
+// // // // // // // // // // // // //               <picture>
+// // // // // // // // // // // // //                 <source media="(max-width: 767px)" srcSet={slide.mobile} />
+// // // // // // // // // // // // //                 <img
+// // // // // // // // // // // // //                   src={slide.desktop}
+// // // // // // // // // // // // //                   alt={slide.alt}
+// // // // // // // // // // // // //                   className="w-full h-full object-cover"
+// // // // // // // // // // // // //                 />
+// // // // // // // // // // // // //               </picture>
+// // // // // // // // // // // // //             </a>
+// // // // // // // // // // // // //           ))}
 // // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // //         {/* Gradient overlay */}
 // // // // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+// // // // // // // // // // // // //         {/* Slide indicators */}
+// // // // // // // // // // // // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+// // // // // // // // // // // // //           {heroSlides.map((_, index) => (
+// // // // // // // // // // // // //             <button
+// // // // // // // // // // // // //               key={index}
+// // // // // // // // // // // // //               onClick={() => setCurrentSlide(index)}
+// // // // // // // // // // // // //               aria-label={`Go to slide ${index + 1}`}
+// // // // // // // // // // // // //               className={`h-2.5 rounded-full transition-all duration-300 ${
+// // // // // // // // // // // // //                 index === currentSlide ? "bg-white w-6" : "bg-white/50 w-2.5"
+// // // // // // // // // // // // //               }`}
+// // // // // // // // // // // // //             />
+// // // // // // // // // // // // //           ))}
+// // // // // // // // // // // // //         </div>
+
+// // // // // // // // // // // // //         {/* Content */}
 // // // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
 // // // // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
-// // // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+// // // // // // // // // // // // //             {/* <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // // // //               Nurture Life, Naturally
 // // // // // // // // // // // // //             </h1>
 // // // // // // // // // // // // //             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
 // // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature
 // // // // // // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
-// // // // // // // // // // // // //             </p>
-// // // // // // // // // // // // //             <Button
-// // // // // // // // // // // // //               size="lg"
-// // // // // // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-// // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
-// // // // // // // // // // // // //             >
-// // // // // // // // // // // // //               Shop Best Seller
-// // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
-// // // // // // // // // // // // //             </Button>
+// // // // // // // // // // // // //             </p> */}
+
+// // // // // // // // // // // // //             <div className="flex flex-col sm:flex-row gap-4">
+// // // // // // // // // // // // //               <Button
+// // // // // // // // // // // // //                 key={currentSlide}
+// // // // // // // // // // // // //                 size="lg"
+// // // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl animate-fade-in"
+// // // // // // // // // // // // //                 onClick={() => navigate(activeSlide.to)}
+// // // // // // // // // // // // //               >
+// // // // // // // // // // // // //                 {activeSlide.label.toUpperCase()}
+// // // // // // // // // // // // //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
+// // // // // // // // // // // // //               </Button>
+
+// // // // // // // // // // // // //               {/* <Button
+// // // // // // // // // // // // //                 size="lg"
+// // // // // // // // // // // // //                 variant="outline"
+// // // // // // // // // // // // //                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
+// // // // // // // // // // // // //                 onClick={() => navigate("/products")}
+// // // // // // // // // // // // //               >
+// // // // // // // // // // // // //                 Explore Products
+// // // // // // // // // // // // //               </Button> */}
+// // // // // // // // // // // // //             </div>
 // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // //         </div>
 // // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // // //       {/* Best Seller Products */}
-// // // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
-// // // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
-// // // // // // // // // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
-// // // // // // // // // // // // //             🔥 Limited Time Only
+// // // // // // // // // // // // //       {/* Best Sellers */}
+// // // // // // // // // // // // //       <section className="container mx-auto px-4 py-16 md:py-20">
+// // // // // // // // // // // // //         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+// // // // // // // // // // // // //           <div>
+// // // // // // // // // // // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
+// // // // // // // // // // // // //               Best Sellers
+// // // // // // // // // // // // //             </h2>
+// // // // // // // // // // // // //             <p className="text-lg text-muted-foreground">
+// // // // // // // // // // // // //               Customer favorites, all in one place
+// // // // // // // // // // // // //             </p>
 // // // // // // // // // // // // //           </div>
-// // // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // // // // // // // // // // // //             Best Seller
-// // // // // // // // // // // // //           </h2>
-// // // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-// // // // // // // // // // // // //             Grab these deals before they're gone — massive savings on selected
-// // // // // // // // // // // // //             organic products while stocks last
-// // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // //         </div>
 
-// // // // // // // // // // // // //         {loading ? (
-// // // // // // // // // // // // //           <ShimmerGrid count={8} />
-// // // // // // // // // // // // //         ) : transformedProducts.length === 0 ? (
-// // // // // // // // // // // // //           <div className="flex flex-col justify-center items-center h-64 gap-3">
-// // // // // // // // // // // // //             <p className="text-lg text-muted-foreground">No clearance products available at the moment.</p>
-// // // // // // // // // // // // //             <Button variant="outline" onClick={() => navigate("/shop")}>Browse All Products</Button>
+// // // // // // // // // // // // //         {bestSellersLoading ? (
+// // // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+// // // // // // // // // // // // //             {Array.from({ length: 4 }).map((_, index) => (
+// // // // // // // // // // // // //               <div
+// // // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // // //                 className="rounded-xl border border-border bg-card animate-pulse"
+// // // // // // // // // // // // //               >
+// // // // // // // // // // // // //                 <div className="aspect-[4/3] rounded-t-xl bg-muted" />
+// // // // // // // // // // // // //                 <div className="p-5 space-y-3">
+// // // // // // // // // // // // //                   <div className="h-3 w-1/3 rounded bg-muted" />
+// // // // // // // // // // // // //                   <div className="h-4 w-3/4 rounded bg-muted" />
+// // // // // // // // // // // // //                   <div className="h-5 w-1/2 rounded bg-muted" />
+// // // // // // // // // // // // //                 </div>
+// // // // // // // // // // // // //               </div>
+// // // // // // // // // // // // //             ))}
+// // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // //         ) : bestSellers.length > 0 ? (
+// // // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+// // // // // // // // // // // // //             {bestSellers.map((product) => {
+// // // // // // // // // // // // //               const primaryImage =
+// // // // // // // // // // // // //                 product.images?.find((image) => image.is_primary) ??
+// // // // // // // // // // // // //                 product.images?.[0];
+
+// // // // // // // // // // // // //               return (
+// // // // // // // // // // // // //                 <ProductCard
+// // // // // // // // // // // // //                   key={product.product_id}
+// // // // // // // // // // // // //                   id={product.product_id}
+// // // // // // // // // // // // //                   name={product.name}
+// // // // // // // // // // // // //                   price={`Ksh ${Number(product.price).toFixed(2)}`}
+// // // // // // // // // // // // //                   image={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+// // // // // // // // // // // // //                   category={categoryMap[product.category_id] ?? "Best Seller"}
+// // // // // // // // // // // // //                   stockQuantity={product.stock_quantity}
+// // // // // // // // // // // // //                 />
+// // // // // // // // // // // // //               );
+// // // // // // // // // // // // //             })}
 // // // // // // // // // // // // //           </div>
 // // // // // // // // // // // // //         ) : (
-// // // // // // // // // // // // //           <>
-// // // // // // // // // // // // //             {/* Mobile: 2 per row */}
-// // // // // // // // // // // // //             <div className="md:hidden space-y-4">
-// // // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
-// // // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
-// // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />)}
-// // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // //               ))}
-// // // // // // // // // // // // //             </div>
-// // // // // // // // // // // // //             {/* Tablet: 3 per row */}
-// // // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-6">
-// // // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
-// // // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
-// // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />)}
-// // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // //               ))}
-// // // // // // // // // // // // //             </div>
-// // // // // // // // // // // // //             {/* Desktop: 4 per row */}
-// // // // // // // // // // // // //             <div className="hidden lg:block space-y-8">
-// // // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
-// // // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
-// // // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />)}
-// // // // // // // // // // // // //                 </div>
-// // // // // // // // // // // // //               ))}
-// // // // // // // // // // // // //             </div>
-// // // // // // // // // // // // //           </>
-// // // // // // // // // // // // //         )}
-
-// // // // // // // // // // // // //         {!loading && transformedProducts.length > 0 && (
-// // // // // // // // // // // // //           <div className="text-center mt-12">
-// // // // // // // // // // // // //             <Button
-// // // // // // // // // // // // //               variant="outline"
-// // // // // // // // // // // // //               size="lg"
-// // // // // // // // // // // // //               className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
-// // // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
-// // // // // // // // // // // // //             >
-// // // // // // // // // // // // //               View All Deals
-// // // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
-// // // // // // // // // // // // //             </Button>
-// // // // // // // // // // // // //           </div>
+// // // // // // // // // // // // //           <p className="text-center text-muted-foreground py-12">
+// // // // // // // // // // // // //             Best sellers are coming soon. Browse our full collection in the meantime.
+// // // // // // // // // // // // //           </p>
 // // // // // // // // // // // // //         )}
 // // // // // // // // // // // // //       </section>
 
@@ -4673,199 +5860,173 @@
 // // // // // // // // // // // // import { useState, useEffect } from "react";
 // // // // // // // // // // // // import { useNavigate } from "react-router-dom";
 // // // // // // // // // // // // import { Button } from "@/components/ui/button";
-// // // // // // // // // // // // import { Badge } from "@/components/ui/badge";
 // // // // // // // // // // // // import { Input } from "@/components/ui/input";
 // // // // // // // // // // // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
 // // // // // // // // // // // // import Header from "@/components/Header";
 // // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // // import heroImage from "@/assets/maccalarge.jpg";
+// // // // // // // // // // // // import heroImage from "@/assets/web-hero.jpg";
+// // // // // // // // // // // // import fenu from "@/assets/fenubanner.png";
+// // // // // // // // // // // // import fenuMob from "@/assets/fenugreek_oil_small_screen_1080w.jpg";
+// // // // // // // // // // // // import mko from "@/assets/Mkombero Powder Natural Benefits Banner.png";
+// // // // // // // // // // // // import mkoMob from "@/assets/mkomber_small_screen_1080w.jpg";
+// // // // // // // // // // // // import provo from "@/assets/provgel.png";
+// // // // // // // // // // // // import provoMob from "@/assets/provocate_small_screen_1080w.jpg";
+// // // // // // // // // // // // import vig from "@/assets/Super Viga 60000 Spray Benefits.png";
+// // // // // // // // // // // // import vigMob from "@/assets/viga_small_screen_1080w.jpg";
 // // // // // // // // // // // // import heroImage1 from "@/assets/shilagit large.png";
-// // // // // // // // // // // // import heroImagemobile from "@/assets/macamobile.png";
+// // // // // // // // // // // // import heroImagemobile from "@/assets/mobile-hero.jpg";
 // // // // // // // // // // // // import heroImage1mobile from "@/assets/shilagitmoble.png";
 // // // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
 // // // // // // // // // // // // import organicherbs from "@/assets/organic herbs.jpeg";
 // // // // // // // // // // // // import weight from "@/assets/weight.jpeg";
+// // // // // // // // // // // // import Herbaloil from "@/assets/herbal oil.jpeg";
 // // // // // // // // // // // // import Yoni from "@/assets/yoni.jpeg";
 // // // // // // // // // // // // import Honey from "@/assets/Honey.jpeg";
-// // // // // // // // // // // // import Clearance from "@/assets/clearance.jpg";
 // // // // // // // // // // // // import { buildApiUrl, API_CONFIG } from "@/lib/config";
-// // // // // // // // // // // // import { fetchProducts, type Product } from "@/lib/productsCache"
+// // // // // // // // // // // // import { fetchProducts, type Product } from "@/lib/productsCache";
 
 // // // // // // // // // // // // // ── Types ─────────────────────────────────────────────────────────────────────
 
-// // // // // // // // // // // // interface TransformedProduct {
-// // // // // // // // // // // //   id: string;
-// // // // // // // // // // // //   name: string;
-// // // // // // // // // // // //   price: string;
-// // // // // // // // // // // //   originalPrice: string;
-// // // // // // // // // // // //   discountPercent: number;
-// // // // // // // // // // // //   image: string;
-// // // // // // // // // // // //   category: string;
-// // // // // // // // // // // //   stockQuantity: number;
+// // // // // // // // // // // // interface HeroSlide {
+// // // // // // // // // // // //   desktop: string;
+// // // // // // // // // // // //   mobile: string;
+// // // // // // // // // // // //   alt: string;
+// // // // // // // // // // // //   label: string;
+// // // // // // // // // // // //   to: string;
 // // // // // // // // // // // // }
 
 // // // // // // // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
-// // // // // // // // // // // // const CLEARANCE_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
-
 // // // // // // // // // // // // const categoryMap: Record<string, string> = {
 // // // // // // // // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
+// // // // // // // // // // // //   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies Best Sellerss",
 // // // // // // // // // // // //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
 // // // // // // // // // // // //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
 // // // // // // // // // // // //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
 // // // // // // // // // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
+// // // // // // // // // // // //   "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
 // // // // // // // // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // // // // // // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
 // // // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // // // // // // // // // };
 
-// // // // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
+// // // // // // // // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
-// // // // // // // // // // // // const chunk = <T,>(arr: T[], size: number): T[][] => {
-// // // // // // // // // // // //   const rows: T[][] = [];
-// // // // // // // // // // // //   for (let i = 0; i < arr.length; i += size) rows.push(arr.slice(i, i + size));
-// // // // // // // // // // // //   return rows;
-// // // // // // // // // // // // };
+// // // // // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link.
+// // // // // // // // // // // // // The four new slides use one image for both desktop and mobile; if you have
+// // // // // // // // // // // // // separate mobile versions, swap them into the `mobile` field.
+// // // // // // // // // // // // // Replace the `to` values on the new slides with your real routes.
+// // // // // // // // // // // // const heroSlides: HeroSlide[] = [
+// // // // // // // // // // // //   {
+// // // // // // // // // // // //     desktop: heroImage,
+// // // // // // // // // // // //     mobile: heroImagemobile,
+// // // // // // // // // // // //     alt: "Gummies",
+// // // // // // // // // // // //     label: "SHOP GUMMIES",
+// // // // // // // // // // // //     to: "products/gummies-clearance-sales",
+// // // // // // // // // // // //   },
+// // // // // // // // // // // //   {
+// // // // // // // // // // // //     desktop: fenu,
+// // // // // // // // // // // //     mobile: fenu,
+// // // // // // // // // // // //     alt: "Fenu",
+// // // // // // // // // // // //     label: "Shop Fenu",
+// // // // // // // // // // // //     to: "/products/fenu",
+// // // // // // // // // // // //   },
+// // // // // // // // // // // //   {
+// // // // // // // // // // // //     desktop: mko,
+// // // // // // // // // // // //     mobile: mko,
+// // // // // // // // // // // //     alt: "Mkomber",
+// // // // // // // // // // // //     label: "Shop Mkomber",
+// // // // // // // // // // // //     to: "/products/mkomber",
+// // // // // // // // // // // //   },
+// // // // // // // // // // // //   {
+// // // // // // // // // // // //     desktop: provo,
+// // // // // // // // // // // //     mobile: provo,
+// // // // // // // // // // // //     alt: "Provocate",
+// // // // // // // // // // // //     label: "Shop Provocate",
+// // // // // // // // // // // //     to: "/products/provocate",
+// // // // // // // // // // // //   },
+// // // // // // // // // // // //   {
+// // // // // // // // // // // //     desktop: vig,
+// // // // // // // // // // // //     mobile: vig,
+// // // // // // // // // // // //     alt: "Viga",
+// // // // // // // // // // // //     label: "Shop Viga",
+// // // // // // // // // // // //     to: "/products/viga",
+// // // // // // // // // // // //   },
+// // // // // // // // // // // //   // {
+// // // // // // // // // // // //   //   desktop: heroImage1,
+// // // // // // // // // // // //   //   mobile: heroImage1mobile,
+// // // // // // // // // // // //   //   alt: "Organic Shilajit products",
+// // // // // // // // // // // //   //   label: "Shop Shilajit",
+// // // // // // // // // // // //   //   to: "/shilagit",
+// // // // // // // // // // // //   // },
+// // // // // // // // // // // // ];
+
+// // // // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // const getPlaceholderImage = (name: string) => {
 // // // // // // // // // // // //   const encodedName = encodeURIComponent(name.replace(/\s+/g, "-").toLowerCase());
 // // // // // // // // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 // // // // // // // // // // // // };
 
-// // // // // // // // // // // // const transformProduct = (product: Product): TransformedProduct => {
-// // // // // // // // // // // //   let imageUrl = getPlaceholderImage(product.name);
-// // // // // // // // // // // //   if (product.images && product.images.length > 0) {
-// // // // // // // // // // // //     const primaryImage =
-// // // // // // // // // // // //       product.images.find((img) => img.is_primary) || product.images[0];
-// // // // // // // // // // // //     imageUrl = primaryImage.image_url;
-// // // // // // // // // // // //   }
-// // // // // // // // // // // //   const numericPrice = parseFloat(String(product.price));
-// // // // // // // // // // // //   const originalPrice = numericPrice * 1.2;
-// // // // // // // // // // // //   const discountPercent = Math.round(
-// // // // // // // // // // // //     ((originalPrice - numericPrice) / originalPrice) * 100
-// // // // // // // // // // // //   );
-// // // // // // // // // // // //   return {
-// // // // // // // // // // // //     id: product.product_id,
-// // // // // // // // // // // //     name: product.name,
-// // // // // // // // // // // //     price: `Ksh ${numericPrice.toFixed(2)}`,
-// // // // // // // // // // // //     originalPrice: `Ksh ${originalPrice.toFixed(2)}`,
-// // // // // // // // // // // //     discountPercent,
-// // // // // // // // // // // //     image: imageUrl,
-// // // // // // // // // // // //     category: categoryMap[product.category_id] || "Uncategorized",
-// // // // // // // // // // // //     stockQuantity: product.stock_quantity,
-// // // // // // // // // // // //   };
-// // // // // // // // // // // // };
-
-// // // // // // // // // // // // // ── Shimmer ───────────────────────────────────────────────────────────────────
-
-// // // // // // // // // // // // const ShimmerCard = () => (
-// // // // // // // // // // // //   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-// // // // // // // // // // // //     <div className="w-full aspect-square bg-muted" />
-// // // // // // // // // // // //     <div className="p-4 space-y-3">
-// // // // // // // // // // // //       <div className="h-4 bg-muted rounded w-3/4" />
-// // // // // // // // // // // //       <div className="h-3 bg-muted rounded w-1/2" />
-// // // // // // // // // // // //       <div className="h-5 bg-muted rounded w-1/3 mt-2" />
-// // // // // // // // // // // //       <div className="h-9 bg-muted rounded w-full mt-2" />
-// // // // // // // // // // // //     </div>
-// // // // // // // // // // // //   </div>
-// // // // // // // // // // // // );
-
-// // // // // // // // // // // // const ShimmerGrid = ({ count }: { count: number }) => (
-// // // // // // // // // // // //   <>
-// // // // // // // // // // // //     <div className="md:hidden grid grid-cols-2 gap-4">
-// // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-// // // // // // // // // // // //     </div>
-// // // // // // // // // // // //     <div className="hidden md:grid lg:hidden grid-cols-3 gap-6">
-// // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-// // // // // // // // // // // //     </div>
-// // // // // // // // // // // //     <div className="hidden lg:grid grid-cols-4 gap-8">
-// // // // // // // // // // // //       {Array.from({ length: count }).map((_, i) => <ShimmerCard key={i} />)}
-// // // // // // // // // // // //     </div>
-// // // // // // // // // // // //   </>
-// // // // // // // // // // // // );
-
-// // // // // // // // // // // // // ── ClearanceProductCard ──────────────────────────────────────────────────────
-
-// // // // // // // // // // // // const ClearanceProductCard = ({ product }: { product: TransformedProduct }) => (
-// // // // // // // // // // // //   <div className="animate-fade-in h-full flex flex-col rounded-xl overflow-hidden border border-border bg-card">
-// // // // // // // // // // // //     <div className="flex-1 [&_[class*='price']]:hidden [&_[class*='Price']]:hidden">
-// // // // // // // // // // // //       <ProductCard
-// // // // // // // // // // // //         id={product.id}
-// // // // // // // // // // // //         name={product.name}
-// // // // // // // // // // // //         price=""
-// // // // // // // // // // // //         image={product.image}
-// // // // // // // // // // // //         category={product.category}
-// // // // // // // // // // // //         stockQuantity={product.stockQuantity}
-// // // // // // // // // // // //       />
-// // // // // // // // // // // //     </div>
-// // // // // // // // // // // //     <div className="px-4 py-3 border-t border-border bg-card flex items-center gap-2 flex-wrap">
-// // // // // // // // // // // //       <span className="text-base font-bold text-foreground">{product.price}</span>
-// // // // // // // // // // // //       <span className="text-sm text-muted-foreground line-through">{product.originalPrice}</span>
-// // // // // // // // // // // //       <Badge variant="destructive" className="text-xs font-semibold px-2 py-0.5">
-// // // // // // // // // // // //         Save {product.discountPercent}%
-// // // // // // // // // // // //       </Badge>
-// // // // // // // // // // // //     </div>
-// // // // // // // // // // // //   </div>
-// // // // // // // // // // // // );
-
 // // // // // // // // // // // // // ── Page ──────────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // // const Index = () => {
 // // // // // // // // // // // //   const navigate = useNavigate();
-// // // // // // // // // // // //   const [transformedProducts, setTransformedProducts] = useState<TransformedProduct[]>([]);
-// // // // // // // // // // // //   const [loading, setLoading] = useState(true);
 // // // // // // // // // // // //   const [newsletterEmail, setNewsletterEmail] = useState("");
 // // // // // // // // // // // //   const [newsletterLoading, setNewsletterLoading] = useState(false);
 // // // // // // // // // // // //   const [newsletterMessage, setNewsletterMessage] = useState<{
 // // // // // // // // // // // //     text: string;
 // // // // // // // // // // // //     type: "success" | "error";
 // // // // // // // // // // // //   } | null>(null);
+// // // // // // // // // // // //   const [bestSellers, setBestSellers] = useState<Product[]>([]);
+// // // // // // // // // // // //   const [bestSellersLoading, setBestSellersLoading] = useState(true);
 
 // // // // // // // // // // // //   // ── Hero slider ───────────────────────────────────────────────────────────
-// // // // // // // // // // // //   const heroImages = [heroImage, heroImage1];
 // // // // // // // // // // // //   const [currentSlide, setCurrentSlide] = useState(0);
+// // // // // // // // // // // //   const activeSlide = heroSlides[currentSlide];
 
 // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // //     const timer = setInterval(() => {
-// // // // // // // // // // // //       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+// // // // // // // // // // // //       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
 // // // // // // // // // // // //     }, 5000); // change slide every 5s
 // // // // // // // // // // // //     return () => clearInterval(timer);
-// // // // // // // // // // // //   }, []);
+// // // // // // // // // // // //   }, [currentSlide]); // restarts the timer after a manual dot click
 
 // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // //     let cancelled = false;
 
-// // // // // // // // // // // //     const load = async () => {
+// // // // // // // // // // // //     const loadBestSellers = async () => {
 // // // // // // // // // // // //       try {
-// // // // // // // // // // // //         const all = await fetchProducts();
-// // // // // // // // // // // //         if (cancelled) return;
-
-// // // // // // // // // // // //         const clearance = all
-// // // // // // // // // // // //           .filter((p) => p.is_active && p.category_id === CLEARANCE_CATEGORY_ID)
-// // // // // // // // // // // //           .sort(
-// // // // // // // // // // // //             (a, b) =>
-// // // // // // // // // // // //               new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-// // // // // // // // // // // //           )
-// // // // // // // // // // // //           .slice(0, 8)
-// // // // // // // // // // // //           .map(transformProduct);
-
-// // // // // // // // // // // //         setTransformedProducts(clearance);
-// // // // // // // // // // // //       } catch (err) {
-// // // // // // // // // // // //         console.error("Error fetching products:", err);
+// // // // // // // // // // // //         const products = await fetchProducts();
+// // // // // // // // // // // //         if (!cancelled) {
+// // // // // // // // // // // //           setBestSellers(
+// // // // // // // // // // // //             products
+// // // // // // // // // // // //               .filter(
+// // // // // // // // // // // //                 (product) =>
+// // // // // // // // // // // //                   product.is_active &&
+// // // // // // // // // // // //                   product.category_id === BEST_SELLER_CATEGORY_ID
+// // // // // // // // // // // //               )
+// // // // // // // // // // // //               .slice(0, 8)
+// // // // // // // // // // // //           );
+// // // // // // // // // // // //         }
+// // // // // // // // // // // //       } catch (error) {
+// // // // // // // // // // // //         console.error("Error loading best sellers:", error);
 // // // // // // // // // // // //       } finally {
-// // // // // // // // // // // //         if (!cancelled) setLoading(false);
+// // // // // // // // // // // //         if (!cancelled) setBestSellersLoading(false);
 // // // // // // // // // // // //       }
 // // // // // // // // // // // //     };
 
-// // // // // // // // // // // //     load();
-// // // // // // // // // // // //     return () => { cancelled = true; };
+// // // // // // // // // // // //     loadBestSellers();
+// // // // // // // // // // // //     return () => {
+// // // // // // // // // // // //       cancelled = true;
+// // // // // // // // // // // //     };
 // // // // // // // // // // // //   }, []);
 
-// // // // // // // // // // // //    // ── Newsletter ──────────────────────────────────────────────────────────────
+// // // // // // // // // // // //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // //   const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 // // // // // // // // // // // //     e.preventDefault();
@@ -4934,27 +6095,15 @@
 // // // // // // // // // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-// // // // // // // // // // // //     {title: "Nutritional Supplements",
-// // // // // // // // // // //     //   description: "Essential micro & macro nutrients.",
-// // // // // // // // // // //     //   image: nutritional,
-// // // // // // // // // // //     //   to: "/products/supplements"
-// // // // // // // // // // //     // },
-// // // // // // // // // // //     // {
-// // // // // // // // // // //     //   title: "Best Seller",
-// // // // // // // // // // //     //   description: "Our most popular organic products",
-// // // // // // // // // // //     //   image: nutritional,
-// // // // // // // // // // //     //   to: "/products/best-seller"
-// // // // // // // // // // //     // }
-// // // // // // // // // // //     // },
-// // // // // // // // // // //     // {
-// // // // // // // // // // //     //   title: "Best Seller",
-// // // // // // // // // // //     //   description: "Our most popular organic products",
-// // // // // // // // // // //     //   image: nutritional,
-// // // // // // // // // // //     //   to: "/products/best-seller"
-// // // // // // // // // // //     // },
+// // // // // // // // // // // //     { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
+// // // // // // // // // // // //     {
+// // // // // // // // // // // //       title: "Nutritional Supplements",
+// // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
+// // // // // // // // // // // //       image: nutritional,
+// // // // // // // // // // // //       to: "/products/supplements",
+// // // // // // // // // // // //     },
 // // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
-// // // // // // // // // // // //     { title: "Best Seller", description: "Limited-time offers on select products.", image: Clearance, to: "/products/clearance" },
 // // // // // // // // // // // //   ];
 
 // // // // // // // // // // // //   const testimonials = [
@@ -4978,58 +6127,46 @@
 // // // // // // // // // // // //     { icon: Sparkles, title: "Pure & Natural", description: "No artificial additives, preservatives, or chemicals" },
 // // // // // // // // // // // //   ];
 
-// // // // // // // // // // // //   const tickerItems = [
-// // // // // // // // // // // //     "🌟 Best Seller — Limited Stock!",
-// // // // // // // // // // // //     "💸 Huge Savings on Selected Products",
-// // // // // // // // // // // //     "⚡ Shop Before It's Gone",
-// // // // // // // // // // // //     "🌿 Organic Goodness at Unbeatable Prices",
-// // // // // // // // // // // //     "🛒 While Stocks Last",
-// // // // // // // // // // // //   ];
-
 // // // // // // // // // // // //   // ── Render ──────────────────────────────────────────────────────────────────
 
 // // // // // // // // // // // //   return (
 // // // // // // // // // // // //     <div className="min-h-screen">
-// // // // // // // // // // // //       {/* Best Seller Ticker */}
-// // // // // // // // // // // //       <div className="bg-red-600 text-white overflow-hidden py-3 border-y border-red-700">
-// // // // // // // // // // // //         <div className="flex whitespace-nowrap" style={{ animation: "marquee 30s linear infinite" }}>
-// // // // // // // // // // // //           {[...Array(4)].map((_, repeat) =>
-// // // // // // // // // // // //             tickerItems.map((item, i) => (
-// // // // // // // // // // // //               <span key={`${repeat}-${i}`} className="mx-10 text-sm font-semibold tracking-widest uppercase">
-// // // // // // // // // // // //                 {item}
-// // // // // // // // // // // //                 <span className="mx-6 text-red-300">|</span>
-// // // // // // // // // // // //               </span>
-// // // // // // // // // // // //             ))
-// // // // // // // // // // // //           )}
-// // // // // // // // // // // //         </div>
-// // // // // // // // // // // //       </div>
-
 // // // // // // // // // // // //       <Header />
 
 // // // // // // // // // // // //       {/* Hero */}
 // // // // // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
-// // // // // // // // // // // //         {/* Sliding background images */}
+// // // // // // // // // // // //         {/* Sliding background images — desktop/mobile variant per slide */}
 // // // // // // // // // // // //         <div className="absolute inset-0">
-// // // // // // // // // // // //           <a href="https://organicbloom.co.ke/shop" className="block w-full h-full">
-// // // // // // // // // // // //             {heroImages.map((img, index) => (
-// // // // // // // // // // // //               <img
-// // // // // // // // // // // //                 key={index}
-// // // // // // // // // // // //                 src={img}
-// // // // // // // // // // // //                 alt="Organic products in natural setting"
-// // // // // // // // // // // //                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out ${
-// // // // // // // // // // // //                   index === currentSlide ? "opacity-100" : "opacity-0"
-// // // // // // // // // // // //                 }`}
-// // // // // // // // // // // //               />
-// // // // // // // // // // // //             ))}
-// // // // // // // // // // // //           </a>
+// // // // // // // // // // // //           {heroSlides.map((slide, index) => (
+// // // // // // // // // // // //             <a
+// // // // // // // // // // // //               key={index}
+// // // // // // // // // // // //               href={slide.to}
+// // // // // // // // // // // //               tabIndex={index === currentSlide ? 0 : -1}
+// // // // // // // // // // // //               aria-hidden={index !== currentSlide}
+// // // // // // // // // // // //               className={`absolute inset-0 block w-full h-full transition-opacity duration-1000 ease-in-out ${
+// // // // // // // // // // // //                 index === currentSlide
+// // // // // // // // // // // //                   ? "opacity-100"
+// // // // // // // // // // // //                   : "opacity-0 pointer-events-none"
+// // // // // // // // // // // //               }`}
+// // // // // // // // // // // //             >
+// // // // // // // // // // // //               <picture>
+// // // // // // // // // // // //                 <source media="(max-width: 767px)" srcSet={slide.mobile} />
+// // // // // // // // // // // //                 <img
+// // // // // // // // // // // //                   src={slide.desktop}
+// // // // // // // // // // // //                   alt={slide.alt}
+// // // // // // // // // // // //                   className="w-full h-full object-cover"
+// // // // // // // // // // // //                 />
+// // // // // // // // // // // //               </picture>
+// // // // // // // // // // // //             </a>
+// // // // // // // // // // // //           ))}
 // // // // // // // // // // // //         </div>
 
 // // // // // // // // // // // //         {/* Gradient overlay */}
-// // // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+// // // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
 
 // // // // // // // // // // // //         {/* Slide indicators */}
 // // // // // // // // // // // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-// // // // // // // // // // // //           {heroImages.map((_, index) => (
+// // // // // // // // // // // //           {heroSlides.map((_, index) => (
 // // // // // // // // // // // //             <button
 // // // // // // // // // // // //               key={index}
 // // // // // // // // // // // //               onClick={() => setCurrentSlide(index)}
@@ -5042,102 +6179,93 @@
 // // // // // // // // // // // //         </div>
 
 // // // // // // // // // // // //         {/* Content */}
-// // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
-// // // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
-// // // // // // // // // // // //             <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
+// // // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12 pointer-events-none">
+// // // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto">
+// // // // // // // // // // // //             {/* <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // // //               Nurture Life, Naturally
 // // // // // // // // // // // //             </h1>
 // // // // // // // // // // // //             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
 // // // // // // // // // // // //               Discover premium organic products that bring the pure essence of nature
 // // // // // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
-// // // // // // // // // // // //             </p>
+// // // // // // // // // // // //             </p> */}
 
 // // // // // // // // // // // //             <div className="flex flex-col sm:flex-row gap-4">
 // // // // // // // // // // // //               <Button
+// // // // // // // // // // // //                 key={currentSlide}
 // // // // // // // // // // // //                 size="lg"
-// // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-// // // // // // // // // // // //                 onClick={() => navigate("/products/clearance")}
+// // // // // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl animate-fade-in"
+// // // // // // // // // // // //                 onClick={() => navigate(activeSlide.to)}
 // // // // // // // // // // // //               >
-// // // // // // // // // // // //                 Shop Best Seller
+// // // // // // // // // // // //                 {activeSlide.label.toUpperCase()}
 // // // // // // // // // // // //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // // // // // // // // // // //               </Button>
 
-// // // // // // // // // // // //               <Button
+// // // // // // // // // // // //               {/* <Button
 // // // // // // // // // // // //                 size="lg"
 // // // // // // // // // // // //                 variant="outline"
 // // // // // // // // // // // //                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
 // // // // // // // // // // // //                 onClick={() => navigate("/products")}
 // // // // // // // // // // // //               >
 // // // // // // // // // // // //                 Explore Products
-// // // // // // // // // // // //               </Button>
+// // // // // // // // // // // //               </Button> */}
 // // // // // // // // // // // //             </div>
 // // // // // // // // // // // //           </div>
 // // // // // // // // // // // //         </div>
 // // // // // // // // // // // //       </section>
 
-// // // // // // // // // // // //       {/* Best Seller Products */}
-// // // // // // // // // // // //       <section className="container mx-auto px-4 py-20">
-// // // // // // // // // // // //         <div className="text-center mb-12 animate-fade-in">
-// // // // // // // // // // // //           <div className="inline-flex items-center gap-2 bg-red-100 text-red-600 text-sm font-semibold px-4 py-1.5 rounded-full mb-4 border border-red-200">
-// // // // // // // // // // // //             🔥 Limited Time Only
+// // // // // // // // // // // //       {/* Best Sellers */}
+// // // // // // // // // // // //       <section className="container mx-auto px-4 py-16 md:py-20">
+// // // // // // // // // // // //         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+// // // // // // // // // // // //           <div>
+// // // // // // // // // // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
+// // // // // // // // // // // //               Best Sellers
+// // // // // // // // // // // //             </h2>
+// // // // // // // // // // // //             <p className="text-lg text-muted-foreground">
+// // // // // // // // // // // //               Customer favorites, all in one place
+// // // // // // // // // // // //             </p>
 // // // // // // // // // // // //           </div>
-// // // // // // // // // // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-// // // // // // // // // // // //             Best Seller
-// // // // // // // // // // // //           </h2>
-// // // // // // // // // // // //           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-// // // // // // // // // // // //             Grab these deals before they're gone — massive savings on selected
-// // // // // // // // // // // //             organic products while stocks last
-// // // // // // // // // // // //           </p>
 // // // // // // // // // // // //         </div>
 
-// // // // // // // // // // // //         {loading ? (
-// // // // // // // // // // // //           <ShimmerGrid count={8} />
-// // // // // // // // // // // //         ) : transformedProducts.length === 0 ? (
-// // // // // // // // // // // //           <div className="flex flex-col justify-center items-center h-64 gap-3">
-// // // // // // // // // // // //             <p className="text-lg text-muted-foreground">No clearance products available at the moment.</p>
-// // // // // // // // // // // //             <Button variant="outline" onClick={() => navigate("/shop")}>Browse All Products</Button>
+// // // // // // // // // // // //         {bestSellersLoading ? (
+// // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+// // // // // // // // // // // //             {Array.from({ length: 4 }).map((_, index) => (
+// // // // // // // // // // // //               <div
+// // // // // // // // // // // //                 key={index}
+// // // // // // // // // // // //                 className="rounded-xl border border-border bg-card animate-pulse"
+// // // // // // // // // // // //               >
+// // // // // // // // // // // //                 <div className="aspect-[4/3] rounded-t-xl bg-muted" />
+// // // // // // // // // // // //                 <div className="p-5 space-y-3">
+// // // // // // // // // // // //                   <div className="h-3 w-1/3 rounded bg-muted" />
+// // // // // // // // // // // //                   <div className="h-4 w-3/4 rounded bg-muted" />
+// // // // // // // // // // // //                   <div className="h-5 w-1/2 rounded bg-muted" />
+// // // // // // // // // // // //                 </div>
+// // // // // // // // // // // //               </div>
+// // // // // // // // // // // //             ))}
+// // // // // // // // // // // //           </div>
+// // // // // // // // // // // //         ) : bestSellers.length > 0 ? (
+// // // // // // // // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+// // // // // // // // // // // //             {bestSellers.map((product) => {
+// // // // // // // // // // // //               const primaryImage =
+// // // // // // // // // // // //                 product.images?.find((image) => image.is_primary) ??
+// // // // // // // // // // // //                 product.images?.[0];
+
+// // // // // // // // // // // //               return (
+// // // // // // // // // // // //                 <ProductCard
+// // // // // // // // // // // //                   key={product.product_id}
+// // // // // // // // // // // //                   id={product.product_id}
+// // // // // // // // // // // //                   name={product.name}
+// // // // // // // // // // // //                   price={`Ksh ${Number(product.price).toFixed(2)}`}
+// // // // // // // // // // // //                   image={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+// // // // // // // // // // // //                   category={categoryMap[product.category_id] ?? "Best Seller"}
+// // // // // // // // // // // //                   stockQuantity={product.stock_quantity}
+// // // // // // // // // // // //                 />
+// // // // // // // // // // // //               );
+// // // // // // // // // // // //             })}
 // // // // // // // // // // // //           </div>
 // // // // // // // // // // // //         ) : (
-// // // // // // // // // // // //           <>
-// // // // // // // // // // // //             {/* Mobile: 2 per row */}
-// // // // // // // // // // // //             <div className="md:hidden space-y-4">
-// // // // // // // // // // // //               {chunk(transformedProducts, 2).map((row, rIdx) => (
-// // // // // // // // // // // //                 <div key={`m-${rIdx}`} className="grid grid-cols-2 gap-4">
-// // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`m-${rIdx}-${i}`} product={p} />)}
-// // // // // // // // // // // //                 </div>
-// // // // // // // // // // // //               ))}
-// // // // // // // // // // // //             </div>
-// // // // // // // // // // // //             {/* Tablet: 3 per row */}
-// // // // // // // // // // // //             <div className="hidden md:block lg:hidden space-y-6">
-// // // // // // // // // // // //               {chunk(transformedProducts, 3).map((row, rIdx) => (
-// // // // // // // // // // // //                 <div key={`t-${rIdx}`} className="grid grid-cols-3 gap-6">
-// // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`t-${rIdx}-${i}`} product={p} />)}
-// // // // // // // // // // // //                 </div>
-// // // // // // // // // // // //               ))}
-// // // // // // // // // // // //             </div>
-// // // // // // // // // // // //             {/* Desktop: 4 per row */}
-// // // // // // // // // // // //             <div className="hidden lg:block space-y-8">
-// // // // // // // // // // // //               {chunk(transformedProducts, 4).map((row, rIdx) => (
-// // // // // // // // // // // //                 <div key={`d-${rIdx}`} className="grid grid-cols-4 gap-8">
-// // // // // // // // // // // //                   {row.map((p, i) => <ClearanceProductCard key={`d-${rIdx}-${i}`} product={p} />)}
-// // // // // // // // // // // //                 </div>
-// // // // // // // // // // // //               ))}
-// // // // // // // // // // // //             </div>
-// // // // // // // // // // // //           </>
-// // // // // // // // // // // //         )}
-
-// // // // // // // // // // // //         {!loading && transformedProducts.length > 0 && (
-// // // // // // // // // // // //           <div className="text-center mt-12">
-// // // // // // // // // // // //             <Button
-// // // // // // // // // // // //               variant="outline"
-// // // // // // // // // // // //               size="lg"
-// // // // // // // // // // // //               className="border-red-500 text-red-600 hover:bg-red-50 font-semibold px-10 py-6 rounded-full"
-// // // // // // // // // // // //               onClick={() => navigate("/products/clearance")}
-// // // // // // // // // // // //             >
-// // // // // // // // // // // //               View All Deals
-// // // // // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
-// // // // // // // // // // // //             </Button>
-// // // // // // // // // // // //           </div>
+// // // // // // // // // // // //           <p className="text-center text-muted-foreground py-12">
+// // // // // // // // // // // //             Best sellers are coming soon. Browse our full collection in the meantime.
+// // // // // // // // // // // //           </p>
 // // // // // // // // // // // //         )}
 // // // // // // // // // // // //       </section>
 
@@ -5322,11 +6450,15 @@
 // // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // // import heroImage from "@/assets/web-hero.jpg"
-// // // // // // // // // // // import fenu from "@/assets/fenu.jpeg"
-// // // // // // // // // // // import mko from "@/assets/mkomber.jpeg"
-// // // // // // // // // // // import provo from "@/assets/provocate.jpeg"
-// // // // // // // // // // // import vig from "@/assets/viga.jpeg"
+// // // // // // // // // // // import heroImage from "@/assets/web-hero.jpg";
+// // // // // // // // // // // import fenu from "@/assets/fenubanner.png";
+// // // // // // // // // // // import fenuMob from "@/assets/fnmb.jpg";
+// // // // // // // // // // // import mko from "@/assets/Mkombero Powder Natural Benefits Banner.png";
+// // // // // // // // // // // import mkoMob from "@/assets/mbmv.jpg";
+// // // // // // // // // // // import provo from "@/assets/provgel.png";
+// // // // // // // // // // // import provoMob from "@/assets/pvmb.jpg";
+// // // // // // // // // // // import vig from "@/assets/Super Viga 60000 Spray Benefits.png";
+// // // // // // // // // // // import vigMob from "@/assets/vgmb.jpg";
 // // // // // // // // // // // import heroImage1 from "@/assets/shilagit large.png";
 // // // // // // // // // // // import heroImagemobile from "@/assets/mobile-hero.jpg";
 // // // // // // // // // // // import heroImage1mobile from "@/assets/shilagitmoble.png";
@@ -5355,20 +6487,22 @@
 
 // // // // // // // // // // // const categoryMap: Record<string, string> = {
 // // // // // // // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
-// // // // // // // // // // //   "7c095542-a466-4305-a9b0-eec89d30dd65":"Gummies Best Sellerss",
+// // // // // // // // // // //   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies Best Sellerss",
 // // // // // // // // // // //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
 // // // // // // // // // // //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
 // // // // // // // // // // //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
 // // // // // // // // // // //   "fa289cf9-629d-43fd-ad24-16dc5d5dc363": "Weight Management Products",
-// // // // // // // // // // //    "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
+// // // // // // // // // // //   "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
 // // // // // // // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // // // // // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // // // // // // // // // //    "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
+// // // // // // // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
 // // // // // // // // // // // };
 
 // // // // // // // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
-// // // // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link
+// // // // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link.
+// // // // // // // // // // // // Each slide pairs a desktop image with a dedicated small-screen image.
+// // // // // // // // // // // // Replace the `to` values on the new slides with your real routes.
 // // // // // // // // // // // const heroSlides: HeroSlide[] = [
 // // // // // // // // // // //   {
 // // // // // // // // // // //     desktop: heroImage,
@@ -5376,6 +6510,34 @@
 // // // // // // // // // // //     alt: "Gummies",
 // // // // // // // // // // //     label: "SHOP GUMMIES",
 // // // // // // // // // // //     to: "products/gummies-clearance-sales",
+// // // // // // // // // // //   },
+// // // // // // // // // // //   {
+// // // // // // // // // // //     desktop: fenu,
+// // // // // // // // // // //     mobile: fenuMob,
+// // // // // // // // // // //     alt: "Fenu",
+// // // // // // // // // // //     label: "SHOP HEMANI FENUGREEK OIL",
+// // // // // // // // // // //     to: "/product/cf0bcd1a-c3b4-41be-a226-fe795953b49e",
+// // // // // // // // // // //   },
+// // // // // // // // // // //   {
+// // // // // // // // // // //     desktop: mko,
+// // // // // // // // // // //     mobile: mkoMob,
+// // // // // // // // // // //     alt: "Mkomber",
+// // // // // // // // // // //     label: "SHOP MKOMBERO POWDER",
+// // // // // // // // // // //     to: "/product/bca0534c-8ba5-4f4e-9d80-afa65505bb96",
+// // // // // // // // // // //   },
+// // // // // // // // // // //   {
+// // // // // // // // // // //     desktop: provo,
+// // // // // // // // // // //     mobile: provoMob,
+// // // // // // // // // // //     alt: "Provocate",
+// // // // // // // // // // //     label: "SHOP TANTRA PROVOCATIVEL GEL",
+// // // // // // // // // // //     to: "/product/c5ac9ea5-df11-4967-86ab-458a2d7aceb0",
+// // // // // // // // // // //   },
+// // // // // // // // // // //   {
+// // // // // // // // // // //     desktop: vig,
+// // // // // // // // // // //     mobile: vigMob,
+// // // // // // // // // // //     alt: "Viga",
+// // // // // // // // // // //     label: "SHOP SUPER VIGA 6000 DELAY FOR MEN",
+// // // // // // // // // // //     to: "/product/e3ce5bde-8463-4471-a8d5-45ebaba4ca5a",
 // // // // // // // // // // //   },
 // // // // // // // // // // //   // {
 // // // // // // // // // // //   //   desktop: heroImage1,
@@ -5415,7 +6577,7 @@
 // // // // // // // // // // //       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
 // // // // // // // // // // //     }, 5000); // change slide every 5s
 // // // // // // // // // // //     return () => clearInterval(timer);
-// // // // // // // // // // //   }, []);
+// // // // // // // // // // //   }, [currentSlide]); // restarts the timer after a manual dot click
 
 // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // //     let cancelled = false;
@@ -5516,11 +6678,12 @@
 // // // // // // // // // // //     { title: "Yoni & Female Fertility Care", description: "Steam herbs, washes, tightening pearls & more.", image: Yoni, to: "/products/female-care" },
 // // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
-// // // // // // // // // // //      { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
-// // // // // // // // // // //     {title: "Nutritional Supplements",
+// // // // // // // // // // //     { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
+// // // // // // // // // // //     {
+// // // // // // // // // // //       title: "Nutritional Supplements",
 // // // // // // // // // // //       description: "Essential micro & macro nutrients.",
 // // // // // // // // // // //       image: nutritional,
-// // // // // // // // // // //       to: "/products/supplements"
+// // // // // // // // // // //       to: "/products/supplements",
 // // // // // // // // // // //     },
 // // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
@@ -5561,8 +6724,12 @@
 // // // // // // // // // // //             <a
 // // // // // // // // // // //               key={index}
 // // // // // // // // // // //               href={slide.to}
+// // // // // // // // // // //               tabIndex={index === currentSlide ? 0 : -1}
+// // // // // // // // // // //               aria-hidden={index !== currentSlide}
 // // // // // // // // // // //               className={`absolute inset-0 block w-full h-full transition-opacity duration-1000 ease-in-out ${
-// // // // // // // // // // //                 index === currentSlide ? "opacity-100" : "opacity-0"
+// // // // // // // // // // //                 index === currentSlide
+// // // // // // // // // // //                   ? "opacity-100"
+// // // // // // // // // // //                   : "opacity-0 pointer-events-none"
 // // // // // // // // // // //               }`}
 // // // // // // // // // // //             >
 // // // // // // // // // // //               <picture>
@@ -5578,7 +6745,7 @@
 // // // // // // // // // // //         </div>
 
 // // // // // // // // // // //         {/* Gradient overlay */}
-// // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+// // // // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
 
 // // // // // // // // // // //         {/* Slide indicators */}
 // // // // // // // // // // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -5595,8 +6762,8 @@
 // // // // // // // // // // //         </div>
 
 // // // // // // // // // // //         {/* Content */}
-// // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12">
-// // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in">
+// // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12 pointer-events-none">
+// // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto">
 // // // // // // // // // // //             {/* <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
 // // // // // // // // // // //               Nurture Life, Naturally
 // // // // // // // // // // //             </h1>
@@ -5866,18 +7033,11 @@
 // // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // // import heroImage from "@/assets/web-hero.jpg";
-// // // // // // // // // // import fenu from "@/assets/fenubanner.png";
-// // // // // // // // // // import fenuMob from "@/assets/fenugreek_oil_small_screen_1080w.jpg";
-// // // // // // // // // // import mko from "@/assets/Mkombero Powder Natural Benefits Banner.png";
-// // // // // // // // // // import mkoMob from "@/assets/mkomber_small_screen_1080w.jpg";
-// // // // // // // // // // import provo from "@/assets/provgel.png";
-// // // // // // // // // // import provoMob from "@/assets/provocate_small_screen_1080w.jpg";
-// // // // // // // // // // import vig from "@/assets/Super Viga 60000 Spray Benefits.png";
-// // // // // // // // // // import vigMob from "@/assets/viga_small_screen_1080w.jpg";
-// // // // // // // // // // import heroImage1 from "@/assets/shilagit large.png";
-// // // // // // // // // // import heroImagemobile from "@/assets/mobile-hero.jpg";
-// // // // // // // // // // import heroImage1mobile from "@/assets/shilagitmoble.png";
+// // // // // // // // // // import heroImage from "@/assets/gum.jpg";
+// // // // // // // // // // import heroImagemobile from "@/assets/gum.jpg";
+// // // // // // // // // // // TODO: replace these two with your real "all products" banners
+// // // // // // // // // // import allProducts from "@/assets/allpro.jpg";
+// // // // // // // // // // import allProductsMobile from "@/assets/allpro.jpg";
 // // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
@@ -5917,52 +7077,21 @@
 // // // // // // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
 // // // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link.
-// // // // // // // // // // // The four new slides use one image for both desktop and mobile; if you have
-// // // // // // // // // // // separate mobile versions, swap them into the `mobile` field.
-// // // // // // // // // // // Replace the `to` values on the new slides with your real routes.
 // // // // // // // // // // const heroSlides: HeroSlide[] = [
 // // // // // // // // // //   {
 // // // // // // // // // //     desktop: heroImage,
 // // // // // // // // // //     mobile: heroImagemobile,
 // // // // // // // // // //     alt: "Gummies",
 // // // // // // // // // //     label: "SHOP GUMMIES",
-// // // // // // // // // //     to: "products/gummies-clearance-sales",
+// // // // // // // // // //     to: "/products/gummies-clearance-sales",
 // // // // // // // // // //   },
 // // // // // // // // // //   {
-// // // // // // // // // //     desktop: fenu,
-// // // // // // // // // //     mobile: fenu,
-// // // // // // // // // //     alt: "Fenu",
-// // // // // // // // // //     label: "Shop Fenu",
-// // // // // // // // // //     to: "/products/fenu",
+// // // // // // // // // //     desktop: allProducts,
+// // // // // // // // // //     mobile: allProductsMobile,
+// // // // // // // // // //     alt: "All Organic Bloom products",
+// // // // // // // // // //     label: "SHOP ALL PRODUCTS",
+// // // // // // // // // //     to: "/products",
 // // // // // // // // // //   },
-// // // // // // // // // //   {
-// // // // // // // // // //     desktop: mko,
-// // // // // // // // // //     mobile: mko,
-// // // // // // // // // //     alt: "Mkomber",
-// // // // // // // // // //     label: "Shop Mkomber",
-// // // // // // // // // //     to: "/products/mkomber",
-// // // // // // // // // //   },
-// // // // // // // // // //   {
-// // // // // // // // // //     desktop: provo,
-// // // // // // // // // //     mobile: provo,
-// // // // // // // // // //     alt: "Provocate",
-// // // // // // // // // //     label: "Shop Provocate",
-// // // // // // // // // //     to: "/products/provocate",
-// // // // // // // // // //   },
-// // // // // // // // // //   {
-// // // // // // // // // //     desktop: vig,
-// // // // // // // // // //     mobile: vig,
-// // // // // // // // // //     alt: "Viga",
-// // // // // // // // // //     label: "Shop Viga",
-// // // // // // // // // //     to: "/products/viga",
-// // // // // // // // // //   },
-// // // // // // // // // //   // {
-// // // // // // // // // //   //   desktop: heroImage1,
-// // // // // // // // // //   //   mobile: heroImage1mobile,
-// // // // // // // // // //   //   alt: "Organic Shilajit products",
-// // // // // // // // // //   //   label: "Shop Shilajit",
-// // // // // // // // // //   //   to: "/shilagit",
-// // // // // // // // // //   // },
 // // // // // // // // // // ];
 
 // // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -6096,12 +7225,7 @@
 // // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
 // // // // // // // // // //     { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
-// // // // // // // // // //     {
-// // // // // // // // // //       title: "Nutritional Supplements",
-// // // // // // // // // //       description: "Essential micro & macro nutrients.",
-// // // // // // // // // //       image: nutritional,
-// // // // // // // // // //       to: "/products/supplements",
-// // // // // // // // // //     },
+// // // // // // // // // //     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
 // // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
 // // // // // // // // // //   ];
@@ -6181,14 +7305,6 @@
 // // // // // // // // // //         {/* Content */}
 // // // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12 pointer-events-none">
 // // // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto">
-// // // // // // // // // //             {/* <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
-// // // // // // // // // //               Nurture Life, Naturally
-// // // // // // // // // //             </h1>
-// // // // // // // // // //             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
-// // // // // // // // // //               Discover premium organic products that bring the pure essence of nature
-// // // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
-// // // // // // // // // //             </p> */}
-
 // // // // // // // // // //             <div className="flex flex-col sm:flex-row gap-4">
 // // // // // // // // // //               <Button
 // // // // // // // // // //                 key={currentSlide}
@@ -6199,15 +7315,6 @@
 // // // // // // // // // //                 {activeSlide.label.toUpperCase()}
 // // // // // // // // // //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
 // // // // // // // // // //               </Button>
-
-// // // // // // // // // //               {/* <Button
-// // // // // // // // // //                 size="lg"
-// // // // // // // // // //                 variant="outline"
-// // // // // // // // // //                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-// // // // // // // // // //                 onClick={() => navigate("/products")}
-// // // // // // // // // //               >
-// // // // // // // // // //                 Explore Products
-// // // // // // // // // //               </Button> */}
 // // // // // // // // // //             </div>
 // // // // // // // // // //           </div>
 // // // // // // // // // //         </div>
@@ -6429,13 +7536,6 @@
 // // // // // // // // // //       </section>
 
 // // // // // // // // // //       <Footer />
-
-// // // // // // // // // //       <style>{`
-// // // // // // // // // //         @keyframes marquee {
-// // // // // // // // // //           0%   { transform: translateX(0); }
-// // // // // // // // // //           100% { transform: translateX(-50%); }
-// // // // // // // // // //         }
-// // // // // // // // // //       `}</style>
 // // // // // // // // // //     </div>
 // // // // // // // // // //   );
 // // // // // // // // // // };
@@ -6450,18 +7550,10 @@
 // // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // // import heroImage from "@/assets/web-hero.jpg";
-// // // // // // // // // import fenu from "@/assets/fenubanner.png";
-// // // // // // // // // import fenuMob from "@/assets/fnmb.jpg";
-// // // // // // // // // import mko from "@/assets/Mkombero Powder Natural Benefits Banner.png";
-// // // // // // // // // import mkoMob from "@/assets/mbmv.jpg";
-// // // // // // // // // import provo from "@/assets/provgel.png";
-// // // // // // // // // import provoMob from "@/assets/pvmb.jpg";
-// // // // // // // // // import vig from "@/assets/Super Viga 60000 Spray Benefits.png";
-// // // // // // // // // import vigMob from "@/assets/vgmb.jpg";
-// // // // // // // // // import heroImage1 from "@/assets/shilagit large.png";
-// // // // // // // // // import heroImagemobile from "@/assets/mobile-hero.jpg";
-// // // // // // // // // import heroImage1mobile from "@/assets/shilagitmoble.png";
+// // // // // // // // // import heroImage from "@/assets/gum.jpg";
+// // // // // // // // // import heroImagemobile from "@/assets/gum.jpg";
+// // // // // // // // // import allProducts from "@/assets/allpro.jpg";
+// // // // // // // // // import allProductsMobile from "@/assets/allpro.jpg";
 // // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
@@ -6481,6 +7573,11 @@
 // // // // // // // // //   alt: string;
 // // // // // // // // //   label: string;
 // // // // // // // // //   to: string;
+// // // // // // // // //   badge: string;
+// // // // // // // // //   title: string;
+// // // // // // // // //   subtitle: string;
+// // // // // // // // //   oldPrice?: string;
+// // // // // // // // //   newPrice?: string;
 // // // // // // // // // }
 
 // // // // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
@@ -6500,52 +7597,31 @@
 
 // // // // // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
-// // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link.
-// // // // // // // // // // Each slide pairs a desktop image with a dedicated small-screen image.
-// // // // // // // // // // Replace the `to` values on the new slides with your real routes.
+// // // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own text, CTA label + link.
 // // // // // // // // // const heroSlides: HeroSlide[] = [
 // // // // // // // // //   {
 // // // // // // // // //     desktop: heroImage,
 // // // // // // // // //     mobile: heroImagemobile,
-// // // // // // // // //     alt: "Gummies",
+// // // // // // // // //     alt: "Gummies clearance sale",
 // // // // // // // // //     label: "SHOP GUMMIES",
-// // // // // // // // //     to: "products/gummies-clearance-sales",
+// // // // // // // // //     to: "/products/gummies-clearance-sales",
+// // // // // // // // //     badge: "Clearance Sale",
+// // // // // // // // //     title: "Gummies Clearance Sale",
+// // // // // // // // //     subtitle: "Prices have dropped. Grab your favourite gummies while stock lasts.",
+// // // // // // // // //     oldPrice: "Ksh 1,000",
+// // // // // // // // //     newPrice: "Ksh 800",
 // // // // // // // // //   },
 // // // // // // // // //   {
-// // // // // // // // //     desktop: fenu,
-// // // // // // // // //     mobile: fenuMob,
-// // // // // // // // //     alt: "Fenu",
-// // // // // // // // //     label: "SHOP HEMANI FENUGREEK OIL",
-// // // // // // // // //     to: "/product/cf0bcd1a-c3b4-41be-a226-fe795953b49e",
+// // // // // // // // //     desktop: allProducts,
+// // // // // // // // //     mobile: allProductsMobile,
+// // // // // // // // //     alt: "All Organic Bloom products",
+// // // // // // // // //     label: "SHOP ALL PRODUCTS",
+// // // // // // // // //     to: "/products",
+// // // // // // // // //     badge: "Organic Bloom (Kenya)",
+// // // // // // // // //     title: "Wellness, Lifestyle & Supplements",
+// // // // // // // // //     subtitle:
+// // // // // // // // //       "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
 // // // // // // // // //   },
-// // // // // // // // //   {
-// // // // // // // // //     desktop: mko,
-// // // // // // // // //     mobile: mkoMob,
-// // // // // // // // //     alt: "Mkomber",
-// // // // // // // // //     label: "SHOP MKOMBERO POWDER",
-// // // // // // // // //     to: "/product/bca0534c-8ba5-4f4e-9d80-afa65505bb96",
-// // // // // // // // //   },
-// // // // // // // // //   {
-// // // // // // // // //     desktop: provo,
-// // // // // // // // //     mobile: provoMob,
-// // // // // // // // //     alt: "Provocate",
-// // // // // // // // //     label: "SHOP TANTRA PROVOCATIVEL GEL",
-// // // // // // // // //     to: "/product/c5ac9ea5-df11-4967-86ab-458a2d7aceb0",
-// // // // // // // // //   },
-// // // // // // // // //   {
-// // // // // // // // //     desktop: vig,
-// // // // // // // // //     mobile: vigMob,
-// // // // // // // // //     alt: "Viga",
-// // // // // // // // //     label: "SHOP SUPER VIGA 6000 DELAY FOR MEN",
-// // // // // // // // //     to: "/product/e3ce5bde-8463-4471-a8d5-45ebaba4ca5a",
-// // // // // // // // //   },
-// // // // // // // // //   // {
-// // // // // // // // //   //   desktop: heroImage1,
-// // // // // // // // //   //   mobile: heroImage1mobile,
-// // // // // // // // //   //   alt: "Organic Shilajit products",
-// // // // // // // // //   //   label: "Shop Shilajit",
-// // // // // // // // //   //   to: "/shilagit",
-// // // // // // // // //   // },
 // // // // // // // // // ];
 
 // // // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -6679,12 +7755,7 @@
 // // // // // // // // //     { title: "Men's Boosters & Fertility Support", description: "Stamina, libido, and reproductive health.", image: mens, to: "/products/mens-health" },
 // // // // // // // // //     { title: "Natural Skin Care", description: "Healing soaps, oils, scrubs, and glow enhancers.", image: natural, to: "/products/skin-care" },
 // // // // // // // // //     { title: "Herbal Medicated Oils", description: "Natural support for pain relief, joint care, skin & overall wellness.", image: Herbaloil, to: "/products/herbal-medicated-oils" },
-// // // // // // // // //     {
-// // // // // // // // //       title: "Nutritional Supplements",
-// // // // // // // // //       description: "Essential micro & macro nutrients.",
-// // // // // // // // //       image: nutritional,
-// // // // // // // // //       to: "/products/supplements",
-// // // // // // // // //     },
+// // // // // // // // //     { title: "Nutritional Supplements", description: "Essential micro & macro nutrients.", image: nutritional, to: "/products/supplements" },
 // // // // // // // // //     { title: "Organic Herbs", description: "Pure, sustainably sourced herbs for wellness and rituals.", image: organicherbs, to: "/products/organic-herbs" },
 // // // // // // // // //     { title: "Pure Honey & Honey Products", description: "Discover the natural goodness of pure, unprocessed honey and a curated selection of honey-based products.", image: Honey, to: "/products/pure-honey" },
 // // // // // // // // //   ];
@@ -6716,8 +7787,8 @@
 // // // // // // // // //     <div className="min-h-screen">
 // // // // // // // // //       <Header />
 
-// // // // // // // // //       {/* Hero */}
-// // // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // // //       {/* Hero — shorter on large screens */}
+// // // // // // // // //       <section className="relative h-[calc(100vh-44px)] min-h-[460px] max-h-[740px] lg:max-h-[500px] overflow-hidden">
 // // // // // // // // //         {/* Sliding background images — desktop/mobile variant per slide */}
 // // // // // // // // //         <div className="absolute inset-0">
 // // // // // // // // //           {heroSlides.map((slide, index) => (
@@ -6744,8 +7815,8 @@
 // // // // // // // // //           ))}
 // // // // // // // // //         </div>
 
-// // // // // // // // //         {/* Gradient overlay */}
-// // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+// // // // // // // // //         {/* Gradient overlay — stronger at the bottom-left so text stays readable */}
+// // // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10 pointer-events-none" />
 
 // // // // // // // // //         {/* Slide indicators */}
 // // // // // // // // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -6762,36 +7833,44 @@
 // // // // // // // // //         </div>
 
 // // // // // // // // //         {/* Content */}
-// // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12 pointer-events-none">
-// // // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto">
-// // // // // // // // //             {/* <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight">
-// // // // // // // // //               Nurture Life, Naturally
+// // // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-12 md:pb-14 pointer-events-none">
+// // // // // // // // //           <div
+// // // // // // // // //             key={currentSlide}
+// // // // // // // // //             className="max-w-2xl text-white drop-shadow-lg animate-fade-in pointer-events-auto"
+// // // // // // // // //           >
+// // // // // // // // //             <span className="inline-block mb-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 px-4 py-1 text-xs md:text-sm font-semibold uppercase tracking-wider">
+// // // // // // // // //               {activeSlide.badge}
+// // // // // // // // //             </span>
+
+// // // // // // // // //             <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight mb-3">
+// // // // // // // // //               {activeSlide.title}
 // // // // // // // // //             </h1>
-// // // // // // // // //             <p className="text-lg md:text-xl lg:text-2xl mb-8 text-white font-bold drop-shadow-md">
-// // // // // // // // //               Discover premium organic products that bring the pure essence of nature
-// // // // // // // // //               to your daily life. Handpicked, packaged with care, and delivered to your door.
-// // // // // // // // //             </p> */}
 
-// // // // // // // // //             <div className="flex flex-col sm:flex-row gap-4">
-// // // // // // // // //               <Button
-// // // // // // // // //                 key={currentSlide}
-// // // // // // // // //                 size="lg"
-// // // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl animate-fade-in"
-// // // // // // // // //                 onClick={() => navigate(activeSlide.to)}
-// // // // // // // // //               >
-// // // // // // // // //                 {activeSlide.label.toUpperCase()}
-// // // // // // // // //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
-// // // // // // // // //               </Button>
+// // // // // // // // //             <p className="text-sm md:text-base lg:text-lg text-white/90 mb-4 max-w-xl">
+// // // // // // // // //               {activeSlide.subtitle}
+// // // // // // // // //             </p>
 
-// // // // // // // // //               {/* <Button
-// // // // // // // // //                 size="lg"
-// // // // // // // // //                 variant="outline"
-// // // // // // // // //                 className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl"
-// // // // // // // // //                 onClick={() => navigate("/products")}
-// // // // // // // // //               >
-// // // // // // // // //                 Explore Products
-// // // // // // // // //               </Button> */}
-// // // // // // // // //             </div>
+// // // // // // // // //             {activeSlide.newPrice && (
+// // // // // // // // //               <div className="flex items-baseline gap-3 mb-4">
+// // // // // // // // //                 {activeSlide.oldPrice && (
+// // // // // // // // //                   <span className="text-lg md:text-xl text-white/70 line-through">
+// // // // // // // // //                     {activeSlide.oldPrice}
+// // // // // // // // //                   </span>
+// // // // // // // // //                 )}
+// // // // // // // // //                 <span className="text-3xl md:text-4xl font-heading font-bold">
+// // // // // // // // //                   {activeSlide.newPrice}
+// // // // // // // // //                 </span>
+// // // // // // // // //               </div>
+// // // // // // // // //             )}
+
+// // // // // // // // //             <Button
+// // // // // // // // //               size="lg"
+// // // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-base lg:text-lg px-8 py-6 rounded-full hover-scale shadow-xl"
+// // // // // // // // //               onClick={() => navigate(activeSlide.to)}
+// // // // // // // // //             >
+// // // // // // // // //               {activeSlide.label.toUpperCase()}
+// // // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // // //             </Button>
 // // // // // // // // //           </div>
 // // // // // // // // //         </div>
 // // // // // // // // //       </section>
@@ -7012,13 +8091,6 @@
 // // // // // // // // //       </section>
 
 // // // // // // // // //       <Footer />
-
-// // // // // // // // //       <style>{`
-// // // // // // // // //         @keyframes marquee {
-// // // // // // // // //           0%   { transform: translateX(0); }
-// // // // // // // // //           100% { transform: translateX(-50%); }
-// // // // // // // // //         }
-// // // // // // // // //       `}</style>
 // // // // // // // // //     </div>
 // // // // // // // // //   );
 // // // // // // // // // };
@@ -7033,11 +8105,10 @@
 // // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // // import heroImage from "@/assets/gum.jpg";
-// // // // // // // // import heroImagemobile from "@/assets/gum.jpg";
-// // // // // // // // // TODO: replace these two with your real "all products" banners
-// // // // // // // // import allProducts from "@/assets/allpro.jpg";
-// // // // // // // // import allProductsMobile from "@/assets/allpro.jpg";
+// // // // // // // // import heroImage from "@/assets/sdgfhgjhkj.png";
+// // // // // // // // import heroImagemobile from "@/assets/sdgfhgjhkj.png";
+// // // // // // // // import allProducts from "@/assets/vcvc.jpg";
+// // // // // // // // import allProductsMobile from "@/assets/vcvc.jpg";
 // // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
@@ -7057,6 +8128,11 @@
 // // // // // // // //   alt: string;
 // // // // // // // //   label: string;
 // // // // // // // //   to: string;
+// // // // // // // //   badge: string;
+// // // // // // // //   title: string;
+// // // // // // // //   subtitle: string;
+// // // // // // // //   oldPrice?: string;
+// // // // // // // //   newPrice?: string;
 // // // // // // // // }
 
 // // // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
@@ -7076,14 +8152,19 @@
 
 // // // // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
-// // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own CTA label + link.
+// // // // // // // // // Hero slides — each pairs a desktop/mobile image with its own text, CTA label + link.
 // // // // // // // // const heroSlides: HeroSlide[] = [
 // // // // // // // //   {
 // // // // // // // //     desktop: heroImage,
 // // // // // // // //     mobile: heroImagemobile,
-// // // // // // // //     alt: "Gummies",
+// // // // // // // //     alt: "Gummies clearance sale",
 // // // // // // // //     label: "SHOP GUMMIES",
 // // // // // // // //     to: "/products/gummies-clearance-sales",
+// // // // // // // //     badge: "Clearance Sale",
+// // // // // // // //     title: "Gummies Clearance Sale",
+// // // // // // // //     subtitle: "Prices have dropped. Grab your favourite gummies while stock lasts.",
+// // // // // // // //     oldPrice: "Ksh 1,000",
+// // // // // // // //     newPrice: "Ksh 800",
 // // // // // // // //   },
 // // // // // // // //   {
 // // // // // // // //     desktop: allProducts,
@@ -7091,6 +8172,10 @@
 // // // // // // // //     alt: "All Organic Bloom products",
 // // // // // // // //     label: "SHOP ALL PRODUCTS",
 // // // // // // // //     to: "/products",
+// // // // // // // //     badge: "Organic Bloom (Kenya)",
+// // // // // // // //     title: "Wellness, Lifestyle & Supplements",
+// // // // // // // //     subtitle:
+// // // // // // // //       "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
 // // // // // // // //   },
 // // // // // // // // ];
 
@@ -7257,8 +8342,8 @@
 // // // // // // // //     <div className="min-h-screen">
 // // // // // // // //       <Header />
 
-// // // // // // // //       {/* Hero */}
-// // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[600px] max-h-[900px] overflow-hidden">
+// // // // // // // //       {/* Hero — shorter on large screens */}
+// // // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[520px] max-h-[640px] lg:max-h-[680px] overflow-hidden">
 // // // // // // // //         {/* Sliding background images — desktop/mobile variant per slide */}
 // // // // // // // //         <div className="absolute inset-0">
 // // // // // // // //           {heroSlides.map((slide, index) => (
@@ -7285,8 +8370,8 @@
 // // // // // // // //           ))}
 // // // // // // // //         </div>
 
-// // // // // // // //         {/* Gradient overlay */}
-// // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent pointer-events-none" />
+// // // // // // // //         {/* Gradient overlay — stronger at the bottom-left so text stays readable */}
+// // // // // // // //         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10 pointer-events-none" />
 
 // // // // // // // //         {/* Slide indicators */}
 // // // // // // // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
@@ -7303,19 +8388,44 @@
 // // // // // // // //         </div>
 
 // // // // // // // //         {/* Content */}
-// // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-8 md:pb-10 lg:pb-12 pointer-events-none">
-// // // // // // // //           <div className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto">
-// // // // // // // //             <div className="flex flex-col sm:flex-row gap-4">
-// // // // // // // //               <Button
-// // // // // // // //                 key={currentSlide}
-// // // // // // // //                 size="lg"
-// // // // // // // //                 className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 lg:px-12 lg:py-8 rounded-full hover-scale shadow-xl animate-fade-in"
-// // // // // // // //                 onClick={() => navigate(activeSlide.to)}
-// // // // // // // //               >
-// // // // // // // //                 {activeSlide.label.toUpperCase()}
-// // // // // // // //                 <ArrowRight className="ml-2 w-5 h-5 lg:w-6 lg:h-6" />
-// // // // // // // //               </Button>
-// // // // // // // //             </div>
+// // // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-14 md:pb-16 pointer-events-none">
+// // // // // // // //           <div
+// // // // // // // //             key={currentSlide}
+// // // // // // // //             className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto"
+// // // // // // // //           >
+// // // // // // // //             <span className="inline-block mb-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 px-5 py-1.5 text-sm md:text-base font-semibold uppercase tracking-wider">
+// // // // // // // //               {activeSlide.badge}
+// // // // // // // //             </span>
+
+// // // // // // // //             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-4">
+// // // // // // // //               {activeSlide.title}
+// // // // // // // //             </h1>
+
+// // // // // // // //             <p className="text-base md:text-lg lg:text-xl text-white/90 mb-5 max-w-2xl">
+// // // // // // // //               {activeSlide.subtitle}
+// // // // // // // //             </p>
+
+// // // // // // // //             {activeSlide.newPrice && (
+// // // // // // // //               <div className="flex items-baseline gap-3 mb-4">
+// // // // // // // //                 {activeSlide.oldPrice && (
+// // // // // // // //                   <span className="text-xl md:text-2xl text-white/70 line-through">
+// // // // // // // //                     {activeSlide.oldPrice}
+// // // // // // // //                   </span>
+// // // // // // // //                 )}
+// // // // // // // //                 <span className="text-4xl md:text-5xl font-heading font-bold">
+// // // // // // // //                   {activeSlide.newPrice}
+// // // // // // // //                 </span>
+// // // // // // // //               </div>
+// // // // // // // //             )}
+
+// // // // // // // //             <Button
+// // // // // // // //               size="lg"
+// // // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 rounded-full hover-scale shadow-xl"
+// // // // // // // //               onClick={() => navigate(activeSlide.to)}
+// // // // // // // //             >
+// // // // // // // //               {activeSlide.label.toUpperCase()}
+// // // // // // // //               <ArrowRight className="ml-2 w-5 h-5" />
+// // // // // // // //             </Button>
 // // // // // // // //           </div>
 // // // // // // // //         </div>
 // // // // // // // //       </section>
@@ -7550,10 +8660,10 @@
 // // // // // // // import Footer from "@/components/Footer";
 // // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // // import CategoryCard from "@/components/CategoryCard";
-// // // // // // // import heroImage from "@/assets/gum.jpg";
-// // // // // // // import heroImagemobile from "@/assets/gum.jpg";
-// // // // // // // import allProducts from "@/assets/allpro.jpg";
-// // // // // // // import allProductsMobile from "@/assets/allpro.jpg";
+// // // // // // // import heroImage from "@/assets/sdgfhgjhkj.png";
+// // // // // // // import heroImagemobile from "@/assets/gmo.png";
+// // // // // // // import allProducts from "@/assets/vcvc.jpg";
+// // // // // // // import allProductsMobile from "@/assets/vcvc.jpg";
 // // // // // // // import mens from "@/assets/mens.jpeg";
 // // // // // // // import natural from "@/assets/natural.jpeg";
 // // // // // // // import nutritional from "@/assets/nutritional.jpeg";
@@ -7611,17 +8721,17 @@
 // // // // // // //     oldPrice: "Ksh 1,000",
 // // // // // // //     newPrice: "Ksh 800",
 // // // // // // //   },
-// // // // // // //   {
-// // // // // // //     desktop: allProducts,
-// // // // // // //     mobile: allProductsMobile,
-// // // // // // //     alt: "All Organic Bloom products",
-// // // // // // //     label: "SHOP ALL PRODUCTS",
-// // // // // // //     to: "/products",
-// // // // // // //     badge: "Organic Bloom (Kenya)",
-// // // // // // //     title: "Wellness, Lifestyle & Supplements",
-// // // // // // //     subtitle:
-// // // // // // //       "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
-// // // // // // //   },
+// // // // // // //   // {
+// // // // // // //   //   desktop: allProducts,
+// // // // // // //   //   mobile: allProductsMobile,
+// // // // // // //   //   alt: "All Organic Bloom products",
+// // // // // // //   //   label: "SHOP ALL PRODUCTS",
+// // // // // // //   //   to: "/products",
+// // // // // // //   //   badge: "Organic Bloom (Kenya)",
+// // // // // // //   //   title: "Wellness, Lifestyle & Supplements",
+// // // // // // //   //   subtitle:
+// // // // // // //   //     "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
+// // // // // // //   // },
 // // // // // // // ];
 
 // // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -7787,8 +8897,8 @@
 // // // // // // //     <div className="min-h-screen">
 // // // // // // //       <Header />
 
-// // // // // // //       {/* Hero — shorter on large screens */}
-// // // // // // //       <section className="relative h-[calc(100vh-44px)] min-h-[460px] max-h-[740px] lg:max-h-[500px] overflow-hidden">
+// // // // // // //       {/* Hero */}
+// // // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[560px] max-h-[700px] lg:max-h-[780px] overflow-hidden">
 // // // // // // //         {/* Sliding background images — desktop/mobile variant per slide */}
 // // // // // // //         <div className="absolute inset-0">
 // // // // // // //           {heroSlides.map((slide, index) => (
@@ -7833,31 +8943,31 @@
 // // // // // // //         </div>
 
 // // // // // // //         {/* Content */}
-// // // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-12 md:pb-14 pointer-events-none">
+// // // // // // //         <div className="relative container mx-auto px-4 lg:mx-0 lg:max-w-none lg:px-12 xl:px-20 h-full flex items-end pb-14 md:pb-16 pointer-events-none">
 // // // // // // //           <div
 // // // // // // //             key={currentSlide}
-// // // // // // //             className="max-w-2xl text-white drop-shadow-lg animate-fade-in pointer-events-auto"
+// // // // // // //             className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto"
 // // // // // // //           >
-// // // // // // //             <span className="inline-block mb-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 px-4 py-1 text-xs md:text-sm font-semibold uppercase tracking-wider">
+// // // // // // //             <span className="inline-block mb-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 px-5 py-1.5 text-sm md:text-base font-semibold uppercase tracking-wider">
 // // // // // // //               {activeSlide.badge}
 // // // // // // //             </span>
 
-// // // // // // //             <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold leading-tight mb-3">
+// // // // // // //             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold leading-tight mb-4">
 // // // // // // //               {activeSlide.title}
 // // // // // // //             </h1>
 
-// // // // // // //             <p className="text-sm md:text-base lg:text-lg text-white/90 mb-4 max-w-xl">
+// // // // // // //             <p className="text-base md:text-lg lg:text-xl text-white/90 mb-5 max-w-2xl">
 // // // // // // //               {activeSlide.subtitle}
 // // // // // // //             </p>
 
 // // // // // // //             {activeSlide.newPrice && (
 // // // // // // //               <div className="flex items-baseline gap-3 mb-4">
 // // // // // // //                 {activeSlide.oldPrice && (
-// // // // // // //                   <span className="text-lg md:text-xl text-white/70 line-through">
+// // // // // // //                   <span className="text-xl md:text-2xl text-white/70 line-through">
 // // // // // // //                     {activeSlide.oldPrice}
 // // // // // // //                   </span>
 // // // // // // //                 )}
-// // // // // // //                 <span className="text-3xl md:text-4xl font-heading font-bold">
+// // // // // // //                 <span className="text-4xl md:text-5xl font-heading font-bold">
 // // // // // // //                   {activeSlide.newPrice}
 // // // // // // //                 </span>
 // // // // // // //               </div>
@@ -7865,7 +8975,7 @@
 
 // // // // // // //             <Button
 // // // // // // //               size="lg"
-// // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-base lg:text-lg px-8 py-6 rounded-full hover-scale shadow-xl"
+// // // // // // //               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg lg:text-xl px-10 py-7 rounded-full hover-scale shadow-xl"
 // // // // // // //               onClick={() => navigate(activeSlide.to)}
 // // // // // // //             >
 // // // // // // //               {activeSlide.label.toUpperCase()}
@@ -8106,7 +9216,7 @@
 // // // // // // import ProductCard from "@/components/ProductCard";
 // // // // // // import CategoryCard from "@/components/CategoryCard";
 // // // // // // import heroImage from "@/assets/sdgfhgjhkj.png";
-// // // // // // import heroImagemobile from "@/assets/sdgfhgjhkj.png";
+// // // // // // import heroImagemobile from "@/assets/gmo.png";
 // // // // // // import allProducts from "@/assets/vcvc.jpg";
 // // // // // // import allProductsMobile from "@/assets/vcvc.jpg";
 // // // // // // import mens from "@/assets/mens.jpeg";
@@ -8137,6 +9247,11 @@
 
 // // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
+// // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+// // // // // // // TODO: replace with the real category_id of your Exclusive Offers category
+// // // // // // const EXCLUSIVE_OFFERS_CATEGORY_ID = "REPLACE-WITH-EXCLUSIVE-OFFERS-CATEGORY-ID";
+
 // // // // // // const categoryMap: Record<string, string> = {
 // // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
 // // // // // //   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies Best Sellerss",
@@ -8147,10 +9262,17 @@
 // // // // // //   "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
 // // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
+// // // // // //   [BEST_SELLER_CATEGORY_ID]: "Best Seller",
+// // // // // //   [EXCLUSIVE_OFFERS_CATEGORY_ID]: "Exclusive Offers",
 // // // // // // };
 
-// // // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+// // // // // // // Tabs shown above the product grid
+// // // // // // const PRODUCT_TABS = [
+// // // // // //   { id: "best-sellers", label: "Best Sellers", categoryId: BEST_SELLER_CATEGORY_ID },
+// // // // // //   { id: "exclusive-offers", label: "Exclusive Offers", categoryId: EXCLUSIVE_OFFERS_CATEGORY_ID },
+// // // // // // ] as const;
+
+// // // // // // type ProductTabId = (typeof PRODUCT_TABS)[number]["id"];
 
 // // // // // // // Hero slides — each pairs a desktop/mobile image with its own text, CTA label + link.
 // // // // // // const heroSlides: HeroSlide[] = [
@@ -8166,17 +9288,17 @@
 // // // // // //     oldPrice: "Ksh 1,000",
 // // // // // //     newPrice: "Ksh 800",
 // // // // // //   },
-// // // // // //   {
-// // // // // //     desktop: allProducts,
-// // // // // //     mobile: allProductsMobile,
-// // // // // //     alt: "All Organic Bloom products",
-// // // // // //     label: "SHOP ALL PRODUCTS",
-// // // // // //     to: "/products",
-// // // // // //     badge: "Organic Bloom (Kenya)",
-// // // // // //     title: "Wellness, Lifestyle & Supplements",
-// // // // // //     subtitle:
-// // // // // //       "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
-// // // // // //   },
+// // // // // //   // {
+// // // // // //   //   desktop: allProducts,
+// // // // // //   //   mobile: allProductsMobile,
+// // // // // //   //   alt: "All Organic Bloom products",
+// // // // // //   //   label: "SHOP ALL PRODUCTS",
+// // // // // //   //   to: "/products",
+// // // // // //   //   badge: "Organic Bloom (Kenya)",
+// // // // // //   //   title: "Wellness, Lifestyle & Supplements",
+// // // // // //   //   subtitle:
+// // // // // //   //     "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
+// // // // // //   // },
 // // // // // // ];
 
 // // // // // // // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -8196,8 +9318,11 @@
 // // // // // //     text: string;
 // // // // // //     type: "success" | "error";
 // // // // // //   } | null>(null);
-// // // // // //   const [bestSellers, setBestSellers] = useState<Product[]>([]);
-// // // // // //   const [bestSellersLoading, setBestSellersLoading] = useState(true);
+
+// // // // // //   // Product tabs (Best Sellers / Exclusive Offers)
+// // // // // //   const [catalog, setCatalog] = useState<Product[]>([]);
+// // // // // //   const [catalogLoading, setCatalogLoading] = useState(true);
+// // // // // //   const [activeTab, setActiveTab] = useState<ProductTabId>("best-sellers");
 
 // // // // // //   // ── Hero slider ───────────────────────────────────────────────────────────
 // // // // // //   const [currentSlide, setCurrentSlide] = useState(0);
@@ -8210,35 +9335,31 @@
 // // // // // //     return () => clearInterval(timer);
 // // // // // //   }, [currentSlide]); // restarts the timer after a manual dot click
 
+// // // // // //   // ── Products (fetched once; tabs filter client-side) ──────────────────────
 // // // // // //   useEffect(() => {
 // // // // // //     let cancelled = false;
 
-// // // // // //     const loadBestSellers = async () => {
+// // // // // //     const loadProducts = async () => {
 // // // // // //       try {
 // // // // // //         const products = await fetchProducts();
-// // // // // //         if (!cancelled) {
-// // // // // //           setBestSellers(
-// // // // // //             products
-// // // // // //               .filter(
-// // // // // //                 (product) =>
-// // // // // //                   product.is_active &&
-// // // // // //                   product.category_id === BEST_SELLER_CATEGORY_ID
-// // // // // //               )
-// // // // // //               .slice(0, 8)
-// // // // // //           );
-// // // // // //         }
+// // // // // //         if (!cancelled) setCatalog(products.filter((product) => product.is_active));
 // // // // // //       } catch (error) {
-// // // // // //         console.error("Error loading best sellers:", error);
+// // // // // //         console.error("Error loading products:", error);
 // // // // // //       } finally {
-// // // // // //         if (!cancelled) setBestSellersLoading(false);
+// // // // // //         if (!cancelled) setCatalogLoading(false);
 // // // // // //       }
 // // // // // //     };
 
-// // // // // //     loadBestSellers();
+// // // // // //     loadProducts();
 // // // // // //     return () => {
 // // // // // //       cancelled = true;
 // // // // // //     };
 // // // // // //   }, []);
+
+// // // // // //   const activeTabConfig = PRODUCT_TABS.find((tab) => tab.id === activeTab)!;
+// // // // // //   const visibleProducts = catalog
+// // // // // //     .filter((product) => product.category_id === activeTabConfig.categoryId)
+// // // // // //     .slice(0, 8);
 
 // // // // // //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
@@ -8342,8 +9463,8 @@
 // // // // // //     <div className="min-h-screen">
 // // // // // //       <Header />
 
-// // // // // //       {/* Hero — shorter on large screens */}
-// // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[520px] max-h-[640px] lg:max-h-[680px] overflow-hidden">
+// // // // // //       {/* Hero */}
+// // // // // //       <section className="relative h-[calc(100vh-64px)] min-h-[560px] max-h-[700px] lg:max-h-[780px] overflow-hidden">
 // // // // // //         {/* Sliding background images — desktop/mobile variant per slide */}
 // // // // // //         <div className="absolute inset-0">
 // // // // // //           {heroSlides.map((slide, index) => (
@@ -8388,7 +9509,7 @@
 // // // // // //         </div>
 
 // // // // // //         {/* Content */}
-// // // // // //         <div className="relative container mx-auto px-4 h-full flex items-end pb-14 md:pb-16 pointer-events-none">
+// // // // // //         <div className="relative container mx-auto px-4 lg:mx-0 lg:max-w-none lg:px-12 xl:px-20 h-full flex items-end pb-14 md:pb-16 pointer-events-none">
 // // // // // //           <div
 // // // // // //             key={currentSlide}
 // // // // // //             className="max-w-3xl text-white drop-shadow-lg animate-fade-in pointer-events-auto"
@@ -8430,20 +9551,45 @@
 // // // // // //         </div>
 // // // // // //       </section>
 
-// // // // // //       {/* Best Sellers */}
+// // // // // //       {/* Best Sellers / Exclusive Offers */}
 // // // // // //       <section className="container mx-auto px-4 py-16 md:py-20">
-// // // // // //         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-// // // // // //           <div>
-// // // // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
-// // // // // //               Best Sellers
-// // // // // //             </h2>
-// // // // // //             <p className="text-lg text-muted-foreground">
-// // // // // //               Customer favorites, all in one place
-// // // // // //             </p>
-// // // // // //           </div>
+// // // // // //         <div className="flex items-start justify-between gap-4 mb-6">
+// // // // // //           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+// // // // // //             {activeTabConfig.label}
+// // // // // //           </h2>
+// // // // // //           <button
+// // // // // //             type="button"
+// // // // // //             onClick={() => navigate("/products")}
+// // // // // //             className="text-sm md:text-base text-foreground underline underline-offset-4 hover:text-primary transition-colors whitespace-nowrap"
+// // // // // //           >
+// // // // // //             View all products
+// // // // // //           </button>
 // // // // // //         </div>
 
-// // // // // //         {bestSellersLoading ? (
+// // // // // //         {/* Tabs */}
+// // // // // //         <div
+// // // // // //           role="tablist"
+// // // // // //           className="flex gap-3 mb-10 overflow-x-auto pb-1 -mx-4 px-4 md:mx-0 md:px-0"
+// // // // // //         >
+// // // // // //           {PRODUCT_TABS.map((tab) => (
+// // // // // //             <button
+// // // // // //               key={tab.id}
+// // // // // //               type="button"
+// // // // // //               role="tab"
+// // // // // //               aria-selected={activeTab === tab.id}
+// // // // // //               onClick={() => setActiveTab(tab.id)}
+// // // // // //               className={`whitespace-nowrap rounded-md border px-6 py-3 text-sm md:text-base font-medium transition-colors ${
+// // // // // //                 activeTab === tab.id
+// // // // // //                   ? "bg-foreground text-background border-foreground"
+// // // // // //                   : "bg-transparent text-foreground border-foreground/70 hover:bg-foreground/5"
+// // // // // //               }`}
+// // // // // //             >
+// // // // // //               {tab.label}
+// // // // // //             </button>
+// // // // // //           ))}
+// // // // // //         </div>
+
+// // // // // //         {catalogLoading ? (
 // // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
 // // // // // //             {Array.from({ length: 4 }).map((_, index) => (
 // // // // // //               <div
@@ -8459,9 +9605,12 @@
 // // // // // //               </div>
 // // // // // //             ))}
 // // // // // //           </div>
-// // // // // //         ) : bestSellers.length > 0 ? (
-// // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-// // // // // //             {bestSellers.map((product) => {
+// // // // // //         ) : visibleProducts.length > 0 ? (
+// // // // // //           <div
+// // // // // //             key={activeTab}
+// // // // // //             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 animate-fade-in"
+// // // // // //           >
+// // // // // //             {visibleProducts.map((product) => {
 // // // // // //               const primaryImage =
 // // // // // //                 product.images?.find((image) => image.is_primary) ??
 // // // // // //                 product.images?.[0];
@@ -8473,7 +9622,7 @@
 // // // // // //                   name={product.name}
 // // // // // //                   price={`Ksh ${Number(product.price).toFixed(2)}`}
 // // // // // //                   image={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
-// // // // // //                   category={categoryMap[product.category_id] ?? "Best Seller"}
+// // // // // //                   category={categoryMap[product.category_id] ?? activeTabConfig.label}
 // // // // // //                   stockQuantity={product.stock_quantity}
 // // // // // //                 />
 // // // // // //               );
@@ -8481,7 +9630,9 @@
 // // // // // //           </div>
 // // // // // //         ) : (
 // // // // // //           <p className="text-center text-muted-foreground py-12">
-// // // // // //             Best sellers are coming soon. Browse our full collection in the meantime.
+// // // // // //             {activeTab === "best-sellers"
+// // // // // //               ? "Best sellers are coming soon. Browse our full collection in the meantime."
+// // // // // //               : "No exclusive offers right now. Check back soon!"}
 // // // // // //           </p>
 // // // // // //         )}
 // // // // // //       </section>
@@ -8692,6 +9843,11 @@
 
 // // // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
+// // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+// // // // // // TODO: replace with the real category_id of your Exclusive Offers category
+// // // // // const EXCLUSIVE_OFFERS_CATEGORY_ID = "REPLACE-WITH-EXCLUSIVE-OFFERS-CATEGORY-ID";
+
 // // // // // const categoryMap: Record<string, string> = {
 // // // // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
 // // // // //   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies Best Sellerss",
@@ -8702,10 +9858,17 @@
 // // // // //   "400c5c7c-13dc-4fa8-88ca-96f71f45d2e5": "Herbal Medicated Oils",
 // // // // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // // // // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
-// // // // //   "d31bcff6-34c8-48d9-a6c4-621d3867436d": "Best Seller",
+// // // // //   [BEST_SELLER_CATEGORY_ID]: "Best Seller",
+// // // // //   [EXCLUSIVE_OFFERS_CATEGORY_ID]: "Exclusive Offers",
 // // // // // };
 
-// // // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+// // // // // // Tabs shown above the product grid
+// // // // // const PRODUCT_TABS = [
+// // // // //   { id: "best-sellers", label: "Best Sellers", categoryId: BEST_SELLER_CATEGORY_ID },
+// // // // //   { id: "exclusive-offers", label: "Exclusive Offers", categoryId: EXCLUSIVE_OFFERS_CATEGORY_ID },
+// // // // // ] as const;
+
+// // // // // type ProductTabId = (typeof PRODUCT_TABS)[number]["id"];
 
 // // // // // // Hero slides — each pairs a desktop/mobile image with its own text, CTA label + link.
 // // // // // const heroSlides: HeroSlide[] = [
@@ -8741,6 +9904,26 @@
 // // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 // // // // // };
 
+// // // // // // Forces every product image on the landing page into the 1122 x 1402 portrait
+// // // // // // ratio, whatever fixed heights ProductCard sets internally, so nothing is cropped.
+// // // // // const PRODUCT_IMAGE_FIX = [
+// // // // //   // the frame that wraps the <img>
+// // // // //   "[&_div:has(>img)]:!relative",
+// // // // //   "[&_div:has(>img)]:!h-auto",
+// // // // //   "[&_div:has(>img)]:!max-h-none",
+// // // // //   "[&_div:has(>img)]:!w-full",
+// // // // //   "[&_div:has(>img)]:!aspect-[1122/1402]",
+// // // // //   "[&_div:has(>img)]:!overflow-hidden",
+// // // // //   "[&_a:has(>img)]:!block",
+// // // // //   "[&_a:has(>img)]:!aspect-[1122/1402]",
+// // // // //   // the image itself
+// // // // //   "[&_img]:!h-full",
+// // // // //   "[&_img]:!w-full",
+// // // // //   "[&_img]:!max-h-none",
+// // // // //   "[&_img]:!object-cover",
+// // // // //   "[&_img]:!object-center",
+// // // // // ].join(" ");
+
 // // // // // // ── Page ──────────────────────────────────────────────────────────────────────
 
 // // // // // const Index = () => {
@@ -8751,8 +9934,11 @@
 // // // // //     text: string;
 // // // // //     type: "success" | "error";
 // // // // //   } | null>(null);
-// // // // //   const [bestSellers, setBestSellers] = useState<Product[]>([]);
-// // // // //   const [bestSellersLoading, setBestSellersLoading] = useState(true);
+
+// // // // //   // Product tabs (Best Sellers / Exclusive Offers)
+// // // // //   const [catalog, setCatalog] = useState<Product[]>([]);
+// // // // //   const [catalogLoading, setCatalogLoading] = useState(true);
+// // // // //   const [activeTab, setActiveTab] = useState<ProductTabId>("best-sellers");
 
 // // // // //   // ── Hero slider ───────────────────────────────────────────────────────────
 // // // // //   const [currentSlide, setCurrentSlide] = useState(0);
@@ -8765,35 +9951,31 @@
 // // // // //     return () => clearInterval(timer);
 // // // // //   }, [currentSlide]); // restarts the timer after a manual dot click
 
+// // // // //   // ── Products (fetched once; tabs filter client-side) ──────────────────────
 // // // // //   useEffect(() => {
 // // // // //     let cancelled = false;
 
-// // // // //     const loadBestSellers = async () => {
+// // // // //     const loadProducts = async () => {
 // // // // //       try {
 // // // // //         const products = await fetchProducts();
-// // // // //         if (!cancelled) {
-// // // // //           setBestSellers(
-// // // // //             products
-// // // // //               .filter(
-// // // // //                 (product) =>
-// // // // //                   product.is_active &&
-// // // // //                   product.category_id === BEST_SELLER_CATEGORY_ID
-// // // // //               )
-// // // // //               .slice(0, 8)
-// // // // //           );
-// // // // //         }
+// // // // //         if (!cancelled) setCatalog(products.filter((product) => product.is_active));
 // // // // //       } catch (error) {
-// // // // //         console.error("Error loading best sellers:", error);
+// // // // //         console.error("Error loading products:", error);
 // // // // //       } finally {
-// // // // //         if (!cancelled) setBestSellersLoading(false);
+// // // // //         if (!cancelled) setCatalogLoading(false);
 // // // // //       }
 // // // // //     };
 
-// // // // //     loadBestSellers();
+// // // // //     loadProducts();
 // // // // //     return () => {
 // // // // //       cancelled = true;
 // // // // //     };
 // // // // //   }, []);
+
+// // // // //   const activeTabConfig = PRODUCT_TABS.find((tab) => tab.id === activeTab)!;
+// // // // //   const visibleProducts = catalog
+// // // // //     .filter((product) => product.category_id === activeTabConfig.categoryId)
+// // // // //     .slice(0, 8);
 
 // // // // //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
@@ -8985,27 +10167,52 @@
 // // // // //         </div>
 // // // // //       </section>
 
-// // // // //       {/* Best Sellers */}
+// // // // //       {/* Best Sellers / Exclusive Offers */}
 // // // // //       <section className="container mx-auto px-4 py-16 md:py-20">
-// // // // //         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-// // // // //           <div>
-// // // // //             <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-3">
-// // // // //               Best Sellers
-// // // // //             </h2>
-// // // // //             <p className="text-lg text-muted-foreground">
-// // // // //               Customer favorites, all in one place
-// // // // //             </p>
-// // // // //           </div>
+// // // // //         <div className="flex items-start justify-between gap-4 mb-6">
+// // // // //           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+// // // // //             {activeTabConfig.label}
+// // // // //           </h2>
+// // // // //           <button
+// // // // //             type="button"
+// // // // //             onClick={() => navigate("/products")}
+// // // // //             className="text-sm md:text-base text-foreground underline underline-offset-4 hover:text-primary transition-colors whitespace-nowrap"
+// // // // //           >
+// // // // //             View all products
+// // // // //           </button>
 // // // // //         </div>
 
-// // // // //         {bestSellersLoading ? (
+// // // // //         {/* Tabs */}
+// // // // //         <div
+// // // // //           role="tablist"
+// // // // //           className="flex gap-3 mb-10 overflow-x-auto pb-1 -mx-4 px-4 md:mx-0 md:px-0"
+// // // // //         >
+// // // // //           {PRODUCT_TABS.map((tab) => (
+// // // // //             <button
+// // // // //               key={tab.id}
+// // // // //               type="button"
+// // // // //               role="tab"
+// // // // //               aria-selected={activeTab === tab.id}
+// // // // //               onClick={() => setActiveTab(tab.id)}
+// // // // //               className={`whitespace-nowrap rounded-md border px-6 py-3 text-sm md:text-base font-medium transition-colors ${
+// // // // //                 activeTab === tab.id
+// // // // //                   ? "bg-foreground text-background border-foreground"
+// // // // //                   : "bg-transparent text-foreground border-foreground/70 hover:bg-foreground/5"
+// // // // //               }`}
+// // // // //             >
+// // // // //               {tab.label}
+// // // // //             </button>
+// // // // //           ))}
+// // // // //         </div>
+
+// // // // //         {catalogLoading ? (
 // // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
 // // // // //             {Array.from({ length: 4 }).map((_, index) => (
 // // // // //               <div
 // // // // //                 key={index}
 // // // // //                 className="rounded-xl border border-border bg-card animate-pulse"
 // // // // //               >
-// // // // //                 <div className="aspect-[4/3] rounded-t-xl bg-muted" />
+// // // // //                 <div className="aspect-[1122/1402] rounded-t-xl bg-muted" />
 // // // // //                 <div className="p-5 space-y-3">
 // // // // //                   <div className="h-3 w-1/3 rounded bg-muted" />
 // // // // //                   <div className="h-4 w-3/4 rounded bg-muted" />
@@ -9014,9 +10221,12 @@
 // // // // //               </div>
 // // // // //             ))}
 // // // // //           </div>
-// // // // //         ) : bestSellers.length > 0 ? (
-// // // // //           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-// // // // //             {bestSellers.map((product) => {
+// // // // //         ) : visibleProducts.length > 0 ? (
+// // // // //           <div
+// // // // //             key={activeTab}
+// // // // //             className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 animate-fade-in ${PRODUCT_IMAGE_FIX}`}
+// // // // //           >
+// // // // //             {visibleProducts.map((product) => {
 // // // // //               const primaryImage =
 // // // // //                 product.images?.find((image) => image.is_primary) ??
 // // // // //                 product.images?.[0];
@@ -9028,7 +10238,7 @@
 // // // // //                   name={product.name}
 // // // // //                   price={`Ksh ${Number(product.price).toFixed(2)}`}
 // // // // //                   image={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
-// // // // //                   category={categoryMap[product.category_id] ?? "Best Seller"}
+// // // // //                   category={categoryMap[product.category_id] ?? activeTabConfig.label}
 // // // // //                   stockQuantity={product.stock_quantity}
 // // // // //                 />
 // // // // //               );
@@ -9036,7 +10246,9 @@
 // // // // //           </div>
 // // // // //         ) : (
 // // // // //           <p className="text-center text-muted-foreground py-12">
-// // // // //             Best sellers are coming soon. Browse our full collection in the meantime.
+// // // // //             {activeTab === "best-sellers"
+// // // // //               ? "Best sellers are coming soon. Browse our full collection in the meantime."
+// // // // //               : "No exclusive offers right now. Check back soon!"}
 // // // // //           </p>
 // // // // //         )}
 // // // // //       </section>
@@ -9308,6 +10520,26 @@
 // // // //   return `https://via.placeholder.com/300x300/4F46E5/white?text=${encodedName}`;
 // // // // };
 
+// // // // // Forces every product image on the landing page into the 1122 x 1402 portrait
+// // // // // ratio, whatever fixed heights ProductCard sets internally, so nothing is cropped.
+// // // // const PRODUCT_IMAGE_FIX = [
+// // // //   // the frame that wraps the <img>
+// // // //   "[&_div:has(>img)]:!relative",
+// // // //   "[&_div:has(>img)]:!h-auto",
+// // // //   "[&_div:has(>img)]:!max-h-none",
+// // // //   "[&_div:has(>img)]:!w-full",
+// // // //   "[&_div:has(>img)]:!aspect-[1122/1402]",
+// // // //   "[&_div:has(>img)]:!overflow-hidden",
+// // // //   "[&_a:has(>img)]:!block",
+// // // //   "[&_a:has(>img)]:!aspect-[1122/1402]",
+// // // //   // the image itself
+// // // //   "[&_img]:!h-full",
+// // // //   "[&_img]:!w-full",
+// // // //   "[&_img]:!max-h-none",
+// // // //   "[&_img]:!object-cover",
+// // // //   "[&_img]:!object-center",
+// // // // ].join(" ");
+
 // // // // // ── Page ──────────────────────────────────────────────────────────────────────
 
 // // // // const Index = () => {
@@ -9551,8 +10783,8 @@
 // // // //         </div>
 // // // //       </section>
 
-// // // //       {/* Best Sellers / Exclusive Offers */}
-// // // //       <section className="container mx-auto px-4 py-16 md:py-20">
+// // // //       {/* Best Sellers / Exclusive Offers — full width on large screens */}
+// // // //       <section className="w-full px-4 md:px-8 lg:px-12 xl:px-20 py-16 md:py-20">
 // // // //         <div className="flex items-start justify-between gap-4 mb-6">
 // // // //           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
 // // // //             {activeTabConfig.label}
@@ -9596,7 +10828,7 @@
 // // // //                 key={index}
 // // // //                 className="rounded-xl border border-border bg-card animate-pulse"
 // // // //               >
-// // // //                 <div className="aspect-[4/3] rounded-t-xl bg-muted" />
+// // // //                 <div className="aspect-[1122/1402] rounded-t-xl bg-muted" />
 // // // //                 <div className="p-5 space-y-3">
 // // // //                   <div className="h-3 w-1/3 rounded bg-muted" />
 // // // //                   <div className="h-4 w-3/4 rounded bg-muted" />
@@ -9608,7 +10840,7 @@
 // // // //         ) : visibleProducts.length > 0 ? (
 // // // //           <div
 // // // //             key={activeTab}
-// // // //             className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 animate-fade-in"
+// // // //             className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 animate-fade-in ${PRODUCT_IMAGE_FIX}`}
 // // // //           >
 // // // //             {visibleProducts.map((product) => {
 // // // //               const primaryImage =
@@ -9802,23 +11034,23 @@
 // // // // };
 
 // // // // export default Index;
-// // // import { useState, useEffect } from "react";
+// // // import { useState, useEffect, useRef } from "react";
 // // // import { useNavigate } from "react-router-dom";
 // // // import { Button } from "@/components/ui/button";
 // // // import { Input } from "@/components/ui/input";
-// // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
+// // // import { Leaf, Shield, Heart, Sparkles, ArrowRight, ArrowLeft, Star, Quote } from "lucide-react";
 // // // import Header from "@/components/Header";
 // // // import Footer from "@/components/Footer";
 // // // import ProductCard from "@/components/ProductCard";
 // // // import CategoryCard from "@/components/CategoryCard";
-// // // import heroImage from "@/assets/sdgfhgjhkj.png";
-// // // import heroImagemobile from "@/assets/gmo.png";
+// // // import heroImage from "@/assets/orghero.png";
+// // // import heroImagemobile from "@/assets/orgheromb.png";
 // // // import allProducts from "@/assets/vcvc.jpg";
 // // // import allProductsMobile from "@/assets/vcvc.jpg";
 // // // import mens from "@/assets/mens.jpeg";
 // // // import natural from "@/assets/natural.jpeg";
 // // // import nutritional from "@/assets/nutritional.jpeg";
-// // // import organicherbs from "@/assets/organic herbs.jpeg";
+// // // import organicherbs from "@/assets/organihome.jpg";
 // // // import weight from "@/assets/weight.jpeg";
 // // // import Herbaloil from "@/assets/herbal oil.jpeg";
 // // // import Yoni from "@/assets/yoni.jpeg";
@@ -9844,6 +11076,11 @@
 // // // // ── Constants ─────────────────────────────────────────────────────────────────
 
 // // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
+
+// // // const ORGANIC_HERBS_CATEGORY_ID = "c424a6ed-d2bf-496c-bac9-e1b7ec189233";
+
+// // // // TODO: change if your product detail page uses a different route
+// // // const getProductPath = (id: string | number) => `/product/${id}`;
 
 // // // // TODO: replace with the real category_id of your Exclusive Offers category
 // // // const EXCLUSIVE_OFFERS_CATEGORY_ID = "REPLACE-WITH-EXCLUSIVE-OFFERS-CATEGORY-ID";
@@ -9976,6 +11213,33 @@
 // // //   const visibleProducts = catalog
 // // //     .filter((product) => product.category_id === activeTabConfig.categoryId)
 // // //     .slice(0, 8);
+
+// // //   // ── Organic Herbs slider ──────────────────────────────────────────────────
+// // //   const herbsTrackRef = useRef<HTMLDivElement>(null);
+// // //   const [herbsCanPrev, setHerbsCanPrev] = useState(false);
+// // //   const [herbsCanNext, setHerbsCanNext] = useState(false);
+// // //   const herbProducts = catalog.filter(
+// // //     (product) => product.category_id === ORGANIC_HERBS_CATEGORY_ID
+// // //   );
+
+// // //   const updateHerbsArrows = () => {
+// // //     const el = herbsTrackRef.current;
+// // //     if (!el) return;
+// // //     setHerbsCanPrev(el.scrollLeft > 4);
+// // //     setHerbsCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+// // //   };
+
+// // //   const scrollHerbs = (direction: 1 | -1) => {
+// // //     const el = herbsTrackRef.current;
+// // //     if (!el) return;
+// // //     el.scrollBy({ left: direction * el.clientWidth, behavior: "smooth" });
+// // //   };
+
+// // //   useEffect(() => {
+// // //     updateHerbsArrows();
+// // //     window.addEventListener("resize", updateHerbsArrows);
+// // //     return () => window.removeEventListener("resize", updateHerbsArrows);
+// // //   }, [catalog]);
 
 // // //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
@@ -10167,8 +11431,8 @@
 // // //         </div>
 // // //       </section>
 
-// // //       {/* Best Sellers / Exclusive Offers */}
-// // //       <section className="container mx-auto px-4 py-16 md:py-20">
+// // //       {/* Best Sellers / Exclusive Offers — full width on large screens */}
+// // //       <section className="w-full px-4 md:px-8 lg:px-12 xl:px-20 py-16 md:py-20">
 // // //         <div className="flex items-start justify-between gap-4 mb-6">
 // // //           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
 // // //             {activeTabConfig.label}
@@ -10254,7 +11518,7 @@
 // // //       </section>
 
 // // //       {/* Shop By Lifestyle */}
-// // //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
+// // //       {/* <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
 // // //         <div className="text-center mb-12 animate-fade-in">
 // // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
 // // //             Shop By Lifestyle
@@ -10269,6 +11533,128 @@
 // // //               <CategoryCard {...category} />
 // // //             </div>
 // // //           ))}
+// // //         </div>
+// // //       </section> */}
+
+// // //       {/* Shop Organic Herbs — image left, product slider right */}
+// // //       <section className="w-full px-4 md:px-8 lg:px-12 xl:px-20 py-16 md:py-20">
+// // //         <div className="flex items-end justify-between gap-4 mb-6">
+// // //           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+// // //             Shop Organic Herbs
+// // //           </h2>
+// // //           <button
+// // //             type="button"
+// // //             onClick={() => navigate("/products/organic-herbs")}
+// // //             className="text-sm md:text-base text-foreground underline underline-offset-4 hover:text-primary transition-colors whitespace-nowrap"
+// // //           >
+// // //             View all
+// // //           </button>
+// // //         </div>
+
+// // //         <div className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-xl border border-border">
+// // //           {/* Left: category image */}
+// // //           <a
+// // //             href="/products/organic-herbs"
+// // //             aria-label="Shop all organic herbs"
+// // //             className="relative block aspect-[4/3] lg:aspect-auto"
+// // //           >
+// // //             <img
+// // //               src={organicherbs}
+// // //               alt="Organic herbs"
+// // //               className="absolute inset-0 h-full w-full object-cover"
+// // //             />
+// // //           </a>
+
+// // //           {/* Right: slider of Organic Herbs products */}
+// // //           <div className="relative bg-secondary/40 p-4 md:p-8 flex items-center min-w-0">
+// // //             {catalogLoading ? (
+// // //               <div className="grid w-full grid-cols-2 gap-4 animate-pulse">
+// // //                 {Array.from({ length: 2 }).map((_, index) => (
+// // //                   <div key={index} className="bg-card">
+// // //                     <div className="aspect-[1122/1402] bg-muted" />
+// // //                     <div className="p-5 space-y-3">
+// // //                       <div className="h-3 w-1/3 rounded bg-muted" />
+// // //                       <div className="h-4 w-3/4 rounded bg-muted" />
+// // //                       <div className="h-10 w-full rounded bg-muted" />
+// // //                     </div>
+// // //                   </div>
+// // //                 ))}
+// // //               </div>
+// // //             ) : herbProducts.length > 0 ? (
+// // //               <div className="relative w-full min-w-0">
+// // //                 <div
+// // //                   ref={herbsTrackRef}
+// // //                   onScroll={updateHerbsArrows}
+// // //                   className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+// // //                 >
+// // //                   {herbProducts.map((product) => {
+// // //                     const primaryImage =
+// // //                       product.images?.find((image) => image.is_primary) ??
+// // //                       product.images?.[0];
+
+// // //                     return (
+// // //                       <article
+// // //                         key={product.product_id}
+// // //                         className="snap-start shrink-0 basis-[85%] sm:basis-[calc((100%-1rem)/2)] flex flex-col bg-card"
+// // //                       >
+// // //                         <a
+// // //                           href={getProductPath(product.product_id)}
+// // //                           className="block aspect-[1122/1402] w-full overflow-hidden bg-muted"
+// // //                         >
+// // //                           <img
+// // //                             src={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+// // //                             alt={product.name}
+// // //                             loading="lazy"
+// // //                             className="h-full w-full object-cover"
+// // //                           />
+// // //                         </a>
+// // //                         <div className="flex flex-1 flex-col gap-1 p-5">
+// // //                           <p className="text-sm text-muted-foreground">
+// // //                             {`Ksh ${Number(product.price).toFixed(2)}`}
+// // //                           </p>
+// // //                           <h3 className="line-clamp-2 text-lg font-heading font-semibold text-foreground">
+// // //                             {product.name}
+// // //                           </h3>
+// // //                           <Button
+// // //                             variant="outline"
+// // //                             className="mt-auto w-full"
+// // //                             onClick={() => navigate(getProductPath(product.product_id))}
+// // //                           >
+// // //                             View product
+// // //                           </Button>
+// // //                         </div>
+// // //                       </article>
+// // //                     );
+// // //                   })}
+// // //                 </div>
+
+// // //                 {herbsCanPrev && (
+// // //                   <button
+// // //                     type="button"
+// // //                     aria-label="Previous products"
+// // //                     onClick={() => scrollHerbs(-1)}
+// // //                     className="absolute left-2 top-1/3 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-md transition-colors hover:bg-secondary"
+// // //                   >
+// // //                     <ArrowLeft className="h-5 w-5" />
+// // //                   </button>
+// // //                 )}
+// // //                 {herbsCanNext && (
+// // //                   <button
+// // //                     type="button"
+// // //                     aria-label="Next products"
+// // //                     onClick={() => scrollHerbs(1)}
+// // //                     className="absolute right-2 top-1/3 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-md transition-colors hover:bg-secondary"
+// // //                   >
+// // //                     <ArrowRight className="h-5 w-5" />
+// // //                   </button>
+// // //                 )}
+// // //               </div>
+// // //             ) : (
+// // //               <p className="w-full text-center text-muted-foreground py-12">
+// // //                 Organic herbs are coming soon.
+// // //               </p>
+// // //             )}
+// // //           </div>
 // // //         </div>
 // // //       </section>
 
@@ -10418,23 +11804,23 @@
 // // // };
 
 // // // export default Index;
-// // import { useState, useEffect } from "react";
+// // import { useState, useEffect, useRef } from "react";
 // // import { useNavigate } from "react-router-dom";
 // // import { Button } from "@/components/ui/button";
 // // import { Input } from "@/components/ui/input";
-// // import { Leaf, Shield, Heart, Sparkles, ArrowRight, Star, Quote } from "lucide-react";
+// // import { Leaf, Shield, Heart, Sparkles, ArrowRight, ArrowLeft, Star, Quote } from "lucide-react";
 // // import Header from "@/components/Header";
 // // import Footer from "@/components/Footer";
 // // import ProductCard from "@/components/ProductCard";
 // // import CategoryCard from "@/components/CategoryCard";
-// // import heroImage from "@/assets/sdgfhgjhkj.png";
-// // import heroImagemobile from "@/assets/gmo.png";
+// // import heroImage from "@/assets/orghero.png";
+// // import heroImagemobile from "@/assets/orgheromb.png";
 // // import allProducts from "@/assets/vcvc.jpg";
 // // import allProductsMobile from "@/assets/vcvc.jpg";
 // // import mens from "@/assets/mens.jpeg";
 // // import natural from "@/assets/natural.jpeg";
 // // import nutritional from "@/assets/nutritional.jpeg";
-// // import organicherbs from "@/assets/organic herbs.jpeg";
+// // import organicherbs from "@/assets/organihome.jpg";
 // // import weight from "@/assets/weight.jpeg";
 // // import Herbaloil from "@/assets/herbal oil.jpeg";
 // // import Yoni from "@/assets/yoni.jpeg";
@@ -10461,12 +11847,17 @@
 
 // // const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
-// // // TODO: replace with the real category_id of your Exclusive Offers category
-// // const EXCLUSIVE_OFFERS_CATEGORY_ID = "REPLACE-WITH-EXCLUSIVE-OFFERS-CATEGORY-ID";
+// // const ORGANIC_HERBS_CATEGORY_ID = "c424a6ed-d2bf-496c-bac9-e1b7ec189233";
+
+// // // TODO: change if your product detail page uses a different route
+// // const getProductPath = (id: string | number) => `/product/${id}`;
+
+// // // Exclusive Offers tab shows the gummies on sale (gummies category)
+// // const EXCLUSIVE_OFFERS_CATEGORY_ID = "7c095542-a466-4305-a9b0-eec89d30dd65";
 
 // // const categoryMap: Record<string, string> = {
 // //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
-// //   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies Best Sellerss",
+// //   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies",
 // //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
 // //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
 // //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
@@ -10475,7 +11866,6 @@
 // //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 // //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
 // //   [BEST_SELLER_CATEGORY_ID]: "Best Seller",
-// //   [EXCLUSIVE_OFFERS_CATEGORY_ID]: "Exclusive Offers",
 // // };
 
 // // // Tabs shown above the product grid
@@ -10491,14 +11881,13 @@
 // //   {
 // //     desktop: heroImage,
 // //     mobile: heroImagemobile,
-// //     alt: "Gummies clearance sale",
-// //     label: "SHOP GUMMIES",
-// //     to: "/products/gummies-clearance-sales",
-// //     badge: "Clearance Sale",
-// //     title: "Gummies Clearance Sale",
-// //     subtitle: "Prices have dropped. Grab your favourite gummies while stock lasts.",
-// //     oldPrice: "Ksh 1,000",
-// //     newPrice: "Ksh 800",
+// //     alt: "Organic Bloom natural wellness products",
+// //     label: "SHOP NOW",
+// //     to: "/products",
+// //     badge: "Organic Bloom · Kenya",
+// //     title: "Wellness, the Natural Way",
+// //     subtitle:
+// //       "Certified organic, non-GMO remedies, supplements and skincare, from herbal oils to pure honey, made to support your wellness journey.",
 // //   },
 // //   // {
 // //   //   desktop: allProducts,
@@ -10592,6 +11981,33 @@
 // //   const visibleProducts = catalog
 // //     .filter((product) => product.category_id === activeTabConfig.categoryId)
 // //     .slice(0, 8);
+
+// //   // ── Organic Herbs slider ──────────────────────────────────────────────────
+// //   const herbsTrackRef = useRef<HTMLDivElement>(null);
+// //   const [herbsCanPrev, setHerbsCanPrev] = useState(false);
+// //   const [herbsCanNext, setHerbsCanNext] = useState(false);
+// //   const herbProducts = catalog.filter(
+// //     (product) => product.category_id === ORGANIC_HERBS_CATEGORY_ID
+// //   );
+
+// //   const updateHerbsArrows = () => {
+// //     const el = herbsTrackRef.current;
+// //     if (!el) return;
+// //     setHerbsCanPrev(el.scrollLeft > 4);
+// //     setHerbsCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+// //   };
+
+// //   const scrollHerbs = (direction: 1 | -1) => {
+// //     const el = herbsTrackRef.current;
+// //     if (!el) return;
+// //     el.scrollBy({ left: direction * el.clientWidth, behavior: "smooth" });
+// //   };
+
+// //   useEffect(() => {
+// //     updateHerbsArrows();
+// //     window.addEventListener("resize", updateHerbsArrows);
+// //     return () => window.removeEventListener("resize", updateHerbsArrows);
+// //   }, [catalog]);
 
 // //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
@@ -10723,10 +12139,24 @@
 // //           ))}
 // //         </div>
 
-// //         {/* Gradient overlay — stronger at the bottom-left so text stays readable */}
-// //         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10 pointer-events-none" />
+// //         {/* Text-area gradient: soft glow in the bottom-left only, fading to nothing */}
+// //         <div
+// //           className="absolute inset-0 pointer-events-none md:hidden"
+// //           style={{
+// //             background:
+// //               "radial-gradient(ellipse 130% 65% at 50% 100%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0) 100%)",
+// //           }}
+// //         />
+// //         <div
+// //           className="absolute inset-0 pointer-events-none hidden md:block"
+// //           style={{
+// //             background:
+// //               "radial-gradient(ellipse 65% 85% at 0% 100%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0) 100%)",
+// //           }}
+// //         />
 
 // //         {/* Slide indicators */}
+// //         {heroSlides.length > 1 && (
 // //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
 // //           {heroSlides.map((_, index) => (
 // //             <button
@@ -10739,6 +12169,7 @@
 // //             />
 // //           ))}
 // //         </div>
+// //         )}
 
 // //         {/* Content */}
 // //         <div className="relative container mx-auto px-4 lg:mx-0 lg:max-w-none lg:px-12 xl:px-20 h-full flex items-end pb-14 md:pb-16 pointer-events-none">
@@ -10870,7 +12301,7 @@
 // //       </section>
 
 // //       {/* Shop By Lifestyle */}
-// //       <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
+// //       {/* <section className="container mx-auto px-4 py-20 bg-gradient-to-b from-transparent to-secondary/30">
 // //         <div className="text-center mb-12 animate-fade-in">
 // //           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
 // //             Shop By Lifestyle
@@ -10885,6 +12316,128 @@
 // //               <CategoryCard {...category} />
 // //             </div>
 // //           ))}
+// //         </div>
+// //       </section> */}
+
+// //       {/* Shop Organic Herbs — image left, product slider right */}
+// //       <section className="w-full px-4 md:px-8 lg:px-12 xl:px-20 py-16 md:py-20">
+// //         <div className="flex items-end justify-between gap-4 mb-6">
+// //           <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+// //             Shop Organic Herbs
+// //           </h2>
+// //           <button
+// //             type="button"
+// //             onClick={() => navigate("/products/organic-herbs")}
+// //             className="text-sm md:text-base text-foreground underline underline-offset-4 hover:text-primary transition-colors whitespace-nowrap"
+// //           >
+// //             View all
+// //           </button>
+// //         </div>
+
+// //         <div className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-xl border border-border">
+// //           {/* Left: category image */}
+// //           <a
+// //             href="/products/organic-herbs"
+// //             aria-label="Shop all organic herbs"
+// //             className="relative block aspect-[4/3] lg:aspect-auto"
+// //           >
+// //             <img
+// //               src={organicherbs}
+// //               alt="Organic herbs"
+// //               className="absolute inset-0 h-full w-full object-cover"
+// //             />
+// //           </a>
+
+// //           {/* Right: slider of Organic Herbs products */}
+// //           <div className="relative bg-secondary/40 p-4 md:p-8 flex items-center min-w-0">
+// //             {catalogLoading ? (
+// //               <div className="grid w-full grid-cols-2 gap-4 animate-pulse">
+// //                 {Array.from({ length: 2 }).map((_, index) => (
+// //                   <div key={index} className="bg-card">
+// //                     <div className="aspect-[1122/1402] bg-muted" />
+// //                     <div className="p-5 space-y-3">
+// //                       <div className="h-3 w-1/3 rounded bg-muted" />
+// //                       <div className="h-4 w-3/4 rounded bg-muted" />
+// //                       <div className="h-10 w-full rounded bg-muted" />
+// //                     </div>
+// //                   </div>
+// //                 ))}
+// //               </div>
+// //             ) : herbProducts.length > 0 ? (
+// //               <div className="relative w-full min-w-0">
+// //                 <div
+// //                   ref={herbsTrackRef}
+// //                   onScroll={updateHerbsArrows}
+// //                   className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+// //                 >
+// //                   {herbProducts.map((product) => {
+// //                     const primaryImage =
+// //                       product.images?.find((image) => image.is_primary) ??
+// //                       product.images?.[0];
+
+// //                     return (
+// //                       <article
+// //                         key={product.product_id}
+// //                         className="snap-start shrink-0 basis-[85%] sm:basis-[calc((100%-1rem)/2)] flex flex-col bg-card"
+// //                       >
+// //                         <a
+// //                           href={getProductPath(product.product_id)}
+// //                           className="block aspect-[1122/1402] w-full overflow-hidden bg-muted"
+// //                         >
+// //                           <img
+// //                             src={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+// //                             alt={product.name}
+// //                             loading="lazy"
+// //                             className="h-full w-full object-cover"
+// //                           />
+// //                         </a>
+// //                         <div className="flex flex-1 flex-col gap-1 p-5">
+// //                           <p className="text-sm text-muted-foreground">
+// //                             {`Ksh ${Number(product.price).toFixed(2)}`}
+// //                           </p>
+// //                           <h3 className="line-clamp-2 text-lg font-heading font-semibold text-foreground">
+// //                             {product.name}
+// //                           </h3>
+// //                           <Button
+// //                             variant="outline"
+// //                             className="mt-auto w-full"
+// //                             onClick={() => navigate(getProductPath(product.product_id))}
+// //                           >
+// //                             View product
+// //                           </Button>
+// //                         </div>
+// //                       </article>
+// //                     );
+// //                   })}
+// //                 </div>
+
+// //                 {herbsCanPrev && (
+// //                   <button
+// //                     type="button"
+// //                     aria-label="Previous products"
+// //                     onClick={() => scrollHerbs(-1)}
+// //                     className="absolute left-2 top-1/3 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-md transition-colors hover:bg-secondary"
+// //                   >
+// //                     <ArrowLeft className="h-5 w-5" />
+// //                   </button>
+// //                 )}
+// //                 {herbsCanNext && (
+// //                   <button
+// //                     type="button"
+// //                     aria-label="Next products"
+// //                     onClick={() => scrollHerbs(1)}
+// //                     className="absolute right-2 top-1/3 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background shadow-md transition-colors hover:bg-secondary"
+// //                   >
+// //                     <ArrowRight className="h-5 w-5" />
+// //                   </button>
+// //                 )}
+// //               </div>
+// //             ) : (
+// //               <p className="w-full text-center text-muted-foreground py-12">
+// //                 Organic herbs are coming soon.
+// //               </p>
+// //             )}
+// //           </div>
 // //         </div>
 // //       </section>
 
@@ -11035,7 +12588,7 @@
 
 // // export default Index;
 // import { useState, useEffect, useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+// import { useNavigate, Link } from "react-router-dom";
 // import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 // import { Leaf, Shield, Heart, Sparkles, ArrowRight, ArrowLeft, Star, Quote } from "lucide-react";
@@ -11079,15 +12632,18 @@
 
 // const ORGANIC_HERBS_CATEGORY_ID = "c424a6ed-d2bf-496c-bac9-e1b7ec189233";
 
+// // Auto-moving "all products" slider: speed in pixels per second
+// const MARQUEE_SPEED = 45;
+
 // // TODO: change if your product detail page uses a different route
 // const getProductPath = (id: string | number) => `/product/${id}`;
 
-// // TODO: replace with the real category_id of your Exclusive Offers category
-// const EXCLUSIVE_OFFERS_CATEGORY_ID = "REPLACE-WITH-EXCLUSIVE-OFFERS-CATEGORY-ID";
+// // Exclusive Offers tab shows the gummies on sale (gummies category)
+// const EXCLUSIVE_OFFERS_CATEGORY_ID = "7c095542-a466-4305-a9b0-eec89d30dd65";
 
 // const categoryMap: Record<string, string> = {
 //   "fc0ef0fa-db5d-4a32-b051-c90d0cabf525": "Nutritional Supplements",
-//   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies Best Sellerss",
+//   "7c095542-a466-4305-a9b0-eec89d30dd65": "Gummies",
 //   "261b45ec-a4c0-4e44-92b9-9ad4c2ca1515": "Natural Skin Care",
 //   "6ec176fc-cac4-40ee-b1d1-249e396632a8": "Mens Boosters & Fertility Support",
 //   "f9d5401f-a4f8-46f0-a0f0-2f409287d44a": "Yoni & Female Fertility Care",
@@ -11096,7 +12652,6 @@
 //   "c424a6ed-d2bf-496c-bac9-e1b7ec189233": "Organic Herbs",
 //   "360c510f-8b36-43c0-89bf-81c96a0ea885": "Pure Honey & Honey Products",
 //   [BEST_SELLER_CATEGORY_ID]: "Best Seller",
-//   [EXCLUSIVE_OFFERS_CATEGORY_ID]: "Exclusive Offers",
 // };
 
 // // Tabs shown above the product grid
@@ -11112,14 +12667,13 @@
 //   {
 //     desktop: heroImage,
 //     mobile: heroImagemobile,
-//     alt: "Gummies clearance sale",
-//     label: "SHOP GUMMIES",
-//     to: "/products/gummies-clearance-sales",
-//     badge: "Clearance Sale",
-//     title: "Gummies Clearance Sale",
-//     subtitle: "Prices have dropped. Grab your favourite gummies while stock lasts.",
-//     oldPrice: "Ksh 1,000",
-//     newPrice: "Ksh 800",
+//     alt: "Organic Bloom natural wellness products",
+//     label: "SHOP NOW",
+//     to: "/products",
+//     badge: "Organic Bloom · Kenya",
+//     title: "Wellness, the Natural Way",
+//     subtitle:
+//       "Certified organic, non-GMO remedies, supplements and skincare, from herbal oils to pure honey, made to support your wellness journey.",
 //   },
 //   // {
 //   //   desktop: allProducts,
@@ -11240,6 +12794,43 @@
 //     window.addEventListener("resize", updateHerbsArrows);
 //     return () => window.removeEventListener("resize", updateHerbsArrows);
 //   }, [catalog]);
+
+//   // ── All products auto-moving slider ───────────────────────────────────────
+//   const marqueeTrackRef = useRef<HTMLDivElement>(null);
+//   const marqueeOffsetRef = useRef(0);
+//   const marqueePausedRef = useRef(false);
+
+//   // Repeat the list until one "half" is wide enough to fill any screen, then
+//   // render it twice so the loop is seamless.
+//   const marqueeBase =
+//     catalog.length === 0
+//       ? []
+//       : Array.from({ length: Math.ceil(14 / catalog.length) }, () => catalog).flat();
+//   const marqueeLoop = [...marqueeBase, ...marqueeBase];
+
+//   useEffect(() => {
+//     const track = marqueeTrackRef.current;
+//     if (!track || marqueeBase.length === 0) return;
+//     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+//     let raf = 0;
+//     let last = performance.now();
+
+//     const tick = (now: number) => {
+//       const dt = Math.min(now - last, 64); // ignore long gaps (e.g. background tab)
+//       last = now;
+//       if (!marqueePausedRef.current) {
+//         const half = track.scrollWidth / 2;
+//         marqueeOffsetRef.current += (MARQUEE_SPEED * dt) / 1000;
+//         if (marqueeOffsetRef.current >= half) marqueeOffsetRef.current -= half;
+//         track.style.transform = `translate3d(${-marqueeOffsetRef.current}px, 0, 0)`;
+//       }
+//       raf = requestAnimationFrame(tick);
+//     };
+
+//     raf = requestAnimationFrame(tick);
+//     return () => cancelAnimationFrame(raf);
+//   }, [marqueeBase.length]);
 
 //   // ── Newsletter ──────────────────────────────────────────────────────────────
 
@@ -11371,10 +12962,24 @@
 //           ))}
 //         </div>
 
-//         {/* Gradient overlay — stronger at the bottom-left so text stays readable */}
-//         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10 pointer-events-none" />
+//         {/* Text-area gradient: soft glow in the bottom-left only, fading to nothing */}
+//         <div
+//           className="absolute inset-0 pointer-events-none md:hidden"
+//           style={{
+//             background:
+//               "radial-gradient(ellipse 130% 65% at 50% 100%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.4) 45%, rgba(0,0,0,0) 100%)",
+//           }}
+//         />
+//         <div
+//           className="absolute inset-0 pointer-events-none hidden md:block"
+//           style={{
+//             background:
+//               "radial-gradient(ellipse 65% 85% at 0% 100%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0) 100%)",
+//           }}
+//         />
 
 //         {/* Slide indicators */}
+//         {heroSlides.length > 1 && (
 //         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
 //           {heroSlides.map((_, index) => (
 //             <button
@@ -11387,6 +12992,7 @@
 //             />
 //           ))}
 //         </div>
+//         )}
 
 //         {/* Content */}
 //         <div className="relative container mx-auto px-4 lg:mx-0 lg:max-w-none lg:px-12 xl:px-20 h-full flex items-end pb-14 md:pb-16 pointer-events-none">
@@ -11658,6 +13264,67 @@
 //         </div>
 //       </section>
 
+//       {/* All Products — auto-moving slider */}
+//       {catalog.length > 0 && (
+//         <section className="w-full py-16 md:py-20">
+//           <div className="flex items-end justify-between gap-4 mb-8 px-4 md:px-8 lg:px-12 xl:px-20">
+//             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+//               Explore All Products
+//             </h2>
+//             <button
+//               type="button"
+//               onClick={() => navigate("/products")}
+//               className="text-sm md:text-base text-foreground underline underline-offset-4 hover:text-primary transition-colors whitespace-nowrap"
+//             >
+//               View all products
+//             </button>
+//           </div>
+
+//           <div
+//             className="overflow-hidden motion-reduce:overflow-x-auto [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]"
+//             onMouseEnter={() => { marqueePausedRef.current = true; }}
+//             onMouseLeave={() => { marqueePausedRef.current = false; }}
+//             onTouchStart={() => { marqueePausedRef.current = true; }}
+//             onTouchEnd={() => { marqueePausedRef.current = false; }}
+//           >
+//             <div ref={marqueeTrackRef} className="flex w-max will-change-transform">
+//               {marqueeLoop.map((product, index) => {
+//                 const primaryImage =
+//                   product.images?.find((image) => image.is_primary) ??
+//                   product.images?.[0];
+//                 const isDuplicate = index >= marqueeBase.length;
+
+//                 return (
+//                   <Link
+//                     key={`${product.product_id}-${index}`}
+//                     to={getProductPath(product.product_id)}
+//                     aria-hidden={isDuplicate}
+//                     tabIndex={isDuplicate ? -1 : 0}
+//                     className="group mr-4 block w-[200px] shrink-0 sm:w-[240px] lg:w-[280px]"
+//                   >
+//                     <div className="aspect-[1122/1402] w-full overflow-hidden rounded-xl bg-muted">
+//                       <img
+//                         src={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+//                         alt={isDuplicate ? "" : product.name}
+//                         loading="lazy"
+//                         draggable={false}
+//                         className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+//                       />
+//                     </div>
+//                     <h3 className="mt-3 line-clamp-1 font-heading font-semibold text-foreground">
+//                       {product.name}
+//                     </h3>
+//                     <p className="text-sm text-muted-foreground">
+//                       {`Ksh ${Number(product.price).toFixed(2)}`}
+//                     </p>
+//                   </Link>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         </section>
+//       )}
+
 //       {/* Why Choose Organic Bloom */}
 //       <section className="container mx-auto px-4 py-20">
 //         <div className="text-center mb-16 animate-fade-in">
@@ -11805,7 +13472,7 @@
 
 // export default Index;
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Leaf, Shield, Heart, Sparkles, ArrowRight, ArrowLeft, Star, Quote } from "lucide-react";
@@ -11848,6 +13515,9 @@ interface HeroSlide {
 const BEST_SELLER_CATEGORY_ID = "d31bcff6-34c8-48d9-a6c4-621d3867436d";
 
 const ORGANIC_HERBS_CATEGORY_ID = "c424a6ed-d2bf-496c-bac9-e1b7ec189233";
+
+// Auto-moving "all products" slider: speed in pixels per second
+const MARQUEE_SPEED = 45;
 
 // TODO: change if your product detail page uses a different route
 const getProductPath = (id: string | number) => `/product/${id}`;
@@ -12008,6 +13678,43 @@ const Index = () => {
     window.addEventListener("resize", updateHerbsArrows);
     return () => window.removeEventListener("resize", updateHerbsArrows);
   }, [catalog]);
+
+  // ── All products auto-moving slider ───────────────────────────────────────
+  const marqueeTrackRef = useRef<HTMLDivElement>(null);
+  const marqueeOffsetRef = useRef(0);
+  const marqueePausedRef = useRef(false);
+
+  // Repeat the list until one "half" is wide enough to fill any screen, then
+  // render it twice so the loop is seamless.
+  const marqueeBase =
+    catalog.length === 0
+      ? []
+      : Array.from({ length: Math.ceil(14 / catalog.length) }, () => catalog).flat();
+  const marqueeLoop = [...marqueeBase, ...marqueeBase];
+
+  useEffect(() => {
+    const track = marqueeTrackRef.current;
+    if (!track || marqueeBase.length === 0) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    let last = performance.now();
+
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 64); // ignore long gaps (e.g. background tab)
+      last = now;
+      if (!marqueePausedRef.current) {
+        const half = track.scrollWidth / 2;
+        marqueeOffsetRef.current += (MARQUEE_SPEED * dt) / 1000;
+        if (marqueeOffsetRef.current >= half) marqueeOffsetRef.current -= half;
+        track.style.transform = `translate3d(${-marqueeOffsetRef.current}px, 0, 0)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [marqueeBase.length]);
 
   // ── Newsletter ──────────────────────────────────────────────────────────────
 
@@ -12440,6 +14147,67 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* All Products — auto-moving slider */}
+      {catalog.length > 0 && (
+        <section className="w-full py-16 md:py-20">
+          <div className="flex items-end justify-between gap-4 mb-8 px-4 md:px-8 lg:px-12 xl:px-20">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+              Explore All Products
+            </h2>
+            <button
+              type="button"
+              onClick={() => navigate("/products")}
+              className="text-sm md:text-base text-foreground underline underline-offset-4 hover:text-primary transition-colors whitespace-nowrap"
+            >
+              View all products
+            </button>
+          </div>
+
+          <div
+            className="overflow-hidden motion-reduce:overflow-x-auto [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]"
+            onMouseEnter={() => { marqueePausedRef.current = true; }}
+            onMouseLeave={() => { marqueePausedRef.current = false; }}
+            onTouchStart={() => { marqueePausedRef.current = true; }}
+            onTouchEnd={() => { marqueePausedRef.current = false; }}
+          >
+            <div ref={marqueeTrackRef} className="flex w-max will-change-transform">
+              {marqueeLoop.map((product, index) => {
+                const primaryImage =
+                  product.images?.find((image) => image.is_primary) ??
+                  product.images?.[0];
+                const isDuplicate = index >= marqueeBase.length;
+
+                return (
+                  <Link
+                    key={`${product.product_id}-${index}`}
+                    to={getProductPath(product.product_id)}
+                    aria-hidden={isDuplicate}
+                    tabIndex={isDuplicate ? -1 : 0}
+                    className="group mr-4 md:mr-6 block shrink-0 w-[calc((100vw_-_3rem)/2)] md:w-[calc((100vw_-_7rem)/3)] lg:w-[calc((100vw_-_10.5rem)/4)] xl:w-[calc((100vw_-_14.5rem)/4)]"
+                  >
+                    <div className="aspect-[1122/1402] w-full overflow-hidden rounded-xl bg-muted">
+                      <img
+                        src={primaryImage?.image_url ?? getPlaceholderImage(product.name)}
+                        alt={isDuplicate ? "" : product.name}
+                        loading="lazy"
+                        draggable={false}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                    <h3 className="mt-4 line-clamp-1 text-lg font-heading font-semibold text-foreground">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm md:text-base text-muted-foreground">
+                      {`Ksh ${Number(product.price).toFixed(2)}`}
+                    </p>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Why Choose Organic Bloom */}
       <section className="container mx-auto px-4 py-20">
