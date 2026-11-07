@@ -322,7 +322,7 @@ const getPlaceholderImage = (name: string) =>
 // ── Shimmer ───────────────────────────────────────────────────────────────────
 const ShimmerCard = () => (
   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
-    <div className="w-full aspect-[4/3] bg-muted" />
+    <div className="w-full aspect-[1122/1402] bg-muted" />
     <div className="p-4 space-y-3">
       <div className="h-4 bg-muted rounded w-3/4" />
       <div className="h-3 bg-muted rounded w-1/2" />
@@ -573,6 +573,7 @@ const CategoriesPage = () => {
                       <div key={product.product_id} className="h-full animate-fade-in">
                         <ProductCard
                           {...transformProduct(product, category.name)}
+                          imageAspectRatio="portrait"
                         />
                       </div>
                     ))}

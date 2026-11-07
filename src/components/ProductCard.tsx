@@ -12,11 +12,22 @@ interface ProductCardProps {
   id: string;
   stockQuantity?: number;
   hidePrice?: boolean;
+  imageAspectRatio?: "landscape" | "portrait";
 }
 
-const ProductCard = ({ name, price, image, category, id, stockQuantity = 1, hidePrice = false }: ProductCardProps) => {
+const ProductCard = ({
+  name,
+  price,
+  image,
+  category,
+  id,
+  stockQuantity = 1,
+  hidePrice = false,
+  imageAspectRatio = "landscape",
+}: ProductCardProps) => {
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const isPortraitImage = imageAspectRatio === "portrait";
 
   // Parse price to cents (e.g., "Ksh 12.34" -> 1234)
   const numericPrice = parseFloat(price.replace("Ksh ", "").replace(",", "")) * 100;
@@ -46,13 +57,13 @@ const ProductCard = ({ name, price, image, category, id, stockQuantity = 1, hide
     <div className="group bg-card rounded-xl overflow-hidden border border-border hover-lift cursor-pointer relative h-full flex flex-col"
      onClick={handleClick} 
     >
-      <div className="relative overflow-hidden aspect-[4/3] flex-shrink-0">
+      <div className={`relative overflow-hidden flex-shrink-0 ${isPortraitImage ? "aspect-[1122/1402]" : "aspect-[4/3]"}`}>
         <img
           src={image}
           alt={name}
           loading="lazy"
           decoding="async"
-          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isOutOfStock ? 'opacity-60' : ''}`}
+          className={`w-full h-full ${isPortraitImage ? "object-contain" : "object-cover"} transition-transform duration-500 ${isPortraitImage ? "" : "group-hover:scale-110"} ${isOutOfStock ? 'opacity-60' : ''}`}
         />
         
         {/* Out of Stock Badge */}

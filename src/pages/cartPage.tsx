@@ -3076,7 +3076,7 @@ const CartPage = () => {
                       <p className="text-sm text-muted-foreground mb-3">
                         Ksh {(item.price / 100).toFixed(2)} each
                       </p>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleQuantityChange(item.id, "decrease")}
@@ -3095,8 +3095,8 @@ const CartPage = () => {
                             <Plus className="w-3 h-3" />
                           </button>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <span className="font-bold text-foreground">
+                        <div className="flex items-center justify-between gap-4 sm:justify-end">
+                          <span className="font-bold text-foreground whitespace-nowrap">
                             Ksh {((item.price * item.quantity) / 100).toFixed(2)}
                           </span>
                           <button
