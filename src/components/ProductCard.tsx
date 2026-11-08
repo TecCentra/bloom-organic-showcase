@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/context/CartContext";
+import { slugifyProductName } from "@/lib/utils";
 
 interface ProductCardProps {
   name: string;
@@ -36,7 +37,8 @@ const ProductCard = ({
   const isOutOfStock = stockQuantity === 0;
 
   const handleClick = () => {
-    navigate(`/product/${id}`, { state: { image } });
+    const slug = slugifyProductName(name) || id;
+    navigate(`/product/${slug}`, { state: { image, productId: id } });
   };
 
   const handleAddToCart = (e: React.MouseEvent) => {
