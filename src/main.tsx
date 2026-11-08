@@ -9,10 +9,7 @@ import App from "./App.tsx";
 import "./index.css";
 import { warmServer } from "./lib/productsCache.ts";
 
-const clarityProjectId = import.meta.env.VITE_CLARITY_PROJECT_ID?.trim();
-if (clarityProjectId) {
-  Clarity.init(clarityProjectId);
-}
+Clarity.init("zab4e1rqa4");
 
 warmServer();
 
