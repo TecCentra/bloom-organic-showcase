@@ -13475,7 +13475,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Leaf, Shield, Heart, Sparkles, ArrowRight, ArrowLeft, Star, Quote } from "lucide-react";
+import { Leaf, Shield, Heart, Sparkles, ArrowRight, ArrowLeft, Instagram } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
@@ -13494,6 +13494,7 @@ import Yoni from "@/assets/yoni.jpeg";
 import Honey from "@/assets/Honey.jpeg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 import { fetchProducts, type Product } from "@/lib/productsCache";
+import InstagramFeed from "@/components/InstagramFeed";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -13609,6 +13610,7 @@ const Index = () => {
     text: string;
     type: "success" | "error";
   } | null>(null);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   // Product tabs (Best Sellers / Exclusive Offers)
   const [catalog, setCatalog] = useState<Product[]>([]);
@@ -14210,7 +14212,7 @@ const Index = () => {
       )}
 
       {/* Why Choose Organic Bloom */}
-      <section className="container mx-auto px-4 py-20">
+      {/* <section className="container mx-auto px-4 py-20">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
             Why Choose Organic Bloom
@@ -14230,47 +14232,67 @@ const Index = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Testimonials */}
-      <section className="bg-gradient-to-b from-secondary/20 to-transparent py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4">
-              What Our Customers Say
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Real experiences from people who've embraced organic living with us
+      <section className="w-full py-12 md:py-16">
+        <div className="mb-8 px-4 md:px-8 lg:px-12">
+          <h2 className="text-3xl md:text-4xl font-heading font-semibold text-foreground">
+            Testimonials
+          </h2>
+          <p className="mt-1 text-lg text-foreground">What our clients say</p>
+        </div>
+        <div className="mx-4 flex min-h-[380px] flex-col items-center justify-center bg-muted/60 px-6 py-12 text-center md:mx-8 md:min-h-[480px] md:px-12">
+          <div aria-live="polite" className="w-full max-w-5xl">
+            <p className="mb-12 text-xl font-medium text-foreground md:text-2xl">
+              {testimonials[currentTestimonial].name}
+            </p>
+            <blockquote className="font-serif text-lg italic leading-relaxed text-foreground md:text-2xl">
+              {testimonials[currentTestimonial].content}
+            </blockquote>
+            <p className="mt-2 text-sm text-foreground">
+              {testimonials[currentTestimonial].role || "Customer"}
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-card border border-border rounded-xl p-8 hover-lift animate-fade-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <Quote className="w-10 h-10 text-primary/30 mb-4" />
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-primary text-primary" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground mb-6 leading-relaxed">"{testimonial.content}"</p>
-                <div>
-                  <p className="font-heading font-semibold text-foreground">{testimonial.name}</p>
-                  {testimonial.role && (
-                    <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                  )}
-                </div>
-              </div>
-            ))}
+          <div className="mt-10 flex items-center justify-center gap-3">
+            <button
+              type="button"
+              aria-label="Previous testimonial"
+              onClick={() => setCurrentTestimonial((currentTestimonial - 1 + testimonials.length) % testimonials.length)}
+              className="rounded-full p-2 text-foreground transition-colors hover:bg-background/70"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </button>
+            <div className="flex items-center gap-2" aria-label="Choose testimonial">
+              {testimonials.map((testimonial, index) => (
+                <button
+                  key={testimonial.name}
+                  type="button"
+                  aria-label={`Show testimonial ${index + 1}`}
+                  aria-current={index === currentTestimonial ? "true" : undefined}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`h-2.5 rounded-full transition-all ${
+                    index === currentTestimonial
+                      ? "w-9 bg-foreground"
+                      : "w-2.5 bg-foreground/30 hover:bg-foreground/50"
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              aria-label="Next testimonial"
+              onClick={() => setCurrentTestimonial((currentTestimonial + 1) % testimonials.length)}
+              className="rounded-full p-2 text-foreground transition-colors hover:bg-background/70"
+            >
+              <ArrowRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </section>
 
       {/* Certifications */}
-      <section className="container mx-auto px-4 py-20">
+      {/* <section className="container mx-auto px-4 py-20">
         <div className="bg-card border border-border rounded-2xl p-8 md:p-12">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4">
@@ -14292,10 +14314,11 @@ const Index = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
+      <InstagramFeed />
 
       {/* Newsletter */}
-      <section className="container mx-auto px-4 py-20">
+      {/* <section className="container mx-auto px-4 py-20">
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-primary to-primary/80 p-12 md:p-16 text-center animate-fade-in">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-white blur-3xl" />
@@ -14347,7 +14370,7 @@ const Index = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </div>

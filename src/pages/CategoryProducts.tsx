@@ -310,7 +310,7 @@ const getPlaceholderImage = (name: string) => {
 const ProductCardSkeleton = () => (
   <div className="rounded-xl overflow-hidden border border-border bg-card animate-pulse">
     {/* Image placeholder */}
-    <div className="w-full aspect-square bg-muted" />
+    <div className="w-full aspect-[1122/1402] bg-muted" />
     {/* Text placeholders */}
     <div className="p-4 space-y-3">
       <div className="h-4 bg-muted rounded w-3/4" />
@@ -441,7 +441,7 @@ const CategoryProducts = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {transformed.map(p => (
               <div key={p.id} className="h-full">
-                <ProductCard {...p} />
+                <ProductCard {...p} imageAspectRatio="portrait" />
               </div>
             ))}
           </div>

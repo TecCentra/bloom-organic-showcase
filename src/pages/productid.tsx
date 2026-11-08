@@ -2323,6 +2323,59 @@ const ProductDetail = () => {
     }
   };
 
+  const renderProductPrice = (visibilityClass: string) => (
+    <div className={`flex items-baseline gap-2 mb-5 ${visibilityClass}`}>
+      <span className="text-3xl md:text-4xl font-bold text-foreground">
+        Ksh {(transformedProduct.price / 100).toFixed(2)}
+      </span>
+      <span className="text-lg md:text-xl text-muted-foreground line-through">
+        Ksh {(transformedProduct.originalPrice / 100).toFixed(2)}
+      </span>
+      <Badge variant="destructive" className="ml-2">
+        Save {Math.round(((transformedProduct.originalPrice - transformedProduct.price) / transformedProduct.originalPrice) * 100)}%
+      </Badge>
+    </div>
+  );
+
+  const renderPurchaseActions = (visibilityClass: string) => (
+    <div className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-6 ${visibilityClass}`}>
+      <div className="flex items-center border border-border rounded-lg flex-shrink-0">
+        <button
+          onClick={() => handleQuantityChange("decrease")}
+          className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={quantity <= 1 || !transformedProduct.inStock}
+          aria-label="Decrease quantity"
+        >
+          <Minus className="w-4 h-4" />
+        </button>
+        <span className="px-6 py-3 font-semibold">{quantity}</span>
+        <button
+          onClick={() => handleQuantityChange("increase")}
+          className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={!transformedProduct.inStock}
+          aria-label="Increase quantity"
+        >
+          <Plus className="w-4 h-4" />
+        </button>
+      </div>
+      <div className="flex flex-col sm:flex-row gap-3 flex-1 min-w-0">
+        <Button
+          size="lg" className="text-lg py-6 rounded-lg w-full sm:flex-1"
+          disabled={!transformedProduct.inStock} onClick={handleAddToCart}
+        >
+          {transformedProduct.inStock
+            ? <><ShoppingCart className="w-5 h-5 mr-2" />Add to Cart</>
+            : <><XCircle className="w-5 h-5 mr-2" />Out of Stock</>}
+        </Button>
+        <Button size="lg" variant="outline"
+          className="text-lg py-6 rounded-lg w-full sm:w-auto whitespace-nowrap"
+          onClick={() => navigate("/cart")}>
+          <ShoppingCart className="w-5 h-5 mr-2" />View Cart
+        </Button>
+      </div>
+    </div>
+  );
+
   const submitReview = async () => {
     if (!token) { setShowAuthModal(true); return; }
     if (!id || !reviewRating) return;
@@ -2358,7 +2411,7 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-8 md:py-12">
+        <div className="w-full px-4 py-8 md:py-12">
           <div className="h-9 bg-muted rounded w-28 mb-6 animate-pulse" />
           <div className="flex gap-2 mb-6 animate-pulse">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -2377,7 +2430,7 @@ const ProductDetail = () => {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-20 text-center">
+        <div className="w-full px-4 py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
           <p className="text-muted-foreground mb-8">The product you're looking for doesn't exist.</p>
           <Button onClick={() => navigate("/")}>Return to Home</Button>
@@ -2391,7 +2444,7 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="w-full px-4 py-8 md:py-12">
         <Button variant="ghost" className="mb-6" onClick={() => navigate(-1)}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back
@@ -2411,13 +2464,13 @@ const ProductDetail = () => {
         {/* ── Main product layout ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
           {/* Images */}
-          <div className="space-y-4 order-1">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-secondary/30 border border-border">
+          <div className="space-y-4 order-1 xl:max-w-[520px] xl:mx-auto xl:w-full">
+            <div className="relative aspect-[1122/1402] rounded-2xl overflow-hidden bg-secondary/30 border border-border">
               {displayImages.length > 0 && displayImages[selectedImage] ? (
                 <img
                   src={displayImages[selectedImage]}
                   alt={transformedProduct.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   onError={(e) => { e.currentTarget.src = "/fallback-image.jpg"; }}
                 />
               ) : (
@@ -2437,17 +2490,19 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all hover:opacity-100 ${
+                    className={`aspect-[1122/1402] rounded-lg overflow-hidden bg-secondary/30 border-2 transition-all hover:opacity-100 ${
                       selectedImage === index ? "border-primary opacity-100" : "border-border opacity-60"
                     }`}
                   >
                     <img src={image} alt={`Product view ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       onError={(e) => { e.currentTarget.src = "/fallback-image.jpg"; }} />
                   </button>
                 ))}
               </div>
             )}
+            {renderProductPrice("lg:hidden")}
+            {renderPurchaseActions("lg:hidden")}
           </div>
 
           {/* Info */}
@@ -2496,17 +2551,7 @@ const ProductDetail = () => {
             </p>
 
             {/* Price */}
-            <div className="flex items-baseline gap-2 mb-5">
-              <span className="text-3xl md:text-4xl font-bold text-foreground">
-                Ksh {(transformedProduct.price / 100).toFixed(2)}
-              </span>
-              <span className="text-lg md:text-xl text-muted-foreground line-through">
-                Ksh {(transformedProduct.originalPrice / 100).toFixed(2)}
-              </span>
-              <Badge variant="destructive" className="ml-2">
-                Save {Math.round(((transformedProduct.originalPrice - transformedProduct.price) / transformedProduct.originalPrice) * 100)}%
-              </Badge>
-            </div>
+            {renderProductPrice("hidden lg:flex")}
 
             {/* Certifications */}
             {transformedProduct.certifications?.length > 0 && (
@@ -2520,42 +2565,7 @@ const ProductDetail = () => {
             )}
 
             {/* Quantity + Add to Cart */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-6">
-              <div className="flex items-center border border-border rounded-lg flex-shrink-0">
-                <button
-                  onClick={() => handleQuantityChange("decrease")}
-                  className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={quantity <= 1 || !transformedProduct.inStock}
-                  aria-label="Decrease quantity"
-                >
-                  <Minus className="w-4 h-4" />
-                </button>
-                <span className="px-6 py-3 font-semibold">{quantity}</span>
-                <button
-                  onClick={() => handleQuantityChange("increase")}
-                  className="p-3 hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={!transformedProduct.inStock}
-                  aria-label="Increase quantity"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-3 flex-1 min-w-0">
-                <Button
-                  size="lg" className="text-lg py-6 rounded-lg w-full sm:flex-1"
-                  disabled={!transformedProduct.inStock} onClick={handleAddToCart}
-                >
-                  {transformedProduct.inStock
-                    ? <><ShoppingCart className="w-5 h-5 mr-2" />Add to Cart</>
-                    : <><XCircle className="w-5 h-5 mr-2" />Out of Stock</>}
-                </Button>
-                <Button size="lg" variant="outline"
-                  className="text-lg py-6 rounded-lg w-full sm:w-auto whitespace-nowrap"
-                  onClick={() => navigate("/cart")}>
-                  <ShoppingCart className="w-5 h-5 mr-2" />View Cart
-                </Button>
-              </div>
-            </div>
+            {renderPurchaseActions("hidden lg:flex")}
 
             {/* Review Section */}
             {!hasReviewed && (
@@ -2658,7 +2668,7 @@ const ProductDetail = () => {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {relatedProducts.map((product) => (
                 <div key={product.id} className="animate-fade-in h-full">
-                  <ProductCard {...product} />
+                  <ProductCard {...product} imageAspectRatio="portrait" />
                 </div>
               ))}
             </div>
