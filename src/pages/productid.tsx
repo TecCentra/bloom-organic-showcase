@@ -1778,6 +1778,7 @@ import { slugifyProductName } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { useUserAuth } from "@/context/UserAuthContext";
+import InositolProductPage from "@/components/InositolProductPage";
 
 interface LoginFormData { email: string; password: string; }
 interface RegisterFormData {
@@ -2352,19 +2353,19 @@ const ProductDetail = () => {
     else if (action === "decrease" && quantity > 1) setQuantity((p) => p - 1);
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (quantityToAdd = quantity) => {
     const productId = resolvedProductId || transformedProduct?.id;
     if (!productId || !transformedProduct) return;
     const imageForCart = displayImages[selectedImage] || displayImages[0] || "/fallback-image.jpg";
-    addToCart({ id: productId, name: transformedProduct.name, price: transformedProduct.price, image: imageForCart }, quantity);
+    addToCart({ id: productId, name: transformedProduct.name, price: transformedProduct.price, image: imageForCart }, quantityToAdd);
     if ((window as any).ttq) {
       (window as any).ttq.track("AddToCart", {
         content_id: productId,
         content_name: transformedProduct.name,
         content_type: "product",
         currency: "KES",
-        value: (transformedProduct.price / 100) * quantity,
-        quantity,
+        value: (transformedProduct.price / 100) * quantityToAdd,
+        quantity: quantityToAdd,
       });
     }
   };
@@ -2407,7 +2408,7 @@ const ProductDetail = () => {
       <div className="flex flex-col sm:flex-row gap-3 flex-1 min-w-0">
         <Button
           size="lg" className="text-lg py-6 rounded-lg w-full sm:flex-1"
-          disabled={!transformedProduct.inStock} onClick={handleAddToCart}
+          disabled={!transformedProduct.inStock} onClick={() => handleAddToCart()}
         >
           {transformedProduct.inStock
             ? <><ShoppingCart className="w-5 h-5 mr-2" />Add to Cart</>
@@ -2483,6 +2484,62 @@ const ProductDetail = () => {
         </div>
         <Footer />
       </div>
+    );
+  }
+
+  const isInositolProduct =
+    id === "france-shgrace-myo-d-chiro-inositol" ||
+    resolvedProductId === "40609277-236c-4946-963d-ff6fa0bd4871" ||
+    apiProduct?.sku === "MYOD";
+
+  if (isInositolProduct) {
+    return (
+      <InositolProductPage
+        name={transformedProduct.name}
+        image={displayImages[selectedImage] || displayImages[0]}
+        price={transformedProduct.price}
+        inStock={transformedProduct.inStock}
+        stockQuantity={transformedProduct.stockQuantity}
+        averageRating={averageRating}
+        totalReviews={totalReviews}
+        reviewRating={reviewRating}
+        setReviewRating={setReviewRating}
+        hasReviewed={hasReviewed}
+        isSubmittingReview={isSubmittingReview}
+        submitReview={submitReview}
+        isAuthenticated={Boolean(token)}
+        showAuthModal={showAuthModal}
+        setShowAuthModal={setShowAuthModal}
+        authModalContent={<AuthModalContent onSuccess={() => setShowAuthModal(false)} />}
+        onAddToCart={handleAddToCart}
+        relatedContent={
+          <section className="border-t border-border py-12">
+            <div className="mb-8">
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
+                You Might Also Like
+              </h2>
+              <p className="mt-1 text-muted-foreground">
+                More from {CATEGORY_NAME_MAP[apiProduct?.category_id] || "this category"}
+              </p>
+            </div>
+            {relatedLoading ? (
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-6">
+                {Array.from({ length: 4 }).map((_, index) => <ShimmerCard key={index} />)}
+              </div>
+            ) : relatedProducts.length === 0 ? (
+              <p className="text-muted-foreground">No related products found.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-6">
+                {relatedProducts.map((relatedProduct) => (
+                  <div key={relatedProduct.id} className="h-full animate-fade-in">
+                    <ProductCard {...relatedProduct} imageAspectRatio="portrait" />
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+        }
+      />
     );
   }
 

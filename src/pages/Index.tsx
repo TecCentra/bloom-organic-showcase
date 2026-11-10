@@ -13491,6 +13491,8 @@ import organicherbs from "@/assets/trdfx.jpeg";
 import weight from "@/assets/weight.jpeg";
 import Herbaloil from "@/assets/herbal oil.jpeg";
 import Yoni from "@/assets/yoni.jpeg";
+import slider2web from "@/assets/web2slider.png";
+import slider2mob from "@/assets/mob2slider.png";
 import Honey from "@/assets/Honey.jpeg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 import { fetchProducts, type Product } from "@/lib/productsCache";
@@ -13560,17 +13562,17 @@ const heroSlides: HeroSlide[] = [
     subtitle:
       "Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.",
   },
-  // {
-  //   desktop: allProducts,
-  //   mobile: allProductsMobile,
-  //   alt: "All Organic Bloom products",
-  //   label: "SHOP ALL PRODUCTS",
-  //   to: "/products",
-  //   badge: "Organic Bloom (Kenya)",
-  //   title: "Wellness, Lifestyle & Supplements",
-  //   subtitle:
-  //     "Certified organic, non-GMO and sustainable remedies, supplements and natural skincare, from weight management to pure honey and herbal oils.",
-  // },
+  {
+    desktop: slider2web,
+    mobile: slider2mob,
+    alt: "Organic Bloom natural wellness products",
+    label: "SHOP NOW",
+    to: "/products",
+    badge: "Organic Bloom · Kenya",
+    title: "Nurture Life Naturally",
+    subtitle:
+      "Discover premium organic products that bring the pure essence of nature to your daily life. Handpicked, packaged with care, and delivered to your door.",
+  },
 ];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

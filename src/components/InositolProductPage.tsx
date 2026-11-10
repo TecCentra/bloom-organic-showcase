@@ -1,0 +1,421 @@
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Check, Leaf, ShieldCheck, ShoppingCart, Star, Truck } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import "./InositolProductPage.css";
+
+const bundles = [
+  { bottles: 1, duration: "30 days", price: 3499, was: 4200, daily: "~KSh 117/day" },
+  { bottles: 3, duration: "90 days", price: 9750, was: 10500, daily: "~KSh 108/day", badge: "MOST POPULAR" },
+  { bottles: 6, duration: "180 days", price: 18000, was: 21000, daily: "~KSh 100/day", badge: "BEST VALUE" },
+];
+
+const formatKes = (amount: number) => `KSh ${amount.toLocaleString("en-KE")}`;
+
+type InositolProductPageProps = {
+  name: string;
+  image?: string;
+  price: number;
+  inStock: boolean;
+  stockQuantity?: number;
+  averageRating: number;
+  totalReviews: number;
+  reviewRating: number;
+  setReviewRating: (rating: number) => void;
+  hasReviewed: boolean;
+  isSubmittingReview: boolean;
+  submitReview: () => void;
+  isAuthenticated: boolean;
+  showAuthModal: boolean;
+  setShowAuthModal: (open: boolean) => void;
+  authModalContent: ReactNode;
+  onAddToCart: (quantity: number) => void;
+  relatedContent: ReactNode;
+};
+
+const InositolProductPage = ({
+  name,
+  image,
+  price,
+  inStock,
+  stockQuantity,
+  averageRating,
+  totalReviews,
+  reviewRating,
+  setReviewRating,
+  hasReviewed,
+  isSubmittingReview,
+  submitReview,
+  isAuthenticated,
+  showAuthModal,
+  setShowAuthModal,
+  authModalContent,
+  onAddToCart,
+  relatedContent,
+}: InositolProductPageProps) => {
+  const [selectedBundle, setSelectedBundle] = useState(1);
+  const [showStickyBuy, setShowStickyBuy] = useState(false);
+  const heroCtaRef = useRef<HTMLButtonElement>(null);
+  const packageSelectorRef = useRef<HTMLElement>(null);
+  const bundle = bundles[selectedBundle];
+  const canAddBundle = inStock && (!stockQuantity || stockQuantity >= bundle.bottles);
+
+  useEffect(() => {
+    const heroCta = heroCtaRef.current;
+    const packageSelector = packageSelectorRef.current;
+    if (!heroCta || !packageSelector) return;
+
+    const updateStickyVisibility = () => {
+      const isVisible = (element: Element) => {
+        const bounds = element.getBoundingClientRect();
+        return bounds.bottom > 0 && bounds.top < window.innerHeight;
+      };
+      setShowStickyBuy(!isVisible(heroCta) && !isVisible(packageSelector));
+    };
+    const observer = new IntersectionObserver(updateStickyVisibility, { threshold: 0 });
+    observer.observe(heroCta);
+    observer.observe(packageSelector);
+    return () => observer.disconnect();
+  }, []);
+
+  const addSelectedBundle = () => {
+    if (canAddBundle) onAddToCart(bundle.bottles);
+  };
+
+  const scrollToPackages = () => {
+    packageSelectorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <div className="ipdp">
+      <Header />
+
+      <div className="ipdp-trustbar" aria-label="Product highlights">
+        <span><Leaf aria-hidden="true" /> 40:1 inositol ratio</span>
+        <span><Check aria-hidden="true" /> With folate + vitamin D3</span>
+        <span><Truck aria-hidden="true" /> Delivery options at checkout</span>
+        <span><ShieldCheck aria-hidden="true" /> Secure checkout</span>
+      </div>
+
+      <main>
+        <section className="ipdp-hero" id="hero">
+          <div className="ipdp-gallery">
+            <div className="ipdp-product-image">
+              {image ? (
+                <img src={image} alt={name} width="900" height="1200" fetchPriority="high" decoding="async" />
+              ) : (
+                <div className="ipdp-image-placeholder"><Leaf aria-hidden="true" /></div>
+              )}
+              <span className="ipdp-image-caption">France shGrace · Inositol+</span>
+            </div>
+          </div>
+
+          <div className="ipdp-buybox">
+            <p className="ipdp-eyebrow">MYO + D-CHIRO INOSITOL</p>
+            {totalReviews > 0 && (
+              <div className="ipdp-rating" aria-label={`${averageRating.toFixed(1)} out of 5 from ${totalReviews} reviews`}>
+                <span className="ipdp-stars" aria-hidden="true">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <Star key={index} className={index < Math.round(averageRating) ? "is-filled" : ""} />
+                  ))}
+                </span>
+                <span>{averageRating.toFixed(1)} ({totalReviews} {totalReviews === 1 ? "review" : "reviews"})</span>
+              </div>
+            )}
+            <h1>{name}</h1>
+            <p className="ipdp-subtitle">A 40:1 myo-inositol and D-chiro-inositol formula with folate and vitamin D3.</p>
+
+            <div className="ipdp-bundles" role="radiogroup" aria-label="Choose a supply">
+              {bundles.map((option, index) => (
+                <button
+                  type="button"
+                  key={option.bottles}
+                  role="radio"
+                  aria-checked={selectedBundle === index}
+                  className={`ipdp-bundle${selectedBundle === index ? " is-selected" : ""}`}
+                  onClick={() => setSelectedBundle(index)}
+                >
+                  {option.badge && <span className="ipdp-bundle-badge">{option.badge}</span>}
+                  <span className="ipdp-radio" aria-hidden="true">{selectedBundle === index && <span />}</span>
+                  <span className="ipdp-bundle-info">
+                    <strong>{option.bottles} {option.bottles === 1 ? "Bottle" : "Bottles"}</strong>
+                    <small>{option.duration} · {option.daily}</small>
+                  </span>
+                  <span className="ipdp-bundle-price">
+                    <strong>{formatKes(option.price)}</strong>
+                    <small>{formatKes(option.was)}</small>
+                  </span>
+                  <span className="ipdp-save">Save {formatKes(option.was - option.price)}</span>
+                </button>
+              ))}
+            </div>
+
+            <button ref={heroCtaRef} type="button" className="ipdp-cta" disabled={!canAddBundle} onClick={addSelectedBundle}>
+              <ShoppingCart aria-hidden="true" />
+              {canAddBundle ? `Add ${bundle.bottles} ${bundle.bottles === 1 ? "bottle" : "bottles"} to cart` : "Out of stock"}
+            </button>
+            <p className="ipdp-checkout-note">
+              Bundle prices are shown from the design mockup. Cart and checkout currently use the catalog price of {formatKes(price / 100)} per bottle.
+            </p>
+            <p className="ipdp-payment-note">M-Pesa and available delivery options are selected at checkout.</p>
+
+            <div className="ipdp-quick-trust">
+              <span><Check aria-hidden="true" /> 40:1 ratio</span>
+              <span><Check aria-hidden="true" /> Folate + D3</span>
+              <span><Check aria-hidden="true" /> Kenya delivery</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="ipdp-intro ipdp-section" id="headline">
+          <p className="ipdp-eyebrow">A THOUGHTFUL DAILY FORMULA</p>
+          <h2>Find a formula that fits your routine.</h2>
+          <p>
+            France shGrace MYO &amp; D-CHIRO INOSITOL+ brings together myo-inositol,
+            D-chiro-inositol, folate and vitamin D3 in one clearly described formula.
+          </p>
+          <ul className="ipdp-discover-list">
+            <li>Understand the listed 40:1 inositol ratio.</li>
+            <li>See the other nutrients included in the formula.</li>
+            <li>Compare the available bottle quantities and prices.</li>
+          </ul>
+          <a className="ipdp-text-link" href="#formula">Explore the formula <span aria-hidden="true">↓</span></a>
+        </section>
+
+        <section className="ipdp-problem ipdp-section" id="problem">
+          <div className="ipdp-section-heading">
+            <p className="ipdp-eyebrow">A MORE INFORMED START</p>
+            <h2>It can be hard to know what belongs in your routine.</h2>
+            <p>
+              Hormonal and cycle concerns have many possible causes. A supplement page
+              cannot diagnose them or promise an outcome, but it can make the product
+              ingredients and available options easier to review.
+            </p>
+          </div>
+          <div className="ipdp-context-grid">
+            <article><span>01</span><h3>Check the ingredient list</h3><p>Review the nutrients named on the product and packaging.</p></article>
+            <article><span>02</span><h3>Compare the formula</h3><p>See how myo-inositol and D-chiro-inositol are presented together.</p></article>
+            <article><span>03</span><h3>Get personal advice</h3><p>Talk to a healthcare professional about your individual needs.</p></article>
+          </div>
+          <div className="ipdp-solution">
+            <div>
+              <p className="ipdp-eyebrow">THE FORMULA</p>
+              <h3>A 40:1 inositol blend with folate and vitamin D3.</h3>
+              <p>Use the product label and professional guidance to decide if it suits you.</p>
+            </div>
+            <button type="button" className="ipdp-secondary-cta" onClick={scrollToPackages}>
+              See supply options
+            </button>
+          </div>
+        </section>
+
+        <section className="ipdp-formula ipdp-section" id="mechanism">
+          <div className="ipdp-section-heading">
+            <p className="ipdp-eyebrow">THE SCIENCE OF THE 40:1 RATIO</p>
+            <h2>Three actives, one clearly listed formula.</h2>
+            <p>These are the ingredients named in the product description.</p>
+          </div>
+          <div className="ipdp-ingredient-grid">
+            <article className="ipdp-ingredient ipdp-ratio-card">
+              <div className="ipdp-ratio-mark"><span>40</span><i>:</i><span>1</span></div>
+              <h3>Myo + D-chiro-inositol</h3>
+              <p>Two forms of inositol in a 40:1 ratio.</p>
+            </article>
+            <article className="ipdp-ingredient">
+              <span className="ipdp-ingredient-number">01</span>
+              <h3>Myo-inositol</h3>
+              <p>Paired with D-chiro-inositol as part of the formula.</p>
+            </article>
+            <article className="ipdp-ingredient">
+              <span className="ipdp-ingredient-number">02</span>
+              <h3>D-chiro-inositol</h3>
+              <p>Included alongside myo-inositol in a 40:1 ratio.</p>
+            </article>
+            <article className="ipdp-ingredient">
+              <span className="ipdp-ingredient-number">03</span>
+              <h3>Folate + vitamin D3</h3>
+              <p>Two additional nutrients listed in the product description.</p>
+            </article>
+          </div>
+          <div className="ipdp-timeline">
+            <div className="ipdp-section-heading">
+              <p className="ipdp-eyebrow">WHAT TO EXPECT</p>
+              <h2>Build a routine around the product label.</h2>
+              <p>Timelines describe supply sizes only; individual results are not guaranteed.</p>
+            </div>
+            <div className="ipdp-timeline-grid">
+              <article><span>01</span><strong>1 bottle</strong><small>30-day supply as shown in the mockup</small></article>
+              <article><span>02</span><strong>3 bottles</strong><small>90-day supply as shown in the mockup</small></article>
+              <article><span>03</span><strong>6 bottles</strong><small>180-day supply as shown in the mockup</small></article>
+            </div>
+          </div>
+          <button type="button" className="ipdp-cta ipdp-section-cta" onClick={scrollToPackages}>
+            Compare supply options
+          </button>
+        </section>
+
+        <section className="ipdp-routine ipdp-section" id="routine">
+          <div className="ipdp-routine-copy">
+            <p className="ipdp-eyebrow">A ROUTINE THAT STARTS WITH THE LABEL</p>
+            <h2>Use it with care and confidence.</h2>
+            <p>
+              Follow the serving directions printed on the product packaging. If you have
+              questions about whether a supplement is right for you, speak with a qualified
+              healthcare professional.
+            </p>
+          </div>
+          <div className="ipdp-routine-steps">
+            <div><span>01</span><p><strong>Choose your supply</strong><small>Select the pack that suits your shopping preference.</small></p></div>
+            <div><span>02</span><p><strong>Read the label</strong><small>Use the product only as directed on its packaging.</small></p></div>
+            <div><span>03</span><p><strong>Ask when unsure</strong><small>Get personalised guidance from your healthcare professional.</small></p></div>
+          </div>
+        </section>
+
+        <section className="ipdp-proof ipdp-section" id="proof">
+          <div className="ipdp-proof-card">
+            <div>
+              <p className="ipdp-eyebrow">ANOTHER FALSE HOPE?</p>
+              <h2>A supplement is not a substitute for medical care.</h2>
+              <p>
+                No routine or bottle count can guarantee changes to your cycle, skin,
+                fertility, or other health outcomes. Choose based on the label, and ask
+                a qualified professional if you are unsure.
+              </p>
+            </div>
+            <div className="ipdp-proof-points">
+              <span><Check aria-hidden="true" /> M-Pesa at checkout</span>
+              <span><Check aria-hidden="true" /> Delivery options shown at checkout</span>
+              <span><Check aria-hidden="true" /> Product information from the listing</span>
+            </div>
+          </div>
+          <div className="ipdp-for-who">
+            <p className="ipdp-eyebrow">WHO THIS IS FOR</p>
+            <h2>For adults considering an inositol supplement as part of their wellness routine.</h2>
+            <p>Check with your healthcare professional before use if you are pregnant, trying to conceive, taking medication, or managing a health condition.</p>
+          </div>
+          <p className="ipdp-disclaimer">
+            This product is a food supplement, not a medicine. It is not intended to diagnose,
+            treat, cure, or prevent any disease. If you are pregnant, trying to conceive,
+            taking medication, or managing a health condition, consult a healthcare professional.
+          </p>
+        </section>
+
+        <section className="ipdp-packages ipdp-section" id="package-selector" ref={packageSelectorRef}>
+          <div className="ipdp-section-heading">
+            <p className="ipdp-eyebrow">CHOOSE YOUR SUPPLY</p>
+            <h2>Pick your package.</h2>
+            <p>Select a pack below. Current cart and checkout totals still use the catalog price per bottle.</p>
+          </div>
+          <div className="ipdp-package-grid">
+            {bundles.map((option, index) => (
+              <article className={`ipdp-package${selectedBundle === index ? " is-selected" : ""}`} key={option.bottles}>
+                {option.badge && <span className="ipdp-package-badge">{option.badge}</span>}
+                <p className="ipdp-package-size">{option.bottles} {option.bottles === 1 ? "Bottle" : "Bottles"}</p>
+                <p className="ipdp-package-duration">{option.duration} · {option.daily}</p>
+                <p className="ipdp-package-price">{formatKes(option.price)}</p>
+                <p className="ipdp-package-was">{formatKes(option.was)} · Save {formatKes(option.was - option.price)}</p>
+                <button
+                  type="button"
+                  className={index === 0 ? "ipdp-package-outline" : "ipdp-package-cta"}
+                  disabled={!inStock || Boolean(stockQuantity && stockQuantity < option.bottles)}
+                  aria-pressed={selectedBundle === index}
+                  onClick={() => {
+                    setSelectedBundle(index);
+                    onAddToCart(option.bottles);
+                  }}
+                >
+                  {index === 0 ? "Select 1-bottle starter" : index === 1 ? "Select 3-bottle cycle supply" : "Select 6-bottle best value"}
+                </button>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="ipdp-payment ipdp-section" id="payment">
+          <p className="ipdp-eyebrow">LOCAL PAYMENT &amp; DELIVERY</p>
+          <h2>Paid your way, delivered with care.</h2>
+          <div className="ipdp-payment-grid">
+            <article><ShieldCheck aria-hidden="true" /><h3>Secure checkout</h3><p>Available payment methods appear during checkout.</p></article>
+            <article><Truck aria-hidden="true" /><h3>Delivery options</h3><p>Choose an available delivery or pickup option at checkout.</p></article>
+          </div>
+        </section>
+
+        <section className="ipdp-reviews ipdp-section" id="reviews">
+          <div className="ipdp-section-heading">
+            <p className="ipdp-eyebrow">CUSTOMER REVIEWS</p>
+            <h2>Real feedback from customers.</h2>
+            {totalReviews > 0 ? (
+              <div className="ipdp-rating ipdp-review-summary">
+                <span className="ipdp-stars" aria-hidden="true">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <Star key={index} className={index < Math.round(averageRating) ? "is-filled" : ""} />
+                  ))}
+                </span>
+                <span>{averageRating.toFixed(1)} average · {totalReviews} {totalReviews === 1 ? "review" : "reviews"}</span>
+              </div>
+            ) : (
+              <p>There are no customer ratings for this product yet.</p>
+            )}
+          </div>
+
+          {!hasReviewed && (
+            <div className="ipdp-review-form">
+              <h3>Share your rating</h3>
+              {isAuthenticated ? (
+                <>
+                  <div className="ipdp-rate-picker" aria-label="Choose a rating">
+                    {[1, 2, 3, 4, 5].map((rating) => (
+                      <button
+                        type="button"
+                        key={rating}
+                        onClick={() => setReviewRating(rating)}
+                        aria-label={`Rate ${rating} star${rating > 1 ? "s" : ""}`}
+                      >
+                        <Star className={rating <= reviewRating ? "is-filled" : ""} />
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    type="button"
+                    className="ipdp-review-submit"
+                    disabled={isSubmittingReview || reviewRating === 0}
+                    onClick={submitReview}
+                  >
+                    {isSubmittingReview ? "Submitting…" : "Submit rating"}
+                  </button>
+                </>
+              ) : (
+                <p>
+                  Please{" "}
+                  <button type="button" className="ipdp-inline-button" onClick={() => setShowAuthModal(true)}>
+                    log in
+                  </button>{" "}
+                  to write a review.
+                </p>
+              )}
+            </div>
+          )}
+        </section>
+
+        {relatedContent}
+      </main>
+
+      <div className={`ipdp-sticky-buy${showStickyBuy ? " is-visible" : ""}`}>
+        <div><strong>France shGrace Inositol+</strong><small>Save up to 17%</small></div>
+        <button type="button" onClick={scrollToPackages}>
+          Select bundle
+        </button>
+      </div>
+
+      <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
+        <DialogContent className="sm:max-w-md bg-card border-border rounded-xl p-0 max-h-[90vh] overflow-y-auto">
+          {authModalContent}
+        </DialogContent>
+      </Dialog>
+      <Footer />
+    </div>
+  );
+};
+
+export default InositolProductPage;
