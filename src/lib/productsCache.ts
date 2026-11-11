@@ -25,6 +25,12 @@ export interface Product {
   images?: ProductImage[];
 }
 
+const HIDDEN_CATALOG_SKUS = new Set(["FMD002", "FMD4"]);
+
+export function isCatalogProductVisible(product: Pick<Product, "sku">): boolean {
+  return !HIDDEN_CATALOG_SKUS.has(product.sku.toUpperCase());
+}
+
 const API_URL =
   "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=";
 const TTL = 5 * 60 * 1000; // 5 minutes

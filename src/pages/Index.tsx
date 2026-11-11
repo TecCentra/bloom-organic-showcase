@@ -13495,7 +13495,7 @@ import slider2web from "@/assets/web2slider.png";
 import slider2mob from "@/assets/mob2slider.png";
 import Honey from "@/assets/Honey.jpeg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
-import { fetchProducts, type Product } from "@/lib/productsCache";
+import { fetchProducts, isCatalogProductVisible, type Product } from "@/lib/productsCache";
 import InstagramFeed from "@/components/InstagramFeed";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -13637,7 +13637,11 @@ const Index = () => {
     const loadProducts = async () => {
       try {
         const products = await fetchProducts();
-        if (!cancelled) setCatalog(products.filter((product) => product.is_active));
+        if (!cancelled) {
+          setCatalog(
+            products.filter((product) => product.is_active && isCatalogProductVisible(product))
+          );
+        }
       } catch (error) {
         console.error("Error loading products:", error);
       } finally {

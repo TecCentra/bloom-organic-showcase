@@ -268,6 +268,7 @@ import { Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import { isCatalogProductVisible } from "@/lib/productsCache";
 
 interface ProductImage {
   image_id: string;
@@ -407,7 +408,7 @@ const CategoriesPage = () => {
           // Group active products by category
           const grouped: Record<string, Product[]> = {};
           data.data.products
-            .filter((p) => p.is_active)
+            .filter((p) => p.is_active && isCatalogProductVisible(p))
             .forEach((product) => {
               const catId = product.category_id;
               if (!grouped[catId]) grouped[catId] = [];

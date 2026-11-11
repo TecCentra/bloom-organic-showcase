@@ -232,6 +232,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
+import { isCatalogProductVisible } from "@/lib/productsCache";
 
 interface ProductImage {
   image_id: string;
@@ -342,7 +343,7 @@ const CategoryProducts = () => {
     const fetchProducts = async () => {
       const cached = getCategoryCache(slug!);
       if (cached) {
-        setProducts(cached);
+        setProducts(cached.filter(isCatalogProductVisible));
         setLoading(false);
       } else {
         setLoading(true);
@@ -355,7 +356,9 @@ const CategoryProducts = () => {
         const data: ApiResponse = await response.json();
         if (!data.success || !data.data?.products) throw new Error('Invalid response');
 
-        const active = data.data.products.filter(p => p.is_active);
+        const active = data.data.products.filter(
+          (product) => product.is_active && isCatalogProductVisible(product)
+        );
         const clientFiltered = targetCategory
           ? active.filter(p => p.category_id === targetCategory.id)
           : active;

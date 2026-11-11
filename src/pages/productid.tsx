@@ -1772,13 +1772,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { productsData } from "@/lib/products";
-import { fetchProducts } from "@/lib/productsCache";
+import { fetchProducts, isCatalogProductVisible, type Product } from "@/lib/productsCache";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 import { slugifyProductName } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { useUserAuth } from "@/context/UserAuthContext";
-import InositolProductPage from "@/components/InositolProductPage";
+import InositolProductPage, { type InositolBundleProduct } from "@/components/InositolProductPage";
 
 interface LoginFormData { email: string; password: string; }
 interface RegisterFormData {
@@ -2131,6 +2131,9 @@ const ProductDetail = () => {
   const [hasReviewed, setHasReviewed] = useState(false);
   const [apiProduct, setApiProduct] = useState<any>(null);
   const [apiImages, setApiImages] = useState<any[]>([]);
+  const [catalogProducts, setCatalogProducts] = useState<Product[]>([]);
+  const [bundleProductsLoading, setBundleProductsLoading] = useState(false);
+  const [bundleProductsError, setBundleProductsError] = useState(false);
   const [resolvedProductId, setResolvedProductId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -2200,6 +2203,35 @@ const ProductDetail = () => {
     };
   }, [id, location.state?.productId, localProduct]);
 
+  useEffect(() => {
+    const isInositolRoute =
+      id === "france-shgrace-myo-d-chiro-inositol" ||
+      id === "france-shgrace-myo-d-chiro-inositol-3-bottles" ||
+      id === "france-shgrace-myo-d-chiro-inositol-6-bottles" ||
+      ["MYOD", "FMD002", "FMD4"].includes(apiProduct?.sku);
+    if (!isInositolRoute) return;
+
+    let cancelled = false;
+    setBundleProductsLoading(true);
+    setBundleProductsError(false);
+    fetchProducts()
+      .then((products) => {
+        if (cancelled) return;
+        setCatalogProducts(products);
+        setBundleProductsLoading(false);
+      })
+      .catch((error) => {
+        console.error("Error loading inositol bundle products:", error);
+        if (cancelled) return;
+        setBundleProductsError(true);
+        setBundleProductsLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [id, apiProduct?.sku]);
+
   // ── Fetch related products once we know the category ──────
   useEffect(() => {
     if (!apiProduct?.category_id) return;
@@ -2216,6 +2248,7 @@ const ProductDetail = () => {
             .filter(
               (p: any) =>
                 p.is_active &&
+                isCatalogProductVisible(p) &&
                 p.category_id === apiProduct.category_id &&
                 p.product_id !== resolvedProductId
             )
@@ -2347,6 +2380,58 @@ const ProductDetail = () => {
   }, [displayImages, selectedImage]);
 
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
+
+  const inositolBundleProducts = useMemo(() => {
+    const productForSku = (sku: string) => {
+      if (apiProduct?.sku === sku) return apiProduct as Product;
+      return catalogProducts.find(
+        (product) => product.sku === sku && (product.is_active === true || product.is_active === 1)
+      );
+    };
+    const toBundleProduct = (product?: Product): InositolBundleProduct | undefined => {
+      if (!product?.product_id || !product.name) return undefined;
+      const price = Number(product.price);
+      if (!Number.isFinite(price)) return undefined;
+      return {
+        id: product.product_id,
+        name: product.name,
+        price,
+        stockQuantity: Number(product.stock_quantity) || 0,
+      };
+    };
+
+    return {
+      1: toBundleProduct(productForSku("MYOD")),
+      3: toBundleProduct(productForSku("FMD002")),
+      6: toBundleProduct(productForSku("FMD4")),
+    };
+  }, [apiProduct, catalogProducts]);
+
+  const selectedInositolBundleBottles: 1 | 3 | 6 =
+    apiProduct?.sku === "FMD002" || id?.endsWith("-3-bottles")
+      ? 3
+      : apiProduct?.sku === "FMD4" || id?.endsWith("-6-bottles")
+        ? 6
+        : 1;
+
+  const handleAddInositolBundleToCart = (bundleProduct: InositolBundleProduct) => {
+    if (bundleProduct.stockQuantity <= 0) return;
+    const imageForCart = displayImages[selectedImage] || displayImages[0] || "/fallback-image.jpg";
+    addToCart(
+      { id: bundleProduct.id, name: bundleProduct.name, price: bundleProduct.price * 100, image: imageForCart },
+      1
+    );
+    if ((window as any).ttq) {
+      (window as any).ttq.track("AddToCart", {
+        content_id: bundleProduct.id,
+        content_name: bundleProduct.name,
+        content_type: "product",
+        currency: "KES",
+        value: bundleProduct.price,
+        quantity: 1,
+      });
+    }
+  };
 
   const handleQuantityChange = (action: "increase" | "decrease") => {
     if (action === "increase") setQuantity((p) => p + 1);
@@ -2489,17 +2574,20 @@ const ProductDetail = () => {
 
   const isInositolProduct =
     id === "france-shgrace-myo-d-chiro-inositol" ||
+    id === "france-shgrace-myo-d-chiro-inositol-3-bottles" ||
+    id === "france-shgrace-myo-d-chiro-inositol-6-bottles" ||
     resolvedProductId === "40609277-236c-4946-963d-ff6fa0bd4871" ||
-    apiProduct?.sku === "MYOD";
+    ["MYOD", "FMD002", "FMD4"].includes(apiProduct?.sku);
 
   if (isInositolProduct) {
     return (
       <InositolProductPage
         name={transformedProduct.name}
         images={displayImages}
-        price={transformedProduct.price}
-        inStock={transformedProduct.inStock}
-        stockQuantity={transformedProduct.stockQuantity}
+        bundleProducts={inositolBundleProducts}
+        bundleProductsLoading={bundleProductsLoading}
+        bundleProductsError={bundleProductsError}
+        selectedBundleBottles={selectedInositolBundleBottles}
         averageRating={averageRating}
         totalReviews={totalReviews}
         reviewRating={reviewRating}
@@ -2511,7 +2599,7 @@ const ProductDetail = () => {
         showAuthModal={showAuthModal}
         setShowAuthModal={setShowAuthModal}
         authModalContent={<AuthModalContent onSuccess={() => setShowAuthModal(false)} />}
-        onAddToCart={handleAddToCart}
+        onAddToCart={handleAddInositolBundleToCart}
       />
     );
   }

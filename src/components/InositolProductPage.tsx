@@ -6,19 +6,27 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import "./InositolProductPage.css";
 
 const bundles = [
-  { bottles: 1, duration: "30 days", price: 3499, was: 4200, daily: "~KSh 117/day" },
-  { bottles: 3, duration: "90 days", price: 9750, was: 10500, daily: "~KSh 108/day", badge: "MOST POPULAR" },
-  { bottles: 6, duration: "180 days", price: 18000, was: 21000, daily: "~KSh 100/day", badge: "BEST VALUE" },
+  { bottles: 1 as const, duration: "30 days", days: 30, was: 4200 },
+  { bottles: 3 as const, duration: "90 days", days: 90, was: 10500, badge: "MOST POPULAR" },
+  { bottles: 6 as const, duration: "180 days", days: 180, was: 21000, badge: "BEST VALUE" },
 ];
 
 const formatKes = (amount: number) => `KSh ${amount.toLocaleString("en-KE")}`;
 
+export type InositolBundleProduct = {
+  id: string;
+  name: string;
+  price: number;
+  stockQuantity: number;
+};
+
 type InositolProductPageProps = {
   name: string;
   images: string[];
-  price: number;
-  inStock: boolean;
-  stockQuantity?: number;
+  bundleProducts: Partial<Record<1 | 3 | 6, InositolBundleProduct>>;
+  bundleProductsLoading: boolean;
+  bundleProductsError: boolean;
+  selectedBundleBottles: 1 | 3 | 6;
   averageRating: number;
   totalReviews: number;
   reviewRating: number;
@@ -30,15 +38,16 @@ type InositolProductPageProps = {
   showAuthModal: boolean;
   setShowAuthModal: (open: boolean) => void;
   authModalContent: ReactNode;
-  onAddToCart: (quantity: number) => void;
+  onAddToCart: (product: InositolBundleProduct) => void;
 };
 
 const InositolProductPage = ({
   name,
   images,
-  price,
-  inStock,
-  stockQuantity,
+  bundleProducts,
+  bundleProductsLoading,
+  bundleProductsError,
+  selectedBundleBottles,
   averageRating,
   totalReviews,
   reviewRating,
@@ -52,16 +61,22 @@ const InositolProductPage = ({
   authModalContent,
   onAddToCart,
 }: InositolProductPageProps) => {
-  const [selectedBundle, setSelectedBundle] = useState(1);
+  const selectedBundleIndex = bundles.findIndex((option) => option.bottles === selectedBundleBottles);
+  const [selectedBundle, setSelectedBundle] = useState(Math.max(0, selectedBundleIndex));
   const [selectedImage, setSelectedImage] = useState(0);
   const [isImageZoomOpen, setIsImageZoomOpen] = useState(false);
   const [showStickyBuy, setShowStickyBuy] = useState(false);
   const heroCtaRef = useRef<HTMLButtonElement>(null);
   const packageSelectorRef = useRef<HTMLElement>(null);
   const bundle = bundles[selectedBundle];
+  const bundleProduct = bundleProducts[bundle.bottles];
   const activeImageIndex = selectedImage < images.length ? selectedImage : 0;
   const activeImage = images[activeImageIndex];
-  const canAddBundle = inStock && (!stockQuantity || stockQuantity >= bundle.bottles);
+  const canAddBundle = Boolean(bundleProduct && bundleProduct.stockQuantity > 0);
+
+  useEffect(() => {
+    setSelectedBundle(Math.max(0, selectedBundleIndex));
+  }, [selectedBundleIndex, setSelectedBundle]);
 
   useEffect(() => {
     const heroCta = heroCtaRef.current;
@@ -82,7 +97,7 @@ const InositolProductPage = ({
   }, []);
 
   const addSelectedBundle = () => {
-    if (canAddBundle) onAddToCart(bundle.bottles);
+    if (canAddBundle && bundleProduct) onAddToCart(bundleProduct);
   };
 
   const scrollToPackages = () => {
@@ -159,30 +174,56 @@ const InositolProductPage = ({
                   role="radio"
                   aria-checked={selectedBundle === index}
                   className={`ipdp-bundle${selectedBundle === index ? " is-selected" : ""}`}
+                  aria-label={`Select ${option.bottles} ${option.bottles === 1 ? "bottle" : "bottles"} for ${
+                    bundleProducts[option.bottles]
+                      ? formatKes(bundleProducts[option.bottles]!.price)
+                      : "the listed offer price"
+                  }`}
                   onClick={() => setSelectedBundle(index)}
                 >
                   {option.badge && <span className="ipdp-bundle-badge">{option.badge}</span>}
                   <span className="ipdp-radio" aria-hidden="true">{selectedBundle === index && <span />}</span>
                   <span className="ipdp-bundle-info">
                     <strong>{option.bottles} {option.bottles === 1 ? "Bottle" : "Bottles"}</strong>
-                    <small>{option.duration} · {option.daily}</small>
+                    <small>
+                      {option.duration}
+                      {bundleProducts[option.bottles] && ` · ~${formatKes(Math.round(bundleProducts[option.bottles]!.price / option.days))}/day`}
+                    </small>
                   </span>
                   <span className="ipdp-bundle-price">
-                    <strong>{formatKes(option.price)}</strong>
-                    <small>{formatKes(option.was)}</small>
+                    <strong>
+                      {bundleProducts[option.bottles]
+                        ? formatKes(bundleProducts[option.bottles]!.price)
+                        : bundleProductsLoading
+                          ? "Loading..."
+                          : "Unavailable"}
+                    </strong>
+                    {bundleProducts[option.bottles] && <small>{formatKes(option.was)}</small>}
                   </span>
-                  <span className="ipdp-save">Save {formatKes(option.was - option.price)}</span>
+                  {bundleProducts[option.bottles] && bundleProducts[option.bottles]!.price < option.was && (
+                    <span className="ipdp-save">
+                      Save {formatKes(option.was - bundleProducts[option.bottles]!.price)}
+                    </span>
+                  )}
                 </button>
               ))}
             </div>
 
             <button ref={heroCtaRef} type="button" className="ipdp-cta" disabled={!canAddBundle} onClick={addSelectedBundle}>
               <ShoppingCart aria-hidden="true" />
-              {canAddBundle ? `Add ${bundle.bottles} ${bundle.bottles === 1 ? "bottle" : "bottles"} to cart` : "Out of stock"}
+              {canAddBundle
+                ? `Add ${bundle.bottles} ${bundle.bottles === 1 ? "bottle" : "bottles"} to cart`
+                : bundleProductsLoading
+                  ? "Loading bundle options..."
+                  : bundleProduct
+                    ? "Out of stock"
+                    : "Bundle unavailable"}
             </button>
-            <p className="ipdp-checkout-note">
-              Bundle prices are shown from the design mockup. Cart and checkout currently use the catalog price of {formatKes(price / 100)} per bottle.
-            </p>
+            {bundleProductsError && (
+              <p className="ipdp-checkout-note" role="status">
+                Bundle options could not be loaded. Please refresh the page and try again.
+              </p>
+            )}
             <p className="ipdp-payment-note">M-Pesa and available delivery options are selected at checkout.</p>
 
             <div className="ipdp-quick-trust">
@@ -369,30 +410,44 @@ const InositolProductPage = ({
           <div className="ipdp-section-heading">
             <p className="ipdp-eyebrow">CHOOSE YOUR SUPPLY</p>
             <h2>Pick your package.</h2>
-            <p>Select a pack below. Current cart and checkout totals still use the catalog price per bottle.</p>
+            <p>Each pack is a separate catalog item. Add your chosen bundle to the cart at the price shown.</p>
           </div>
           <div className="ipdp-package-grid">
-            {bundles.map((option, index) => (
-              <article className={`ipdp-package${selectedBundle === index ? " is-selected" : ""}`} key={option.bottles}>
-                {option.badge && <span className="ipdp-package-badge">{option.badge}</span>}
-                <p className="ipdp-package-size">{option.bottles} {option.bottles === 1 ? "Bottle" : "Bottles"}</p>
-                <p className="ipdp-package-duration">{option.duration} · {option.daily}</p>
-                <p className="ipdp-package-price">{formatKes(option.price)}</p>
-                <p className="ipdp-package-was">{formatKes(option.was)} · Save {formatKes(option.was - option.price)}</p>
-                <button
-                  type="button"
-                  className={index === 0 ? "ipdp-package-outline" : "ipdp-package-cta"}
-                  disabled={!inStock || Boolean(stockQuantity && stockQuantity < option.bottles)}
-                  aria-pressed={selectedBundle === index}
-                  onClick={() => {
-                    setSelectedBundle(index);
-                    onAddToCart(option.bottles);
-                  }}
-                >
-                  {index === 0 ? "Select 1-bottle starter" : index === 1 ? "Select 3-bottle cycle supply" : "Select 6-bottle best value"}
-                </button>
-              </article>
-            ))}
+            {bundles.map((option, index) => {
+              const product = bundleProducts[option.bottles];
+              return (
+                <article className={`ipdp-package${selectedBundle === index ? " is-selected" : ""}`} key={option.bottles}>
+                  {option.badge && <span className="ipdp-package-badge">{option.badge}</span>}
+                  <p className="ipdp-package-size">{option.bottles} {option.bottles === 1 ? "Bottle" : "Bottles"}</p>
+                  <p className="ipdp-package-duration">
+                    {option.duration}
+                    {product && ` · ~${formatKes(Math.round(product.price / option.days))}/day`}
+                  </p>
+                  <p className="ipdp-package-price">
+                    {product ? formatKes(product.price) : bundleProductsLoading ? "Loading..." : "Unavailable"}
+                  </p>
+                  {product && product.price < option.was && (
+                    <p className="ipdp-package-was">{formatKes(option.was)} · Save {formatKes(option.was - product.price)}</p>
+                  )}
+                  <button
+                    type="button"
+                    className={index === 0 ? "ipdp-package-outline" : "ipdp-package-cta"}
+                    disabled={!product || product.stockQuantity <= 0}
+                    aria-pressed={selectedBundle === index}
+                    onClick={() => {
+                      setSelectedBundle(index);
+                      if (product) onAddToCart(product);
+                    }}
+                  >
+                    {product
+                      ? `Add ${option.bottles} ${option.bottles === 1 ? "bottle" : "bottles"} to cart`
+                      : bundleProductsLoading
+                        ? "Loading bundle..."
+                        : "Bundle unavailable"}
+                  </button>
+                </article>
+              );
+            })}
           </div>
         </section>
 
