@@ -106,7 +106,7 @@ const InositolProductPage = ({
 
   return (
     <div className="ipdp">
-      <Header />
+      <Header logoOnly />
 
       <div className="ipdp-trustbar" aria-label="Product highlights">
         <span><Leaf aria-hidden="true" /> 40:1 inositol ratio</span>

@@ -123,6 +123,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { useEffect } from "react";
 import MacaBoostListPage from "./pages/Macapage";
 import Shilagit from "./pages/shilagit";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ReturnPolicy from "./pages/ReturnPolicy";
 
 // ---- TikTok page view hook ----
 function TikTokPageView() {
@@ -159,6 +161,8 @@ const App = () => (
                     <Route path="/blogs" element={<FeaturedBlogs />} />
                     <Route path="/blog/:id" element={<BlogDetail />} />
                     <Route path="/faqs" element={<FAQs />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/return-policy" element={<ReturnPolicy />} />
                     <Route path="/shop" element={<AllProducts />} />
                     <Route path="/products" element={<CategoriesPage />} />
                     <Route path="/products/:slug" element={<CategoryProducts />} />

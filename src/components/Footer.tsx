@@ -73,6 +73,22 @@ const Footer = () => {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/privacy-policy"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/return-policy"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  Returns and Refunds
+                </Link>
+              </li>
             </ul>
           </div>
 

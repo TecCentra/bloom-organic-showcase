@@ -2512,7 +2512,11 @@ const navItems: NavItem[] = [
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-const Header = () => {
+type HeaderProps = {
+  logoOnly?: boolean;
+};
+
+const Header = ({ logoOnly = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // mobile hamburger panel
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false); // mobile categories panel
   const [openMenu, setOpenMenu] = useState<string | null>(null); // desktop dropdown
@@ -2585,6 +2589,66 @@ const Header = () => {
 
   const underline =
     "after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-3 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left";
+
+  if (logoOnly) {
+    return (
+      <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+        <div className="h-1.5 bg-primary" />
+        <nav className="container mx-auto px-3 md:px-4">
+          <div className="relative flex items-center justify-center px-20 py-3 md:py-4">
+            <Link to="/" aria-label="Organic Bloom home">
+              <img
+                src={Logo}
+                alt="Organic Bloom"
+                width={LOGO_W}
+                height={LOGO_H}
+                className="h-10 md:h-12 lg:h-14 w-auto object-contain"
+              />
+            </Link>
+
+            <div className="absolute right-3 md:right-4 flex items-center gap-3 md:gap-5">
+              {isLoggedIn ? (
+                <Link to="/profile" aria-label="Profile" className="text-foreground hover:text-primary">
+                  <User className="w-6 h-6" />
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => navigate("/login")}
+                  aria-label="Login"
+                  className="text-foreground hover:text-primary"
+                >
+                  <User className="w-6 h-6" />
+                </button>
+              )}
+              <Link to="/cart" className="relative text-foreground hover:text-primary" aria-label={`Cart${itemCount ? `, ${itemCount} items` : ""}`}>
+                <ShoppingCart className="w-6 h-6" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-foreground text-background text-[10px] font-semibold flex items-center justify-center">
+                    {itemCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+          </div>
+
+          <form className="pb-3" onSubmit={(e) => handleSearch(e)}>
+            <div className="relative mx-auto max-w-2xl">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-foreground pointer-events-none" />
+              <input
+                type="search"
+                placeholder="Search for products..."
+                aria-label="Search products"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-11 pl-12 pr-4 rounded-lg border border-border bg-background text-base text-foreground placeholder:text-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              />
+            </div>
+          </form>
+        </nav>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
