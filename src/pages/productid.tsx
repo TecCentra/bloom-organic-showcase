@@ -2496,7 +2496,7 @@ const ProductDetail = () => {
     return (
       <InositolProductPage
         name={transformedProduct.name}
-        image={displayImages[selectedImage] || displayImages[0]}
+        images={displayImages}
         price={transformedProduct.price}
         inStock={transformedProduct.inStock}
         stockQuantity={transformedProduct.stockQuantity}
@@ -2512,33 +2512,6 @@ const ProductDetail = () => {
         setShowAuthModal={setShowAuthModal}
         authModalContent={<AuthModalContent onSuccess={() => setShowAuthModal(false)} />}
         onAddToCart={handleAddToCart}
-        relatedContent={
-          <section className="border-t border-border py-12">
-            <div className="mb-8">
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-                You Might Also Like
-              </h2>
-              <p className="mt-1 text-muted-foreground">
-                More from {CATEGORY_NAME_MAP[apiProduct?.category_id] || "this category"}
-              </p>
-            </div>
-            {relatedLoading ? (
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-6">
-                {Array.from({ length: 4 }).map((_, index) => <ShimmerCard key={index} />)}
-              </div>
-            ) : relatedProducts.length === 0 ? (
-              <p className="text-muted-foreground">No related products found.</p>
-            ) : (
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 md:gap-6">
-                {relatedProducts.map((relatedProduct) => (
-                  <div key={relatedProduct.id} className="h-full animate-fade-in">
-                    <ProductCard {...relatedProduct} imageAspectRatio="portrait" />
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-        }
       />
     );
   }

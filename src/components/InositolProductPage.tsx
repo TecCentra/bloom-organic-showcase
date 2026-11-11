@@ -15,7 +15,7 @@ const formatKes = (amount: number) => `KSh ${amount.toLocaleString("en-KE")}`;
 
 type InositolProductPageProps = {
   name: string;
-  image?: string;
+  images: string[];
   price: number;
   inStock: boolean;
   stockQuantity?: number;
@@ -31,12 +31,11 @@ type InositolProductPageProps = {
   setShowAuthModal: (open: boolean) => void;
   authModalContent: ReactNode;
   onAddToCart: (quantity: number) => void;
-  relatedContent: ReactNode;
 };
 
 const InositolProductPage = ({
   name,
-  image,
+  images,
   price,
   inStock,
   stockQuantity,
@@ -52,13 +51,16 @@ const InositolProductPage = ({
   setShowAuthModal,
   authModalContent,
   onAddToCart,
-  relatedContent,
 }: InositolProductPageProps) => {
   const [selectedBundle, setSelectedBundle] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isImageZoomOpen, setIsImageZoomOpen] = useState(false);
   const [showStickyBuy, setShowStickyBuy] = useState(false);
   const heroCtaRef = useRef<HTMLButtonElement>(null);
   const packageSelectorRef = useRef<HTMLElement>(null);
   const bundle = bundles[selectedBundle];
+  const activeImageIndex = selectedImage < images.length ? selectedImage : 0;
+  const activeImage = images[activeImageIndex];
   const canAddBundle = inStock && (!stockQuantity || stockQuantity >= bundle.bottles);
 
   useEffect(() => {
@@ -102,13 +104,36 @@ const InositolProductPage = ({
         <section className="ipdp-hero" id="hero">
           <div className="ipdp-gallery">
             <div className="ipdp-product-image">
-              {image ? (
-                <img src={image} alt={name} width="900" height="1200" fetchPriority="high" decoding="async" />
+              {images.length > 0 ? (
+                <button
+                  type="button"
+                  className="ipdp-image-zoom-trigger"
+                  onClick={() => setIsImageZoomOpen(true)}
+                  aria-label={`Enlarge product image ${activeImageIndex + 1} of ${images.length}`}
+                >
+                  <img src={activeImage} alt={name} width="900" height="1200" fetchPriority="high" decoding="async" />
+                </button>
               ) : (
                 <div className="ipdp-image-placeholder"><Leaf aria-hidden="true" /></div>
               )}
               <span className="ipdp-image-caption">France shGrace · Inositol+</span>
             </div>
+            {images.length > 1 && (
+              <div className="ipdp-gallery-thumbnails" aria-label="Product images">
+                {images.map((src, index) => (
+                  <button
+                    type="button"
+                    key={`${src}-${index}`}
+                    className={`ipdp-gallery-thumbnail${activeImageIndex === index ? " is-selected" : ""}`}
+                    onClick={() => setSelectedImage(index)}
+                    aria-label={`Show product image ${index + 1}`}
+                    aria-pressed={activeImageIndex === index}
+                  >
+                    <img src={src} alt="" loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="ipdp-buybox">
@@ -180,7 +205,7 @@ const InositolProductPage = ({
             <li>See the other nutrients included in the formula.</li>
             <li>Compare the available bottle quantities and prices.</li>
           </ul>
-          <a className="ipdp-text-link" href="#formula">Explore the formula <span aria-hidden="true">↓</span></a>
+          <a className="ipdp-text-link" href="#mechanism">Explore the formula <span aria-hidden="true">↓</span></a>
         </section>
 
         <section className="ipdp-problem ipdp-section" id="problem">
@@ -253,6 +278,45 @@ const InositolProductPage = ({
           <button type="button" className="ipdp-cta ipdp-section-cta" onClick={scrollToPackages}>
             Compare supply options
           </button>
+        </section>
+
+        <section className="ipdp-label-details ipdp-section" id="supplement-facts">
+          <div className="ipdp-section-heading">
+            <p className="ipdp-eyebrow">PRODUCT LABEL DETAILS</p>
+            <h2>What’s in each serving?</h2>
+            <p>Serving information and amounts shown in the product mockup. Check the package label for the latest details.</p>
+          </div>
+          <div className="ipdp-label-grid">
+            <div className="ipdp-facts-card">
+              <h3>Supplement facts</h3>
+              <dl className="ipdp-serving-info">
+                <div><dt>Serving size</dt><dd>4 capsules</dd></div>
+                <div><dt>Servings per container</dt><dd>30</dd></div>
+              </dl>
+              <table className="ipdp-facts-table">
+                <thead>
+                  <tr><th scope="col">Amount per serving</th><th scope="col">Amount</th><th scope="col">%DV</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Vitamin D3 <small>(as cholecalciferol)</small></th><td>10 mcg</td><td>50%</td></tr>
+                  <tr><th scope="row">Folate <small>(as methylfolate)</small></th><td>340 mcg DFE</td><td>85%</td></tr>
+                  <tr><th scope="row">Myo-inositol</th><td>2,000 mg</td><td>**</td></tr>
+                  <tr><th scope="row">D-chiro-inositol</th><td>50 mg</td><td>**</td></tr>
+                </tbody>
+              </table>
+              <p className="ipdp-dv-note">** Daily Value (DV) not established.</p>
+            </div>
+            <div className="ipdp-directions-card">
+              <p className="ipdp-eyebrow">DIRECTIONS SHOWN IN THE MOCKUP</p>
+              <h3>Follow the serving directions on the package.</h3>
+              <ol>
+                <li><span>01</span>Take 2 capsules in the morning.</li>
+                <li><span>02</span>Take 2 capsules in the evening.</li>
+                <li><span>03</span>Preferably take with food.</li>
+              </ol>
+              <p>Use the actual product label if its directions differ. Ask a qualified healthcare professional if you have questions about taking this supplement.</p>
+            </div>
+          </div>
         </section>
 
         <section className="ipdp-routine ipdp-section" id="routine">
@@ -398,7 +462,6 @@ const InositolProductPage = ({
           )}
         </section>
 
-        {relatedContent}
       </main>
 
       <div className={`ipdp-sticky-buy${showStickyBuy ? " is-visible" : ""}`}>
@@ -411,6 +474,11 @@ const InositolProductPage = ({
       <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
         <DialogContent className="sm:max-w-md bg-card border-border rounded-xl p-0 max-h-[90vh] overflow-y-auto">
           {authModalContent}
+        </DialogContent>
+      </Dialog>
+      <Dialog open={isImageZoomOpen} onOpenChange={setIsImageZoomOpen}>
+        <DialogContent className="ipdp-image-dialog">
+        {activeImage && <img src={activeImage} alt={name} />}
         </DialogContent>
       </Dialog>
       <Footer />
