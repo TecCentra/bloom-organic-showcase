@@ -596,8 +596,6 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Star } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import periodSupportLifestyle from "@/assets/period-support-lifestyle.jpeg";
 import periodSupportMirror from "@/assets/period-support-mirror.jpeg";
@@ -812,8 +810,6 @@ const InositolProductPage = ({
 
   return (
     <div className="ipdp">
-      <Header logoOnly />
-
       <div className="ipdp-topbar">
         <span>
           <LockIcon size={13} strokeWidth={2.4} />
@@ -1593,7 +1589,6 @@ const InositolProductPage = ({
           </div>
         )}
       </section>
-      <Footer />
 
       <Dialog open={showAuthModal} onOpenChange={setShowAuthModal}>
         <DialogContent className="sm:max-w-md bg-card border-border rounded-xl p-0 max-h-[90vh] overflow-y-auto">

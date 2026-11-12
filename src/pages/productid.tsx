@@ -2542,7 +2542,6 @@ const ProductDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
         <div className="w-full px-4 py-8 md:py-12">
           <div className="h-9 bg-muted rounded w-28 mb-6 animate-pulse" />
           <div className="flex gap-2 mb-6 animate-pulse">
@@ -2552,7 +2551,6 @@ const ProductDetail = () => {
           </div>
           <ShimmerProductDetail />
         </div>
-        <Footer />
       </div>
     );
   }
@@ -2606,8 +2604,6 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-
       <div className="w-full px-4 py-8 md:py-12">
         <Button variant="ghost" className="mb-6" onClick={() => navigate(-1)}>
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -2840,7 +2836,6 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <Footer />
     </div>
   );
 };
