@@ -1778,7 +1778,6 @@ import { slugifyProductName } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { useUserAuth } from "@/context/UserAuthContext";
-import MiniHeader from "@/components/MiniHeader";
 import InositolProductPage, { type InositolBundleProduct } from "@/components/InositolProductPage";
 
 interface LoginFormData { email: string; password: string; }
@@ -2432,7 +2431,7 @@ const ProductDetail = () => {
         quantity: 1,
       });
     }
-    navigate("/checkout");
+    navigate("/checkout", { state: { useMiniHeader: true } });
   };
 
   const handleQuantityChange = (action: "increase" | "decrease") => {
@@ -2545,7 +2544,7 @@ const ProductDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-background">
-        <MiniHeader />
+        <Header />
         <div className="w-full px-4 py-8 md:py-12">
           <div className="h-9 bg-muted rounded w-28 mb-6 animate-pulse" />
           <div className="flex gap-2 mb-6 animate-pulse">
@@ -2555,6 +2554,7 @@ const ProductDetail = () => {
           </div>
           <ShimmerProductDetail />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -2608,7 +2608,7 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <MiniHeader />
+      <Header />
       <div className="w-full px-4 py-8 md:py-12">
         <Button variant="ghost" className="mb-6" onClick={() => navigate(-1)}>
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -2841,6 +2841,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
+      <Footer />
     </div>
   );
 };

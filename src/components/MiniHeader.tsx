@@ -7,6 +7,13 @@ type MiniHeaderProps = {
   trustMessages?: string[];
 };
 
+export const INOSITOL_TRUST_MESSAGES = [
+  "100% Bioavailable & Non-Synthetic Formula",
+  "Exact 40:1 Plasma-Matched Ratio",
+  "GMP Elite Certified Manufacturing",
+  "Fast, Discreet Delivery Across Kenya",
+];
+
 const MiniHeader = ({ trustMessages = ["Secure checkout · Fast, discreet delivery across Kenya"] }: MiniHeaderProps) => {
   const { itemCount } = useCart();
 

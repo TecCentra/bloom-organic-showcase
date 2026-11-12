@@ -596,7 +596,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Star } from "lucide-react";
-import MiniHeader from "@/components/MiniHeader";
+import MiniHeader, { INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import periodSupportLifestyle from "@/assets/period-support-lifestyle.jpeg";
 import periodSupportMirror from "@/assets/period-support-mirror.jpeg";
@@ -811,14 +811,7 @@ const InositolProductPage = ({
 
   return (
     <div className="ipdp">
-      <MiniHeader
-        trustMessages={[
-          "100% Bioavailable & Non-Synthetic Formula",
-          "Exact 40:1 Plasma-Matched Ratio",
-          "GMP Elite Certified Manufacturing",
-          "Fast, Discreet Delivery Across Kenya",
-        ]}
-      />
+      <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
 
       <main>
         {/* ============ HERO ============ */}
