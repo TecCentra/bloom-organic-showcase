@@ -2934,6 +2934,10 @@
   padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom, 0px));
 }
 
+.ipdp main {
+  padding-top: 12px;
+}
+
 /* zero-specificity resets so single-class rules below always win */
 :where(.ipdp) :where(h1, h2, h3, p, ul, ol, li, blockquote, figure, dl, dd) {
   margin: 0;

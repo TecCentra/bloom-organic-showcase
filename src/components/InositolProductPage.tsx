@@ -596,6 +596,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Star } from "lucide-react";
+import MiniHeader from "@/components/MiniHeader";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import periodSupportLifestyle from "@/assets/period-support-lifestyle.jpeg";
 import periodSupportMirror from "@/assets/period-support-mirror.jpeg";
@@ -810,18 +811,14 @@ const InositolProductPage = ({
 
   return (
     <div className="ipdp">
-      <div className="ipdp-topbar">
-        <span>
-          <LockIcon size={13} strokeWidth={2.4} />
-          100% Bioavailable &amp; Non-Synthetic Formula
-        </span>
-        <span className="ipdp-topbar-sep" aria-hidden="true">|</span>
-        <span>Exact 40:1 Plasma-Matched Ratio</span>
-        <span className="ipdp-topbar-sep" aria-hidden="true">|</span>
-        <span>GMP Elite Certified Manufacturing</span>
-        <span className="ipdp-topbar-sep" aria-hidden="true">|</span>
-        <span>Fast, Discreet Delivery Across Kenya</span>
-      </div>
+      <MiniHeader
+        trustMessages={[
+          "100% Bioavailable & Non-Synthetic Formula",
+          "Exact 40:1 Plasma-Matched Ratio",
+          "GMP Elite Certified Manufacturing",
+          "Fast, Discreet Delivery Across Kenya",
+        ]}
+      />
 
       <main>
         {/* ============ HERO ============ */}
