@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from "lucide-react";
+import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 
 const Footer = () => {
   const socialLinks = [
@@ -73,6 +73,22 @@ const Footer = () => {
                   Contact Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/privacy-policy"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/return-policy"
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                >
+                  Returns and Refunds
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -89,6 +105,12 @@ const Footer = () => {
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
                 <span>+254704086080</span>
+              </li>
+              <li className="flex items-center gap-3 text-muted-foreground">
+                <MessageCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                <a href="https://wa.me/254704086080" target="_blank" rel="noopener noreferrer" className="hover:text-primary">
+                  WhatsApp Support: +254704086080
+                </a>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />

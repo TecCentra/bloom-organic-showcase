@@ -200,6 +200,7 @@ import { Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
+import { isCatalogProductVisible } from "@/lib/productsCache";
 
 interface ProductImage {
   image_id: string;
@@ -315,7 +316,7 @@ const AllProducts = () => {
         if (cancel) return;
         if (data.success && data.data.products) {
           const activeProducts = data.data.products
-            .filter((p) => p.is_active)
+            .filter((p) => p.is_active && isCatalogProductVisible(p))
             .sort(
               (a, b) =>
                 new Date(b.created_at).getTime() -

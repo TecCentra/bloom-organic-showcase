@@ -746,7 +746,8 @@ import {
   Lock
 } from "lucide-react";
 import Header from "@/components/Header";
-import { useNavigate } from "react-router-dom";
+import MiniHeader, { INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
+import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
 import { useUserAuth } from "@/context/UserAuthContext";
@@ -771,6 +772,12 @@ const generateSilentPassword = () => {
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const useMiniHeader = location.state?.useMiniHeader === true;
+  const checkoutHeader = useMiniHeader
+    ? <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
+    : <Header />;
+  const checkoutFooter = useMiniHeader ? null : <Footer />;
   const { items: cartItems, updateQuantity, removeItem, clear } = useCart();
   const { setToken } = useUserAuth();
   const pollingActiveRef = useRef(false);
@@ -1219,14 +1226,14 @@ const CheckoutPage = () => {
   if (isLoadingUser) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
+        {checkoutHeader}
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="text-center">
             <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
             <p>Loading checkout...</p>
           </div>
         </div>
-        <Footer />
+        {checkoutFooter}
       </div>
     );
   }
@@ -1234,21 +1241,21 @@ const CheckoutPage = () => {
   if (userFetchError) {
     return (
       <div className="min-h-screen flex flex-col">
-        <Header />
+        {checkoutHeader}
         <div className="flex-1 flex items-center justify-center p-4">
           <div className="text-center max-w-sm">
             <p className="text-red-600 mb-4">Something went wrong loading your account</p>
             <Button onClick={() => navigate('/cart')}>Go to Cart</Button>
           </div>
         </div>
-        <Footer />
+        {checkoutFooter}
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+      {checkoutHeader}
 
       <div className="flex-1 container mx-auto px-4 py-6 max-w-5xl">
         <Button variant="ghost" size="sm" className="mb-4" onClick={() => navigate("/cart")}>
@@ -1579,7 +1586,7 @@ const CheckoutPage = () => {
         </div>
       </div>
 
-      <Footer />
+      {checkoutFooter}
     </div>
   );
 };
