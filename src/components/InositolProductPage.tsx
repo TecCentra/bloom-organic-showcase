@@ -1605,6 +1605,9 @@ import periodSupportDailyRoutine from "@/assets/period-support-daily-routine.jpe
 import inositolSupplementFacts from "@/assets/inositol-supplement-facts.webp";
 import inositolBottleFront from "@/assets/inositol-bottle-front.webp";
 import inositolHeroJourney from "@/assets/inositol-hero-journey.png";
+import inositol1Bottle from "@/assets/inositol-1-bottle.jpeg";
+import inositol3Bottles from "@/assets/inositol-3-bottles.jpeg";
+import inositol6Bottles from "@/assets/inositol-6-bottles.jpeg";
 import {
   BatteryIcon,
   BoltIcon,
@@ -1627,6 +1630,12 @@ import {
 import "./InositolProductPage.css";
 
 type BundleBottles = 1 | 3 | 6;
+
+const bundleImages: Record<BundleBottles, string> = {
+  1: inositol1Bottle,
+  3: inositol3Bottles,
+  6: inositol6Bottles,
+};
 
 /* ---------------------------------------------------------------- content */
 
@@ -1673,7 +1682,7 @@ const heroChecks = [
   { lead: "Bring back a clean, painless 4-day period", rest: " without dark calendar fear or non-stop bleeding." },
   { lead: "Quiet obsessive 3 PM sugar cravings", rest: " and enjoy steady, flat-tummy energy all day." },
   { lead: "Clear deep jawline breakouts", rest: " and slow down coarse chin hair growth at the root cause." },
-  { lead: "Easy-to-swallow daily capsules", rest: " — gentle on your stomach with zero synthetic birth control." },
+  { lead: "Easy-to-swallow daily capsules", rest: ", gentle on your stomach with zero synthetic birth control." },
 ];
 
 const whyStats = [
@@ -1714,7 +1723,7 @@ const accordions: { label: string; body: ReactNode }[] = [
         <p>
           France shGrace Inositol+ is a daily supplement formulated specifically for women with PCOS and insulin-resistant
           cycles. Each capsule delivers a clinically studied 40:1 blend of Myo-Inositol and D-Chiro-Inositol, paired with
-          Methylfolate and Vitamin D3 — the four nutrients your ovaries need to restore their natural rhythm.
+          Methylfolate and Vitamin D3, the four nutrients your ovaries need to restore their natural rhythm.
         </p>
         <p>This is not a hormonal drug. It does not suppress your cycle. It gives your body the raw signal it lost.</p>
       </>
@@ -1725,7 +1734,7 @@ const accordions: { label: string; body: ReactNode }[] = [
     body: (
       <ul>
         <li>Most PCOS supplements treat symptoms. This one targets the root cause: insulin resistance in ovarian cells.</li>
-        <li>The 40:1 Myo:D-Chiro ratio is the exact proportion your body produces naturally — not a guessed formulation.</li>
+        <li>The 40:1 Myo:D-Chiro ratio is the exact proportion your body produces naturally, not a guessed formulation.</li>
         <li>No synthetic hormones. No birth control side effects. No shutting down your ovaries.</li>
         <li>Made for Kenyan women: formulated for the hormone patterns, diet context, and stress loads common in East Africa.</li>
       </ul>
@@ -1737,7 +1746,7 @@ const accordions: { label: string; body: ReactNode }[] = [
       <ul>
         <li>Regulates and restores predictable monthly cycles</li>
         <li>Reduces excess androgen production (chin hair, jawline acne, upper lip hair)</li>
-        <li>Unlocks insulin-resistant fat — especially around the belly</li>
+        <li>Unlocks insulin-resistant fat, especially around the belly</li>
         <li>Eliminates obsessive 3 PM sugar cravings and afternoon energy crashes</li>
         <li>Supports natural ovulation without synthetic hormones</li>
         <li>Improves mood stability in the week before your period</li>
@@ -1751,8 +1760,8 @@ const accordions: { label: string; body: ReactNode }[] = [
         <p>Take 2 capsules daily with a glass of water, preferably with your morning or afternoon meal.</p>
         <ul>
           <li>Best taken with food to maximise absorption</li>
-          <li>100% vegetarian capsule shell — no gelatin, no synthetic fillers</li>
-          <li>Gentle on sensitive stomachs — no nausea at the standard dose</li>
+          <li>100% vegetarian capsule shell, no gelatin or synthetic fillers</li>
+          <li>Gentle on sensitive stomachs, with no nausea at the standard dose</li>
           <li>Take consistently for a minimum of 90 days for full results</li>
           <li>Safe alongside most vitamins. If on prescription Metformin, check with your GP first.</li>
         </ul>
@@ -1768,7 +1777,7 @@ const accordions: { label: string; body: ReactNode }[] = [
       <>
         <p>Yes. Try France shGrace Inositol+ for 90 full days.</p>
         <p>
-          If you don’t experience fewer sugar crashes, calmer breakouts, and more predictable cycles — contact our Kenya
+          If you don’t experience fewer sugar crashes, calmer breakouts, and more predictable cycles, contact our Kenya
           support team and we’ll refund every shilling. No forms. No hassle.
         </p>
         <p>
@@ -1811,7 +1820,7 @@ const testimonials = [
   },
   {
     quote:
-      "I was skeptical — I’d tried metformin, spearmint tea, cutting sugar, all of it. My cycle was showing up whenever it felt like. By month two on Inositol+, it came on day 29. I actually cried. First time in almost two years.",
+      "I was skeptical. I’d tried metformin, spearmint tea, cutting sugar, all of it. My cycle was showing up whenever it felt like. By month two on Inositol+, it came on day 29. I actually cried. First time in almost two years.",
     name: "Anne A.",
     city: "Nairobi",
     tags: ["Cycle Returned", "Worth The Try"],
@@ -2026,7 +2035,7 @@ const InositolProductPage = ({
   };
   const orderLabel = selectedProduct
     ? canCheckout
-      ? "Order Now — Pay with M-Pesa"
+      ? "Order Now: Pay with M-Pesa"
       : "Out of stock"
     : bundleProductsLoading
       ? "Loading bundles..."
@@ -2102,7 +2111,7 @@ const InositolProductPage = ({
               ))}
             </ul>
 
-            <button type="button" className="ipdp-pill-cta ipdp-pill-cta--dark" onClick={scrollToPackages}>
+            <button type="button" className="ipdp-pill-cta ipdp-pill-cta--accent" onClick={scrollToPackages}>
               Reclaim Your Cycle Today
             </button>
           </div>
@@ -2137,8 +2146,8 @@ const InositolProductPage = ({
 
             <div className="ipdp-prose">
               <p>
-                Every cycle problem you’ve tried to fix — the late period, the chin hair, the belly fat, the 3 PM crash —
-                they all trace back to one thing: your cells have stopped listening to insulin.
+                Every cycle problem you’ve tried to fix, including late periods, chin hair, belly fat, and 3 PM crashes,
+                traces back to one thing: your cells have stopped listening to insulin.
               </p>
               <p>
                 When insulin can’t get its message through, your ovaries overcompensate. They flood your system with male
@@ -2268,10 +2277,14 @@ const InositolProductPage = ({
                         onClick={() => setSelectedBundle(index)}
                       >
                         <span className="ipdp-bundle-bottles" aria-hidden="true">
-                          {Array.from({ length: Math.min(option.bottles, 3) }, (_, bottle) => (
-                            <img key={bottle} src={bottleImage} alt="" width={30} height={40} loading="lazy" />
-                          ))}
-                          {option.bottles > 3 && <em>{option.count}</em>}
+                          <img
+                            className="ipdp-bundle-image"
+                            src={bundleImages[option.bottles]}
+                            alt=""
+                            width={68}
+                            height={56}
+                            loading="lazy"
+                          />
                         </span>
                         <span className="ipdp-bundle-info">
                           <strong>{option.title}</strong>
@@ -2374,8 +2387,8 @@ const InositolProductPage = ({
             <div className="ipdp-head">
               <h2>Why 1 in 5 Kenyan Women With PCOS Never Gets Her Cycle Back</h2>
               <p className="ipdp-head-intro">
-                Irregular cycles, chin hair, belly fat, and constant fatigue. It’s not your discipline. It’s a signal problem
-                — and most products never fix the signal.
+                Irregular cycles, chin hair, belly fat, and constant fatigue. It’s not your discipline. It’s a signal
+                problem, and most products never fix the signal.
               </p>
             </div>
 
@@ -2395,7 +2408,7 @@ const InositolProductPage = ({
 
             <div className="ipdp-prose ipdp-prose--left">
               <p>
-                Birth control pills don’t heal your ovaries — they put them to sleep and hand you a fake bleed. The moment
+                Birth control pills don’t heal your ovaries. They put them to sleep and hand you a fake bleed. The moment
                 you stop, the problem is exactly where you left it.
               </p>
               <p>
@@ -2498,7 +2511,7 @@ const InositolProductPage = ({
             <h2>Try It For 90 Days. If It Doesn’t Work, You Pay Nothing.</h2>
             <p>
               We’re confident in what Inositol+ does. If you don’t see a difference in your cycle, your energy, or your body
-              by day 90 — contact us and we’ll refund every shilling. No forms. No hassle.
+              by day 90, contact us and we’ll refund every shilling. No forms. No hassle.
             </p>
             <small>Applies to all orders. Refund processed within 5–7 business days via M-Pesa.</small>
           </div>
@@ -2509,7 +2522,7 @@ const InositolProductPage = ({
           <div className="ipdp-wrap">
             <h2>Your Cycle Doesn’t Have to Be a Mystery Anymore.</h2>
             <p>
-              Thousands of women are finally seeing regular cycles, calmer skin, and bodies that move again — not because
+              Thousands of women are finally seeing regular cycles, calmer skin, and bodies that move again, not because
               they found more willpower, but because they fixed the signal. Inositol+ is that fix. And it comes with 90 days
               to prove it to yourself.
             </p>

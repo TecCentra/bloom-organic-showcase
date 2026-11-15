@@ -324,13 +324,13 @@
   font-weight: 700;
 }
 
-.ipdp-pill-cta--dark {
+.ipdp-pill-cta--accent {
   margin-top: 28px;
-  background: var(--sage-dark);
+  background: var(--cta);
 }
 
-.ipdp-pill-cta--dark:hover {
-  background: #153625;
+.ipdp-pill-cta--accent:hover {
+  background: #a83f00;
 }
 
 .ipdp .ipdp-why :where(button):focus-visible {
@@ -615,14 +615,22 @@
 .ipdp-bundle-bottles {
   display: flex;
   flex: none;
-  align-items: flex-end;
-  min-width: 30px;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 56px;
+  min-width: 68px;
 }
 
 .ipdp-bundle-bottles img {
   width: 30px;
   height: 40px;
   object-fit: contain;
+}
+
+.ipdp-bundle-bottles img.ipdp-bundle-image {
+  width: 68px;
+  height: 56px;
 }
 
 .ipdp-bundle-bottles img + img {

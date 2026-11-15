@@ -131,3 +131,32 @@ All colors MUST be HSL.
     @apply absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100;
   }
 }
+
+.mini-header-assurances-track {
+  animation: mini-header-assurances-scroll 40s linear infinite;
+}
+
+.mini-header-assurances-group {
+  white-space: nowrap;
+}
+
+@keyframes mini-header-assurances-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mini-header-assurances {
+    overflow-x: auto;
+  }
+
+  .mini-header-assurances-track {
+    width: max-content;
+    animation: none;
+  }
+
+  .mini-header-assurances-group + .mini-header-assurances-group {
+    display: none;
+  }
+}

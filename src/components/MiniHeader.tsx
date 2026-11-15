@@ -8,10 +8,12 @@ type MiniHeaderProps = {
 };
 
 export const INOSITOL_TRUST_MESSAGES = [
-  "100% Bioavailable & Non-Synthetic Formula",
-  "Exact 40:1 Plasma-Matched Ratio",
-  "GMP Elite Certified Manufacturing",
-  "Fast, Discreet Delivery Across Kenya",
+  "🔒 Guaranteed Predictable Cycles in 90 Days",
+  "⭐ 4.9/5 Rating from 103+ Kenyan Women",
+  "⚖️ Perfect 40:1 Inositol Blend",
+  "📦 Discreet Delivery Across Kenya (24-48 hrs)",
+  "🩸 Say Goodbye to Dreaded Month-Long Spotting",
+  "🛑 Clear Deep Jawline Breakouts & Chin Hair at the Root",
 ];
 
 const MiniHeader = ({ trustMessages = ["Secure checkout · Fast, discreet delivery across Kenya"] }: MiniHeaderProps) => {
@@ -41,18 +43,20 @@ const MiniHeader = ({ trustMessages = ["Secure checkout · Fast, discreet delive
           )}
         </Link>
       </div>
-      <div
-        className={`flex gap-4 overflow-x-auto bg-primary px-4 py-1.5 text-[10px] font-medium leading-tight text-primary-foreground ${
-          trustMessages.length === 1 ? "justify-center" : ""
-        }`}
-        aria-label="Product assurances"
-      >
-        {trustMessages.map((message, index) => (
-          <span key={message} className="flex shrink-0 items-center gap-4">
-            {index > 0 && <span aria-hidden="true">|</span>}
-            {message}
-          </span>
-        ))}
+      <div className="mini-header-assurances overflow-hidden bg-[#2c5e43] px-4 py-1.5 text-base font-medium leading-tight text-white">
+        <span className="sr-only">{trustMessages.join(" | ")}</span>
+        <div className="mini-header-assurances-track flex w-max" aria-hidden="true">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="mini-header-assurances-group flex shrink-0">
+              {trustMessages.map((message, index) => (
+                <span key={message} className="flex shrink-0 items-center gap-4">
+                  {index > 0 && <span aria-hidden="true">|</span>}
+                  {message}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </header>
   );
