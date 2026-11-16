@@ -120,7 +120,7 @@ import UserProfile from "./pages/UserProfile";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentFailedPage from "./pages/PaymentFailedPage";
 import { Analytics } from "@vercel/analytics/react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import MacaBoostListPage from "./pages/Macapage";
 import Shilagit from "./pages/shilagit";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -134,6 +134,23 @@ function TikTokPageView() {
     if (typeof window !== "undefined" && (window as any).ttq) {
       (window as any).ttq.page();
     }
+  }, [location.pathname]);
+
+  return null;
+}
+
+function MetaPixelPageView() {
+  const location = useLocation();
+  const isInitialPageView = useRef(true);
+
+  useEffect(() => {
+    if (isInitialPageView.current) {
+      isInitialPageView.current = false;
+      return;
+    }
+
+    const fbq = (window as Window & { fbq?: (...args: string[]) => void }).fbq;
+    fbq?.("track", "PageView");
   }, [location.pathname]);
 
   return null;
@@ -153,6 +170,7 @@ const App = () => (
               <UserAuthProvider>
                 <CartProvider>
                   <TikTokPageView /> {/* ← fires ttq.page() on every route change */}
+                  <MetaPixelPageView />
                   <ScrollToTop />
                   <FloatingWhatsApp />
                   <Routes>
