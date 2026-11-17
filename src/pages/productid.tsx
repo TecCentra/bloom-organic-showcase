@@ -1779,34 +1779,7 @@ import { useCart } from "@/context/CartContext";
 import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { useUserAuth } from "@/context/UserAuthContext";
 import InositolProductPage, { type InositolBundleProduct } from "@/components/InositolProductPage";
-
-function MyoInositolMetaPixel() {
-  useEffect(() => {
-    const pixelWindow = window as Window & { fbq?: (...args: string[]) => void };
-
-    if (pixelWindow.fbq) {
-      pixelWindow.fbq("track", "PageView");
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.textContent = `
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window,document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '2937091883333719');
-      fbq('track', 'PageView');
-    `;
-    document.head.appendChild(script);
-  }, []);
-
-  return null;
-}
+import MetaPixelPageView from "@/components/MetaPixelPageView";
 
 interface LoginFormData { email: string; password: string; }
 interface RegisterFormData {
@@ -2612,7 +2585,7 @@ const ProductDetail = () => {
   if (isInositolProduct) {
     return (
       <>
-        <MyoInositolMetaPixel />
+        <MetaPixelPageView />
         <InositolProductPage
           name={transformedProduct.name}
           images={displayImages}
