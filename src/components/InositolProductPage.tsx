@@ -1608,6 +1608,11 @@ import inositolHeroJourney from "@/assets/inositol-hero-journey.png";
 import inositol1Bottle from "@/assets/inositol-1-bottle.jpeg";
 import inositol3Bottles from "@/assets/inositol-3-bottles.jpeg";
 import inositol6Bottles from "@/assets/inositol-6-bottles.jpeg";
+import galleryImage1 from "@/assets/gallery-image-1.jpeg";
+import galleryImage2 from "@/assets/gallery-image-2.jpeg";
+import galleryImage3 from "@/assets/gallery-image-3.jpeg";
+import galleryImage4 from "@/assets/gallery-image-4.jpeg";
+import galleryImage5 from "@/assets/gallery-image-5.jpeg";
 import {
   BatteryIcon,
   BoltIcon,
@@ -1979,14 +1984,13 @@ const InositolProductPage = ({
   const bottleImage = images[0] ?? inositolBottleFront;
 
   const gallery = [
-    { src: bottleImage, alt: `${name} bottle` },
-    { src: periodSupportDailyRoutine, alt: "Morning routine: capsules in a palm beside the product bottle" },
-    {
-      src: inositolSupplementFacts,
-      alt: "Supplement Facts: 4 capsules per serving, 30 servings per container. Vitamin D3 10 mcg, Folate 340 mcg DFE, Myo-Inositol 2000 mg, D-Chiro-Inositol 50 mg",
-    },
-    { src: periodSupportConfidence, alt: "A woman smiles while holding the bottle in natural light" },
-    ...images.slice(1).map((src, index) => ({ src, alt: `${name} photo ${index + 2}` })),
+     { src: galleryImage1, alt: `${name} gallery image 1` },
+    { src: galleryImage2, alt: `${name} gallery image 2` },
+   { src: galleryImage3, alt: `${name} gallery image 3` },
+   { src: galleryImage4, alt: `${name} gallery image 4` },
+    { src: galleryImage5, alt: `${name} gallery image 5` },
+    
+    
   ];
 
   useEffect(() => {
