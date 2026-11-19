@@ -746,7 +746,7 @@ import {
   Lock
 } from "lucide-react";
 import Header from "@/components/Header";
-import MiniHeader, { INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
+import MiniHeader, { INOSITOL_TRUST_MESSAGES, isInositolCartItem } from "@/components/MiniHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
@@ -773,12 +773,13 @@ const generateSilentPassword = () => {
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const useMiniHeader = location.state?.useMiniHeader === true;
+  const { items: cartItems, updateQuantity, removeItem, clear } = useCart();
+  const useMiniHeader =
+    location.state?.useMiniHeader === true || cartItems.some(isInositolCartItem);
   const checkoutHeader = useMiniHeader
     ? <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
     : <Header />;
   const checkoutFooter = useMiniHeader ? null : <Footer />;
-  const { items: cartItems, updateQuantity, removeItem, clear } = useCart();
   const { setToken } = useUserAuth();
   const pollingActiveRef = useRef(false);
 
@@ -1019,7 +1020,7 @@ const CheckoutPage = () => {
           if (['completed', 'paid', 'success'].includes(status)) {
             pollingActiveRef.current = false;
             clear();
-            navigate('/payment-success', { state: { orderId: orderId } });
+            navigate('/payment-success', { state: { orderId, useMiniHeader } });
             return;
           }
           if (['failed', 'cancelled', 'error'].includes(status)) {

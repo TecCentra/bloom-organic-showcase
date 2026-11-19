@@ -2976,11 +2976,17 @@ import {
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MiniHeader, { isInositolCartItem, INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
 import { useCart } from "@/context/CartContext";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { items: cartItems, updateQuantity, removeItem } = useCart();
+  const containsInositol = cartItems.some(isInositolCartItem);
+  const cartHeader = containsInositol
+    ? <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
+    : <Header />;
+  const cartFooter = containsInositol ? null : <Footer />;
 
   // Debug cart items
   useEffect(() => {
@@ -3019,13 +3025,13 @@ const CartPage = () => {
     }
 
     // Guest checkout — account creation (optional) happens on the checkout page itself
-    navigate("/checkout");
+    navigate("/checkout", { state: { useMiniHeader: containsInositol } });
   };
 
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
+        {cartHeader}
         <div className="container mx-auto px-4 py-20 text-center">
           <div className="max-w-md mx-auto">
             <ShoppingCart className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
@@ -3038,14 +3044,14 @@ const CartPage = () => {
             </Button>
           </div>
         </div>
-        <Footer />
+        {cartFooter}
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {cartHeader}
 
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" className="mb-6" onClick={() => navigate("/")}>
@@ -3173,7 +3179,7 @@ const CartPage = () => {
         </div>
       </div>
 
-      <Footer />
+      {cartFooter}
     </div>
   );
 };
