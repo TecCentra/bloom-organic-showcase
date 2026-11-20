@@ -1780,6 +1780,7 @@ import { useMaterialToast } from "@/hooks/useMaterialToast";
 import { useUserAuth } from "@/context/UserAuthContext";
 import InositolProductPage, { type InositolBundleProduct } from "@/components/InositolProductPage";
 import MetaPixelPageView from "@/components/MetaPixelPageView";
+import { trackMetaEvent } from "@/lib/metaPixel";
 
 interface LoginFormData { email: string; password: string; }
 interface RegisterFormData {
@@ -2365,6 +2366,13 @@ const ProductDetail = () => {
   // ── TikTok ViewContent ────────────────────────────────────
   useEffect(() => {
     if (!transformedProduct) return;
+    trackMetaEvent("ViewContent", {
+      content_id: resolvedProductId || transformedProduct.id,
+      content_name: transformedProduct.name,
+      content_type: "product",
+      currency: "KES",
+      value: transformedProduct.price / 100,
+    });
     if ((window as any).ttq) {
       (window as any).ttq.track("ViewContent", {
         content_id: resolvedProductId || transformedProduct.id,
@@ -2422,6 +2430,24 @@ const ProductDetail = () => {
       { id: bundleProduct.id, name: bundleProduct.name, price: bundleProduct.price * 100, image: imageForCart },
       1
     );
+    trackMetaEvent("AddToCart", {
+      content_id: bundleProduct.id,
+      content_name: bundleProduct.name,
+      content_type: "product",
+      content_ids: [bundleProduct.id],
+      contents: [{ id: bundleProduct.id, quantity: 1, item_price: bundleProduct.price }],
+      currency: "KES",
+      value: bundleProduct.price,
+      quantity: 1,
+    });
+    trackMetaEvent("InitiateCheckout", {
+      content_type: "product",
+      content_ids: [bundleProduct.id],
+      contents: [{ id: bundleProduct.id, quantity: 1, item_price: bundleProduct.price }],
+      currency: "KES",
+      value: bundleProduct.price,
+      num_items: 1,
+    });
     if ((window as any).ttq) {
       (window as any).ttq.track("AddToCart", {
         content_id: bundleProduct.id,
@@ -2445,6 +2471,32 @@ const ProductDetail = () => {
     if (!productId || !transformedProduct) return;
     const imageForCart = displayImages[selectedImage] || displayImages[0] || "/fallback-image.jpg";
     addToCart({ id: productId, name: transformedProduct.name, price: transformedProduct.price, image: imageForCart }, quantityToAdd);
+    trackMetaEvent("AddToCart", {
+      content_id: productId,
+      content_name: transformedProduct.name,
+      content_type: "product",
+      content_ids: [productId],
+      contents: [{
+        id: productId,
+        quantity: quantityToAdd,
+        item_price: transformedProduct.price / 100,
+      }],
+      currency: "KES",
+      value: (transformedProduct.price / 100) * quantityToAdd,
+      quantity: quantityToAdd,
+    });
+    trackMetaEvent("InitiateCheckout", {
+      content_type: "product",
+      content_ids: [productId],
+      contents: [{
+        id: productId,
+        quantity: quantityToAdd,
+        item_price: transformedProduct.price / 100,
+      }],
+      currency: "KES",
+      value: (transformedProduct.price / 100) * quantityToAdd,
+      num_items: quantityToAdd,
+    });
     if ((window as any).ttq) {
       (window as any).ttq.track("AddToCart", {
         content_id: productId,

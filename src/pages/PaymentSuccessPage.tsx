@@ -49,13 +49,39 @@ import { Link, useLocation } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import MetaPixelPageView from '@/components/MetaPixelPageView';
 import MiniHeader, { INOSITOL_TRUST_MESSAGES } from '@/components/MiniHeader';
+import { trackMetaEvent } from '@/lib/metaPixel';
 
 const PaymentSuccessPage = () => {
   const location = useLocation();
   const orderId = location.state?.orderId;
   const useMiniHeader = location.state?.useMiniHeader === true;
+  const purchase = location.state?.purchase;
 
   useEffect(() => {
+    if (
+      orderId &&
+      typeof purchase?.value === "number" &&
+      Number.isFinite(purchase.value) &&
+      purchase.value > 0
+    ) {
+      const purchaseKey = `meta-purchase-tracked:${orderId}`;
+      let alreadyTracked = false;
+      try {
+        alreadyTracked = window.sessionStorage.getItem(purchaseKey) === "true";
+        if (!alreadyTracked) window.sessionStorage.setItem(purchaseKey, "true");
+      } catch (error) {
+        console.error("Could not check Meta Purchase tracking state:", error);
+      }
+
+      if (!alreadyTracked) {
+        trackMetaEvent("Purchase", {
+          ...purchase,
+          value: purchase.value,
+          currency: "KES",
+        });
+      }
+    }
+
     if (typeof window !== 'undefined' && (window as any).ttq) {
       (window as any).ttq.track('PlaceAnOrder', {
         content_type: 'product',
@@ -63,7 +89,7 @@ const PaymentSuccessPage = () => {
         ...(orderId && { order_id: orderId }),
       });
     }
-  }, []);
+  }, [orderId, purchase]);
 
   return (
     <div className="flex flex-col min-h-screen bg-background">

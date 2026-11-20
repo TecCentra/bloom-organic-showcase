@@ -1020,7 +1020,25 @@ const CheckoutPage = () => {
           if (['completed', 'paid', 'success'].includes(status)) {
             pollingActiveRef.current = false;
             clear();
-            navigate('/payment-success', { state: { orderId, useMiniHeader } });
+            navigate('/payment-success', {
+              state: {
+                orderId,
+                useMiniHeader,
+                purchase: {
+                  content_type: "product",
+                  content_ids: cartItems.map((item) => item.id),
+                  contents: cartItems.map((item) => ({
+                    id: item.id,
+                    quantity: item.quantity,
+                    item_price: item.price / 100,
+                  })),
+                  currency: "KES",
+                  value: total / 100,
+                  num_items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+                  order_id: orderId,
+                },
+              },
+            });
             return;
           }
           if (['failed', 'cancelled', 'error'].includes(status)) {

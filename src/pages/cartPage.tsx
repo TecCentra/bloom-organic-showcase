@@ -2978,6 +2978,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MiniHeader, { isInositolCartItem, INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
 import { useCart } from "@/context/CartContext";
+import { trackMetaEvent } from "@/lib/metaPixel";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -3009,7 +3010,20 @@ const CartPage = () => {
   const handleProceedToCheckout = () => {
     if (cartItems.length === 0) return;
 
-    // Track InitiateCheckout
+    trackMetaEvent("InitiateCheckout", {
+      content_type: "product",
+      content_ids: cartItems.map((item) => item.id),
+      contents: cartItems.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+        item_price: item.price / 100,
+      })),
+      currency: "KES",
+      value: subtotal / 100,
+      num_items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+    });
+
+    // Keep TikTok checkout tracking separate from Meta's event payload.
     if (typeof window !== 'undefined' && (window as any).ttq) {
       (window as any).ttq.track('InitiateCheckout', {
         content_type: 'product',
