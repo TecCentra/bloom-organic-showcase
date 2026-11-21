@@ -23,6 +23,9 @@ const allowedTags = new Set([
 const removedTags = new Set(["iframe", "math", "object", "script", "style", "svg", "template"]);
 const alignments = new Set(["left", "center", "right", "justify"]);
 
+const isBoldFontWeight = (fontWeight: string): boolean =>
+  /^(bold|bolder|[6-9]00)$/i.test(fontWeight.trim());
+
 const isSafeLink = (href: string): boolean => {
   const trimmedHref = href.trim();
   if (/^(https?:|mailto:|tel:)/i.test(trimmedHref)) return true;
@@ -44,7 +47,9 @@ const sanitizeNode = (node: Node, output: HTMLElement): void => {
     return;
   }
 
-  const cleanElement = document.createElement(tagName);
+  const isBold = tagName === "b" || tagName === "strong" ||
+    (tagName === "span" && isBoldFontWeight(node.style.fontWeight));
+  const cleanElement = document.createElement(isBold ? "strong" : tagName);
   if (tagName === "a") {
     const href = node.getAttribute("href");
     if (href && isSafeLink(href)) {

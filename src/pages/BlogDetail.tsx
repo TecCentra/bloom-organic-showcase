@@ -249,7 +249,7 @@ const BlogDetail = () => {
       <article className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="mx-auto max-w-3xl text-lg leading-8 text-foreground [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-5 [&_h1]:mb-6 [&_h1]:mt-10 [&_h1]:text-4xl [&_h1]:font-bold [&_h2]:mb-4 [&_h2]:mt-10 [&_h2]:text-3xl [&_h2]:font-bold [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:text-2xl [&_h3]:font-semibold [&_li]:my-2 [&_ol]:my-6 [&_ol]:list-decimal [&_ol]:pl-8 [&_p]:mb-6 [&_strong]:font-bold [&_ul]:my-6 [&_ul]:list-disc [&_ul]:pl-8">
+            <div className="mx-auto max-w-3xl text-lg leading-8 text-foreground [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-5 [&_h1]:mb-6 [&_h1]:mt-10 [&_h1]:text-4xl [&_h1]:font-bold [&_h2]:mb-4 [&_h2]:mt-10 [&_h2]:text-3xl [&_h2]:font-bold [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:text-2xl [&_h3]:font-semibold [&_li]:my-2 [&_ol]:my-6 [&_ol]:list-decimal [&_ol]:pl-8 [&_p]:mb-6 [&_b]:font-bold [&_strong]:font-bold [&_ul]:my-6 [&_ul]:list-disc [&_ul]:pl-8">
               <div dangerouslySetInnerHTML={{ __html: sanitizeBlogHtml((blog as any)?.content || (blog as any)?.structured_content?.content || '') }} />
             </div>
 

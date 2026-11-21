@@ -11,6 +11,7 @@ import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 import { Trash2 } from 'lucide-react';
 import { useRef } from 'react';
 import RichTextEditor from '@/components/RichTextEditor';
+import { blogContentToText, sanitizeBlogHtml } from '@/lib/blogContent';
 
 const AdminBlogs: React.FC = () => {
   const { adminToken } = useAdminAuth();
@@ -110,8 +111,8 @@ const AdminBlogs: React.FC = () => {
       return;
     }
     
-    const content = blogContentRef.current.trim();
-    const plainContent = new DOMParser().parseFromString(content, 'text/html').body.textContent?.trim() || '';
+    const content = sanitizeBlogHtml(blogContentRef.current);
+    const plainContent = blogContentToText(content);
     if (!blogFormData.title.trim() || !plainContent) {
       toast({ description: 'Title and content are required', variant: 'destructive', duration: 3000 });
       return;
