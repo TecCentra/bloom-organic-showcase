@@ -274,7 +274,7 @@
 // // //     setMessage(null);
 
 // // //     try {
-// // //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// // //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // // //         method: 'POST',
 // // //         headers: { 'Content-Type': 'application/json' },
 // // //         body: JSON.stringify(formData),
@@ -431,7 +431,7 @@
 // // //     setMessage(null);
 
 // // //     try {
-// // //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+// // //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 // // //         method: 'POST',
 // // //         headers: { 'Content-Type': 'application/json' },
 // // //         body: JSON.stringify(formData),
@@ -898,7 +898,7 @@
 
 // //     try {
 // //       console.log('Attempting login with:', formData);
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(formData),
@@ -1064,7 +1064,7 @@
 
 // //     try {
 // //       console.log('Attempting register with:', formData);
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify({
@@ -1086,7 +1086,7 @@
 // //         if (!accessToken) {
 // //           // Fallback: Login immediately after register
 // //           console.log('No token from register, auto-logging in...');
-// //           const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //           const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //             method: 'POST',
 // //             headers: { 'Content-Type': 'application/json' },
 // //             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -1587,7 +1587,7 @@
 
 // //     try {
 // //       console.log('Attempting login with:', formData);
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(formData),
@@ -1767,7 +1767,7 @@
 
 // //     try {
 // //       console.log('Attempting register with:', formData);
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify({
@@ -1788,7 +1788,7 @@
 // //         let refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
 // //         if (!accessToken) {
 // //           console.log('No token from register, auto-logging in...');
-// //           const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //           const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //             method: 'POST',
 // //             headers: { 'Content-Type': 'application/json' },
 // //             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -2301,7 +2301,7 @@
 
 //     try {
 //       console.log('Attempting login with:', formData);
-//       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+//       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify(formData),
@@ -2481,7 +2481,7 @@
 
 //     try {
 //       console.log('Attempting register with:', formData);
-//       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+//       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify({
@@ -2502,7 +2502,7 @@
 //         let refreshToken = data.data?.refreshToken || data.refreshToken || data.refresh_token;
 //         if (!accessToken) {
 //           console.log('No token from register, auto-logging in...');
-//           const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+//           const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 //             method: 'POST',
 //             headers: { 'Content-Type': 'application/json' },
 //             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -2976,11 +2976,18 @@ import {
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MiniHeader, { isInositolCartItem, INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
 import { useCart } from "@/context/CartContext";
+import { trackMetaEvent } from "@/lib/metaPixel";
 
 const CartPage = () => {
   const navigate = useNavigate();
   const { items: cartItems, updateQuantity, removeItem } = useCart();
+  const containsInositol = cartItems.some(isInositolCartItem);
+  const cartHeader = containsInositol
+    ? <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
+    : <Header />;
+  const cartFooter = containsInositol ? null : <Footer />;
 
   // Debug cart items
   useEffect(() => {
@@ -3003,7 +3010,20 @@ const CartPage = () => {
   const handleProceedToCheckout = () => {
     if (cartItems.length === 0) return;
 
-    // Track InitiateCheckout
+    trackMetaEvent("InitiateCheckout", {
+      content_type: "product",
+      content_ids: cartItems.map((item) => item.id),
+      contents: cartItems.map((item) => ({
+        id: item.id,
+        quantity: item.quantity,
+        item_price: item.price / 100,
+      })),
+      currency: "KES",
+      value: subtotal / 100,
+      num_items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+    });
+
+    // Keep TikTok checkout tracking separate from Meta's event payload.
     if (typeof window !== 'undefined' && (window as any).ttq) {
       (window as any).ttq.track('InitiateCheckout', {
         content_type: 'product',
@@ -3019,13 +3039,13 @@ const CartPage = () => {
     }
 
     // Guest checkout — account creation (optional) happens on the checkout page itself
-    navigate("/checkout");
+    navigate("/checkout", { state: { useMiniHeader: containsInositol } });
   };
 
   if (cartItems.length === 0) {
     return (
       <div className="min-h-screen bg-background">
-        <Header />
+        {cartHeader}
         <div className="container mx-auto px-4 py-20 text-center">
           <div className="max-w-md mx-auto">
             <ShoppingCart className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
@@ -3038,14 +3058,14 @@ const CartPage = () => {
             </Button>
           </div>
         </div>
-        <Footer />
+        {cartFooter}
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {cartHeader}
 
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" className="mb-6" onClick={() => navigate("/")}>
@@ -3173,7 +3193,7 @@ const CartPage = () => {
         </div>
       </div>
 
-      <Footer />
+      {cartFooter}
     </div>
   );
 };

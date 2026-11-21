@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/context/CartContext";
 import { slugifyProductName } from "@/lib/utils";
+import { trackMetaEvent } from "@/lib/metaPixel";
 
 interface ProductCardProps {
   name: string;
@@ -53,6 +54,16 @@ const ProductCard = ({
       price: numericPrice,
       image,
     }, 1);
+    trackMetaEvent("AddToCart", {
+      content_id: id,
+      content_name: name,
+      content_type: "product",
+      content_ids: [id],
+      contents: [{ id, quantity: 1, item_price: numericPrice / 100 }],
+      currency: "KES",
+      value: numericPrice / 100,
+      quantity: 1,
+    });
   };
 
   return (

@@ -506,7 +506,7 @@
 // // // // // // // // // // // // // // // // // // // // //   useEffect(() => {
 // // // // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // // // // // //       try {
-// // // // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
+// // // // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=8&search=&category=');
 // // // // // // // // // // // // // // // // // // // // //         if (!response.ok) {
 // // // // // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
 // // // // // // // // // // // // // // // // // // // // //         }
@@ -1098,7 +1098,7 @@
 // // // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // // // // //       try {
 // // // // // // // // // // // // // // // // // // // //         // Fetch more products (limit=100) to ensure we get the latest ones
-// // // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
+// // // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
 // // // // // // // // // // // // // // // // // // // //         if (!response.ok) {
 // // // // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
 // // // // // // // // // // // // // // // // // // // //         }
@@ -1693,7 +1693,7 @@
 // // // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // // // //       try {
 // // // // // // // // // // // // // // // // // // //         // Fetch more products (limit=100) to ensure we get the latest ones
-// // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
+// // // // // // // // // // // // // // // // // // //         const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=100&search=&category=');
 // // // // // // // // // // // // // // // // // // //         if (!response.ok) {
 // // // // // // // // // // // // // // // // // // //           throw new Error('Failed to fetch products');
 // // // // // // // // // // // // // // // // // // //         }
@@ -2406,7 +2406,7 @@
 // // // // // // // // // // // // // // // // // //       try {
 // // // // // // // // // // // // // // // // // //         // Fetch all products, then filter client-side as backend category param may be unreliable
 // // // // // // // // // // // // // // // // // //         const response = await fetch(
-// // // // // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+// // // // // // // // // // // // // // // // // //           "https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category="
 // // // // // // // // // // // // // // // // // //         );
 // // // // // // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
 // // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
@@ -3014,7 +3014,7 @@
 // // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // // //       try {
 // // // // // // // // // // // // // // // // //         const response = await fetch(
-// // // // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+// // // // // // // // // // // // // // // // //           "https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category="
 // // // // // // // // // // // // // // // // //         );
 // // // // // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
 // // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();
@@ -3635,7 +3635,7 @@
 // // // // // // // // // // // // // // // //     const fetchProducts = async () => {
 // // // // // // // // // // // // // // // //       try {
 // // // // // // // // // // // // // // // //         const response = await fetch(
-// // // // // // // // // // // // // // // //           "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category="
+// // // // // // // // // // // // // // // //           "https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category="
 // // // // // // // // // // // // // // // //         );
 // // // // // // // // // // // // // // // //         if (!response.ok) throw new Error("Failed to fetch products");
 // // // // // // // // // // // // // // // //         const data: ApiResponse = await response.json();

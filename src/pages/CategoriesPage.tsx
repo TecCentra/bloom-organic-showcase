@@ -65,7 +65,7 @@
 //       try {
 //         // First, fetch categories to build the category map
 //         let map: Record<string, string> = {};
-//         const categoriesResponse = await fetch('https://bloom-backend-2.onrender.com/api/v1/categories');
+//         const categoriesResponse = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/categories');
 //         if (categoriesResponse.ok) {
 //           const categoriesData = await categoriesResponse.json();
 //           if (categoriesData.success && categoriesData.data.categories) {
@@ -77,7 +77,7 @@
 //         }
 
 //         // Then fetch products
-//         const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=');
+//         const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=');
 //         if (!response.ok) {
 //           throw new Error('Failed to fetch products');
 //         }
@@ -386,7 +386,7 @@ const CategoriesPage = () => {
         // Fetch category names from API
         const nameMap: Record<string, string> = {};
         const catRes = await fetch(
-          "https://bloom-backend-2.onrender.com/api/v1/categories"
+          "https://bloom-backend-zzcv.onrender.com/api/v1/categories"
         );
         if (catRes.ok) {
           const catData = await catRes.json();
@@ -399,7 +399,7 @@ const CategoriesPage = () => {
 
         // Fetch all products (server-side filtered by ?search= like the admin table)
         const prodRes = await fetch(
-          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(urlSearch)}&category=`
+          `https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(urlSearch)}&category=`
         );
         if (!prodRes.ok) throw new Error("Failed to fetch products");
         const data: ApiResponse = await prodRes.json();

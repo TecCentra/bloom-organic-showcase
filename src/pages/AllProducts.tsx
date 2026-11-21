@@ -65,7 +65,7 @@
 //       try {
 //         setLoading(true);
 //         const response = await fetch(
-//           `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=100&search=${searchTerm}&category=`
+//           `https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=100&search=${searchTerm}&category=`
 //         );
         
 //         if (!response.ok) {
@@ -309,7 +309,7 @@ const AllProducts = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(urlSearch)}&category=`
+          `https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=${encodeURIComponent(urlSearch)}&category=`
         );
         if (!response.ok) throw new Error("Failed to fetch products");
         const data: ApiResponse = await response.json();

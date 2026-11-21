@@ -130,7 +130,7 @@
 
 //     const fetchUser = async () => {
 //       try {
-//         const res = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
+//         const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/me', {
 //           headers: { 'Authorization': `Bearer ${token}` }
 //         });
 //         let data = {};
@@ -204,7 +204,7 @@
 
 //     try {
 //       const token = localStorage.getItem('token');
-//       const res = await fetch('https://bloom-backend-2.onrender.com/api/v3/kcb/stkpush', {
+//       const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v3/kcb/stkpush', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -746,7 +746,7 @@ import {
   Lock
 } from "lucide-react";
 import Header from "@/components/Header";
-import MiniHeader, { INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
+import MiniHeader, { INOSITOL_TRUST_MESSAGES, isInositolCartItem } from "@/components/MiniHeader";
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { useCart } from "@/context/CartContext";
@@ -773,12 +773,13 @@ const generateSilentPassword = () => {
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const useMiniHeader = location.state?.useMiniHeader === true;
+  const { items: cartItems, updateQuantity, removeItem, clear } = useCart();
+  const useMiniHeader =
+    location.state?.useMiniHeader === true || cartItems.some(isInositolCartItem);
   const checkoutHeader = useMiniHeader
     ? <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
     : <Header />;
   const checkoutFooter = useMiniHeader ? null : <Footer />;
-  const { items: cartItems, updateQuantity, removeItem, clear } = useCart();
   const { setToken } = useUserAuth();
   const pollingActiveRef = useRef(false);
 
@@ -884,7 +885,7 @@ const CheckoutPage = () => {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
+        const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         let data = {};
@@ -960,7 +961,7 @@ const CheckoutPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('https://bloom-backend-2.onrender.com/api/v3/kcb/stkpush', {
+      const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v3/kcb/stkpush', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1019,7 +1020,25 @@ const CheckoutPage = () => {
           if (['completed', 'paid', 'success'].includes(status)) {
             pollingActiveRef.current = false;
             clear();
-            navigate('/payment-success', { state: { orderId: orderId } });
+            navigate('/payment-success', {
+              state: {
+                orderId,
+                useMiniHeader,
+                purchase: {
+                  content_type: "product",
+                  content_ids: cartItems.map((item) => item.id),
+                  contents: cartItems.map((item) => ({
+                    id: item.id,
+                    quantity: item.quantity,
+                    item_price: item.price / 100,
+                  })),
+                  currency: "KES",
+                  value: subtotal / 100,
+                  num_items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+                  order_id: orderId,
+                },
+              },
+            });
             return;
           }
           if (['failed', 'cancelled', 'error'].includes(status)) {
@@ -1091,7 +1110,7 @@ const CheckoutPage = () => {
         const accountPassword = createAccount && password ? password : generateSilentPassword();
 
         try {
-          const registerRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+          const registerRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1113,7 +1132,7 @@ const CheckoutPage = () => {
             // Account was created but the register endpoint didn't return a token
             // (some backends require a separate login call). Log in immediately
             // with the same credentials to get one.
-            const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+            const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: customerInfo.email, password: accountPassword }),

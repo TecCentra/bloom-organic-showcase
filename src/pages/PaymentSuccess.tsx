@@ -3,15 +3,21 @@ import { CheckCircle2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useNavigate, useLocation } from "react-router-dom";
+import MiniHeader, { INOSITOL_TRUST_MESSAGES } from "@/components/MiniHeader";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const orderId = location.state?.orderId || "UNKNOWN";
+  const useMiniHeader = location.state?.useMiniHeader === true;
+  const successHeader = useMiniHeader
+    ? <MiniHeader trustMessages={INOSITOL_TRUST_MESSAGES} />
+    : <Header />;
+  const successFooter = useMiniHeader ? null : <Footer />;
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
+      {successHeader}
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-md mx-auto text-center">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -34,7 +40,7 @@ const PaymentSuccess = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {successFooter}
     </div>
   );
 };
