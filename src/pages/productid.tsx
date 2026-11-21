@@ -59,7 +59,7 @@
 // //     setMessage(null);
 
 // //     try {
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(formData),
@@ -234,7 +234,7 @@
 // //     setMessage(null);
 
 // //     try {
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify({
@@ -256,7 +256,7 @@
 // //         let refreshTokenExpires = data.data?.refreshTokenExpires;
         
 // //         if (!accessToken) {
-// //           const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //           const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //             method: 'POST',
 // //             headers: { 'Content-Type': 'application/json' },
 // //             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -501,7 +501,7 @@
 // //   useEffect(() => {
 // //     const fetchProduct = async () => {
 // //       try {
-// //         const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products/${id}`);
+// //         const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products/${id}`);
 // //         if (response.ok) {
 // //           const data = await response.json();
 // //           if (data.success && data.data) {
@@ -1025,7 +1025,7 @@
 //     setIsLoading(true);
 //     setMessage(null);
 //     try {
-//       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+//       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify(formData),
@@ -1143,7 +1143,7 @@
 //     setIsLoading(true);
 //     setMessage(null);
 //     try {
-//       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+//       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify({
@@ -1159,7 +1159,7 @@
 //         let accessTokenExpires = data.data?.accessTokenExpires;
 //         let refreshTokenExpires = data.data?.refreshTokenExpires;
 //         if (!accessToken) {
-//           const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+//           const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 //             method: 'POST',
 //             headers: { 'Content-Type': 'application/json' },
 //             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -1302,7 +1302,7 @@
 //   useEffect(() => {
 //     const fetchProduct = async () => {
 //       try {
-//         const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products/${id}`);
+//         const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products/${id}`);
 //         if (response.ok) {
 //           const data = await response.json();
 //           if (data.success && data.data) {
@@ -1892,7 +1892,7 @@ const LoginForm = ({ onSuccess, onSwitchToSignup }: { onSuccess: () => void; onS
     setIsLoading(true);
     setMessage(null);
     try {
-      const response = await fetch("https://bloom-backend-2.onrender.com/api/v1/auth/login", {
+      const response = await fetch("https://bloom-backend-zzcv.onrender.com/api/v1/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -1995,7 +1995,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
     setIsLoading(true);
     setMessage(null);
     try {
-      const response = await fetch("https://bloom-backend-2.onrender.com/api/v1/auth/register", {
+      const response = await fetch("https://bloom-backend-zzcv.onrender.com/api/v1/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -2008,7 +2008,7 @@ const SignupForm = ({ onSuccess, onSwitchToLogin }: { onSuccess: () => void; onS
       if (response.ok && data.success) {
         let { accessToken, refreshToken, accessTokenExpires, refreshTokenExpires } = data.data ?? {};
         if (!accessToken) {
-          const loginRes = await fetch("https://bloom-backend-2.onrender.com/api/v1/auth/login", {
+          const loginRes = await fetch("https://bloom-backend-zzcv.onrender.com/api/v1/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: formData.email, password: formData.password }),
@@ -2185,7 +2185,7 @@ const ProductDetail = () => {
         setResolvedProductId(productId || null);
         if (!productId) return;
 
-        const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products/${productId}`);
+        const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products/${productId}`);
         if (response.ok) {
           const data = await response.json();
           if (!cancelled && data.success && data.data) {
@@ -2241,7 +2241,7 @@ const ProductDetail = () => {
       setRelatedLoading(true);
       try {
         const res = await fetch(
-          `https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=`
+          `https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=`
         );
         if (!res.ok) return;
         const data = await res.json();

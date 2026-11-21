@@ -4,7 +4,7 @@ import type { IncomingMessage, ServerResponse } from "node:http";
 
 const SITE_ORIGIN = "https://organicbloom.co.ke";
 const PRODUCTS_API_URL =
-  "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=";
+  "https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=";
 const DEFAULT_IMAGE = `${SITE_ORIGIN}/logo.jpeg`;
 const INOSITOL_SKUS: Record<string, string> = {
   "france-shgrace-myo-d-chiro-inositol": "MYOD",

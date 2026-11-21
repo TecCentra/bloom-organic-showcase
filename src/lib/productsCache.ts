@@ -32,7 +32,7 @@ export function isCatalogProductVisible(product: Pick<Product, "sku">): boolean 
 }
 
 const API_URL =
-  "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=";
+  "https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=";
 const TTL = 5 * 60 * 1000; // 5 minutes
 
 let cache: Product[] | null = null;
@@ -42,7 +42,7 @@ let inflightRequest: Promise<Product[]> | null = null;
 // Call this as early as possible (e.g. main.tsx) to wake Render's free-tier server.
 export function warmServer(): void {
   fetch(
-    "https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=1"
+    "https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=1"
   ).catch(() => {});
 }
 

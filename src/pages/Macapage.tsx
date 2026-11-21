@@ -3,7 +3,7 @@
 // import Header from "@/components/Header";
 // import Footer from "@/components/Footer";
 
-// const API_BASE = "https://bloom-backend-2.onrender.com/api/v1/products";
+// const API_BASE = "https://bloom-backend-zzcv.onrender.com/api/v1/products";
 
 // // Add/remove the product IDs you want shown on this page.
 // const PRODUCT_IDS = [
@@ -133,7 +133,7 @@ import ProductCard from "@/components/ProductCard";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-const API_BASE = "https://bloom-backend-2.onrender.com/api/v1/products";
+const API_BASE = "https://bloom-backend-zzcv.onrender.com/api/v1/products";
 
 // Add/remove the product IDs you want shown on this page.
 const PRODUCT_IDS = [

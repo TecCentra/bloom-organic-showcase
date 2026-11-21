@@ -59,7 +59,7 @@
 // //     setMessage(null);
 
 // //     try {
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify(formData),
@@ -242,7 +242,7 @@
 // //     setMessage(null);
 
 // //     try {
-// //       const response = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+// //       const response = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
 // //         method: 'POST',
 // //         headers: { 'Content-Type': 'application/json' },
 // //         body: JSON.stringify({
@@ -259,7 +259,7 @@
 
 // //       if (response.ok && data.success) {
 // //         // Auto-login after successful registration
-// //         const loginResponse = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+// //         const loginResponse = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
 // //           method: 'POST',
 // //           headers: { 'Content-Type': 'application/json' },
 // //           body: JSON.stringify({

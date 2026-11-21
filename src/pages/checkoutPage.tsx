@@ -130,7 +130,7 @@
 
 //     const fetchUser = async () => {
 //       try {
-//         const res = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
+//         const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/me', {
 //           headers: { 'Authorization': `Bearer ${token}` }
 //         });
 //         let data = {};
@@ -204,7 +204,7 @@
 
 //     try {
 //       const token = localStorage.getItem('token');
-//       const res = await fetch('https://bloom-backend-2.onrender.com/api/v3/kcb/stkpush', {
+//       const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v3/kcb/stkpush', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -885,7 +885,7 @@ const CheckoutPage = () => {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/me', {
+        const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/me', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         let data = {};
@@ -961,7 +961,7 @@ const CheckoutPage = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('https://bloom-backend-2.onrender.com/api/v3/kcb/stkpush', {
+      const res = await fetch('https://bloom-backend-zzcv.onrender.com/api/v3/kcb/stkpush', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1033,7 +1033,7 @@ const CheckoutPage = () => {
                     item_price: item.price / 100,
                   })),
                   currency: "KES",
-                  value: total / 100,
+                  value: subtotal / 100,
                   num_items: cartItems.reduce((sum, item) => sum + item.quantity, 0),
                   order_id: orderId,
                 },
@@ -1110,7 +1110,7 @@ const CheckoutPage = () => {
         const accountPassword = createAccount && password ? password : generateSilentPassword();
 
         try {
-          const registerRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/register', {
+          const registerRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1132,7 +1132,7 @@ const CheckoutPage = () => {
             // Account was created but the register endpoint didn't return a token
             // (some backends require a separate login call). Log in immediately
             // with the same credentials to get one.
-            const loginRes = await fetch('https://bloom-backend-2.onrender.com/api/v1/auth/login', {
+            const loginRes = await fetch('https://bloom-backend-zzcv.onrender.com/api/v1/auth/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: customerInfo.email, password: accountPassword }),
