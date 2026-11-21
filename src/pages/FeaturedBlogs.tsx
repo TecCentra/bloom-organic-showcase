@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import organicImage from "@/assets/organic.jpg";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
+import { blogContentToText } from "@/lib/blogContent";
 
 const FeaturedBlogs = () => {
   const navigate = useNavigate();
@@ -121,7 +122,7 @@ const FeaturedBlogs = () => {
 
                   {/* Description */}
                   <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                    {blog.excerpt}
+                    {blogContentToText(blog.excerpt || blog.content || "")}
                   </p>
 
                   {/* Meta Info */}
