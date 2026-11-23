@@ -1606,6 +1606,7 @@ import inositolSupplementFacts from "@/assets/inositol-supplement-facts.webp";
 import inositolBottleFront from "@/assets/inositol-bottle-front.webp";
 import inositolHeroJourney from "@/assets/inositol-hero-journey.png";
 import heroVideoStill from "@/assets/piil image.jpeg";
+import anastolHero from "@/assets/anastol hero.jpeg";
 import inositol1Bottle from "@/assets/inositol-1-bottle.jpeg";
 import inositol3Bottles from "@/assets/inositol-3-bottles.jpeg";
 import inositol6Bottles from "@/assets/inositol-6-bottles.jpeg";
@@ -1988,7 +1989,7 @@ const InositolProductPage = ({
   const bottleImage = images[0] ?? inositolBottleFront;
 
   const gallery = [
-    
+    { src: heroVideoStill, alt: `${name} lifestyle gallery image` },
     { src: galleryImage1, alt: `${name} gallery image 1` },
     { src: galleryImage2, alt: `${name} gallery image 2` },
     { src: galleryImage7, alt: `${name} gallery image 7` },
@@ -2064,7 +2065,7 @@ const InositolProductPage = ({
           <div className="ipdp-wrap ipdp-wrap--narrow ipdp-hero-grid">
             <a className="ipdp-hero-media" href="#select-bundle" aria-label="Select your bundle">
               <img
-                src={heroVideoStill}
+                src={anastolHero}
                 alt="A woman holding a capsule beside France shGrace Inositol+ and a customer testimonial."
                 width={900}
                 height={900}
@@ -2213,12 +2214,6 @@ const InositolProductPage = ({
                   ))}
                 </ul>
               </div>
-              <img
-                className="ipdp-transform-img"
-                src={periodSupportDailyRoutine}
-                alt="A woman enjoying her morning routine outdoors, holding capsules in her palm beside the product bottle."
-                loading="lazy"
-              />
             </div>
 
             <div className="ipdp-prose">
@@ -2247,13 +2242,6 @@ const InositolProductPage = ({
               <p className="ipdp-eyebrow">Your 90-Day Ovarian &amp; Cycle Progress Calendar</p>
               <h2>What Changes, and When</h2>
             </div>
-            <img
-              src={inositolHeroJourney}
-              alt="A 90-day cycle progress infographic showing day one, week two, day sixty, and day ninety."
-              width={1024}
-              height={1024}
-              loading="lazy"
-            />
           </div>
         </section>
 
