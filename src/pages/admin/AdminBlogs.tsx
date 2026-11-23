@@ -9,6 +9,9 @@ import { buildApiUrl, API_CONFIG } from '@/lib/config';
 import { useMaterialToast } from '@/hooks/useMaterialToast';
 import { useMaterialConfirm } from '@/hooks/useMaterialConfirm';
 import { Trash2 } from 'lucide-react';
+import { useRef } from 'react';
+import RichTextEditor from '@/components/RichTextEditor';
+import { blogContentToText, sanitizeBlogHtml } from '@/lib/blogContent';
 
 const AdminBlogs: React.FC = () => {
   const { adminToken } = useAdminAuth();
@@ -26,9 +29,9 @@ const AdminBlogs: React.FC = () => {
   // Create blog form state
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const blogContentRef = useRef('');
   const [blogFormData, setBlogFormData] = useState({
     title: '',
-    content: '',
     excerpt: '',
     status: 'published' as 'published' | 'draft'
   });
@@ -108,7 +111,9 @@ const AdminBlogs: React.FC = () => {
       return;
     }
     
-    if (!blogFormData.title.trim() || !blogFormData.content.trim()) {
+    const content = sanitizeBlogHtml(blogContentRef.current);
+    const plainContent = blogContentToText(content);
+    if (!blogFormData.title.trim() || !plainContent) {
       toast({ description: 'Title and content are required', variant: 'destructive', duration: 3000 });
       return;
     }
@@ -119,8 +124,8 @@ const AdminBlogs: React.FC = () => {
       // Create blog post
       const payload = {
         title: blogFormData.title,
-        content: blogFormData.content,
-        excerpt: blogFormData.excerpt || blogFormData.content.substring(0, 150) + '...',
+        content,
+        excerpt: blogFormData.excerpt || plainContent.substring(0, 150) + '...',
         status: blogFormData.status
       };
 
@@ -219,7 +224,8 @@ const AdminBlogs: React.FC = () => {
       }
 
       // Reset form
-      setBlogFormData({ title: '', content: '', excerpt: '', status: 'published' });
+      blogContentRef.current = '';
+      setBlogFormData({ title: '', excerpt: '', status: 'published' });
       setBlogImage(null);
       setCreatedBlogId(null);
       setShowCreateForm(false);
@@ -333,14 +339,14 @@ const AdminBlogs: React.FC = () => {
             </div>
             
             <div>
-              <Label htmlFor="content">Content *</Label>
-              <Textarea
-                id="content"
-                placeholder="Enter blog content"
-                value={blogFormData.content}
-                onChange={(e) => setBlogFormData({ ...blogFormData, content: e.target.value })}
-                rows={10}
+              <Label>Content *</Label>
+              <RichTextEditor
+                initialValue={blogContentRef.current}
+                onChange={(content) => { blogContentRef.current = content; }}
               />
+              <p className="text-xs text-gray-500 mt-1">
+                Use the toolbar to format headings, paragraphs, alignment, and lists.
+              </p>
             </div>
             
             <div>
@@ -382,7 +388,8 @@ const AdminBlogs: React.FC = () => {
               </Button>
               <Button variant="outline" onClick={() => {
                 setShowCreateForm(false);
-                setBlogFormData({ title: '', content: '', excerpt: '', status: 'published' });
+                blogContentRef.current = '';
+                setBlogFormData({ title: '', excerpt: '', status: 'published' });
                 setBlogImage(null);
               }}>
                 Cancel

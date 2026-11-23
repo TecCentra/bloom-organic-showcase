@@ -91,7 +91,7 @@
 //     //   setLoading(true);
 //     //   try {
 //     //     const categoryParam = targetCategory ? encodeURIComponent(targetCategory.id) : '';
-//     //     const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
+//     //     const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
 //     //     if (!response.ok) throw new Error('Failed to fetch products');
 //     //     const data: ApiResponse = await response.json();
 //     //     if (!data.success || !data.data?.products) throw new Error('Invalid response');
@@ -128,7 +128,7 @@
 
 //       try {
 //         const categoryParam = targetCategory ? encodeURIComponent(targetCategory.id) : '';
-//         const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
+//         const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
 //         if (!response.ok) throw new Error('Failed to fetch products');
 //         const data: ApiResponse = await response.json();
 //         if (!data.success || !data.data?.products) throw new Error('Invalid response');
@@ -351,7 +351,7 @@ const CategoryProducts = () => {
 
       try {
         const categoryParam = targetCategory ? encodeURIComponent(targetCategory.id) : '';
-        const response = await fetch(`https://bloom-backend-2.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
+        const response = await fetch(`https://bloom-backend-zzcv.onrender.com/api/v1/products?page=1&limit=200&search=&category=${categoryParam}`);
         if (!response.ok) throw new Error('Failed to fetch products');
         const data: ApiResponse = await response.json();
         if (!data.success || !data.data?.products) throw new Error('Invalid response');

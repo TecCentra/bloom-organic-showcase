@@ -16,6 +16,10 @@ export const INOSITOL_TRUST_MESSAGES = [
   "🛑 Clear Deep Jawline Breakouts & Chin Hair at the Root",
 ];
 
+export const isInositolCartItem = (item: { id: string; name?: string }) =>
+  item.id.startsWith("france-shgrace-myo-d-chiro-inositol") ||
+  Boolean(item.name?.toLowerCase().includes("inositol"));
+
 const MiniHeader = ({ trustMessages = ["Secure checkout · Fast, discreet delivery across Kenya"] }: MiniHeaderProps) => {
   const { itemCount } = useCart();
 

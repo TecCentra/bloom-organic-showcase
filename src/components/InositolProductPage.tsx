@@ -1605,9 +1605,19 @@ import periodSupportDailyRoutine from "@/assets/period-support-daily-routine.jpe
 import inositolSupplementFacts from "@/assets/inositol-supplement-facts.webp";
 import inositolBottleFront from "@/assets/inositol-bottle-front.webp";
 import inositolHeroJourney from "@/assets/inositol-hero-journey.png";
+import heroVideoStill from "@/assets/piil image.jpeg";
+import anastolHero from "@/assets/anastol hero.jpeg";
 import inositol1Bottle from "@/assets/inositol-1-bottle.jpeg";
 import inositol3Bottles from "@/assets/inositol-3-bottles.jpeg";
 import inositol6Bottles from "@/assets/inositol-6-bottles.jpeg";
+import inositolSupportInfographic from "@/assets/inositol-support-infographic.png";
+import galleryImage1 from "@/assets/reek.png";
+import galleryImage2 from "@/assets/spp.png";
+import galleryImage6 from "@/assets/io.jpeg";
+import galleryImage7 from "@/assets/water.png";
+import galleryImage3 from "@/assets/gallery-image-3.jpeg";
+import galleryImage4 from "@/assets/gallery-image-4.jpeg";
+import galleryImage5 from "@/assets/gallery-image-5.jpeg";
 import {
   BatteryIcon,
   BoltIcon,
@@ -1973,20 +1983,22 @@ const InositolProductPage = ({
   const [zoomImage, setZoomImage] = useState<{ src: string; alt: string } | null>(null);
   const [showStickyBuy, setShowStickyBuy] = useState(false);
   const [slide, setSlide] = useState(0);
-  const packageSelectorRef = useRef<HTMLElement>(null);
+  const packageSelectorRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const bottleImage = images[0] ?? inositolBottleFront;
 
   const gallery = [
-    { src: bottleImage, alt: `${name} bottle` },
-    { src: periodSupportDailyRoutine, alt: "Morning routine: capsules in a palm beside the product bottle" },
-    {
-      src: inositolSupplementFacts,
-      alt: "Supplement Facts: 4 capsules per serving, 30 servings per container. Vitamin D3 10 mcg, Folate 340 mcg DFE, Myo-Inositol 2000 mg, D-Chiro-Inositol 50 mg",
-    },
-    { src: periodSupportConfidence, alt: "A woman smiles while holding the bottle in natural light" },
-    ...images.slice(1).map((src, index) => ({ src, alt: `${name} photo ${index + 2}` })),
+    { src: heroVideoStill, alt: `${name} lifestyle gallery image` },
+    { src: galleryImage1, alt: `${name} gallery image 1` },
+    { src: galleryImage2, alt: `${name} gallery image 2` },
+    { src: galleryImage7, alt: `${name} gallery image 7` },
+    { src: galleryImage6, alt: `${name} gallery image 6` },
+    { src: galleryImage3, alt: `${name} gallery image 3` },
+    { src: galleryImage4, alt: `${name} gallery image 4` },
+    { src: galleryImage5, alt: `${name} gallery image 5` },
+    
+    
   ];
 
   useEffect(() => {
@@ -2035,7 +2047,7 @@ const InositolProductPage = ({
   };
   const orderLabel = selectedProduct
     ? canCheckout
-      ? "Order Now: Pay with M-Pesa"
+      ? "Order Now: Pay With M-Pesa"
       : "Out of stock"
     : bundleProductsLoading
       ? "Loading bundles..."
@@ -2051,24 +2063,23 @@ const InositolProductPage = ({
         {/* ============ 1 · HERO — copy left (stars on top), image right ============ */}
         <section className="ipdp-hero" id="hero">
           <div className="ipdp-wrap ipdp-wrap--narrow ipdp-hero-grid">
-            <div className="ipdp-hero-media">
+            <a className="ipdp-hero-media" href="#select-bundle" aria-label="Select your bundle">
               <img
-                src={inositolHeroJourney}
-                alt="A cycle journey illustration showing the France shGrace Inositol+ bottle and progress from day one to day ninety."
-                width={1024}
-                height={1024}
+                src={anastolHero}
+                alt="A woman holding a capsule beside France shGrace Inositol+ and a customer testimonial."
+                width={900}
+                height={900}
               />
-            </div>
+            </a>
 
             <div className="ipdp-hero-copy">
               <p className="ipdp-rating">
                 <FiveStars />
                 <span>4.9/5 | 103+ Happy Kenyan Women</span>
               </p>
-              <h1>Still Guessing When Your Period Will Come, Battling Chin Hairs, And Feeling Exhausted By 3 PM Sugar Crashes?</h1>
+              <h1>Tired Of Plucking Chin Hair Every Morning?</h1>
               <p className="ipdp-hero-intro">
-                A clean, natural daily formula to reboot your ovaries, level off sugar cravings, and bring back smooth,
-                predictable monthly cycles.
+                If you also get stalled cycles and heavy bleeding after the pill, it is the same root cause. 40:1 Inositol resets the signal.
               </p>
               <ul className="ipdp-checks">
                 {heroChecks.map((item) => (
@@ -2081,14 +2092,80 @@ const InositolProductPage = ({
                   </li>
                 ))}
               </ul>
-              <button type="button" className="ipdp-pill-cta" onClick={scrollToPackages}>
-                Reclaim Your Cycle Today
-              </button>
-              <p className="ipdp-guarantee-line">
-                <ShieldCheckIcon size={14} />
-                <span>90-Day Money-Back Guarantee</span>
-              </p>
+
+              <div className="ipdp-hero-purchase" ref={packageSelectorRef}>
+                <p className="ipdp-hero-bundle-heading">Select Bundle</p>
+                <span className="ipdp-anchor-target" id="select-bundle" />
+                <span className="ipdp-anchor-target" id="package-selector" />
+                <div className="ipdp-bundles">
+                  {bundles.map((option, index) => {
+                    const product = bundleProducts[option.bottles];
+                    const price = product?.price ?? option.expected;
+                    const saving = option.was - price;
+                    const selected = selectedBundle === index;
+                    return (
+                      <button
+                        type="button"
+                        key={option.bottles}
+                        className={`ipdp-bundle${selected ? " is-selected" : ""}`}
+                        aria-pressed={selected}
+                        onClick={() => setSelectedBundle(index)}
+                      >
+                        <span className="ipdp-bundle-bottles" aria-hidden="true">
+                          <img
+                            className="ipdp-bundle-image"
+                            src={bundleImages[option.bottles]}
+                            alt=""
+                            width={68}
+                            height={56}
+                            loading="lazy"
+                          />
+                        </span>
+                        <span className="ipdp-bundle-info">
+                          <strong>{option.title}</strong>
+                          <span>{option.subtitle}</span>
+                          <small>
+                            {saving > 0 ? `Save ${formatKes(saving)} • ` : ""}
+                            {option.extras}
+                          </small>
+                        </span>
+                        <span className="ipdp-bundle-price">
+                          <strong>
+                            {product ? formatKes(price) : bundleProductsLoading ? "Loading..." : formatKes(option.expected)}
+                          </strong>
+                          {saving > 0 && <del>{formatKes(option.was)}</del>}
+                        </span>
+                        {option.sticker && (
+                          <span className={`ipdp-badge ipdp-badge--${option.stickerTone}`}>{option.sticker}</span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button type="button" className="ipdp-cta" disabled={!canCheckout} onClick={checkoutSelected}>
+                  {orderLabel}
+                </button>
+
+                <p className="ipdp-assure">
+                  <ShieldCheckIcon size={13} />
+                  <span>90-day money back guarantee</span>
+                </p>
+                <p className="ipdp-assure">
+                  <PhoneIcon size={13} />
+                  <span>M-Pesa STK Push · Visa · Mastercard · Cash on Delivery</span>
+                </p>
+              </div>
             </div>
+          </div>
+        </section>
+
+        <section className="ipdp-symptoms" id="symptoms">
+          <div className="ipdp-wrap ipdp-wrap--narrow">
+            <h2>Does this sound like you?</h2>
+            <p>
+              Still Guessing When Your Period Will Come, Battling Chin Hairs, And Feeling Exhausted By 3 PM Sugar Crashes?
+            </p>
           </div>
         </section>
 
@@ -2112,8 +2189,9 @@ const InositolProductPage = ({
             </ul>
 
             <button type="button" className="ipdp-pill-cta ipdp-pill-cta--accent" onClick={scrollToPackages}>
-              Reclaim Your Cycle Today
+              Order Now - Pay With M-Pesa
             </button>
+            <p className="ipdp-cta-note">90-Day Guarantee • Discreet Delivery 24-48hrs</p>
           </div>
         </section>
 
@@ -2136,12 +2214,6 @@ const InositolProductPage = ({
                   ))}
                 </ul>
               </div>
-              <img
-                className="ipdp-transform-img"
-                src={periodSupportDailyRoutine}
-                alt="A woman enjoying her morning routine outdoors, holding capsules in her palm beside the product bottle."
-                loading="lazy"
-              />
             </div>
 
             <div className="ipdp-prose">
@@ -2164,8 +2236,17 @@ const InositolProductPage = ({
           </div>
         </section>
 
+        <section className="ipdp-progress" id="progress">
+          <div className="ipdp-wrap">
+            <div className="ipdp-head">
+              <p className="ipdp-eyebrow">Your 90-Day Ovarian &amp; Cycle Progress Calendar</p>
+              <h2>What Changes, and When</h2>
+            </div>
+          </div>
+        </section>
+
         {/* ============ 4 · PRODUCT — gallery left, info + bundles + accordions right ============ */}
-        <section className="ipdp-buy" id="package-selector" ref={packageSelectorRef}>
+        <section className="ipdp-buy" id="product-details">
           <div className="ipdp-wrap">
             <div className="ipdp-buy-grid">
               <div className="ipdp-gallery">
@@ -2260,65 +2341,6 @@ const InositolProductPage = ({
                   <span>
                     <strong>Plain, discreet packaging.</strong> Standard delivery, 24–48hrs across Kenya.
                   </span>
-                </p>
-
-                <div className="ipdp-bundles">
-                  {bundles.map((option, index) => {
-                    const product = bundleProducts[option.bottles];
-                    const price = product?.price ?? option.expected;
-                    const saving = option.was - price;
-                    const selected = selectedBundle === index;
-                    return (
-                      <button
-                        type="button"
-                        key={option.bottles}
-                        className={`ipdp-bundle${selected ? " is-selected" : ""}`}
-                        aria-pressed={selected}
-                        onClick={() => setSelectedBundle(index)}
-                      >
-                        <span className="ipdp-bundle-bottles" aria-hidden="true">
-                          <img
-                            className="ipdp-bundle-image"
-                            src={bundleImages[option.bottles]}
-                            alt=""
-                            width={68}
-                            height={56}
-                            loading="lazy"
-                          />
-                        </span>
-                        <span className="ipdp-bundle-info">
-                          <strong>{option.title}</strong>
-                          <span>{option.subtitle}</span>
-                          <small>
-                            {saving > 0 ? `Save ${formatKes(saving)} • ` : ""}
-                            {option.extras}
-                          </small>
-                        </span>
-                        <span className="ipdp-bundle-price">
-                          <strong>
-                            {product ? formatKes(price) : bundleProductsLoading ? "Loading..." : formatKes(option.expected)}
-                          </strong>
-                          {saving > 0 && <del>{formatKes(option.was)}</del>}
-                        </span>
-                        {option.sticker && (
-                          <span className={`ipdp-badge ipdp-badge--${option.stickerTone}`}>{option.sticker}</span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <button type="button" className="ipdp-cta" disabled={!canCheckout} onClick={checkoutSelected}>
-                  {orderLabel}
-                </button>
-
-                <p className="ipdp-assure">
-                  <ShieldCheckIcon size={13} />
-                  <span>90-day money back guarantee</span>
-                </p>
-                <p className="ipdp-assure">
-                  <PhoneIcon size={13} />
-                  <span>M-Pesa STK Push · Visa · Mastercard · Cash on Delivery</span>
                 </p>
 
                 <div className="ipdp-accordions">
