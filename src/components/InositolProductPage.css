@@ -163,28 +163,31 @@
 /* ---------- 1 · hero ---------- */
 
 .ipdp-hero {
-  padding: 0 0 32px;
+  padding: 24px 0;
   background: var(--cream);
 }
 
 .ipdp-hero-grid {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   padding-inline: 0;
 }
 
 .ipdp-hero-media {
   order: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  height: clamp(120px, 20vh, 170px);
   background: #f6f2ef;
 }
 
 .ipdp-hero-media img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
 }
 
 .ipdp-hero-copy {
@@ -202,7 +205,7 @@
 .ipdp-hero-copy h1 {
   margin-top: 10px;
   color: var(--ink);
-  font-size: 1.75rem;
+  font-size: 2rem;
   line-height: 1.15;
 }
 
@@ -215,17 +218,17 @@
 }
 
 .ipdp-checks {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 10px;
+  margin-top: 10px;
 }
 
 .ipdp-checks li {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  font-size: 0.8125rem;
+  gap: 6px;
+  font-size: 0.75rem;
   line-height: 1.45;
 }
 
@@ -238,6 +241,76 @@
 
 .ipdp-hero-copy .ipdp-pill-cta {
   margin-top: 20px;
+}
+
+.ipdp-hero-purchase {
+  position: relative;
+  margin-top: 10px;
+  scroll-margin-top: 16px;
+}
+
+.ipdp-hero-bundle-heading {
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.ipdp-anchor-target {
+  display: block;
+  height: 0;
+  scroll-margin-top: 16px;
+}
+
+.ipdp-hero-purchase .ipdp-bundles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 0;
+}
+
+.ipdp-hero-purchase .ipdp-bundle {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+  min-height: 60px;
+  padding: 8px;
+}
+
+.ipdp-hero-purchase .ipdp-bundle-bottles,
+.ipdp-hero-purchase .ipdp-bundle-info span,
+.ipdp-hero-purchase .ipdp-bundle-info small,
+.ipdp-hero-purchase .ipdp-bundle-price del,
+.ipdp-hero-purchase .ipdp-badge {
+  display: none;
+}
+
+.ipdp-hero-purchase .ipdp-bundle-info {
+  flex: none;
+}
+
+.ipdp-hero-purchase .ipdp-bundle-info strong,
+.ipdp-hero-purchase .ipdp-bundle-price strong {
+  font-size: 0.75rem;
+}
+
+.ipdp-hero-purchase .ipdp-bundle-price {
+  align-items: flex-start;
+}
+
+.ipdp-hero-purchase .ipdp-cta {
+  min-height: 42px;
+  margin-top: 8px;
+  padding-block: 8px;
+}
+
+.ipdp-hero-purchase .ipdp-assure {
+  margin-top: 4px;
+  font-size: 0.625rem;
+}
+
+.ipdp-hero-purchase .ipdp-assure + .ipdp-assure {
+  display: none;
 }
 
 .ipdp-guarantee-line {
@@ -333,6 +406,14 @@
   background: #a83f00;
 }
 
+.ipdp-cta-note {
+  margin-top: 8px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+}
+
 .ipdp .ipdp-why :where(button):focus-visible {
   outline-color: #fff;
 }
@@ -396,6 +477,36 @@
   aspect-ratio: 1 / 1;
   border-radius: 10px;
   object-fit: cover;
+}
+
+.ipdp-symptoms {
+  padding: 20px 0;
+  color: var(--ink);
+  background: #f3ece7;
+  text-align: center;
+}
+
+.ipdp-symptoms h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+.ipdp-symptoms p {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.ipdp-progress {
+  padding: 32px 0;
+  background: #fff;
+}
+
+.ipdp-progress img {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  margin: 20px auto 0;
 }
 
 /* ---------- 4 · product ---------- */
@@ -1521,21 +1632,27 @@
 
   /* 1 · hero: copy left (top-aligned with image), square image right, 50/50 */
   .ipdp-hero {
-    padding: 36px 0 36px;
+    padding: 24px 0;
   }
 
   .ipdp-hero-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
-    gap: 36px;
+    gap: 28px;
   }
 
   .ipdp-hero-media {
     order: 0;
     grid-column: 2;
     grid-row: 1;
+    height: auto;
+    aspect-ratio: 1 / 1;
     border-radius: 12px;
+  }
+
+  .ipdp-hero-media img {
+    height: 100%;
   }
 
   .ipdp-hero-copy {
@@ -1550,7 +1667,7 @@
 
   .ipdp-hero-copy h1 {
     margin-top: 12px;
-    font-size: 2rem;
+    font-size: 2.375rem;
     line-height: 1.15;
   }
 
@@ -1781,11 +1898,11 @@
 
 @media (min-width: 1200px) {
   .ipdp-hero {
-    padding: 48px 0 56px;
+    padding: 24px 0;
   }
 
   .ipdp-hero-grid {
-    gap: 64px;
+    gap: 40px;
   }
 
   .ipdp-rating {
@@ -1798,7 +1915,7 @@
   }
 
   .ipdp-hero-copy h1 {
-    font-size: 2.875rem;
+    font-size: 2.375rem;
   }
 
   .ipdp-hero-intro {
