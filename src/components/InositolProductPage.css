@@ -221,7 +221,7 @@
 
 .ipdp-checks {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 6px 10px;
   margin-top: 10px;
 }
@@ -239,6 +239,17 @@
   width: 18px;
   height: 18px;
   margin-top: 1px;
+}
+
+.ipdp-checks li > span[aria-hidden="true"] {
+  flex: none;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.ipdp-checks li em {
+  font-style: italic;
+  font-weight: 600;
 }
 
 .ipdp-hero-copy .ipdp-pill-cta {
@@ -282,7 +293,6 @@
 .ipdp-hero-purchase .ipdp-bundle-bottles,
 .ipdp-hero-purchase .ipdp-bundle-info span,
 .ipdp-hero-purchase .ipdp-bundle-info small,
-.ipdp-hero-purchase .ipdp-bundle-price del,
 .ipdp-hero-purchase .ipdp-badge {
   display: none;
 }
@@ -1632,7 +1642,7 @@
     font-size: 1.75rem;
   }
 
-  /* 1 · hero: copy left (top-aligned with image), square image right, 50/50 */
+  /* 1 · hero: balanced copy and image in a 50/50 desktop split */
   .ipdp-hero {
     padding: 24px 0;
   }
@@ -1640,7 +1650,7 @@
   .ipdp-hero-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
+    align-items: center;
     gap: 28px;
   }
 
@@ -1648,7 +1658,9 @@
     order: 0;
     grid-column: 2;
     grid-row: 1;
-    height: clamp(360px, 32vw, 520px);
+    width: 100%;
+    height: 100%;
+    min-height: clamp(420px, 32vw, 560px);
     aspect-ratio: auto;
     border-radius: 12px;
   }

@@ -1689,10 +1689,9 @@ const bundles = [
 ];
 
 const heroChecks = [
-  { lead: "Bring back a clean, painless 4-day period", rest: " without dark calendar fear or non-stop bleeding." },
-  { lead: "Quiet obsessive 3 PM sugar cravings", rest: " and enjoy steady, flat-tummy energy all day." },
-  { lead: "Clear deep jawline breakouts", rest: " and slow down coarse chin hair growth at the root cause." },
-  { lead: "Easy-to-swallow daily capsules", rest: ", gentle on your stomach with zero synthetic birth control." },
+  "It will calm deep jawline bumps & slow coarse chin hair growth.",
+  "It will reset stalled cycles into a clean, painless 4-day period.",
+  "It will quiet 3 PM sugar crashes for steady, flat-tummy energy.",
 ];
 
 const whyStats = [
@@ -2083,12 +2082,9 @@ const InositolProductPage = ({
               </p>
               <ul className="ipdp-checks">
                 {heroChecks.map((item) => (
-                  <li key={item.lead}>
-                    <CheckDotIcon />
-                    <span>
-                      <strong>{item.lead}</strong>
-                      {item.rest}
-                    </span>
+                  <li key={item}>
+                    <span aria-hidden="true">🌿</span>
+                    <em>{item}</em>
                   </li>
                 ))}
               </ul>
