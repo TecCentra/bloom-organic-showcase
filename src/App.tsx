@@ -159,7 +159,7 @@ const App = () => (
                     <Route path="/" element={<Index />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/blogs" element={<FeaturedBlogs />} />
-                    <Route path="/blog/:id" element={<BlogDetail />} />
+                    <Route path="/blog/:slug" element={<BlogDetail />} />
                     <Route path="/faqs" element={<FAQs />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                     <Route path="/return-policy" element={<ReturnPolicy />} />

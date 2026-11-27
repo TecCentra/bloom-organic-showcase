@@ -1,190 +1,981 @@
-import { useEffect, useState } from "react";
+// // import { useEffect, useState } from "react";
+// // import { Button } from "@/components/ui/button";
+// // import { ArrowLeft, Calendar, Share2, Heart } from "lucide-react";
+// // import { useParams, useNavigate } from "react-router-dom";
+// // import Header from "@/components/Header";
+// // import Footer from "@/components/Footer";
+// // import { buildApiUrl, API_CONFIG } from "@/lib/config";
+// // import { sanitizeBlogHtml } from "@/lib/blogContent";
+
+// // const BlogDetail = () => {
+// //   const { id } = useParams();
+// //   const navigate = useNavigate();
+// //   const [apiBlog, setApiBlog] = useState<any | null>(null);
+// //   const [loading, setLoading] = useState(true);
+
+// //   // Mock blog data - in a real app, this would come from an API
+// //   const blogData = {
+// //     "organic-gardening-tips": {
+// //       id: "organic-gardening-tips",
+// //       title: "Organic Gardening Tips",
+// //       category: "GARDENING",
+// //       description: "Learn essential techniques for growing your own organic vegetables and herbs at home.",
+// //       date: "March 15, 2024",
+// //       readTime: "5 min read",
+// //       author: "Sarah Green",
+// //       image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=600&fit=crop&crop=center",
+// //       content: `
+// //         <p>Organic gardening is more than just avoiding synthetic pesticides and fertilizers. It's about creating a sustainable ecosystem in your own backyard that works in harmony with nature.</p>
+        
+// //         <h2>Getting Started with Organic Gardening</h2>
+// //         <p>Before you plant your first seed, it's important to understand your soil. Healthy soil is the foundation of any successful organic garden. Start by testing your soil's pH levels and nutrient content. Most vegetables prefer a slightly acidic soil with a pH between 6.0 and 7.0.</p>
+        
+// //         <h2>Essential Organic Techniques</h2>
+// //         <p>Composting is one of the most important practices in organic gardening. Create your own compost using kitchen scraps, yard waste, and other organic materials. This not only reduces waste but also provides your plants with rich, nutrient-dense soil.</p>
+        
+// //         <p>Companion planting is another key technique. Certain plants grow better together, helping each other by repelling pests, improving soil nutrients, or providing shade. For example, planting marigolds near tomatoes can help deter harmful insects.</p>
+        
+// //         <h2>Natural Pest Control</h2>
+// //         <p>Instead of reaching for chemical pesticides, try natural alternatives. Neem oil, diatomaceous earth, and beneficial insects like ladybugs can help control pest populations without harming your plants or the environment.</p>
+        
+// //         <h2>Water Conservation</h2>
+// //         <p>Efficient watering is crucial for organic gardens. Use drip irrigation systems or soaker hoses to deliver water directly to plant roots, reducing waste and preventing fungal diseases.</p>
+// //       `,
+// //       tags: ["gardening", "organic", "sustainability", "vegetables", "composting"]
+// //     },
+// //     "superfood-nutrition": {
+// //       id: "superfood-nutrition",
+// //       title: "Superfood Nutrition Guide",
+// //       category: "NUTRITION",
+// //       description: "Discover the power of superfoods and how to incorporate them into your daily diet.",
+// //       date: "March 12, 2024",
+// //       readTime: "7 min read",
+// //       author: "Dr. Michael Chen",
+// //       image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&h=600&fit=crop&crop=center",
+// //       content: `
+// //         <p>Superfoods are nutrient-dense foods that offer exceptional health benefits. They're packed with vitamins, minerals, antioxidants, and other compounds that can boost your overall well-being.</p>
+        
+// //         <h2>What Makes a Food "Super"?</h2>
+// //         <p>Superfoods are characterized by their high nutrient density relative to their caloric content. They typically contain high levels of antioxidants, healthy fats, fiber, and phytochemicals that support various bodily functions.</p>
+        
+// //         <h2>Top Superfoods to Include</h2>
+// //         <p>Berries, especially blueberries and acai berries, are rich in antioxidants that fight free radicals. Leafy greens like kale and spinach provide essential vitamins and minerals. Nuts and seeds offer healthy fats and protein.</p>
+        
+// //         <h2>Incorporating Superfoods Daily</h2>
+// //         <p>Start your day with a smoothie bowl topped with berries and chia seeds. Add leafy greens to your salads and sandwiches. Snack on nuts and seeds throughout the day for sustained energy.</p>
+// //       `,
+// //       tags: ["nutrition", "superfoods", "health", "antioxidants", "wellness"]
+// //     },
+// //     "sustainable-farming": {
+// //       id: "sustainable-farming",
+// //       title: "Sustainable Farming Practices",
+// //       category: "SUSTAINABILITY",
+// //       description: "Explore eco-friendly farming methods that protect our planet while producing quality food.",
+// //       date: "March 10, 2024",
+// //       readTime: "6 min read",
+// //       author: "Emma Rodriguez",
+// //       image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&h=600&fit=crop&crop=center",
+// //       content: `
+// //         <p>Sustainable farming is about meeting today's food needs without compromising the ability of future generations to meet their own needs. It's a holistic approach that considers environmental, social, and economic factors.</p>
+        
+// //         <h2>Key Principles of Sustainable Farming</h2>
+// //         <p>Soil health is paramount in sustainable farming. Practices like crop rotation, cover cropping, and reduced tillage help maintain soil structure and fertility while preventing erosion.</p>
+        
+// //         <h2>Water Management</h2>
+// //         <p>Efficient water use through drip irrigation, rainwater harvesting, and proper drainage systems helps conserve this precious resource while ensuring crops get the water they need.</p>
+        
+// //         <h2>Biodiversity and Ecosystem Health</h2>
+// //         <p>Maintaining diverse ecosystems on farms supports beneficial insects, birds, and other wildlife while naturally controlling pests and diseases.</p>
+// //       `,
+// //       tags: ["farming", "sustainability", "environment", "biodiversity", "conservation"]
+// //     },
+// //     "organic-cooking-basics": {
+// //       id: "organic-cooking-basics",
+// //       title: "Organic Cooking Basics",
+// //       category: "COOKING",
+// //       description: "Master the fundamentals of cooking with organic ingredients for maximum flavor and nutrition.",
+// //       date: "March 8, 2024",
+// //       readTime: "8 min read",
+// //       author: "Chef Maria Santos",
+// //       image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop&crop=center",
+// //       content: `
+// //         <p>Cooking with organic ingredients isn't just about health benefits—it's about experiencing the true flavors of food as nature intended. Organic produce often has more intense, complex flavors than conventionally grown alternatives.</p>
+        
+// //         <h2>Selecting Quality Organic Ingredients</h2>
+// //         <p>Look for vibrant colors, firm textures, and fresh aromas when selecting organic produce. Seasonal ingredients typically offer the best flavor and nutritional value.</p>
+        
+// //         <h2>Cooking Techniques for Organic Foods</h2>
+// //         <p>Gentle cooking methods like steaming, roasting, and sautéing help preserve the nutrients and natural flavors of organic ingredients. Avoid overcooking to maintain texture and taste.</p>
+        
+// //         <h2>Building Flavor Profiles</h2>
+// //         <p>Use fresh herbs, spices, and aromatics to enhance the natural flavors of organic ingredients. Simple preparations often highlight the quality of organic produce best.</p>
+// //       `,
+// //       tags: ["cooking", "organic", "flavor", "nutrition", "techniques"]
+// //     },
+// //     "wellness-trends": {
+// //       id: "wellness-trends",
+// //       title: "Organic Wellness Trends",
+// //       category: "WELLNESS",
+// //       description: "Exploring the latest trends in organic living and sustainable wellness practices.",
+// //       date: "March 5, 2024",
+// //       readTime: "4 min read",
+// //       author: "Dr. Lisa Thompson",
+// //       image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop&crop=center",
+// //       content: `
+// //         <p>The wellness industry is evolving rapidly, with more people embracing organic and sustainable approaches to health and well-being. These trends reflect a growing awareness of the connection between personal health and environmental health.</p>
+        
+// //         <h2>Plant-Based Nutrition</h2>
+// //         <p>More people are adopting plant-based diets, recognizing the health and environmental benefits of reducing animal product consumption.</p>
+        
+// //         <h2>Mindful Eating</h2>
+// //         <p>The practice of mindful eating encourages people to slow down, savor their food, and develop a deeper connection with what they consume.</p>
+        
+// //         <h2>Natural Skincare and Beauty</h2>
+// //         <p>Consumers are increasingly choosing organic and natural beauty products, avoiding harsh chemicals and synthetic ingredients.</p>
+// //       `,
+// //       tags: ["wellness", "trends", "health", "sustainability", "lifestyle"]
+// //     },
+// //     "sustainable-living-guide": {
+// //       id: "sustainable-living-guide",
+// //       title: "Sustainable Living Guide",
+// //       category: "LIFESTYLE",
+// //       description: "A comprehensive guide to adopting sustainable practices in your daily life.",
+// //       date: "March 3, 2024",
+// //       readTime: "9 min read",
+// //       author: "Alex Johnson",
+// //       image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=600&fit=crop&crop=center",
+// //       content: `
+// //         <p>Sustainable living is about making conscious choices that reduce your environmental impact while improving your quality of life. It's not about perfection, but about progress and making better choices every day.</p>
+        
+// //         <h2>Reduce, Reuse, Recycle</h2>
+// //         <p>The classic three R's are still the foundation of sustainable living. Focus on reducing consumption, reusing items whenever possible, and recycling properly.</p>
+        
+// //         <h2>Energy Conservation</h2>
+// //         <p>Simple changes like switching to LED bulbs, using programmable thermostats, and unplugging electronics can significantly reduce your energy consumption.</p>
+        
+// //         <h2>Waste Reduction</h2>
+// //         <p>Composting food scraps, using reusable containers, and buying in bulk can help minimize waste in your daily life.</p>
+        
+// //         <h2>Transportation Choices</h2>
+// //         <p>Walking, biking, carpooling, or using public transportation reduces your carbon footprint while often saving money and improving your health.</p>
+// //       `,
+// //       tags: ["sustainability", "lifestyle", "environment", "conservation", "green-living"]
+// //     }
+// //   };
+
+// //   useEffect(() => {
+// //     const fetchBlog = async () => {
+// //       if (!id) return setLoading(false);
+// //       try {
+// //         const res = await fetch(`${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.DETAIL)}/${id}`);
+// //         const data = await res.json().catch(() => ({}));
+// //         if (res.ok && data?.success) {
+// //           setApiBlog(data.data);
+// //         } else {
+// //           setApiBlog(null);
+// //         }
+// //       } catch {
+// //         setApiBlog(null);
+// //       } finally {
+// //         setLoading(false);
+// //       }
+// //     };
+// //     fetchBlog();
+// //   }, [id]);
+
+// //   const blogFromMock = blogData[id as keyof typeof blogData];
+// //   const blog = apiBlog || blogFromMock;
+
+// //   if (loading) {
+// //     return (
+// //       <div className="min-h-screen bg-background">
+// //         <Header />
+// //         <div className="container mx-auto px-4 py-20 text-center">
+// //           <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Loading…</h1>
+// //         </div>
+// //         <Footer />
+// //       </div>
+// //     );
+// //   }
+
+// //   if (!blog) {
+// //     return (
+// //       <div className="min-h-screen bg-background">
+// //         <Header />
+// //         <div className="container mx-auto px-4 py-20 text-center">
+// //           <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Blog Not Found</h1>
+// //           <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
+// //           <Button onClick={() => navigate('/blogs')} className="bg-primary hover:bg-primary/90">
+// //             <ArrowLeft className="w-4 h-4 mr-2" />
+// //             Back to Blogs
+// //           </Button>
+// //         </div>
+// //         <Footer />
+// //       </div>
+// //     );
+// //   }
+
+// //   return (
+// //     <div className="min-h-screen bg-background">
+// //       <Header />
+
+// //       {/* Hero Section */}
+// //       <section className="relative h-[500px] overflow-hidden">
+// //         <div className="absolute inset-0">
+// //           <img
+// //             src={(blog as any)?.featured_image || (blog as any)?.image || "https://via.placeholder.com/1200x600"}
+// //             alt={blog.title}
+// //             className="w-full h-full object-cover"
+// //           />
+// //           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+// //         </div>
+        
+// //         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
+// //           <div className="max-w-4xl">
+// //             <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4 drop-shadow-lg">
+// //               {blog.title}
+// //             </h1>
+// //             <div className="flex items-center gap-6 text-sm text-muted-foreground">
+// //               <div className="flex items-center gap-2">
+// //                 <Calendar className="w-4 h-4" />
+// //                 <span>{(blog as any)?.published_at ? new Date((blog as any).published_at).toLocaleDateString() : '-'}</span>
+// //               </div>
+// //             </div>
+// //           </div>
+// //         </div>
+// //       </section>
+
+// //       {/* Article Content */}
+// //       <article className="py-16">
+// //         <div className="container mx-auto px-4">
+// //           <div className="max-w-4xl mx-auto">
+// //             <div className="mx-auto max-w-3xl text-lg leading-8 text-foreground [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-5 [&_h1]:mb-6 [&_h1]:mt-10 [&_h1]:text-4xl [&_h1]:font-bold [&_h2]:mb-4 [&_h2]:mt-10 [&_h2]:text-3xl [&_h2]:font-bold [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:text-2xl [&_h3]:font-semibold [&_li]:my-2 [&_ol]:my-6 [&_ol]:list-decimal [&_ol]:pl-8 [&_p]:mb-6 [&_b]:font-bold [&_strong]:font-bold [&_ul]:my-6 [&_ul]:list-disc [&_ul]:pl-8">
+// //               <div dangerouslySetInnerHTML={{ __html: sanitizeBlogHtml((blog as any)?.content || (blog as any)?.structured_content?.content || '') }} />
+// //             </div>
+
+// //             {/* Tags */}
+// //             {(Array.isArray((blog as any)?.tags) && (blog as any).tags.length > 0) && (
+// //               <div className="mt-12 pt-8 border-t border-border">
+// //                 <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
+// //                 <div className="flex flex-wrap gap-2">
+// //                   {(blog as any).tags.map((tag: string) => (
+// //                     <span
+// //                       key={tag}
+// //                       className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full"
+// //                     >
+// //                       #{tag}
+// //                     </span>
+// //                   ))}
+// //                 </div>
+// //               </div>
+// //             )}
+
+// //             {/* Action Buttons */}
+// //             <div className="mt-12 flex flex-col sm:flex-row gap-4">
+// //               <Button
+// //                 onClick={() => navigate('/blogs')}
+// //                 variant="outline"
+// //                 className="flex items-center gap-2"
+// //               >
+// //                 <ArrowLeft className="w-4 h-4" />
+// //                 Back to Blogs
+// //               </Button>
+// //               <Button
+// //                 variant="outline"
+// //                 className="flex items-center gap-2"
+// //               >
+// //                 <Share2 className="w-4 h-4" />
+// //                 Share Article
+// //               </Button>
+// //               <Button
+// //                 variant="outline"
+// //                 className="flex items-center gap-2"
+// //               >
+// //                 <Heart className="w-4 h-4" />
+// //                 Save for Later
+// //               </Button>
+// //             </div>
+// //           </div>
+// //         </div>
+// //       </article>
+
+// //       <Footer />
+// //     </div>
+// //   );
+// // };
+
+// // export default BlogDetail;
+// import { useEffect, useRef, useState } from "react";
+// import { Button } from "@/components/ui/button";
+// import { ArrowLeft, Calendar, Share2, Heart } from "lucide-react";
+// import { useParams, useNavigate, useLocation } from "react-router-dom";
+// import Header from "@/components/Header";
+// import Footer from "@/components/Footer";
+// import { buildApiUrl, API_CONFIG } from "@/lib/config";
+// import { sanitizeBlogHtml } from "@/lib/blogContent";
+// import { blogUrlName, matchesBlog } from "@/lib/slug";
+// import shilajit from "@/assets/blog.jpeg";
+
+// // Mock blog data - used as a fallback when the API has no matching post
+// const blogData = {
+//   "organic-gardening-tips": {
+//     id: "organic-gardening-tips",
+//     slug: "organic-gardening-tips",
+//     title: "Organic Gardening Tips",
+//     category: "GARDENING",
+//     description: "Learn essential techniques for growing your own organic vegetables and herbs at home.",
+//     date: "March 15, 2024",
+//     readTime: "5 min read",
+//     author: "Sarah Green",
+//     image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=600&fit=crop&crop=center",
+//     content: `
+//       <p>Organic gardening is more than just avoiding synthetic pesticides and fertilizers. It's about creating a sustainable ecosystem in your own backyard that works in harmony with nature.</p>
+//       <h2>Getting Started with Organic Gardening</h2>
+//       <p>Before you plant your first seed, it's important to understand your soil. Healthy soil is the foundation of any successful organic garden. Start by testing your soil's pH levels and nutrient content. Most vegetables prefer a slightly acidic soil with a pH between 6.0 and 7.0.</p>
+//       <h2>Essential Organic Techniques</h2>
+//       <p>Composting is one of the most important practices in organic gardening. Create your own compost using kitchen scraps, yard waste, and other organic materials. This not only reduces waste but also provides your plants with rich, nutrient-dense soil.</p>
+//       <p>Companion planting is another key technique. Certain plants grow better together, helping each other by repelling pests, improving soil nutrients, or providing shade. For example, planting marigolds near tomatoes can help deter harmful insects.</p>
+//       <h2>Natural Pest Control</h2>
+//       <p>Instead of reaching for chemical pesticides, try natural alternatives. Neem oil, diatomaceous earth, and beneficial insects like ladybugs can help control pest populations without harming your plants or the environment.</p>
+//       <h2>Water Conservation</h2>
+//       <p>Efficient watering is crucial for organic gardens. Use drip irrigation systems or soaker hoses to deliver water directly to plant roots, reducing waste and preventing fungal diseases.</p>
+//     `,
+//     tags: ["gardening", "organic", "sustainability", "vegetables", "composting"]
+//   },
+//   "superfood-nutrition": {
+//     id: "superfood-nutrition",
+//     slug: "superfood-nutrition",
+//     title: "Superfood Nutrition Guide",
+//     category: "NUTRITION",
+//     description: "Discover the power of superfoods and how to incorporate them into your daily diet.",
+//     date: "March 12, 2024",
+//     readTime: "7 min read",
+//     author: "Dr. Michael Chen",
+//     image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&h=600&fit=crop&crop=center",
+//     content: `
+//       <p>Superfoods are nutrient-dense foods that offer exceptional health benefits. They're packed with vitamins, minerals, antioxidants, and other compounds that can boost your overall well-being.</p>
+//       <h2>What Makes a Food "Super"?</h2>
+//       <p>Superfoods are characterized by their high nutrient density relative to their caloric content. They typically contain high levels of antioxidants, healthy fats, fiber, and phytochemicals that support various bodily functions.</p>
+//       <h2>Top Superfoods to Include</h2>
+//       <p>Berries, especially blueberries and acai berries, are rich in antioxidants that fight free radicals. Leafy greens like kale and spinach provide essential vitamins and minerals. Nuts and seeds offer healthy fats and protein.</p>
+//       <h2>Incorporating Superfoods Daily</h2>
+//       <p>Start your day with a smoothie bowl topped with berries and chia seeds. Add leafy greens to your salads and sandwiches. Snack on nuts and seeds throughout the day for sustained energy.</p>
+//     `,
+//     tags: ["nutrition", "superfoods", "health", "antioxidants", "wellness"]
+//   },
+//   "sustainable-farming": {
+//     id: "sustainable-farming",
+//     slug: "sustainable-farming",
+//     title: "Sustainable Farming Practices",
+//     category: "SUSTAINABILITY",
+//     description: "Explore eco-friendly farming methods that protect our planet while producing quality food.",
+//     date: "March 10, 2024",
+//     readTime: "6 min read",
+//     author: "Emma Rodriguez",
+//     image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&h=600&fit=crop&crop=center",
+//     content: `
+//       <p>Sustainable farming is about meeting today's food needs without compromising the ability of future generations to meet their own needs. It's a holistic approach that considers environmental, social, and economic factors.</p>
+//       <h2>Key Principles of Sustainable Farming</h2>
+//       <p>Soil health is paramount in sustainable farming. Practices like crop rotation, cover cropping, and reduced tillage help maintain soil structure and fertility while preventing erosion.</p>
+//       <h2>Water Management</h2>
+//       <p>Efficient water use through drip irrigation, rainwater harvesting, and proper drainage systems helps conserve this precious resource while ensuring crops get the water they need.</p>
+//       <h2>Biodiversity and Ecosystem Health</h2>
+//       <p>Maintaining diverse ecosystems on farms supports beneficial insects, birds, and other wildlife while naturally controlling pests and diseases.</p>
+//     `,
+//     tags: ["farming", "sustainability", "environment", "biodiversity", "conservation"]
+//   },
+//   "organic-cooking-basics": {
+//     id: "organic-cooking-basics",
+//     slug: "organic-cooking-basics",
+//     title: "Organic Cooking Basics",
+//     category: "COOKING",
+//     description: "Master the fundamentals of cooking with organic ingredients for maximum flavor and nutrition.",
+//     date: "March 8, 2024",
+//     readTime: "8 min read",
+//     author: "Chef Maria Santos",
+//     image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop&crop=center",
+//     content: `
+//       <p>Cooking with organic ingredients isn't just about health benefits—it's about experiencing the true flavors of food as nature intended. Organic produce often has more intense, complex flavors than conventionally grown alternatives.</p>
+//       <h2>Selecting Quality Organic Ingredients</h2>
+//       <p>Look for vibrant colors, firm textures, and fresh aromas when selecting organic produce. Seasonal ingredients typically offer the best flavor and nutritional value.</p>
+//       <h2>Cooking Techniques for Organic Foods</h2>
+//       <p>Gentle cooking methods like steaming, roasting, and sautéing help preserve the nutrients and natural flavors of organic ingredients. Avoid overcooking to maintain texture and taste.</p>
+//       <h2>Building Flavor Profiles</h2>
+//       <p>Use fresh herbs, spices, and aromatics to enhance the natural flavors of organic ingredients. Simple preparations often highlight the quality of organic produce best.</p>
+//     `,
+//     tags: ["cooking", "organic", "flavor", "nutrition", "techniques"]
+//   },
+//   "wellness-trends": {
+//     id: "wellness-trends",
+//     slug: "wellness-trends",
+//     title: "Organic Wellness Trends",
+//     category: "WELLNESS",
+//     description: "Exploring the latest trends in organic living and sustainable wellness practices.",
+//     date: "March 5, 2024",
+//     readTime: "4 min read",
+//     author: "Dr. Lisa Thompson",
+//     image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop&crop=center",
+//     content: `
+//       <p>The wellness industry is evolving rapidly, with more people embracing organic and sustainable approaches to health and well-being. These trends reflect a growing awareness of the connection between personal health and environmental health.</p>
+//       <h2>Plant-Based Nutrition</h2>
+//       <p>More people are adopting plant-based diets, recognizing the health and environmental benefits of reducing animal product consumption.</p>
+//       <h2>Mindful Eating</h2>
+//       <p>The practice of mindful eating encourages people to slow down, savor their food, and develop a deeper connection with what they consume.</p>
+//       <h2>Natural Skincare and Beauty</h2>
+//       <p>Consumers are increasingly choosing organic and natural beauty products, avoiding harsh chemicals and synthetic ingredients.</p>
+//     `,
+//     tags: ["wellness", "trends", "health", "sustainability", "lifestyle"]
+//   },
+//   "sustainable-living-guide": {
+//     id: "sustainable-living-guide",
+//     slug: "sustainable-living-guide",
+//     title: "Sustainable Living Guide",
+//     category: "LIFESTYLE",
+//     description: "A comprehensive guide to adopting sustainable practices in your daily life.",
+//     date: "March 3, 2024",
+//     readTime: "9 min read",
+//     author: "Alex Johnson",
+//     image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=600&fit=crop&crop=center",
+//     content: `
+//       <p>Sustainable living is about making conscious choices that reduce your environmental impact while improving your quality of life. It's not about perfection, but about progress and making better choices every day.</p>
+//       <h2>Reduce, Reuse, Recycle</h2>
+//       <p>The classic three R's are still the foundation of sustainable living. Focus on reducing consumption, reusing items whenever possible, and recycling properly.</p>
+//       <h2>Energy Conservation</h2>
+//       <p>Simple changes like switching to LED bulbs, using programmable thermostats, and unplugging electronics can significantly reduce your energy consumption.</p>
+//       <h2>Waste Reduction</h2>
+//       <p>Composting food scraps, using reusable containers, and buying in bulk can help minimize waste in your daily life.</p>
+//       <h2>Transportation Choices</h2>
+//       <p>Walking, biking, carpooling, or using public transportation reduces your carbon footprint while often saving money and improving your health.</p>
+//     `,
+//     tags: ["sustainability", "lifestyle", "environment", "conservation", "green-living"]
+//   }
+// };
+
+// const formatDate = (blog: any) => {
+//   if (blog?.published_at) {
+//     const d = new Date(blog.published_at);
+//     if (!isNaN(d.getTime())) {
+//       return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+//     }
+//   }
+//   return blog?.date || "-";
+// };
+
+// // Fetch one post by id (or exact slug) from the existing detail endpoint
+// const fetchById = async (idOrSlug: string) => {
+//   try {
+//     const res = await fetch(
+//       `${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.DETAIL)}/${encodeURIComponent(idOrSlug)}`
+//     );
+//     const data = await res.json().catch(() => ({}));
+//     if (res.ok && data?.success && data?.data && !Array.isArray(data.data)) {
+//       return data.data;
+//     }
+//   } catch {
+//     /* ignore */
+//   }
+//   return null;
+// };
+
+// // Refresh / shared link: find the post in the published list by its URL name
+// const findInList = async (urlName: string) => {
+//   try {
+//     const res = await fetch(
+//       `${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.LIST)}?page=1&limit=100&status=published`
+//     );
+//     const data = await res.json().catch(() => ({}));
+//     if (res.ok && data?.success) {
+//       const posts: any[] = data.data?.posts || [];
+//       return posts.find((p) => matchesBlog(p, urlName)) || null;
+//     }
+//   } catch {
+//     /* ignore */
+//   }
+//   return null;
+// };
+
+// const BlogDetail = () => {
+//   const { slug } = useParams<{ slug: string }>();
+//   const navigate = useNavigate();
+//   const location = useLocation();
+//   const stateId: string | undefined = (location.state as any)?.id;
+
+//   const [apiBlog, setApiBlog] = useState<any | null>(null);
+//   const [loading, setLoading] = useState(true);
+//   const currentBlog = useRef<any | null>(null);
+
+//   useEffect(() => {
+//     let cancelled = false;
+
+//     const load = async () => {
+//       if (!slug) {
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Mock posts don't need the API
+//       if (slug in blogData) {
+//         setApiBlog(null);
+//         setLoading(false);
+//         return;
+//       }
+
+//       // Already showing this post (e.g. after the URL was tidied) — skip refetch
+//       if (currentBlog.current && matchesBlog(currentBlog.current, slug)) {
+//         setLoading(false);
+//         return;
+//       }
+
+//       setLoading(true);
+
+//       // 1) Came from READ MORE: we have the id
+//       let post = stateId ? await fetchById(stateId) : null;
+
+//       // 2) Old id link or exact slug in the URL
+//       if (!post) {
+//         const direct = await fetchById(slug);
+//         if (matchesBlog(direct, slug)) post = direct;
+//       }
+
+//       // 3) Refresh / shared link with the clean name
+//       if (!post) post = await findInList(slug);
+
+//       if (cancelled) return;
+
+//       currentBlog.current = post;
+//       setApiBlog(post);
+//       setLoading(false);
+
+//       // Always show the readable name in the address bar
+//       if (post) {
+//         const name = blogUrlName(post);
+//         if (name && slug !== name) {
+//           navigate(`/blog/${name}`, { replace: true, state: { id: post.id } });
+//         }
+//       }
+//     };
+
+//     load();
+//     return () => {
+//       cancelled = true;
+//     };
+//   }, [slug, stateId, navigate]);
+
+//   const blogFromMock = slug ? blogData[slug as keyof typeof blogData] : undefined;
+//   const blog: any = apiBlog || blogFromMock;
+
+//   const handleShare = async () => {
+//     const url = window.location.href;
+//     try {
+//       if (navigator.share) {
+//         await navigator.share({ title: blog?.title, url });
+//       } else {
+//         await navigator.clipboard.writeText(url);
+//         alert("Link copied to clipboard");
+//       }
+//     } catch {
+//       // user cancelled share
+//     }
+//   };
+
+//   if (loading) {
+//     return (
+//       <div className="min-h-screen bg-background">
+//         <Header />
+//         <div className="container mx-auto px-4 py-20 text-center">
+//           <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Loading…</h1>
+//         </div>
+//         <Footer />
+//       </div>
+//     );
+//   }
+
+//   if (!blog) {
+//     return (
+//       <div className="min-h-screen bg-background">
+//         <Header />
+//         <div className="container mx-auto px-4 py-20 text-center">
+//           <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Blog Not Found</h1>
+//           <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
+//           <Button onClick={() => navigate("/blogs")} className="bg-primary hover:bg-primary/90">
+//             <ArrowLeft className="w-4 h-4 mr-2" />
+//             Back to Blogs
+//           </Button>
+//         </div>
+//         <Footer />
+//       </div>
+//     );
+//   }
+
+//   return (
+//     <div className="min-h-screen bg-background">
+//       <Header />
+
+//       {/* Hero Section */}
+//       <section className="relative h-[500px] overflow-hidden">
+//         <div className="absolute inset-0">
+//           <img
+//             src={blog.featured_image || blog.image || "https://via.placeholder.com/1200x600"}
+//             alt={blog.title}
+//             className="w-full h-full object-cover"
+//           />
+//           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+//         </div>
+
+//         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
+//           <div className="max-w-4xl">
+//             <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4 drop-shadow-lg">
+//               {blog.title}
+//             </h1>
+//             <div className="flex items-center gap-6 text-sm text-muted-foreground">
+//               <div className="flex items-center gap-2">
+//                 <Calendar className="w-4 h-4" />
+//                 <span>{formatDate(blog)}</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Article Content */}
+//       <article className="py-16">
+//         <div className="container mx-auto px-4">
+//           <div className="max-w-4xl mx-auto">
+//             <div className="mx-auto max-w-3xl text-lg leading-8 text-foreground [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-5 [&_h1]:mb-6 [&_h1]:mt-10 [&_h1]:text-4xl [&_h1]:font-bold [&_h2]:mb-4 [&_h2]:mt-10 [&_h2]:text-3xl [&_h2]:font-bold [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:text-2xl [&_h3]:font-semibold [&_li]:my-2 [&_ol]:my-6 [&_ol]:list-decimal [&_ol]:pl-8 [&_p]:mb-6 [&_b]:font-bold [&_strong]:font-bold [&_ul]:my-6 [&_ul]:list-disc [&_ul]:pl-8">
+//               <div
+//                 dangerouslySetInnerHTML={{
+//                   __html: sanitizeBlogHtml(blog.content || blog.structured_content?.content || ""),
+//                 }}
+//               />
+//             </div>
+
+//             {/* Tags */}
+//             {Array.isArray(blog.tags) && blog.tags.length > 0 && (
+//               <div className="mt-12 pt-8 border-t border-border">
+//                 <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
+//                 <div className="flex flex-wrap gap-2">
+//                   {blog.tags.map((tag: string) => (
+//                     <span
+//                       key={tag}
+//                       className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full"
+//                     >
+//                       #{tag}
+//                     </span>
+//                   ))}
+//                 </div>
+//               </div>
+//             )}
+
+//             {/* Action Buttons */}
+//             <div className="mt-12 flex flex-col sm:flex-row gap-4">
+//               <Button
+//                 onClick={() => navigate("/blogs")}
+//                 variant="outline"
+//                 className="flex items-center gap-2"
+//               >
+//                 <ArrowLeft className="w-4 h-4" />
+//                 Back to Blogs
+//               </Button>
+//               <Button onClick={handleShare} variant="outline" className="flex items-center gap-2">
+//                 <Share2 className="w-4 h-4" />
+//                 Share Article
+//               </Button>
+//               <Button variant="outline" className="flex items-center gap-2">
+//                 <Heart className="w-4 h-4" />
+//                 Save for Later
+//               </Button>
+//             </div>
+//           </div>
+//         </div>
+//       </article>
+
+//       <Footer />
+//     </div>
+//   );
+// };
+
+// export default BlogDetail;
+
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, Share2, Heart } from "lucide-react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { buildApiUrl, API_CONFIG } from "@/lib/config";
 import { sanitizeBlogHtml } from "@/lib/blogContent";
+import { blogUrlName, matchesBlog } from "@/lib/slug";
+import shilajit from "@/assets/blog.jpeg";
+
+// Blog id -> imported image (used when featured_image is null in the database)
+const blogImages: Record<string, string> = {
+  "17b626ab-af6b-455d-b12d-e1a35cdeb547": shilajit,
+};
+
+// Mock blog data - used as a fallback when the API has no matching post
+const blogData = {
+  "organic-gardening-tips": {
+    id: "organic-gardening-tips",
+    slug: "organic-gardening-tips",
+    title: "Organic Gardening Tips",
+    category: "GARDENING",
+    description: "Learn essential techniques for growing your own organic vegetables and herbs at home.",
+    date: "March 15, 2024",
+    readTime: "5 min read",
+    author: "Sarah Green",
+    image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=600&fit=crop&crop=center",
+    content: `
+      <p>Organic gardening is more than just avoiding synthetic pesticides and fertilizers. It's about creating a sustainable ecosystem in your own backyard that works in harmony with nature.</p>
+      <h2>Getting Started with Organic Gardening</h2>
+      <p>Before you plant your first seed, it's important to understand your soil. Healthy soil is the foundation of any successful organic garden. Start by testing your soil's pH levels and nutrient content. Most vegetables prefer a slightly acidic soil with a pH between 6.0 and 7.0.</p>
+      <h2>Essential Organic Techniques</h2>
+      <p>Composting is one of the most important practices in organic gardening. Create your own compost using kitchen scraps, yard waste, and other organic materials. This not only reduces waste but also provides your plants with rich, nutrient-dense soil.</p>
+      <p>Companion planting is another key technique. Certain plants grow better together, helping each other by repelling pests, improving soil nutrients, or providing shade. For example, planting marigolds near tomatoes can help deter harmful insects.</p>
+      <h2>Natural Pest Control</h2>
+      <p>Instead of reaching for chemical pesticides, try natural alternatives. Neem oil, diatomaceous earth, and beneficial insects like ladybugs can help control pest populations without harming your plants or the environment.</p>
+      <h2>Water Conservation</h2>
+      <p>Efficient watering is crucial for organic gardens. Use drip irrigation systems or soaker hoses to deliver water directly to plant roots, reducing waste and preventing fungal diseases.</p>
+    `,
+    tags: ["gardening", "organic", "sustainability", "vegetables", "composting"]
+  },
+  "superfood-nutrition": {
+    id: "superfood-nutrition",
+    slug: "superfood-nutrition",
+    title: "Superfood Nutrition Guide",
+    category: "NUTRITION",
+    description: "Discover the power of superfoods and how to incorporate them into your daily diet.",
+    date: "March 12, 2024",
+    readTime: "7 min read",
+    author: "Dr. Michael Chen",
+    image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&h=600&fit=crop&crop=center",
+    content: `
+      <p>Superfoods are nutrient-dense foods that offer exceptional health benefits. They're packed with vitamins, minerals, antioxidants, and other compounds that can boost your overall well-being.</p>
+      <h2>What Makes a Food "Super"?</h2>
+      <p>Superfoods are characterized by their high nutrient density relative to their caloric content. They typically contain high levels of antioxidants, healthy fats, fiber, and phytochemicals that support various bodily functions.</p>
+      <h2>Top Superfoods to Include</h2>
+      <p>Berries, especially blueberries and acai berries, are rich in antioxidants that fight free radicals. Leafy greens like kale and spinach provide essential vitamins and minerals. Nuts and seeds offer healthy fats and protein.</p>
+      <h2>Incorporating Superfoods Daily</h2>
+      <p>Start your day with a smoothie bowl topped with berries and chia seeds. Add leafy greens to your salads and sandwiches. Snack on nuts and seeds throughout the day for sustained energy.</p>
+    `,
+    tags: ["nutrition", "superfoods", "health", "antioxidants", "wellness"]
+  },
+  "sustainable-farming": {
+    id: "sustainable-farming",
+    slug: "sustainable-farming",
+    title: "Sustainable Farming Practices",
+    category: "SUSTAINABILITY",
+    description: "Explore eco-friendly farming methods that protect our planet while producing quality food.",
+    date: "March 10, 2024",
+    readTime: "6 min read",
+    author: "Emma Rodriguez",
+    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&h=600&fit=crop&crop=center",
+    content: `
+      <p>Sustainable farming is about meeting today's food needs without compromising the ability of future generations to meet their own needs. It's a holistic approach that considers environmental, social, and economic factors.</p>
+      <h2>Key Principles of Sustainable Farming</h2>
+      <p>Soil health is paramount in sustainable farming. Practices like crop rotation, cover cropping, and reduced tillage help maintain soil structure and fertility while preventing erosion.</p>
+      <h2>Water Management</h2>
+      <p>Efficient water use through drip irrigation, rainwater harvesting, and proper drainage systems helps conserve this precious resource while ensuring crops get the water they need.</p>
+      <h2>Biodiversity and Ecosystem Health</h2>
+      <p>Maintaining diverse ecosystems on farms supports beneficial insects, birds, and other wildlife while naturally controlling pests and diseases.</p>
+    `,
+    tags: ["farming", "sustainability", "environment", "biodiversity", "conservation"]
+  },
+  "organic-cooking-basics": {
+    id: "organic-cooking-basics",
+    slug: "organic-cooking-basics",
+    title: "Organic Cooking Basics",
+    category: "COOKING",
+    description: "Master the fundamentals of cooking with organic ingredients for maximum flavor and nutrition.",
+    date: "March 8, 2024",
+    readTime: "8 min read",
+    author: "Chef Maria Santos",
+    image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop&crop=center",
+    content: `
+      <p>Cooking with organic ingredients isn't just about health benefits—it's about experiencing the true flavors of food as nature intended. Organic produce often has more intense, complex flavors than conventionally grown alternatives.</p>
+      <h2>Selecting Quality Organic Ingredients</h2>
+      <p>Look for vibrant colors, firm textures, and fresh aromas when selecting organic produce. Seasonal ingredients typically offer the best flavor and nutritional value.</p>
+      <h2>Cooking Techniques for Organic Foods</h2>
+      <p>Gentle cooking methods like steaming, roasting, and sautéing help preserve the nutrients and natural flavors of organic ingredients. Avoid overcooking to maintain texture and taste.</p>
+      <h2>Building Flavor Profiles</h2>
+      <p>Use fresh herbs, spices, and aromatics to enhance the natural flavors of organic ingredients. Simple preparations often highlight the quality of organic produce best.</p>
+    `,
+    tags: ["cooking", "organic", "flavor", "nutrition", "techniques"]
+  },
+  "wellness-trends": {
+    id: "wellness-trends",
+    slug: "wellness-trends",
+    title: "Organic Wellness Trends",
+    category: "WELLNESS",
+    description: "Exploring the latest trends in organic living and sustainable wellness practices.",
+    date: "March 5, 2024",
+    readTime: "4 min read",
+    author: "Dr. Lisa Thompson",
+    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop&crop=center",
+    content: `
+      <p>The wellness industry is evolving rapidly, with more people embracing organic and sustainable approaches to health and well-being. These trends reflect a growing awareness of the connection between personal health and environmental health.</p>
+      <h2>Plant-Based Nutrition</h2>
+      <p>More people are adopting plant-based diets, recognizing the health and environmental benefits of reducing animal product consumption.</p>
+      <h2>Mindful Eating</h2>
+      <p>The practice of mindful eating encourages people to slow down, savor their food, and develop a deeper connection with what they consume.</p>
+      <h2>Natural Skincare and Beauty</h2>
+      <p>Consumers are increasingly choosing organic and natural beauty products, avoiding harsh chemicals and synthetic ingredients.</p>
+    `,
+    tags: ["wellness", "trends", "health", "sustainability", "lifestyle"]
+  },
+  "sustainable-living-guide": {
+    id: "sustainable-living-guide",
+    slug: "sustainable-living-guide",
+    title: "Sustainable Living Guide",
+    category: "LIFESTYLE",
+    description: "A comprehensive guide to adopting sustainable practices in your daily life.",
+    date: "March 3, 2024",
+    readTime: "9 min read",
+    author: "Alex Johnson",
+    image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=600&fit=crop&crop=center",
+    content: `
+      <p>Sustainable living is about making conscious choices that reduce your environmental impact while improving your quality of life. It's not about perfection, but about progress and making better choices every day.</p>
+      <h2>Reduce, Reuse, Recycle</h2>
+      <p>The classic three R's are still the foundation of sustainable living. Focus on reducing consumption, reusing items whenever possible, and recycling properly.</p>
+      <h2>Energy Conservation</h2>
+      <p>Simple changes like switching to LED bulbs, using programmable thermostats, and unplugging electronics can significantly reduce your energy consumption.</p>
+      <h2>Waste Reduction</h2>
+      <p>Composting food scraps, using reusable containers, and buying in bulk can help minimize waste in your daily life.</p>
+      <h2>Transportation Choices</h2>
+      <p>Walking, biking, carpooling, or using public transportation reduces your carbon footprint while often saving money and improving your health.</p>
+    `,
+    tags: ["sustainability", "lifestyle", "environment", "conservation", "green-living"]
+  }
+};
+
+const formatDate = (blog: any) => {
+  if (blog?.published_at) {
+    const d = new Date(blog.published_at);
+    if (!isNaN(d.getTime())) {
+      return d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+    }
+  }
+  return blog?.date || "-";
+};
+
+// Fetch one post by id (or exact slug) from the existing detail endpoint
+const fetchById = async (idOrSlug: string) => {
+  try {
+    const res = await fetch(
+      `${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.DETAIL)}/${encodeURIComponent(idOrSlug)}`
+    );
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data?.success && data?.data && !Array.isArray(data.data)) {
+      return data.data;
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
+};
+
+// Refresh / shared link: find the post in the published list by its URL name
+const findInList = async (urlName: string) => {
+  try {
+    const res = await fetch(
+      `${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.LIST)}?page=1&limit=100&status=published`
+    );
+    const data = await res.json().catch(() => ({}));
+    if (res.ok && data?.success) {
+      const posts: any[] = data.data?.posts || [];
+      return posts.find((p) => matchesBlog(p, urlName)) || null;
+    }
+  } catch {
+    /* ignore */
+  }
+  return null;
+};
 
 const BlogDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const stateId: string | undefined = (location.state as any)?.id;
+
   const [apiBlog, setApiBlog] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
-
-  // Mock blog data - in a real app, this would come from an API
-  const blogData = {
-    "organic-gardening-tips": {
-      id: "organic-gardening-tips",
-      title: "Organic Gardening Tips",
-      category: "GARDENING",
-      description: "Learn essential techniques for growing your own organic vegetables and herbs at home.",
-      date: "March 15, 2024",
-      readTime: "5 min read",
-      author: "Sarah Green",
-      image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&h=600&fit=crop&crop=center",
-      content: `
-        <p>Organic gardening is more than just avoiding synthetic pesticides and fertilizers. It's about creating a sustainable ecosystem in your own backyard that works in harmony with nature.</p>
-        
-        <h2>Getting Started with Organic Gardening</h2>
-        <p>Before you plant your first seed, it's important to understand your soil. Healthy soil is the foundation of any successful organic garden. Start by testing your soil's pH levels and nutrient content. Most vegetables prefer a slightly acidic soil with a pH between 6.0 and 7.0.</p>
-        
-        <h2>Essential Organic Techniques</h2>
-        <p>Composting is one of the most important practices in organic gardening. Create your own compost using kitchen scraps, yard waste, and other organic materials. This not only reduces waste but also provides your plants with rich, nutrient-dense soil.</p>
-        
-        <p>Companion planting is another key technique. Certain plants grow better together, helping each other by repelling pests, improving soil nutrients, or providing shade. For example, planting marigolds near tomatoes can help deter harmful insects.</p>
-        
-        <h2>Natural Pest Control</h2>
-        <p>Instead of reaching for chemical pesticides, try natural alternatives. Neem oil, diatomaceous earth, and beneficial insects like ladybugs can help control pest populations without harming your plants or the environment.</p>
-        
-        <h2>Water Conservation</h2>
-        <p>Efficient watering is crucial for organic gardens. Use drip irrigation systems or soaker hoses to deliver water directly to plant roots, reducing waste and preventing fungal diseases.</p>
-      `,
-      tags: ["gardening", "organic", "sustainability", "vegetables", "composting"]
-    },
-    "superfood-nutrition": {
-      id: "superfood-nutrition",
-      title: "Superfood Nutrition Guide",
-      category: "NUTRITION",
-      description: "Discover the power of superfoods and how to incorporate them into your daily diet.",
-      date: "March 12, 2024",
-      readTime: "7 min read",
-      author: "Dr. Michael Chen",
-      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&h=600&fit=crop&crop=center",
-      content: `
-        <p>Superfoods are nutrient-dense foods that offer exceptional health benefits. They're packed with vitamins, minerals, antioxidants, and other compounds that can boost your overall well-being.</p>
-        
-        <h2>What Makes a Food "Super"?</h2>
-        <p>Superfoods are characterized by their high nutrient density relative to their caloric content. They typically contain high levels of antioxidants, healthy fats, fiber, and phytochemicals that support various bodily functions.</p>
-        
-        <h2>Top Superfoods to Include</h2>
-        <p>Berries, especially blueberries and acai berries, are rich in antioxidants that fight free radicals. Leafy greens like kale and spinach provide essential vitamins and minerals. Nuts and seeds offer healthy fats and protein.</p>
-        
-        <h2>Incorporating Superfoods Daily</h2>
-        <p>Start your day with a smoothie bowl topped with berries and chia seeds. Add leafy greens to your salads and sandwiches. Snack on nuts and seeds throughout the day for sustained energy.</p>
-      `,
-      tags: ["nutrition", "superfoods", "health", "antioxidants", "wellness"]
-    },
-    "sustainable-farming": {
-      id: "sustainable-farming",
-      title: "Sustainable Farming Practices",
-      category: "SUSTAINABILITY",
-      description: "Explore eco-friendly farming methods that protect our planet while producing quality food.",
-      date: "March 10, 2024",
-      readTime: "6 min read",
-      author: "Emma Rodriguez",
-      image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&h=600&fit=crop&crop=center",
-      content: `
-        <p>Sustainable farming is about meeting today's food needs without compromising the ability of future generations to meet their own needs. It's a holistic approach that considers environmental, social, and economic factors.</p>
-        
-        <h2>Key Principles of Sustainable Farming</h2>
-        <p>Soil health is paramount in sustainable farming. Practices like crop rotation, cover cropping, and reduced tillage help maintain soil structure and fertility while preventing erosion.</p>
-        
-        <h2>Water Management</h2>
-        <p>Efficient water use through drip irrigation, rainwater harvesting, and proper drainage systems helps conserve this precious resource while ensuring crops get the water they need.</p>
-        
-        <h2>Biodiversity and Ecosystem Health</h2>
-        <p>Maintaining diverse ecosystems on farms supports beneficial insects, birds, and other wildlife while naturally controlling pests and diseases.</p>
-      `,
-      tags: ["farming", "sustainability", "environment", "biodiversity", "conservation"]
-    },
-    "organic-cooking-basics": {
-      id: "organic-cooking-basics",
-      title: "Organic Cooking Basics",
-      category: "COOKING",
-      description: "Master the fundamentals of cooking with organic ingredients for maximum flavor and nutrition.",
-      date: "March 8, 2024",
-      readTime: "8 min read",
-      author: "Chef Maria Santos",
-      image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&h=600&fit=crop&crop=center",
-      content: `
-        <p>Cooking with organic ingredients isn't just about health benefits—it's about experiencing the true flavors of food as nature intended. Organic produce often has more intense, complex flavors than conventionally grown alternatives.</p>
-        
-        <h2>Selecting Quality Organic Ingredients</h2>
-        <p>Look for vibrant colors, firm textures, and fresh aromas when selecting organic produce. Seasonal ingredients typically offer the best flavor and nutritional value.</p>
-        
-        <h2>Cooking Techniques for Organic Foods</h2>
-        <p>Gentle cooking methods like steaming, roasting, and sautéing help preserve the nutrients and natural flavors of organic ingredients. Avoid overcooking to maintain texture and taste.</p>
-        
-        <h2>Building Flavor Profiles</h2>
-        <p>Use fresh herbs, spices, and aromatics to enhance the natural flavors of organic ingredients. Simple preparations often highlight the quality of organic produce best.</p>
-      `,
-      tags: ["cooking", "organic", "flavor", "nutrition", "techniques"]
-    },
-    "wellness-trends": {
-      id: "wellness-trends",
-      title: "Organic Wellness Trends",
-      category: "WELLNESS",
-      description: "Exploring the latest trends in organic living and sustainable wellness practices.",
-      date: "March 5, 2024",
-      readTime: "4 min read",
-      author: "Dr. Lisa Thompson",
-      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&h=600&fit=crop&crop=center",
-      content: `
-        <p>The wellness industry is evolving rapidly, with more people embracing organic and sustainable approaches to health and well-being. These trends reflect a growing awareness of the connection between personal health and environmental health.</p>
-        
-        <h2>Plant-Based Nutrition</h2>
-        <p>More people are adopting plant-based diets, recognizing the health and environmental benefits of reducing animal product consumption.</p>
-        
-        <h2>Mindful Eating</h2>
-        <p>The practice of mindful eating encourages people to slow down, savor their food, and develop a deeper connection with what they consume.</p>
-        
-        <h2>Natural Skincare and Beauty</h2>
-        <p>Consumers are increasingly choosing organic and natural beauty products, avoiding harsh chemicals and synthetic ingredients.</p>
-      `,
-      tags: ["wellness", "trends", "health", "sustainability", "lifestyle"]
-    },
-    "sustainable-living-guide": {
-      id: "sustainable-living-guide",
-      title: "Sustainable Living Guide",
-      category: "LIFESTYLE",
-      description: "A comprehensive guide to adopting sustainable practices in your daily life.",
-      date: "March 3, 2024",
-      readTime: "9 min read",
-      author: "Alex Johnson",
-      image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=600&fit=crop&crop=center",
-      content: `
-        <p>Sustainable living is about making conscious choices that reduce your environmental impact while improving your quality of life. It's not about perfection, but about progress and making better choices every day.</p>
-        
-        <h2>Reduce, Reuse, Recycle</h2>
-        <p>The classic three R's are still the foundation of sustainable living. Focus on reducing consumption, reusing items whenever possible, and recycling properly.</p>
-        
-        <h2>Energy Conservation</h2>
-        <p>Simple changes like switching to LED bulbs, using programmable thermostats, and unplugging electronics can significantly reduce your energy consumption.</p>
-        
-        <h2>Waste Reduction</h2>
-        <p>Composting food scraps, using reusable containers, and buying in bulk can help minimize waste in your daily life.</p>
-        
-        <h2>Transportation Choices</h2>
-        <p>Walking, biking, carpooling, or using public transportation reduces your carbon footprint while often saving money and improving your health.</p>
-      `,
-      tags: ["sustainability", "lifestyle", "environment", "conservation", "green-living"]
-    }
-  };
+  const currentBlog = useRef<any | null>(null);
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      if (!id) return setLoading(false);
-      try {
-        const res = await fetch(`${buildApiUrl(API_CONFIG.ENDPOINTS.BLOGS.DETAIL)}/${id}`);
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data?.success) {
-          setApiBlog(data.data);
-        } else {
-          setApiBlog(null);
-        }
-      } catch {
-        setApiBlog(null);
-      } finally {
+    let cancelled = false;
+
+    const load = async () => {
+      if (!slug) {
         setLoading(false);
+        return;
+      }
+
+      // Mock posts don't need the API
+      if (slug in blogData) {
+        setApiBlog(null);
+        setLoading(false);
+        return;
+      }
+
+      // Already showing this post (e.g. after the URL was tidied) — skip refetch
+      if (currentBlog.current && matchesBlog(currentBlog.current, slug)) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+
+      // 1) Came from READ MORE: we have the id
+      let post = stateId ? await fetchById(stateId) : null;
+
+      // 2) Old id link or exact slug in the URL
+      if (!post) {
+        const direct = await fetchById(slug);
+        if (matchesBlog(direct, slug)) post = direct;
+      }
+
+      // 3) Refresh / shared link with the clean name
+      if (!post) post = await findInList(slug);
+
+      if (cancelled) return;
+
+      currentBlog.current = post;
+      setApiBlog(post);
+      setLoading(false);
+
+      // Always show the readable name in the address bar
+      if (post) {
+        const name = blogUrlName(post);
+        if (name && slug !== name) {
+          navigate(`/blog/${name}`, { replace: true, state: { id: post.id } });
+        }
       }
     };
-    fetchBlog();
-  }, [id]);
 
-  const blogFromMock = blogData[id as keyof typeof blogData];
-  const blog = apiBlog || blogFromMock;
+    load();
+    return () => {
+      cancelled = true;
+    };
+  }, [slug, stateId, navigate]);
+
+  const blogFromMock = slug ? blogData[slug as keyof typeof blogData] : undefined;
+  const blog: any = apiBlog || blogFromMock;
+
+  const heroImage =
+    blog?.featured_image || blogImages[blog?.id] || blog?.image || shilajit;
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: blog?.title, url });
+      } else {
+        await navigator.clipboard.writeText(url);
+        alert("Link copied to clipboard");
+      }
+    } catch {
+      // user cancelled share
+    }
+  };
 
   if (loading) {
     return (
@@ -205,7 +996,7 @@ const BlogDetail = () => {
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Blog Not Found</h1>
           <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
-          <Button onClick={() => navigate('/blogs')} className="bg-primary hover:bg-primary/90">
+          <Button onClick={() => navigate("/blogs")} className="bg-primary hover:bg-primary/90">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Blogs
           </Button>
@@ -223,22 +1014,23 @@ const BlogDetail = () => {
       <section className="relative h-[500px] overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src={(blog as any)?.featured_image || (blog as any)?.image || "https://via.placeholder.com/1200x600"}
+            src={heroImage}
             alt={blog.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+          {/* Dark gradient only at the bottom, behind the title */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"></div>
         </div>
-        
+
         <div className="relative container mx-auto px-4 h-full flex items-end pb-12">
           <div className="max-w-4xl">
-            <h1 className="text-4xl md:text-5xl font-heading font-bold text-foreground mb-4 drop-shadow-lg">
+            <h1 className="text-4xl md:text-5xl font-heading font-bold text-white mb-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
               {blog.title}
             </h1>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-6 text-sm text-white/85">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                <span>{(blog as any)?.published_at ? new Date((blog as any).published_at).toLocaleDateString() : '-'}</span>
+                <span>{formatDate(blog)}</span>
               </div>
             </div>
           </div>
@@ -250,15 +1042,19 @@ const BlogDetail = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="mx-auto max-w-3xl text-lg leading-8 text-foreground [&_blockquote]:my-6 [&_blockquote]:border-l-4 [&_blockquote]:border-primary [&_blockquote]:pl-5 [&_h1]:mb-6 [&_h1]:mt-10 [&_h1]:text-4xl [&_h1]:font-bold [&_h2]:mb-4 [&_h2]:mt-10 [&_h2]:text-3xl [&_h2]:font-bold [&_h3]:mb-3 [&_h3]:mt-8 [&_h3]:text-2xl [&_h3]:font-semibold [&_li]:my-2 [&_ol]:my-6 [&_ol]:list-decimal [&_ol]:pl-8 [&_p]:mb-6 [&_b]:font-bold [&_strong]:font-bold [&_ul]:my-6 [&_ul]:list-disc [&_ul]:pl-8">
-              <div dangerouslySetInnerHTML={{ __html: sanitizeBlogHtml((blog as any)?.content || (blog as any)?.structured_content?.content || '') }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: sanitizeBlogHtml(blog.content || blog.structured_content?.content || ""),
+                }}
+              />
             </div>
 
             {/* Tags */}
-            {(Array.isArray((blog as any)?.tags) && (blog as any).tags.length > 0) && (
+            {Array.isArray(blog.tags) && blog.tags.length > 0 && (
               <div className="mt-12 pt-8 border-t border-border">
                 <h3 className="text-lg font-semibold text-foreground mb-4">Tags</h3>
                 <div className="flex flex-wrap gap-2">
-                  {(blog as any).tags.map((tag: string) => (
+                  {blog.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-3 py-1 bg-secondary text-secondary-foreground text-sm rounded-full"
@@ -273,24 +1069,18 @@ const BlogDetail = () => {
             {/* Action Buttons */}
             <div className="mt-12 flex flex-col sm:flex-row gap-4">
               <Button
-                onClick={() => navigate('/blogs')}
+                onClick={() => navigate("/blogs")}
                 variant="outline"
                 className="flex items-center gap-2"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Blogs
               </Button>
-              <Button
-                variant="outline"
-                className="flex items-center gap-2"
-              >
+              <Button onClick={handleShare} variant="outline" className="flex items-center gap-2">
                 <Share2 className="w-4 h-4" />
                 Share Article
               </Button>
-              <Button
-                variant="outline"
-                className="flex items-center gap-2"
-              >
+              <Button variant="outline" className="flex items-center gap-2">
                 <Heart className="w-4 h-4" />
                 Save for Later
               </Button>
